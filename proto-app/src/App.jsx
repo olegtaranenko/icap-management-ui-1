@@ -1,94 +1,113 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import {
+	BrowserRouter as Router,
+	Switch,
+	Route,
+	Link,
+} from "react-router-dom";
 
 import {
-    NavBar,
-    Nav,
-    NavButton,
-    ExpandButton,
-    NavSpacer
+	NavBar,
+	Nav,
+	NavButton,
+	ExpandButton,
+	NavSpacer,
 } from "./components/GlasswallNav/GlasswallNav";
 import Main from "./components/Main/Main";
 import SplashScreenView from "./views/SplashScreenView/SplashScreenView";
 import GlasswallModal from "./components/GlasswallModal/GlasswallModal";
+import Login from "./components/Auth/Login/Login";
 
 import styles from "./App.module.scss";
 
 const App = () => {
-    const [showSplashScreen, setShowSplashScreen] = useState(true);
-    const [navExpanded, setNavExpanded] = useState(true);
-    const [modalIsOpen, setModalIsOpen] = useState(false);
+	const [showSplashScreen, setShowSplashScreen] = useState(true);
 
-    return (
-        <div className={styles.app}>
-            <div className={styles.mainContainer}>
-                {showSplashScreen &&
-                    <SplashScreenView hideSplashScreen={() => setShowSplashScreen(false)} />
-                }
+	const [navExpanded, setNavExpanded] = useState(true);
+	const [modalIsOpen, setModalIsOpen] = useState(false);
+	const [loginPageIsOpen, setLoginPageIsOpen] = useState(false);
 
-                {!showSplashScreen &&
-                    <Router>
-                        <NavBar expanded={navExpanded} logo>
-                            <Nav expanded={navExpanded}>
-                                <Link to="/">
-                                    <NavButton>
-                                        Home
-                                    </NavButton>
-                                </Link>
+	return (
+		<div className={styles.app}>
+			<div className={styles.mainContainer}>
+				{showSplashScreen && (
+					<SplashScreenView
+						hideSplashScreen={() => setShowSplashScreen(false)}
+					/>
+				)}
 
-                                <NavSpacer />
+				{loginPageIsOpen && (
+					<Login onCloseAction={() => setLoginPageIsOpen(false)} />
+				)}
 
-                                <Link to="/about">
-                                    <NavButton>
-                                        About
-                                    </NavButton>
-                                </Link>
+				{!showSplashScreen && !loginPageIsOpen && (
+					<Router>
+						<NavBar expanded={navExpanded} logo>
+							<Nav expanded={navExpanded}>
+								<Link to="/">
+									<NavButton>Home</NavButton>
+								</Link>
 
-                                <Link to="/contact">
-                                    <NavButton>
-                                        Contact
-                                    </NavButton>
-                                </Link>
-                            </Nav>
+								<NavSpacer />
 
-                            <Nav expanded={navExpanded} bottom>
-                                <NavButton clickHandler={() => setModalIsOpen(true)}>
-                                    Modal
-                                </NavButton>
+								<Link to="/about">
+									<NavButton>About</NavButton>
+								</Link>
 
-                                <NavButton clickHandler={() => setShowSplashScreen(true)}>
-                                    Back
-                                </NavButton>
-                            </Nav>
+								<Link to="/contact">
+									<NavButton>Contact</NavButton>
+								</Link>
+							</Nav>
 
-                            <ExpandButton
-                                expanded={navExpanded}
-                                clickHandler={() => setNavExpanded(!navExpanded)} />
-                        </NavBar>
+							<Nav expanded={navExpanded} bottom>
+								<NavButton clickHandler={() => setModalIsOpen(true)}>
+									Modal
+								</NavButton>
 
-                        <Main expanded={navExpanded} showTitle title="Glasswall React App">
-                            <Switch>
-                                <Route exact path="/">
-                                    <div>Home</div>
-                                </Route>
+								<NavButton clickHandler={() => setShowSplashScreen(true)}>
+									Back
+								</NavButton>
 
-                                <Route path="/about">
-                                    <div>About</div>
-                                </Route>
+								<NavButton clickHandler={() => setLoginPageIsOpen(true)}>
+									Login
+								</NavButton>
+							</Nav>
 
-                                <Route path="/contact">
-                                    <div>Contact</div>
-                                </Route>
+							<ExpandButton
+								expanded={navExpanded}
+								clickHandler={() => setNavExpanded(!navExpanded)}
+							/>
+						</NavBar>
 
-                            </Switch>
-                        </Main>
+						<Main
+							expanded={navExpanded}
+							showTitle
+							title="Glasswall React App"
+						>
+							<Switch>
+								<Route exact path="/">
+									<div>Home</div>
+								</Route>
 
-                        <GlasswallModal isOpen={modalIsOpen} onCloseAction={() => setModalIsOpen(false)}/>
-                    </Router>
-                }
-            </div>
-        </div>
-    );
+								<Route path="/about">
+									<div>About</div>
+								</Route>
+
+								<Route path="/contact">
+									<div>Contact</div>
+								</Route>
+							</Switch>
+						</Main>
+
+						<GlasswallModal
+							isOpen={modalIsOpen}
+							onCloseAction={() => setModalIsOpen(false)}
+						/>
+					</Router>
+				)}
+			</div>
+		</div>
+	);
 };
 
 export default App;
