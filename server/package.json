@@ -1,0 +1,25 @@
+{
+  "name": "icap-management-ui",
+  "version": "1.0.0",
+  "description": "UI for p-icap",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/filetrust/icap-management-ui.git"
+  },
+  "keywords": [
+    "glasswall",
+    "icap",
+    "docker",
+    "kubernetes"
+  ],
+  "author": "glasswallsolutions",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/filetrust/icap-management-ui/issues"
+  },
+  "homepage": "https://github.com/filetrust/icap-management-ui#readme"
+}
