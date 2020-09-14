@@ -47,10 +47,9 @@ const Form = () => {
 					/>
 				</div>
 				<p className={classes.linkTerms}>
-					By logging in your agree to the &nbsp;
-					<a href="#">terms of use</a>
+					By logging in you agree to the <a href="#">terms of use</a>
 				</p>
-				<Button btnType={"submit"}>Log In</Button>
+				<Button buttonType={"submit"}>Log In</Button>
 			</form>
 			<p className={classes.rePassLink}>
 				<a href="#">Forgotten your password?</a>

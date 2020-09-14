@@ -1,15 +1,15 @@
 import classes from "./Button.module.scss";
 import React from "react";
 
-const button = ({ onButtonClick, buttonId, btnType, children }) => (
+const Button = ({ onButtonClick, buttonId, buttonType, children }) => (
 	<button
 		onClick={onButtonClick}
 		className={classes.button}
-		type={btnType}
+		type={buttonType}
 		id={buttonId}
 	>
 		{children}
 	</button>
 );
 
-export default button;
+export default Button;
