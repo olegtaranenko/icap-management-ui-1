@@ -48,7 +48,7 @@ const PassReminder = ({ onLoginHandler }) => {
 					/>
 					<ReCAPTCHA
 						className={classes.recaptcha}
-						sitekey="Your client site key"
+						sitekey={process.env.REACT_APP_RECAPTCHA_API_KEY}
 						onChange={onSuccessComplete}
 					/>
 					,
