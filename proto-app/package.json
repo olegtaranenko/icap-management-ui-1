@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "A Glasswall template for CRA with a Glasswall NPM library pre-loaded. To enforce a consistent codebase and allow for our frontend styles to come together from pre-packaged NPM modules.",
   "main": "template.json",
+  "homepage": "https://filetrust.github.io/icap-management-ui/",
   "author": "glasswallsolutions",
   "license": "MIT",
   "dependencies": {
