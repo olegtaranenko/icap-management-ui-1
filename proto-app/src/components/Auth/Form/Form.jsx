@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Button from "../../UI/Button/Button";
 
-import classes from "./Form.module.scss";
+// import classes from "./Form.module.scss";
 import iconUser from "../../../assets/user-icon.svg";
 import iconPass from "../../../assets/password-icon.svg";
 

@@ -21,7 +21,7 @@ const PassReminder = ({ onLoginHandler }) => {
 		console.log("ReCAPTCHA is success");
 	};
 	return (
-		<section className={classes.passReminder}>
+		<section /*className={classes.passReminder}*/>
 			<GlasswallLogo className={classes.logo} />
 			<div className={classes.wrapForm}>
 				<h2 className={classes.heading}>
@@ -48,7 +48,7 @@ const PassReminder = ({ onLoginHandler }) => {
 					/>
 					<ReCAPTCHA
 						className={classes.recaptcha}
-						sitekey="Your client site key"
+						sitekey={process.env.REACT_APP_RECAPTCHA_API_KEY}
 						onChange={onSuccessComplete}
 					/>
 					,
