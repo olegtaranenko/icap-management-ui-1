@@ -4,8 +4,7 @@ import Login from "./Login/Login";
 import PassReminder from "./PassReminder/PassReminder";
 
 const Auth = ({ closePageHandler }) => {
-	//const [isLogin, setIsLogin] = useState(true);
-	const [isLogin, setIsLogin] = useState(false);
+	const [isLogin, setIsLogin] = useState(true);
 
 	const loginHandler = () => {
 		setIsLogin((prevState) => !prevState);

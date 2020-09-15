@@ -21,13 +21,11 @@ import Auth from "./components/Auth/Auth";
 import styles from "./App.module.scss";
 
 const App = () => {
-	//const [showSplashScreen, setShowSplashScreen] = useState(true);
-	const [showSplashScreen, setShowSplashScreen] = useState(false);
+	const [showSplashScreen, setShowSplashScreen] = useState(true);
 
 	const [navExpanded, setNavExpanded] = useState(true);
 	const [modalIsOpen, setModalIsOpen] = useState(false);
-	//const [authPageIsOpen, setAuthPageIsOpen] = useState(false);
-	const [authPageIsOpen, setAuthPageIsOpen] = useState(true);
+	const [authPageIsOpen, setAuthPageIsOpen] = useState(false);
 
 	return (
 		<div className={styles.app}>
