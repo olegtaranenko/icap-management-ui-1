@@ -1,3 +1,5 @@
+$main-text-color: #54e0e8;
+$alt-text-color: #daf5fb;
 .logo {
 	position: absolute;
 	top: 5vh;
@@ -19,11 +21,11 @@
 
 	width: 30rem;
 
-	& input {
+	input {
 		margin: 2rem 0;
 	}
 
-	& h2 {
+	h2 {
 		position: relative;
 
 		font-size: 2.2rem;
@@ -33,12 +35,14 @@
 		margin-bottom: 1rem;
 
 		&.heading {
-			color: #54e0e8;
+			color: $main-text-color;
 		}
 	}
 
 	.message {
 		margin-bottom: 2rem;
+		line-height: normal;
+		color: $alt-text-color;
 	}
 
 	.iconPass {
@@ -49,12 +53,12 @@
 		width: 7rem;
 		height: 7rem;
 
-		& path {
-			stroke: #54e0e8;
+		path {
+			stroke: $main-text-color;
 		}
 	}
 
-	& p {
+	p {
 		color: #ffffff;
 		margin: 0;
 		padding: 0;

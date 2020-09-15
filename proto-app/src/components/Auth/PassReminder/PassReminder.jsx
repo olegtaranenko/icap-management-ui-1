@@ -21,7 +21,7 @@ const PassReminder = ({ onLoginHandler }) => {
 		console.log("ReCAPTCHA is success");
 	};
 	return (
-		<section className={classes.passReminder}>
+		<section /*className={classes.passReminder}*/>
 			<GlasswallLogo className={classes.logo} />
 			<div className={classes.wrapForm}>
 				<h2 className={classes.heading}>
