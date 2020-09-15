@@ -21,5 +21,18 @@
   "bugs": {
     "url": "https://github.com/filetrust/icap-management-ui/issues"
   },
-  "homepage": "https://github.com/filetrust/icap-management-ui#readme"
+  "homepage": "https://github.com/filetrust/icap-management-ui#readme",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.1.1",
+    "@typescript-eslint/parser": "^4.1.1",
+    "eslint": "^7.9.0",
+    "eslint-loader": "^4.0.2",
+    "eslint-plugin-import": "^2.22.0",
+    "jest": "^26.4.2",
+    "ts-node": "^9.0.0",
+    "typescript": "^4.0.2"
+  },
+  "dependencies": {
+    "http": "^0.0.1-security"
+  }
 }
