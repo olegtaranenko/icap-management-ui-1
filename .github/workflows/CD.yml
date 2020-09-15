@@ -1,0 +1,35 @@
+name: CD
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      working-directory: ./proto-app
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v1
+
+      - name: Installation ⏳
+        run: yarn
+        working-directory: ${{env.working-directory}}
+
+      - name: Test 🧪
+        run: yarn test
+        working-directory: ${{env.working-directory}}
+
+      - name: Build 🧱
+        run: yarn build
+        working-directory: ${{env.working-directory}}
+
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@releases/v3
+        with:
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: proto-app/build
