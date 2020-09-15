@@ -47,12 +47,12 @@ const Login = ({ onLoginHandler }) => {
 					/>
 					<p className={classes.linkTerms}>
 						By logging in your agree to the &nbsp;
-						<a href="#">terms of use</a>
+						<a href="/">terms of use</a>
 					</p>
 					<Button buttonType={"submit"}>Log In</Button>
 				</form>
 				<p className={classes.rePassLink}>
-					<a href="#" onClick={onLoginHandler}>
+					<a href="/" onClick={onLoginHandler}>
 						Forgotten your password?
 					</a>
 				</p>

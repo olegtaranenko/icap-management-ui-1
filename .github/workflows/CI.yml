@@ -1,0 +1,30 @@
+name: CI
+
+on:
+  pull_request:
+    branches:
+      - master
+      - develop
+
+jobs:
+  ci-build:
+    runs-on: ubuntu-latest
+    env:
+      working-directory: ./proto-app
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v1
+
+      - name: Installation ⏳
+        run: yarn install
+        working-directory: ${{env.working-directory}}
+
+      - name: Test 🧪
+        run: yarn test
+        working-directory: ${{env.working-directory}}
+
+      - name: Build 🧱
+        run: yarn build
+        working-directory: ${{env.working-directory}}
