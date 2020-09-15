@@ -16,16 +16,18 @@ import {
 import Main from "./components/Main/Main";
 import SplashScreenView from "./views/SplashScreenView/SplashScreenView";
 import GlasswallModal from "./components/GlasswallModal/GlasswallModal";
-import Login from "./components/Auth/Login/Login";
+import Auth from "./components/Auth/Auth";
 
 import styles from "./App.module.scss";
 
 const App = () => {
-	const [showSplashScreen, setShowSplashScreen] = useState(true);
+	//const [showSplashScreen, setShowSplashScreen] = useState(true);
+	const [showSplashScreen, setShowSplashScreen] = useState(false);
 
 	const [navExpanded, setNavExpanded] = useState(true);
 	const [modalIsOpen, setModalIsOpen] = useState(false);
-	const [loginPageIsOpen, setLoginPageIsOpen] = useState(false);
+	//const [authPageIsOpen, setAuthPageIsOpen] = useState(false);
+	const [authPageIsOpen, setAuthPageIsOpen] = useState(true);
 
 	return (
 		<div className={styles.app}>
@@ -36,11 +38,11 @@ const App = () => {
 					/>
 				)}
 
-				{loginPageIsOpen && (
-					<Login onCloseAction={() => setLoginPageIsOpen(false)} />
+				{authPageIsOpen && (
+					<Auth closePageHandler={() => setAuthPageIsOpen(false)} />
 				)}
 
-				{!showSplashScreen && !loginPageIsOpen && (
+				{!showSplashScreen && !authPageIsOpen && (
 					<Router>
 						<NavBar expanded={navExpanded} logo>
 							<Nav expanded={navExpanded}>
@@ -67,10 +69,11 @@ const App = () => {
 								<NavButton clickHandler={() => setShowSplashScreen(true)}>
 									Back
 								</NavButton>
-
-								<NavButton clickHandler={() => setLoginPageIsOpen(true)}>
-									Login
-								</NavButton>
+								<Link to="/auth">
+									<NavButton clickHandler={() => setAuthPageIsOpen(true)}>
+										Login
+									</NavButton>
+								</Link>
 							</Nav>
 
 							<ExpandButton
