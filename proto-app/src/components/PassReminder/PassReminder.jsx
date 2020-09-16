@@ -1,13 +1,15 @@
 import React, { useState } from "react";
-import iconUser from "../../../assets/user-icon.svg";
-import ReCAPTCHA from "react-google-recaptcha";
-import { ReactComponent as IconPass } from "../../../assets/password-icon.svg";
+import { Link } from "react-router-dom";
+//import ReCAPTCHA from "react-google-recaptcha";
+
+import { ReactComponent as IconPass } from "../../assets/password-icon.svg";
+import iconUser from "../../assets/user-icon.svg";
 
 import classes from "./PassReminder.module.scss";
 
-import GlasswallLogo from "../../GlasswallLogo/GlasswallLogo";
-import Button from "../../UI/Button/Button";
-import Input from "../../UI/Input/Input";
+import GlasswallLogo from "../GlasswallLogo/GlasswallLogo";
+import Button from "../UI/Button/Button";
+import Input from "../UI/Input/Input";
 
 const PassReminder = ({ onLoginHandler }) => {
 	const [emailValue, setEmailValue] = useState("");
@@ -17,11 +19,11 @@ const PassReminder = ({ onLoginHandler }) => {
 		console.log("Send link");
 	};
 
-	const onSuccessComplete = () => {
-		console.log("ReCAPTCHA is success");
-	};
+	//const onSuccessComplete = () => {
+	//	console.log("ReCAPTCHA is success");
+	//};
 	return (
-		<section /*className={classes.passReminder}*/>
+		<section>
 			<GlasswallLogo className={classes.logo} />
 			<div className={classes.wrapForm}>
 				<h2 className={classes.heading}>
@@ -46,14 +48,15 @@ const PassReminder = ({ onLoginHandler }) => {
 							setEmailValue(evt.target.value);
 						}}
 					/>
-					<ReCAPTCHA
+					{/*<ReCAPTCHA
 						className={classes.recaptcha}
 						sitekey={process.env.REACT_APP_RECAPTCHA_API_KEY}
 						onChange={onSuccessComplete}
-					/>
-					,
+					/>*/}
 					<div className={classes.wrapButtons}>
-						<Button onButtonClick={onLoginHandler}>Cancel</Button>
+						<Link to={"/"}>
+							<Button onButtonClick={onLoginHandler}>Cancel</Button>
+						</Link>
 						<Button buttonType={"submit"}>Send link</Button>
 					</div>
 				</form>

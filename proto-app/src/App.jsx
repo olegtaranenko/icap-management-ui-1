@@ -1,112 +1,69 @@
-import React, { useState } from "react";
-import {
-	BrowserRouter as Router,
-	Switch,
-	Route,
-	Link,
-} from "react-router-dom";
+import React, { useState, useContext } from "react";
+import { Switch, Route, Redirect } from "react-router-dom";
 
-import {
-	NavBar,
-	Nav,
-	NavButton,
-	ExpandButton,
-	NavSpacer,
-} from "./components/GlasswallNav/GlasswallNav";
-import Main from "./components/Main/Main";
 import SplashScreenView from "./views/SplashScreenView/SplashScreenView";
-import GlasswallModal from "./components/GlasswallModal/GlasswallModal";
-import Auth from "./components/Auth/Auth";
+//import GlasswallModal from "./components/GlasswallModal/GlasswallModal";
+import Auth from "./hoc/Layouts/Auth/Auth";
+import Main from "./hoc/Layouts/Main/Main";
 
 import styles from "./App.module.scss";
+import AuthContext from "./context/auth/auth-context";
+import Toolbar from "./components/Navigation/Toolbar.jsx/Toolbar";
+import Login from "./components/Login/Login";
+import PassReminder from "./components/PassReminder/PassReminder";
 
 const App = () => {
 	const [showSplashScreen, setShowSplashScreen] = useState(true);
-
 	const [navExpanded, setNavExpanded] = useState(true);
-	const [modalIsOpen, setModalIsOpen] = useState(false);
-	const [authPageIsOpen, setAuthPageIsOpen] = useState(false);
+	const { isAuth } = useContext(AuthContext);
+
+	let routes = (
+		<Switch>
+			<Route path="/transaction-log">
+				<div>Transaction log</div>
+			</Route>
+			<Route path="/file-release-request">
+				<div>File release requests</div>
+			</Route>
+			<Route path="/configuration">
+				<div>Configuration</div>
+			</Route>
+			<Route path="/users">
+				<div>Users</div>
+			</Route>
+			<Redirect to="/" />
+		</Switch>
+	);
 
 	return (
 		<div className={styles.app}>
-			<div className={styles.mainContainer}>
-				{showSplashScreen && (
-					<SplashScreenView
-						hideSplashScreen={() => setShowSplashScreen(false)}
+			{showSplashScreen && (
+				<SplashScreenView
+					hideSplashScreen={() => setShowSplashScreen(false)}
+				/>
+			)}
+
+			{!isAuth && !showSplashScreen && (
+				<Auth>
+					<Switch>
+						<Route path="/pass-reminder" component={PassReminder} />
+						<Route path="/" component={Login} exact />
+						<Redirect to="/" />
+					</Switch>
+				</Auth>
+			)}
+
+			{isAuth && (
+				<div className={styles.mainContainer}>
+					<Main showTitle title="Glasswall React App" expanded={navExpanded}>
+						{routes}
+					</Main>
+					<Toolbar
+						expanded={navExpanded}
+						navExpandedHandler={() => setNavExpanded(!navExpanded)}
 					/>
-				)}
-
-				{authPageIsOpen && (
-					<Auth closePageHandler={() => setAuthPageIsOpen(false)} />
-				)}
-
-				{!showSplashScreen && !authPageIsOpen && (
-					<Router>
-						<NavBar expanded={navExpanded} logo>
-							<Nav expanded={navExpanded}>
-								<Link to="/">
-									<NavButton>Home</NavButton>
-								</Link>
-
-								<NavSpacer />
-
-								<Link to="/about">
-									<NavButton>About</NavButton>
-								</Link>
-
-								<Link to="/contact">
-									<NavButton>Contact</NavButton>
-								</Link>
-							</Nav>
-
-							<Nav expanded={navExpanded} bottom>
-								<NavButton clickHandler={() => setModalIsOpen(true)}>
-									Modal
-								</NavButton>
-
-								<NavButton clickHandler={() => setShowSplashScreen(true)}>
-									Back
-								</NavButton>
-								<Link to="/auth">
-									<NavButton clickHandler={() => setAuthPageIsOpen(true)}>
-										Login
-									</NavButton>
-								</Link>
-							</Nav>
-
-							<ExpandButton
-								expanded={navExpanded}
-								clickHandler={() => setNavExpanded(!navExpanded)}
-							/>
-						</NavBar>
-
-						<Main
-							expanded={navExpanded}
-							showTitle
-							title="Glasswall React App"
-						>
-							<Switch>
-								<Route exact path="/">
-									<div>Home</div>
-								</Route>
-
-								<Route path="/about">
-									<div>About</div>
-								</Route>
-
-								<Route path="/contact">
-									<div>Contact</div>
-								</Route>
-							</Switch>
-						</Main>
-
-						<GlasswallModal
-							isOpen={modalIsOpen}
-							onCloseAction={() => setModalIsOpen(false)}
-						/>
-					</Router>
-				)}
-			</div>
+				</div>
+			)}
 		</div>
 	);
 };

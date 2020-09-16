@@ -1,20 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { Link } from "react-router-dom";
 
-import Button from "../../UI/Button/Button";
-import GlasswallLogo from "../../GlasswallLogo/GlasswallLogo";
+import AuthContext from "../../context/auth/auth-context";
 
 import classes from "./Login.module.scss";
-import iconUser from "../../../assets/user-icon.svg";
-import iconPass from "../../../assets/password-icon.svg";
-import Input from "../../UI/Input/Input";
 
-const Login = ({ onLoginHandler }) => {
+import iconUser from "../../assets/user-icon.svg";
+import iconPass from "../../assets/password-icon.svg";
+
+import Button from "../UI/Button/Button";
+import GlasswallLogo from "../GlasswallLogo/GlasswallLogo";
+import Input from "../UI/Input/Input";
+
+const Login = () => {
+	const { login } = useContext(AuthContext);
+
 	const [emailValue, setEmailValue] = useState("");
 	const [passValue, setPassValue] = useState("");
 
 	const submitHandler = (evt) => {
 		evt.preventDefault();
-		console.log("Submitted");
+		login();
 	};
 	return (
 		<section className={classes.login}>
@@ -52,9 +58,7 @@ const Login = ({ onLoginHandler }) => {
 					<Button buttonType={"submit"}>Log In</Button>
 				</form>
 				<p className={classes.rePassLink}>
-					<a href="/" onClick={onLoginHandler}>
-						Forgotten your password?
-					</a>
+					<Link to={"/pass-reminder"}>Forgotten your password?</Link>
 				</p>
 			</div>
 		</section>

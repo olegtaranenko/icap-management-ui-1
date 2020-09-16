@@ -1,17 +1,24 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 
 import "./index.scss";
 import "./normalize.css";
 
+import { AuthState } from "./context/auth/AuthState";
+
 import * as serviceWorker from "./serviceWorker";
 
 ReactDOM.render(
-    <React.StrictMode>
-        <App />
-    </React.StrictMode>,
-    document.getElementById("root")
+	<React.StrictMode>
+		<AuthState>
+			<BrowserRouter>
+				<App />
+			</BrowserRouter>
+		</AuthState>
+	</React.StrictMode>,
+	document.getElementById("root")
 );
 
 // If you want your app to work offline and load faster, you can change
