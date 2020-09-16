@@ -12,5 +12,5 @@ RUN npm install yarn && \
 
 COPY . .
 
-EXPOSE 2443
+EXPOSE 8080
 CMD [ "node", "src/server.ts" ]
