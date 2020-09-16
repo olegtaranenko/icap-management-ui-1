@@ -9,5 +9,6 @@ app.get("/", (req, res) => {
 });
 
 app.listen(port, () => {
+    // tslint:disable-next-line:no-console
     console.info(`Server is Running at http://localhost:${port}`);
 });
