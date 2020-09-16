@@ -37,13 +37,13 @@ const App = () => {
 
 	return (
 		<div className={styles.app}>
-			{showSplashScreen && (
+			{/*{showSplashScreen && (
 				<SplashScreenView
 					hideSplashScreen={() => setShowSplashScreen(false)}
 				/>
-			)}
+			)}*/}
 
-			{!isAuth && !showSplashScreen && (
+			{!isAuth && (
 				<Auth>
 					<Switch>
 						<Route path="/pass-reminder" component={PassReminder} />
