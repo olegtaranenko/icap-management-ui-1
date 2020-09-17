@@ -3,14 +3,16 @@ FROM node:12
 # Create app dir
 WORKDIR /usr/src/app
 
-# Copy package.json AND package-lock.json
-COPY package*.json ./
+# Copy package.json AND yarn.lock
+COPY package.json ./
+COPY yarn.lock ./
 
 # Install NPM packages
-RUN npm install yarn && \
-    yarn install --frozen-lockfile
+RUN yarn install --frozen-lockfile
 
 COPY . .
 
 EXPOSE 8080
-CMD [ "node", "src/server.ts" ]
+
+CMD yarn build && \
+    yarn start
