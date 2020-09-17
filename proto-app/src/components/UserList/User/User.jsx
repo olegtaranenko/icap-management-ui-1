@@ -2,9 +2,7 @@ import React, { useState } from "react";
 
 import classes from "./User.module.scss";
 import { ReactComponent as TickIcon } from "../../../assets/tick-icon.svg";
-//import { ReactComponent as DeleteIcon } from "../../../assets/delete-icon.svg";
 import { ReactComponent as DeleteIcon } from "../../../assets/delete-icon-white.svg";
-import { ReactComponent as Refresh } from "../../../assets/UIicons/tables/refresh-table-icon.svg";
 
 import { ReactComponent as PadlockBodyIcon } from "../../../assets/padlock-body.svg";
 
