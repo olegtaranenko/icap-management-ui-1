@@ -3,22 +3,32 @@ import React from "react";
 import classes from "./NavigationItem.module.scss";
 import { NavLink, Link } from "react-router-dom";
 
-const NavigationItem = (props) => {
+const NavigationItem = ({
+	path,
+	icon,
+	exact,
+	clicked,
+	notActive,
+	children,
+}) => {
 	let link = (
 		<NavLink
-			to={props.link}
+			to={path}
 			activeClassName={classes.active}
-			exact={props.exact}
-			onClick={props.clicked}
+			exact={exact}
+			onClick={clicked}
+			style={{
+				backgroundImage: `url(${icon})`,
+			}}
 		>
-			{props.children}
+			{children}
 		</NavLink>
 	);
 
-	if (props.notActive) {
+	if (notActive) {
 		link = (
-			<Link to={props.link} className={classes.notActive}>
-				{props.children}
+			<Link to={path} className={classes.notActive}>
+				{children}
 			</Link>
 		);
 	}

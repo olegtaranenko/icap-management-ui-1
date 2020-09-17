@@ -1,25 +1,29 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import classes from "./NavigationItems.module.scss";
 
 import NavigationItem from "./NavigationItem/NavigationItem";
+import GlobalStoreContext from "../../../context/globalStore/globalStore-context";
 
-const NavigationItems = ({ bottom, expanded, items }) => {
+const NavigationItems = ({ expanded, items }) => {
+	const { changePageTitleHandler } = useContext(GlobalStoreContext);
+
 	const cls = [classes.NavigationItems];
 	if (expanded) {
 		cls.push(classes.menuExpanded);
-	}
-	if (bottom) {
-		cls.push(classes.bottom);
 	}
 
 	const links = items.map((it) => {
 		return (
 			<NavigationItem
 				key={it.id}
-				link={it.link}
+				path={it.link}
+				icon={it.icon}
 				exact={it.exact}
 				notActive={it.notActive}
+				clicked={() => {
+					changePageTitleHandler(it.name);
+				}}
 			>
 				{it.name}
 			</NavigationItem>

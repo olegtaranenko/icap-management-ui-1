@@ -8,20 +8,39 @@ import { ExpandButton } from "../../GlasswallNav/GlasswallNav";
 import UserLink from "../../UI/UserLink/UserLink";
 import Popup from "../../UI/Popup/Popup";
 
-const navLinksTop = [
+import UsersIcon from "../../../assets/menu-icons/icon-users.svg";
+import ReleaseIcon from "../../../assets/release-icon-white.svg";
+import Polisy from "../../../assets/menu-icons/icon-policies.svg";
+import TransactionIcon from "../../../assets/menu-icons/icon-transactions.svg";
+import ConfigIcon from "../../../assets/menu-icons/icon-config.svg";
+
+const navLinks = [
 	{
 		link: "/transaction-log",
 		name: "Transaction log",
+		icon: TransactionIcon,
 		id: "id-1",
 		exact: true,
 	},
 	{
 		link: "/file-release-request",
 		name: "File release requests",
+		icon: ReleaseIcon,
 		id: "id-2",
 	},
-	{ link: "/configuration", name: "Configuration", id: "id-3" },
-	{ link: "/users", name: "Users", id: "id-4" },
+	{
+		link: "/policy",
+		name: "Policy",
+		icon: Polisy,
+		id: "id-2",
+	},
+	{
+		link: "/configuration",
+		name: "Configuration",
+		icon: ConfigIcon,
+		id: "id-3",
+	},
+	{ link: "/users", name: "Users", icon: UsersIcon, id: "id-4" },
 ];
 
 const Toolbar = ({ expanded, navExpandedHandler }) => {
@@ -38,7 +57,7 @@ const Toolbar = ({ expanded, navExpandedHandler }) => {
 		<>
 			<section className={cls.join(" ")}>
 				<GlasswallLogo className={classes.logo} />
-				<NavigationItems expanded={expanded} items={navLinksTop} />
+				<NavigationItems expanded={expanded} items={navLinks} />
 				<UserLink
 					username={"usertest@test.com"}
 					expanded={expanded}

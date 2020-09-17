@@ -7,16 +7,19 @@ import "./index.scss";
 import "./normalize.css";
 
 import { AuthState } from "./context/auth/AuthState";
+import { GlobalStoreState } from "./context/globalStore/GlobalStoreState";
 
 import * as serviceWorker from "./serviceWorker";
 
 ReactDOM.render(
 	<React.StrictMode>
-		<AuthState>
-			<BrowserRouter>
-				<App />
-			</BrowserRouter>
-		</AuthState>
+		<GlobalStoreState>
+			<AuthState>
+				<BrowserRouter>
+					<App />
+				</BrowserRouter>
+			</AuthState>
+		</GlobalStoreState>
 	</React.StrictMode>,
 	document.getElementById("root")
 );
