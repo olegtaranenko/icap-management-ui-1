@@ -1,5 +1,7 @@
 import { createContext } from "react";
 
-const GlobalStoreContext = createContext();
+const GlobalStoreContext = createContext({
+	title: "",
+});
 
 export default GlobalStoreContext;

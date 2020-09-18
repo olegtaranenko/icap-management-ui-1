@@ -1,5 +1,10 @@
 import React, { useState, useContext } from "react";
-import { Switch, Route, Redirect } from "react-router-dom";
+import {
+	BrowserRouter as Router,
+	Switch,
+	Route,
+	Redirect,
+} from "react-router-dom";
 
 import SplashScreenView from "./views/SplashScreenView/SplashScreenView";
 //import GlasswallModal from "./components/GlasswallModal/GlasswallModal";
@@ -13,9 +18,11 @@ import Login from "./components/Login/Login";
 import PassReminder from "./components/PassReminder/PassReminder";
 import Users from "./components/UserList/UserList";
 import GlobalStoreContext from "./context/globalStore/globalStore-context";
+import Tabs from "./components/TabNav/TabNav";
+import Config from "./components/Config/Config";
 
 const App = () => {
-	//const [showSplashScreen, setShowSplashScreen] = useState(true);
+	const [showSplashScreen, setShowSplashScreen] = useState(true);
 	const [navExpanded, setNavExpanded] = useState(true);
 	const { isAuth } = useContext(AuthContext);
 	const { title } = useContext(GlobalStoreContext);
@@ -31,9 +38,7 @@ const App = () => {
 			<Route path="/policy">
 				<div>Policy</div>
 			</Route>
-			<Route path="/configuration">
-				<div>Configuration</div>
-			</Route>
+			<Route path="/configuration" component={Config}></Route>
 			<Route path="/users" component={Users} />
 			<Redirect to="/" />
 		</Switch>
@@ -41,33 +46,34 @@ const App = () => {
 
 	return (
 		<div className={styles.app}>
-			{/*{showSplashScreen && (
+			{showSplashScreen && (
 				<SplashScreenView
 					hideSplashScreen={() => setShowSplashScreen(false)}
 				/>
-			)}*/}
-
-			{!isAuth && (
-				<Auth>
-					<Switch>
-						<Route path="/pass-reminder" component={PassReminder} />
-						<Route path="/" component={Login} exact />
-						<Redirect to="/" />
-					</Switch>
-				</Auth>
 			)}
+			<Router>
+				{!isAuth && (
+					<Auth>
+						<Switch>
+							<Route path="/pass-reminder" component={PassReminder} />
+							<Route path="/" component={Login} exact />
+							<Redirect to="/" />
+						</Switch>
+					</Auth>
+				)}
 
-			{isAuth && (
-				<div className={styles.mainContainer}>
-					<Main showTitle title={title} expanded={navExpanded}>
-						{routes}
-					</Main>
-					<Toolbar
-						expanded={navExpanded}
-						navExpandedHandler={() => setNavExpanded(!navExpanded)}
-					/>
-				</div>
-			)}
+				{isAuth && (
+					<div className={styles.mainContainer}>
+						<Main showTitle title={title} expanded={navExpanded}>
+							{routes}
+						</Main>
+						<Toolbar
+							expanded={navExpanded}
+							navExpandedHandler={() => setNavExpanded(!navExpanded)}
+						/>
+					</div>
+				)}
+			</Router>
 		</div>
 	);
 };

@@ -32,15 +32,15 @@ const navLinks = [
 		link: "/policy",
 		name: "Policy",
 		icon: Polisy,
-		id: "id-2",
+		id: "id-3",
 	},
 	{
 		link: "/configuration",
 		name: "Configuration",
 		icon: ConfigIcon,
-		id: "id-3",
+		id: "id-4",
 	},
-	{ link: "/users", name: "Users", icon: UsersIcon, id: "id-4" },
+	{ link: "/users", name: "Users", icon: UsersIcon, id: "id-5" },
 ];
 
 const Toolbar = ({ expanded, navExpandedHandler }) => {
