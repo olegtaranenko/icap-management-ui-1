@@ -9,7 +9,7 @@ import UserLink from "../../UI/UserLink/UserLink";
 import Popup from "../../UI/Popup/Popup";
 
 import UsersIcon from "../../../assets/menu-icons/icon-users.svg";
-import ReleaseIcon from "../../../assets/release-icon-white.svg";
+import ReleaseIcon from "../../../assets/menu-icons/icon-release.svg";
 import Polisy from "../../../assets/menu-icons/icon-policies.svg";
 import TransactionIcon from "../../../assets/menu-icons/icon-transactions.svg";
 import ConfigIcon from "../../../assets/menu-icons/icon-config.svg";
