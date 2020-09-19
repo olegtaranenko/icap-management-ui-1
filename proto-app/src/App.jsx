@@ -6,8 +6,6 @@ import {
 	Redirect,
 } from "react-router-dom";
 
-import SplashScreenView from "./views/SplashScreenView/SplashScreenView";
-//import GlasswallModal from "./components/GlasswallModal/GlasswallModal";
 import Auth from "./hoc/Auth/Auth";
 import Main from "./hoc/Main/Main";
 
@@ -18,11 +16,9 @@ import Login from "./components/Login/Login";
 import PassReminder from "./components/PassReminder/PassReminder";
 import Users from "./components/UserList/UserList";
 import GlobalStoreContext from "./context/globalStore/globalStore-context";
-import Tabs from "./components/TabNav/TabNav";
 import Config from "./components/Config/Config";
 
 const App = () => {
-	const [showSplashScreen, setShowSplashScreen] = useState(true);
 	const [navExpanded, setNavExpanded] = useState(true);
 	const { isAuth } = useContext(AuthContext);
 	const { title } = useContext(GlobalStoreContext);
@@ -38,7 +34,7 @@ const App = () => {
 			<Route path="/policy">
 				<div>Policy</div>
 			</Route>
-			<Route path="/configuration" component={Config}></Route>
+			<Route path="/configuration" component={Config}/>
 			<Route path="/users" component={Users} />
 			<Redirect to="/" />
 		</Switch>
@@ -46,11 +42,6 @@ const App = () => {
 
 	return (
 		<div className={styles.app}>
-			{showSplashScreen && (
-				<SplashScreenView
-					hideSplashScreen={() => setShowSplashScreen(false)}
-				/>
-			)}
 			<Router>
 				{!isAuth && (
 					<Auth>
