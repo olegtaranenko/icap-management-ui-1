@@ -1,112 +1,70 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
 	BrowserRouter as Router,
 	Switch,
 	Route,
-	Link,
+	Redirect,
 } from "react-router-dom";
 
-import {
-	NavBar,
-	Nav,
-	NavButton,
-	ExpandButton,
-	NavSpacer,
-} from "./components/GlasswallNav/GlasswallNav";
-import Main from "./components/Main/Main";
-import SplashScreenView from "./views/SplashScreenView/SplashScreenView";
-import GlasswallModal from "./components/GlasswallModal/GlasswallModal";
-import Auth from "./components/Auth/Auth";
+import Auth from "./hoc/Auth/Auth";
+import Main from "./hoc/Main/Main";
 
 import styles from "./App.module.scss";
+import AuthContext from "./context/auth/auth-context";
+import Toolbar from "./components/Navigation/Toolbar.jsx/Toolbar";
+import Login from "./components/Login/Login";
+import PassReminder from "./components/PassReminder/PassReminder";
+import Users from "./components/UserList/UserList";
+import GlobalStoreContext from "./context/globalStore/globalStore-context";
+import Config from "./components/Config/Config";
 
 const App = () => {
-	const [showSplashScreen, setShowSplashScreen] = useState(true);
-
 	const [navExpanded, setNavExpanded] = useState(true);
-	const [modalIsOpen, setModalIsOpen] = useState(false);
-	const [authPageIsOpen, setAuthPageIsOpen] = useState(false);
+	const { isAuth } = useContext(AuthContext);
+	const { title } = useContext(GlobalStoreContext);
+
+	let routes = (
+		<Switch>
+			<Route path="/transaction-log">
+				<div>Transaction log</div>
+			</Route>
+			<Route path="/file-release-request">
+				<div>File release requests</div>
+			</Route>
+			<Route path="/policy">
+				<div>Policy</div>
+			</Route>
+			<Route path="/configuration" component={Config}/>
+			<Route path="/users" component={Users} />
+			<Redirect to="/" />
+		</Switch>
+	);
 
 	return (
 		<div className={styles.app}>
-			<div className={styles.mainContainer}>
-				{showSplashScreen && (
-					<SplashScreenView
-						hideSplashScreen={() => setShowSplashScreen(false)}
-					/>
+			<Router>
+				{!isAuth && (
+					<Auth>
+						<Switch>
+							<Route path="/pass-reminder" component={PassReminder} />
+							<Route path="/" component={Login} exact />
+							<Redirect to="/" />
+						</Switch>
+					</Auth>
 				)}
 
-				{authPageIsOpen && (
-					<Auth closePageHandler={() => setAuthPageIsOpen(false)} />
-				)}
-
-				{!showSplashScreen && !authPageIsOpen && (
-					<Router>
-						<NavBar expanded={navExpanded} logo>
-							<Nav expanded={navExpanded}>
-								<Link to="/">
-									<NavButton>Home</NavButton>
-								</Link>
-
-								<NavSpacer />
-
-								<Link to="/about">
-									<NavButton>About</NavButton>
-								</Link>
-
-								<Link to="/contact">
-									<NavButton>Contact</NavButton>
-								</Link>
-							</Nav>
-
-							<Nav expanded={navExpanded} bottom>
-								<NavButton clickHandler={() => setModalIsOpen(true)}>
-									Modal
-								</NavButton>
-
-								<NavButton clickHandler={() => setShowSplashScreen(true)}>
-									Back
-								</NavButton>
-								<Link to="/auth">
-									<NavButton clickHandler={() => setAuthPageIsOpen(true)}>
-										Login
-									</NavButton>
-								</Link>
-							</Nav>
-
-							<ExpandButton
-								expanded={navExpanded}
-								clickHandler={() => setNavExpanded(!navExpanded)}
-							/>
-						</NavBar>
-
-						<Main
-							expanded={navExpanded}
-							showTitle
-							title="Glasswall React App"
-						>
-							<Switch>
-								<Route exact path="/">
-									<div>Home</div>
-								</Route>
-
-								<Route path="/about">
-									<div>About</div>
-								</Route>
-
-								<Route path="/contact">
-									<div>Contact</div>
-								</Route>
-							</Switch>
+				{isAuth && (
+					<div className={styles.mainContainer}>
+						<Main showTitle title={title} expanded={navExpanded}>
+							{routes}
 						</Main>
-
-						<GlasswallModal
-							isOpen={modalIsOpen}
-							onCloseAction={() => setModalIsOpen(false)}
+						<Toolbar
+							expanded={navExpanded}
+							navExpandedHandler={() => setNavExpanded(!navExpanded)}
 						/>
-					</Router>
+					</div>
 				)}
-			</div>
+			</Router>
 		</div>
 	);
 };
