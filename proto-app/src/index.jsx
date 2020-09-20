@@ -5,13 +5,20 @@ import App from "./App";
 import "./index.scss";
 import "./normalize.css";
 
+import { AuthState } from "./context/auth/AuthState";
+import { GlobalStoreState } from "./context/globalStore/GlobalStoreState";
+
 import * as serviceWorker from "./serviceWorker";
 
 ReactDOM.render(
-    <React.StrictMode>
-        <App />
-    </React.StrictMode>,
-    document.getElementById("root")
+	<React.StrictMode>
+		<GlobalStoreState>
+			<AuthState>
+				<App />
+			</AuthState>
+		</GlobalStoreState>
+	</React.StrictMode>,
+	document.getElementById("root")
 );
 
 // If you want your app to work offline and load faster, you can change

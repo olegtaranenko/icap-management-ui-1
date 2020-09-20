@@ -1,0 +1,32 @@
+.user {
+	height: 100%;
+
+	& td {
+		position: relative;
+	}
+	& td:last-child {
+		display: flex;
+		justify-content: space-around;
+	}
+	& svg {
+		width: 1rem;
+	}
+
+	.padlockClose {
+		position: relative;
+		& svg:first-child {
+			position: absolute;
+			top: -4px;
+			left: 0;
+		}
+	}
+
+	.padlockOpen {
+		position: relative;
+		& svg:first-child {
+			position: absolute;
+			top: -5px;
+			left: -8px;
+		}
+	}
+}

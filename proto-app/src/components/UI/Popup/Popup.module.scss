@@ -1,0 +1,24 @@
+.popup {
+	position: absolute;
+	z-index: 99;
+	bottom: 12rem;
+	left: 0.5rem;
+	padding: 2rem;
+
+	background-color: #fff;
+	border-radius: 0.6rem;
+	box-shadow: 0 3px 16px 1.6px rgba(0, 0, 0, 0.34);
+	transition: 0.3s opacity, 0.3s transform;
+
+	& button {
+		width: 100%;
+
+		text-decoration: none;
+		text-transform: uppercase;
+		background-color: transparent;
+		border: none;
+		background-position: 1.2rem center;
+
+		cursor: pointer;
+	}
+}
