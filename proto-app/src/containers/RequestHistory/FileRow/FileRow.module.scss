@@ -1,0 +1,19 @@
+.FileRow {
+	display: flex;
+	align-items: center;
+	height: 4rem;
+
+	cursor: pointer;
+
+	transition: background 0.2s ease-in-out;
+	&:hover {
+		transition: background 0.2s ease-in-out;
+		background: #e6e9ea;
+		border-bottom: 1px solid #b6bfc9;
+	}
+
+	& div {
+		margin-left: 1rem;
+		flex-grow: 1;
+	}
+}

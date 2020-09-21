@@ -10,7 +10,6 @@
 		justify-content: space-between;
 		align-items: center;
 
-		//width: 95%;
 		padding-left: 1rem;
 
 		& .td {
@@ -22,7 +21,6 @@
 		& .td:last-child {
 			width: 32%;
 			margin-left: 3rem;
-			//justify-content: center;
 
 			& div {
 				margin-left: 3rem;
@@ -32,7 +30,6 @@
 			}
 		}
 		& input {
-			//width: 85%;
 			height: 3rem;
 			border: 1px solid #b6bfc9;
 			border-radius: 3px;
