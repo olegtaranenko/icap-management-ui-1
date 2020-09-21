@@ -19,7 +19,7 @@ const users = [
 ];
 
 const userTypes = [
-	"Administration",
+	"Administrator",
 	"User"
 ];
 
