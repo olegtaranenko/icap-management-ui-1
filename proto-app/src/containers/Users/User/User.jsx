@@ -8,7 +8,7 @@ import { ReactComponent as PadlockBodyIcon } from "../../../assets/padlock-body.
 
 import { ReactComponent as PadlockBarIcon } from "../../../assets/padlock-bar.svg";
 import { ReactComponent as PadlockLockedIcon } from "../../../assets/padlock-body-locked.svg";
-import Input from "../../UI/Input/Input";
+import Input from "../../../components/UI/Input/Input";
 
 const User = ({ name, email, groupList }) => {
 	const [userName, setUserName] = useState(name);

@@ -4,7 +4,7 @@ import classes from "./DomainField.module.scss";
 import { ReactComponent as TickIcon } from "../../../assets/tick-icon.svg";
 import { ReactComponent as DeleteIcon } from "../../../assets/delete-icon-white.svg";
 
-import Input from "../../UI/Input/Input";
+import Input from "../../../components/UI/Input/Input";
 
 const DomainField = ({ name, onChangeInputHandler }) => {
 	return (
