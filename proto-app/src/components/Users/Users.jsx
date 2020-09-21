@@ -16,28 +16,15 @@ const users = [
 		id: "Adam2",
 		email: "ahewitt@glasswallsolutions.com",
 	},
-	//{
-	//	name: "Tim1",
-	//	id: "Tim1",
-	//	email: "ahewitt@glasswallsolutions.com",
-	//},
-	//{
-	//	name: "Elly5",
-	//	id: "Elly5",
-	//	email: "ahewitt@glasswallsolutions.com",
-	//},
 ];
 
-const groups = [
-	"Administration Group",
-	"Another Group",
-	"Another Group",
-	"Another Group",
+const userTypes = [
+	"Administration",
+	"User"
 ];
 
 const tabs = [
 	{ name: "Users", icon: UsersIcon, iconSelected: UsersIconSelected },
-	{ name: "Permissions", icon: RolesIcon, iconSelected: RolesIconSelected },
 ];
 
 const Users = () => {
@@ -45,7 +32,7 @@ const Users = () => {
 
 	const userFields = users.map((u) => {
 		return (
-			<User key={u.id} name={u.name} email={u.email} groupList={groups} />
+			<User key={u.id} name={u.name} email={u.email} groupList={userTypes} />
 		);
 	});
 	return (
@@ -66,13 +53,12 @@ const Users = () => {
 								<p>Name</p>
 								<p>Email</p>
 								<p>User Group</p>
-								<p>Confirmed &nbsp; &nbsp;&nbsp; Status</p>
+								<p>Confirmed&nbsp;&nbsp;&nbsp;Status</p>
 							</div>
 						</div>
 						{userFields}
 					</div>
 				</Tab>
-				<Tab isSelected={selected === "Permissions"}></Tab>{" "}
 			</TabNav>
 		</section>
 	);

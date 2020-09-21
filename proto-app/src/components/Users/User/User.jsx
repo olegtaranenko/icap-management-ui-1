@@ -22,20 +22,6 @@ const User = ({ name, email, groupList }) => {
 		return <option key={group + i}>{group}</option>;
 	});
 
-	let padlock = (
-		<div className={classes.close} onClick={() => setPadlockOpen(true)}>
-			<PadlockBarIcon />
-			<PadlockLockedIcon />
-		</div>
-	);
-	if (padlockOpen) {
-		padlock = (
-			<div onClick={() => setPadlockOpen(false)} className={classes.open}>
-				<PadlockBarIcon />
-				<PadlockBodyIcon />
-			</div>
-		);
-	}
 	return (
 		<div className={classes.User}>
 			<div className={classes.tr}>
@@ -54,7 +40,17 @@ const User = ({ name, email, groupList }) => {
 				</div>
 				<div className={classes.td}>
 					<TickIcon stroke="#73AE6F" />
-					<div className={classes.padlock}>{padlock}</div>
+					<div className={classes.padlock}>{padlockOpen ?
+						<div onClick={() => setPadlockOpen(false)} className={classes.open}>
+							<PadlockBarIcon />
+							<PadlockBodyIcon />
+						</div>
+						:
+						<div className={classes.close} onClick={() => setPadlockOpen(true)}>
+							<PadlockBarIcon />
+							<PadlockLockedIcon />
+						</div>
+					}</div>
 					<DeleteIcon stroke="#D69598" />
 				</div>
 			</div>
