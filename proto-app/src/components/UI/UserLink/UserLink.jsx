@@ -1,5 +1,8 @@
 import React from "react";
+
 import classes from "./UserLink.module.scss";
+
+import AccountIcon from "../../../assets/svg/account-icons/account-name-icon.svg";
 
 const UserLink = ({ username, expanded, openPopup, closePopup }) => {
 	const cls = [classes.UserLink];
@@ -13,9 +16,12 @@ const UserLink = ({ username, expanded, openPopup, closePopup }) => {
 			onMouseEnter={openPopup}
 			onMouseLeave={closePopup}
 		>
-			<div>
-				<p>{username}</p>
-			</div>
+			<div
+				style={{
+					backgroundImage: `url(${AccountIcon})`,
+				}}
+			></div>
+			<p>{username}</p>
 		</section>
 	);
 };

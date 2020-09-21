@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import classes from "./UserList.module.scss";
+import classes from "./Users.module.scss";
 import UsersIcon from "../../assets/users-icon.svg";
 import UsersIconSelected from "../../assets/users-icon-selected.svg";
 import RolesIcon from "../../assets/roles-icon.svg";
@@ -16,16 +16,16 @@ const users = [
 		id: "Adam2",
 		email: "ahewitt@glasswallsolutions.com",
 	},
-	{
-		name: "Tim1",
-		id: "Tim1",
-		email: "ahewitt@glasswallsolutions.com",
-	},
-	{
-		name: "Elly5",
-		id: "Elly5",
-		email: "ahewitt@glasswallsolutions.com",
-	},
+	//{
+	//	name: "Tim1",
+	//	id: "Tim1",
+	//	email: "ahewitt@glasswallsolutions.com",
+	//},
+	//{
+	//	name: "Elly5",
+	//	id: "Elly5",
+	//	email: "ahewitt@glasswallsolutions.com",
+	//},
 ];
 
 const groups = [
@@ -40,46 +40,42 @@ const tabs = [
 	{ name: "Permissions", icon: RolesIcon, iconSelected: RolesIconSelected },
 ];
 
-const UserList = () => {
+const Users = () => {
 	const [selected, setSelected] = useState("Users");
 
-	const userList = users.map((u) => {
+	const userFields = users.map((u) => {
 		return (
 			<User key={u.id} name={u.name} email={u.email} groupList={groups} />
 		);
 	});
 	return (
-		<section className={classes.wrap}>
+		<section className={classes.Users}>
 			<TabNav
 				tabs={tabs}
 				isSelectedTab={selected}
 				onSetActiveTabHandler={(tab) => setSelected(tab)}
 			>
 				<Tab isSelected={selected === "Users"}>
-					<div className={classes.userList}>
-						<div className={classes.header}>
-							<p>Users</p>
-							<button>+</button>
+					<div className={classes.header}>
+						<p>Users</p>
+						<button>+</button>
+					</div>
+					<div className={classes.table}>
+						<div className={classes.tr}>
+							<div className={classes.th}>
+								<p>Name</p>
+								<p>Email</p>
+								<p>User Group</p>
+								<p>Confirmed &nbsp; &nbsp;&nbsp; Status</p>
+							</div>
 						</div>
-						<div className={classes.table}>
-							<table>
-								<tbody>
-									<tr>
-										<th width="30%">Name</th>
-										<th width="30%">Email</th>
-										<th width="30%">User Group</th>
-										<th>Confirmed Status</th>
-									</tr>
-									{userList}
-								</tbody>
-							</table>
-						</div>
+						{userFields}
 					</div>
 				</Tab>
-				<Tab isSelected={selected === "Permissions"}></Tab>
+				<Tab isSelected={selected === "Permissions"}></Tab>{" "}
 			</TabNav>
 		</section>
 	);
 };
 
-export default UserList;
+export default Users;

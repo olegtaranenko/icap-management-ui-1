@@ -14,7 +14,7 @@ import AuthContext from "./context/auth/auth-context";
 import Toolbar from "./components/Navigation/Toolbar.jsx/Toolbar";
 import Login from "./components/Login/Login";
 import PassReminder from "./components/PassReminder/PassReminder";
-import Users from "./components/UserList/UserList";
+import Users from "./components/Users/Users";
 import GlobalStoreContext from "./context/globalStore/globalStore-context";
 import Config from "./components/Config/Config";
 
@@ -34,7 +34,7 @@ const App = () => {
 			<Route path="/policy">
 				<div>Policy</div>
 			</Route>
-			<Route path="/configuration" component={Config}/>
+			<Route path="/configuration" component={Config} />
 			<Route path="/users" component={Users} />
 			<Redirect to="/" />
 		</Switch>

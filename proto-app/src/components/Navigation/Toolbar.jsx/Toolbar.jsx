@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 
 import classes from "./Toolbar.module.scss";
+
+import AuthContext from "../../../context/auth/auth-context";
 
 import GlasswallLogo from "../../GlasswallLogo/GlasswallLogo";
 import NavigationItems from "../NavigationItems/NavigationItems";
@@ -13,6 +15,9 @@ import ReleaseIcon from "../../../assets/menu-icons/icon-release.svg";
 import Polisy from "../../../assets/menu-icons/icon-policies.svg";
 import TransactionIcon from "../../../assets/menu-icons/icon-transactions.svg";
 import ConfigIcon from "../../../assets/menu-icons/icon-config.svg";
+
+import logoutIcon from "../../../assets/svg/account-icons/logout-icon.svg";
+import changePassIcon from "../../../assets/svg/account-icons/change-password-icon.svg";
 
 const navLinks = [
 	{
@@ -45,6 +50,7 @@ const navLinks = [
 
 const Toolbar = ({ expanded, navExpandedHandler }) => {
 	const [isOpen, setIsOpen] = useState(false);
+	const { logout } = useContext(AuthContext);
 
 	const cls = [classes.Toolbar];
 	const clsNav = [classes.nav];
@@ -52,6 +58,19 @@ const Toolbar = ({ expanded, navExpandedHandler }) => {
 		cls.push(classes.expanded);
 		clsNav.push(classes.expanded);
 	}
+
+	const accountLinks = [
+		{
+			name: "Log out",
+			icon: logoutIcon,
+			onClickButtonHandler: () => logout(),
+		},
+		{
+			name: "Change password",
+			icon: changePassIcon,
+			onClickButtonHandler: () => alert("Change password"),
+		},
+	];
 
 	return (
 		<>
@@ -68,8 +87,9 @@ const Toolbar = ({ expanded, navExpandedHandler }) => {
 			</section>
 			{isOpen && (
 				<Popup
-					openPopup={() => setIsOpen(true)}
-					closePopup={() => setIsOpen(false)}
+					links={accountLinks}
+					openPopupHover={() => setIsOpen(true)}
+					closePopupHover={() => setIsOpen(false)}
 				/>
 			)}
 		</>

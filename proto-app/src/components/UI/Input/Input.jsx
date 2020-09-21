@@ -2,7 +2,7 @@ import React from "react";
 
 import classes from "./Input.module.scss";
 
-const input = ({
+const Input = ({
 	type,
 	name,
 	value,
@@ -13,7 +13,7 @@ const input = ({
 }) => {
 	const cls = [classes.Input];
 	return (
-		<div>
+		<>
 			<label htmlFor={htmlFor}></label>
 			<input
 				className={cls.join(" ")}
@@ -24,8 +24,8 @@ const input = ({
 				onChange={onChange}
 				placeholder={placeholder}
 			/>
-		</div>
+		</>
 	);
 };
 
-export default input;
+export default Input;

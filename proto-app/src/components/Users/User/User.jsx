@@ -8,6 +8,7 @@ import { ReactComponent as PadlockBodyIcon } from "../../../assets/padlock-body.
 
 import { ReactComponent as PadlockBarIcon } from "../../../assets/padlock-bar.svg";
 import { ReactComponent as PadlockLockedIcon } from "../../../assets/padlock-body-locked.svg";
+import Input from "../../UI/Input/Input";
 
 const User = ({ name, email, groupList }) => {
 	const [userName, setUserName] = useState(name);
@@ -17,44 +18,47 @@ const User = ({ name, email, groupList }) => {
 		setUserName(name);
 	};
 
-	const options = groupList.map((g, i) => {
-		return <option key={g + i}>{g}</option>;
+	const options = groupList.map((group, i) => {
+		return <option key={group + i}>{group}</option>;
 	});
 
 	let padlock = (
-		<div className={classes.padlockClose}>
+		<div className={classes.close} onClick={() => setPadlockOpen(true)}>
 			<PadlockBarIcon />
-			<PadlockLockedIcon onClick={() => setPadlockOpen(true)} />
+			<PadlockLockedIcon />
 		</div>
 	);
 	if (padlockOpen) {
 		padlock = (
-			<div className={classes.padlockOpen}>
+			<div onClick={() => setPadlockOpen(false)} className={classes.open}>
 				<PadlockBarIcon />
-				<PadlockBodyIcon onClick={() => setPadlockOpen(false)} />
+				<PadlockBodyIcon />
 			</div>
 		);
 	}
-
 	return (
-		<tr className={classes.user}>
-			<td>
-				<input
-					type="text"
-					value={userName}
-					onChange={(evt) => changeInput(evt.target.value)}
-				/>
-			</td>
-			<td>{email}</td>
-			<td>
-				<select>{options}</select>
-			</td>
-			<td>
-				<TickIcon stroke="#73AE6F" />
-				{padlock}
-				<DeleteIcon stroke="#D69598" />
-			</td>
-		</tr>
+		<div className={classes.User}>
+			<div className={classes.tr}>
+				<div className={classes.td}>
+					<Input
+						type="text"
+						value={userName}
+						onChange={(evt) => changeInput(evt.target.value)}
+					/>
+				</div>
+				<div className={classes.td}>
+					<p>{email}</p>
+				</div>
+				<div className={classes.td}>
+					<select>{options}</select>
+				</div>
+				<div className={classes.td}>
+					<TickIcon stroke="#73AE6F" />
+					<div className={classes.padlock}>{padlock}</div>
+					<DeleteIcon stroke="#D69598" />
+				</div>
+			</div>
+		</div>
 	);
 };
 

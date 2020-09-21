@@ -25,7 +25,9 @@ const NavigationItems = ({ expanded, items }) => {
 					changePageTitleHandler(it.name);
 				}}
 			>
-				{it.name}
+				<div>
+					<p>{it.name}</p>
+				</div>
 			</NavigationItem>
 		);
 	});

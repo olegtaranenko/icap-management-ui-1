@@ -1,13 +1,15 @@
 .Tab {
-	display: flex;
-	flex-direction: column;
+	width: calc(100% - 4rem);
+	height: calc(100% - 9rem);
 
-	height: 100%;
-
-	margin: 1rem 2rem 2rem 2rem;
-
-	border: 1px solid #b6bfc9;
 	border-radius: 0.6rem;
 
-	background: #ffffff;
+	& .innerContent {
+		width: 100%;
+		height: 100%;
+		background: #ffffff;
+		border: 1px solid #b6bfc9;
+		border-radius: 0.6rem;
+		padding: 10px;
+	}
 }
