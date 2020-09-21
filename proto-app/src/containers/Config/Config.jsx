@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import TabNav from "../TabNav/TabNav";
-import Tab from "../Tab/Tab";
+import TabNav from "../../components/TabNav/TabNav";
+import Tab from "../../components/Tab/Tab";
 import classes from "./Config.module.scss";
 
 import AllowedIcon from "../../assets/allowed-domains-icon.svg";

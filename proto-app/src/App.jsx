@@ -14,9 +14,10 @@ import AuthContext from "./context/auth/auth-context";
 import Toolbar from "./components/Navigation/Toolbar.jsx/Toolbar";
 import Login from "./components/Login/Login";
 import PassReminder from "./components/PassReminder/PassReminder";
-import Users from "./components/Users/Users";
+import Users from "./containers/Users/Users";
 import GlobalStoreContext from "./context/globalStore/globalStore-context";
-import Config from "./components/Config/Config";
+import Config from "./containers/Config/Config";
+import RequestHistory from "./containers/RequestHistory/RequestHistory";
 
 const App = () => {
 	const [navExpanded, setNavExpanded] = useState(true);
@@ -25,11 +26,15 @@ const App = () => {
 
 	let routes = (
 		<Switch>
-			<Route path="/transaction-log">
-				<div>Transaction log</div>
+			<Route path="/dashboard">
+				<div>dashboard</div>
 			</Route>
-			<Route path="/file-release-request">
-				<div>File release requests</div>
+			<Route path="/request-history" component={RequestHistory} />
+			<Route path="/request-history">
+				<div>Request history</div>
+			</Route>
+			<Route path="/file-drop">
+				<div>File drop</div>
 			</Route>
 			<Route path="/policy">
 				<div>Policy</div>

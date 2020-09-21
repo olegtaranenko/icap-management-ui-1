@@ -7,8 +7,8 @@ import RolesIcon from "../../assets/roles-icon.svg";
 import RolesIconSelected from "../../assets/roles-icon-selected.svg";
 
 import User from "./User/User";
-import TabNav from "../TabNav/TabNav";
-import Tab from "../Tab/Tab";
+import TabNav from "../../components/TabNav/TabNav";
+import Tab from "../../components/Tab/Tab";
 
 const users = [
 	{

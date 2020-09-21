@@ -10,42 +10,50 @@ import { ExpandButton } from "../../GlasswallNav/GlasswallNav";
 import UserLink from "../../UI/UserLink/UserLink";
 import Popup from "../../UI/Popup/Popup";
 
-import UsersIcon from "../../../assets/menu-icons/icon-users.svg";
-import ReleaseIcon from "../../../assets/menu-icons/icon-release.svg";
-import Polisy from "../../../assets/menu-icons/icon-policies.svg";
-import TransactionIcon from "../../../assets/menu-icons/icon-transactions.svg";
-import ConfigIcon from "../../../assets/menu-icons/icon-config.svg";
+import usersIcon from "../../../assets/menu-icons/icon-users.svg";
+import releaseIcon from "../../../assets/menu-icons/icon-release.svg";
+import polisy from "../../../assets/menu-icons/icon-policies.svg";
+import transactionIcon from "../../../assets/menu-icons/icon-transactions.svg";
+import configIcon from "../../../assets/menu-icons/icon-config.svg";
+import dashIcon from "../../../assets/menu-icons/icon-dashboard.svg";
 
 import logoutIcon from "../../../assets/svg/account-icons/logout-icon.svg";
 import changePassIcon from "../../../assets/svg/account-icons/change-password-icon.svg";
 
 const navLinks = [
 	{
-		link: "/transaction-log",
-		name: "Transaction log",
-		icon: TransactionIcon,
+		link: "/dashboard",
+		name: "Dashboard",
+		icon: dashIcon,
 		id: "id-1",
 		exact: true,
 	},
 	{
-		link: "/file-release-request",
-		name: "File release requests",
-		icon: ReleaseIcon,
+		link: "/request-history",
+		name: "Request history",
+		icon: transactionIcon,
 		id: "id-2",
+		exact: true,
+	},
+	{
+		link: "/file-drop",
+		name: "File drop",
+		icon: releaseIcon,
+		id: "id-3",
 	},
 	{
 		link: "/policy",
 		name: "Policy",
-		icon: Polisy,
-		id: "id-3",
+		icon: polisy,
+		id: "id-4",
 	},
 	{
 		link: "/configuration",
 		name: "Configuration",
-		icon: ConfigIcon,
-		id: "id-4",
+		icon: configIcon,
+		id: "id-5",
 	},
-	{ link: "/users", name: "Users", icon: UsersIcon, id: "id-5" },
+	{ link: "/users", name: "Users", icon: usersIcon, id: "id-6" },
 ];
 
 const Toolbar = ({ expanded, navExpandedHandler }) => {
