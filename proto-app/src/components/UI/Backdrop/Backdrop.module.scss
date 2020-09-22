@@ -1,0 +1,12 @@
+.Backdrop {
+	position: fixed;
+	z-index: 90;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+
+	opacity: 1;
+	transition: all 0.5s;
+	background-color: rgba(122, 122, 122, 0.8);
+}
