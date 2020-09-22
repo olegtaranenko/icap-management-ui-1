@@ -3,13 +3,13 @@ import Backdrop from "../UI/Backdrop/Backdrop";
 
 import classes from "./Modal.module.scss";
 
-const Modal = ({ fileName, onButtonCloseClick, children }) => {
+const Modal = ({ head, onButtonCloseClick, children }) => {
 	return (
 		<>
 			<Backdrop onClickOutside={onButtonCloseClick} />
 			<article className={classes.Modal}>
 				<header>
-					<span>{fileName}</span>
+					<span>{head}</span>
 					<button
 						className={classes.buttonClose}
 						onClick={onButtonCloseClick}
@@ -17,7 +17,7 @@ const Modal = ({ fileName, onButtonCloseClick, children }) => {
 						X
 					</button>
 				</header>
-				<div className={classes.inner}>{children}</div>
+				<section className={classes.inner}>{children}</section>
 			</article>
 		</>
 	);

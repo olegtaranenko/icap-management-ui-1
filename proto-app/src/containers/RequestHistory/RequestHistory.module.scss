@@ -1,28 +1,30 @@
 .RequestHistory {
 	position: relative;
-	.table {
-		//padding: 2rem 1rem 1rem 1rem;
-		& .th {
-			display: flex;
-			color: #196480;
-			& p {
-				flex-grow: 1;
-				text-align: left;
-				padding-left: 1rem;
-				white-space: nowrap;
-			}
+	padding: 0 3rem;
+}
+
+.table {
+	color: #196480;
+
+	& th {
+		font-size: 1.2rem;
+		padding: 0;
+
+		border: none;
+	}
+
+	& thead th {
+		color: #196480;
+
+		cursor: pointer;
+
+		& p:hover {
+			background: #91e1f3;
 		}
 	}
-	& .wrap {
+
+	& .tbody {
 		border-top: 1px solid #54e0e8;
 		border-bottom: 1px solid #54e0e8;
-	}
-}
-.head {
-	color: #196480;
-	font-weight: bold;
-
-	& span {
-		font-weight: normal;
 	}
 }
