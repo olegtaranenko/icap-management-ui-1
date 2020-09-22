@@ -30,7 +30,7 @@ const TabNav = ({ tabs, isSelectedTab, onSetActiveTabHandler, children }) => {
 	return (
 		<section className={classes.TabNav}>
 			<ul>{tabNav}</ul>
-			{children}
+			<div className={classes.tabwrap}>{children}</div>
 		</section>
 	);
 };

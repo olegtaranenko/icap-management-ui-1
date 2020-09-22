@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import TabNav from "../TabNav/TabNav";
-import Tab from "../Tab/Tab";
+import TabNav from "../../components/TabNav/TabNav";
+import Tab from "../../components/Tab/Tab";
 import classes from "./Config.module.scss";
 
-import { ReactComponent as TickIcon } from "../../assets/tick-icon.svg";
-import { ReactComponent as DeleteIcon } from "../../assets/delete-icon-white.svg";
 import AllowedIcon from "../../assets/allowed-domains-icon.svg";
 import AllowedIconSelected from "../../assets/allowed-domains-icon-selected.svg";
 import SystemSettingsSelected from "../../assets/system-settings-icon-selected.svg";
 import SystemSettings from "../../assets/system-settings-icon.svg";
+
+import DomainField from "./DomainField/DomainField";
 
 const Config = () => {
 	const [selected, setSelected] = useState("Non Compliant Files");
@@ -44,27 +44,16 @@ const Config = () => {
 						<button>+</button>
 					</div>
 					<div className={classes.table}>
-						<table>
-							<tbody>
-								<tr>
-									<th width="95%">Domain Name</th>
-									<th width="5%">Validated</th>
-								</tr>
-								<tr>
-									<td>
-										<input
-											type="text"
-											value={userDomain}
-											onChange={(evt) => changeInput(evt.target.value)}
-										/>
-									</td>
-									<td>
-										<TickIcon stroke="#73AE6F" />
-										<DeleteIcon stroke="#D69598" />
-									</td>
-								</tr>
-							</tbody>
-						</table>
+						<div className={classes.tr}>
+							<div className={classes.th}>
+								<p>Domain Name</p>
+								<p>Validated</p>
+							</div>
+						</div>
+						<DomainField
+							name={userDomain}
+							onChangeInputHandler={(evt) => changeInput(evt.target.value)}
+						/>
 					</div>
 				</Tab>
 				<Tab isSelected={selected === "System Settings"}>System Settings</Tab>

@@ -5,6 +5,7 @@
 
 	& ul {
 		display: flex;
+		padding-bottom: 1rem;
 	}
 }
 
@@ -43,4 +44,20 @@
 		background: #edf0f1;
 		color: #179fa6;
 	}
+}
+
+.wrap {
+	height: 100%;
+	background-color: #ffffff;
+	//!
+	background: #d60909;
+}
+
+.tabwrap {
+	position: relative;
+	display: flex;
+	justify-content: center;
+
+	width: 100%;
+	height: 100%;
 }

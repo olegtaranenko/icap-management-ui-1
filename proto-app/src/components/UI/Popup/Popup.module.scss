@@ -11,13 +11,20 @@
 	transition: 0.3s opacity, 0.3s transform;
 
 	& button {
-		width: 100%;
+		display: flex;
+		width: 20rem;
+
+		padding-left: 5rem;
 
 		text-decoration: none;
 		text-transform: uppercase;
 		background-color: transparent;
 		border: none;
-		background-position: 1.2rem center;
+
+		background-repeat: no-repeat;
+		background-position: 1rem center;
+
+		text-align: left;
 
 		cursor: pointer;
 	}
