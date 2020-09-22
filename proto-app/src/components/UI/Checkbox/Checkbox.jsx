@@ -1,23 +1,23 @@
 import React from "react";
 
-import { FormControlLabel, Checkbox } from "@material-ui/core";
+import { FormControlLabel, Checkbox as MuiCheckbox } from "@material-ui/core";
 
 import classes from "./Checkbox.module.scss";
 
-const CheckboxItem = ({ type, head, selectedValue, onHandleChange, id }) => {
+const Checkbox = ({ type, label, selectedValue, onHandleChange, id }) => {
 	return (
 		<FormControlLabel
 			className={classes.Checkbox}
-			label={head}
+			label={label}
 			labelPlacement="start"
 			control={
 				type === "checkbox" ? (
-					<Checkbox color="primary" />
+					<MuiCheckbox color="primary" />
 				) : (
-					<Checkbox
-						value={head}
+					<MuiCheckbox
+						value={label}
 						color="primary"
-						checked={selectedValue === head}
+						checked={selectedValue === label}
 						onChange={onHandleChange}
 					/>
 				)
@@ -26,4 +26,4 @@ const CheckboxItem = ({ type, head, selectedValue, onHandleChange, id }) => {
 	);
 };
 
-export default CheckboxItem;
+export default Checkbox;

@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import classes from "./RequestHistory.module.scss";
 
 import FileRow from "./FileRow/FileRow";
-import Modal from "../../components/Modal/Modal";
+import SidebarModal from "../../components/SidebarModal/SidebarModal";
 import FileInfo from "./FileRow/FileInfo/FileInfo";
 import Filter from "./Filter/Filter";
 
@@ -173,7 +173,7 @@ const fileTypeList = [
 		id: "microsoftword",
 		filterName: "Microsoft Word",
 		checkboxList: [
-			{ type: "radio", head: "doc", name: "docType", id: "doc" },
+			{ type: "checkbox", head: "doc", name: "docType", id: "doc" },
 			{ type: "radio", head: "dot", name: "docType", id: "dot" },
 			{ type: "radio", head: "docx", name: "docType", id: "docx" },
 			{ type: "radio", head: "docm", name: "docType", id: "docm" },
@@ -231,7 +231,7 @@ const RequestHistory = () => {
 	const [rowId, setRowId] = useState(null);
 	const [headModal, setHeadModal] = useState("");
 
-	const openModalInfo = (id) => {
+	const openInfoModal = (id) => {
 		setIsOpen(true);
 		setRowId(id);
 	};
@@ -254,43 +254,41 @@ const RequestHistory = () => {
 
 	const fileInfo = userfiles.find((it) => it.id === rowId);
 
-	const files = userfiles.map((file) => {
+	const files = userfiles.map(({ id, timestamp, fileId, name, type, outcome }) => {
 		return (
 			<FileRow
-				key={file.id}
-				id={file.id}
-				timestamp={file.timestamp}
-				fileId={file.fileId}
-				name={file.name}
-				type={file.type}
-				outcome={file.outcome}
-				onRowClickHandler={(evt) => openModalInfo(evt.target.id)}
+				key={id}
+				id={id}
+				timestamp={timestamp}
+				fileId={fileId}
+				name={name}
+				type={type}
+				outcome={outcome}
+				onRowClickHandler={(evt) => openInfoModal(evt.target.id)}
 			/>
 		);
 	});
 
-	let innerContent = null;
+	let innerContent;
 
 	if (headModal === "Filter: File Type") {
-		innerContent = fileTypeList.map((filter) => {
+		innerContent = fileTypeList.map(({ id, filterName, checkboxList }) => {
 			return (
 				<Filter
-					key={filter.id}
-					type={filter.type}
-					filterName={filter.filterName}
-					checkboxList={filter.checkboxList}
+					key={id}
+					filterName={filterName}
+					checkboxList={checkboxList}
 				/>
 			);
 		});
 	} else if (headModal === "Filter: Outcome") {
-		innerContent = outcomeList.map((filter) => {
+		innerContent = outcomeList.map(({ id, filterName, checkboxList }) => {
 			return (
 				<Filter
-					key={filter.id}
+					key={id}
 					//style={{ borderTop: "none" }}
-					type={filter.type}
-					filterName={filter.filterName}
-					checkboxList={filter.checkboxList}
+					filterName={filterName}
+					checkboxList={checkboxList}
 				/>
 			);
 		});
@@ -321,12 +319,12 @@ const RequestHistory = () => {
 				</Table>
 			</div>
 			{isOpen && (
-				<Modal
+				<SidebarModal
 					head={headModal || fileInfo.name}
-					onButtonCloseClick={closeModal}
+					onClose={closeModal}
 				>
 					{innerContent}
-				</Modal>
+				</SidebarModal>
 			)}
 		</>
 	);
