@@ -13,15 +13,16 @@ import {
 	TableRow,
 	TableCell,
 	TableBody,
+	TableSortLabel,
 } from "@material-ui/core";
 
 const userfiles = [
 	{
 		id: "file-01",
-		timestamp: new Date().toUTCString(),
-		fileId: "00000000 - 0000 - 0000 - 0000 - 00000000000",
+		timestamp: new Date("05.11.19").toUTCString(),
+		fileId: "66666666 - 6666 - 6666 - 6666 - 66666666666",
 		type: "PNG",
-		name: "test.png",
+		name: "y-test.png",
 		outcome: "Safe",
 		url: "https://www.test-site.com/test.png",
 		host: "1.1.1.1",
@@ -33,10 +34,11 @@ const userfiles = [
 	},
 	{
 		id: "file-02",
-		timestamp: new Date().toUTCString(),
-		fileId: "11111111 - 1111 - 1111 - 1111 - 11111111111",
+		timestamp: new Date("08.1.19").toUTCString(),
+		fileId: "44444444 - 4444 - 4444 - 4444 - 44444444444",
+
 		type: "DOCX",
-		name: "test.docx",
+		name: "f-test.docx",
 		outcome: "Blocked",
 		url: "https://www.test-site.com/test.docx",
 		host: "1.1.1.1",
@@ -48,10 +50,11 @@ const userfiles = [
 	},
 	{
 		id: "file-03",
-		timestamp: new Date().toUTCString(),
-		fileId: "33333333 - 3333 - 3333 - 3333 - 33333333333",
+		timestamp: new Date("05.11.17").toUTCString(),
+		fileId: "88888888 - 8888 - 8888 - 8888 - 88888888888",
+
 		type: "PNG",
-		name: "test.png",
+		name: "a-test.png",
 		outcome: "Safe",
 		url: "https://www.test-site.com/test.png",
 		host: "1.1.1.1",
@@ -63,10 +66,11 @@ const userfiles = [
 	},
 	{
 		id: "file-04",
-		timestamp: new Date().toUTCString(),
-		fileId: "44444444 - 4444 - 4444 - 4444 - 44444444444",
+		timestamp: new Date("01.23.17").toUTCString(),
+		fileId: "11111111 - 1111 - 1111 - 1111 - 11111111111",
+
 		type: "DOCX",
-		name: "test.docx",
+		name: "c-test.docx",
 		outcome: "Blocked",
 		url: "https://www.test-site.com/test.docx",
 		host: "1.1.1.1",
@@ -81,7 +85,7 @@ const userfiles = [
 		timestamp: new Date().toUTCString(),
 		fileId: "55555555 - 5555 - 5555 - 5555 - 55555555555",
 		type: "PNG",
-		name: "test.png",
+		name: "l-test.png",
 		outcome: "Safe",
 		url: "https://www.test-site.com/test.png",
 		host: "1.1.1.1",
@@ -94,9 +98,10 @@ const userfiles = [
 	{
 		id: "file-06",
 		timestamp: new Date().toUTCString(),
-		fileId: "66666666 - 6666 - 6666 - 6666 - 66666666666",
+
+		fileId: "00000000 - 0000 - 0000 - 0000 - 00000000000",
 		type: "DOCX",
-		name: "test.docx",
+		name: "s-test.docx",
 		outcome: "Blocked",
 		url: "https://www.test-site.com/test.docx",
 		host: "1.1.1.1",
@@ -111,7 +116,7 @@ const userfiles = [
 		timestamp: new Date().toUTCString(),
 		fileId: "77777777 - 7777 - 7777 - 7777 - 77777777777",
 		type: "PNG",
-		name: "test.png",
+		name: "d-test.png",
 		outcome: "Safe",
 		url: "https://www.test-site.com/test.png",
 		host: "1.1.1.1",
@@ -124,9 +129,9 @@ const userfiles = [
 	{
 		id: "file-08",
 		timestamp: new Date().toUTCString(),
-		fileId: "88888888 - 8888 - 8888 - 8888 - 88888888888",
+		fileId: "33333333 - 3333 - 3333 - 3333 - 33333333333",
 		type: "DOCX",
-		name: "test.docx",
+		name: "m-test.docx",
 		outcome: "Blocked",
 		url: "https://www.test-site.com/test.docx",
 		host: "1.1.1.1",
@@ -141,7 +146,7 @@ const userfiles = [
 		timestamp: new Date().toUTCString(),
 		fileId: "99999999 - 9999 - 9999 - 9999 - 99999999999",
 		type: "PNG",
-		name: "test.png",
+		name: "b-test.png",
 		outcome: "Safe",
 		url: "https://www.test-site.com/test.png",
 		host: "1.1.1.1",
@@ -156,7 +161,7 @@ const userfiles = [
 		timestamp: new Date().toUTCString(),
 		fileId: "10101010 - 1010 - 1010 - 1010 - 10101010101",
 		type: "DOCX",
-		name: "test.docx",
+		name: "q-test.docx",
 		outcome: "Blocked",
 		url: "https://www.test-site.com/test.docx",
 		host: "1.1.1.1",
@@ -231,6 +236,23 @@ const RequestHistory = () => {
 	const [rowId, setRowId] = useState(null);
 	const [headModal, setHeadModal] = useState("");
 
+	const [sortedRows, setSortedRows] = useState(null);
+
+	const files = userfiles.map((file) => {
+		return (
+			<FileRow
+				key={file.id}
+				id={file.id}
+				timestamp={file.timestamp}
+				fileId={file.fileId}
+				name={file.name}
+				type={file.type}
+				outcome={file.outcome}
+				onRowClickHandler={(evt) => openModalInfo(evt.target.id)}
+			/>
+		);
+	});
+
 	const openModalInfo = (id) => {
 		setIsOpen(true);
 		setRowId(id);
@@ -252,22 +274,51 @@ const RequestHistory = () => {
 		setHeadModal("");
 	};
 
-	const fileInfo = userfiles.find((it) => it.id === rowId);
+	const getSortedRows = (rows, sortLabel) => {
+		switch (sortLabel) {
+			case "timestamp":
+				setSortedRows(
+					rows.sort(
+						(a, b) =>
+							new Date(a.props.timestamp).getTime() -
+							new Date(b.props.timestamp).getTime()
+					)
+				);
+				break;
+			case "fileId":
+				setSortedRows(
+					rows.sort((a, b) => {
+						if (a.props.fileId < b.props.fileId) return -1;
+						if (a.props.fileId > b.props.fileId) return 1;
+					})
+				);
+				break;
+			case "filename":
+				setSortedRows(
+					rows.sort((a, b) => {
+						if (a.props.name < b.props.name) return -1;
+						if (a.props.name > b.props.name) return 1;
+					})
+				);
+				break;
+			case "fileType":
+				setSortedRows(
+					rows.sort((a, b) => {
+						if (a.props.type < b.props.type) return -1;
+						if (a.props.type > b.props.type) return 1;
+					})
+				);
+				break;
 
-	const files = userfiles.map((file) => {
-		return (
-			<FileRow
-				key={file.id}
-				id={file.id}
-				timestamp={file.timestamp}
-				fileId={file.fileId}
-				name={file.name}
-				type={file.type}
-				outcome={file.outcome}
-				onRowClickHandler={(evt) => openModalInfo(evt.target.id)}
-			/>
-		);
-	});
+			case sortLabel.DEFAULT:
+				sortedRows = rows;
+				break;
+		}
+
+		return sortedRows;
+	};
+
+	const fileInfo = userfiles.find((it) => it.id === rowId);
 
 	let innerContent = null;
 
@@ -287,7 +338,6 @@ const RequestHistory = () => {
 			return (
 				<Filter
 					key={filter.id}
-					//style={{ borderTop: "none" }}
 					type={filter.type}
 					filterName={filter.filterName}
 					checkboxList={filter.checkboxList}
@@ -306,18 +356,47 @@ const RequestHistory = () => {
 				<Table className={classes.table}>
 					<TableHead>
 						<TableRow>
-							<TableCell>Timestamp</TableCell>
-							<TableCell>File ID</TableCell>
-							<TableCell>Filename</TableCell>
-							<TableCell onClick={openModalFileType}>
-								<p>File Type</p>
+							<TableCell>
+								<TableSortLabel
+									onClick={() => getSortedRows(files, "timestamp")}
+								>
+									Timestamp
+								</TableSortLabel>
 							</TableCell>
+
+							<TableCell>
+								<TableSortLabel
+									onClick={() => getSortedRows(files, "fileId")}
+								>
+									File ID
+								</TableSortLabel>
+							</TableCell>
+
+							{/*<TableCell onClick={openModalFileType}>*/}
+							<TableCell>
+								<TableSortLabel
+									onClick={() => getSortedRows(files, "filename")}
+								>
+									Filename
+								</TableSortLabel>
+							</TableCell>
+
+							<TableCell>
+								<TableSortLabel
+									onClick={() => getSortedRows(files, "fileType")}
+								>
+									File Type
+								</TableSortLabel>
+							</TableCell>
+
 							<TableCell onClick={openModalOutcome}>
 								<p>Outcome</p>
 							</TableCell>
 						</TableRow>
 					</TableHead>
-					<TableBody className={classes.tbody}>{files}</TableBody>
+					<TableBody className={classes.tbody}>
+						{sortedRows || files}
+					</TableBody>
 				</Table>
 			</div>
 			{isOpen && (
