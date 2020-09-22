@@ -7,7 +7,9 @@
     "prebuild": "tslint -c tslint.json -p tsconfig.json --fix",
     "build": "tsc",
     "prestart": "yarn build",
-    "start": "node .",
+    "start": "cross-env NODE_ENV=production node .",
+    "predev": "yarn build",
+    "dev": "cross-env NODE_ENV=development node .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -34,7 +36,9 @@
     "typescript": "^4.0.2"
   },
   "dependencies": {
+    "cross-env": "^7.0.2",
     "express": "^4.17.1",
-    "http": "^0.0.1-security"
+    "http": "^0.0.1-security",
+    "winston": "^3.3.3"
   }
 }
