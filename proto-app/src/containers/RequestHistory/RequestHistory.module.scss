@@ -1,0 +1,30 @@
+.RequestHistory {
+	position: relative;
+	padding: 0 3rem;
+}
+
+.table {
+	color: #196480;
+
+	& th {
+		font-size: 1.2rem;
+		padding: 0;
+
+		border: none;
+	}
+
+	& thead th {
+		color: #196480;
+
+		cursor: pointer;
+
+		& p:hover {
+			background: #91e1f3;
+		}
+	}
+
+	& .tbody {
+		border-top: 1px solid #54e0e8;
+		border-bottom: 1px solid #54e0e8;
+	}
+}
