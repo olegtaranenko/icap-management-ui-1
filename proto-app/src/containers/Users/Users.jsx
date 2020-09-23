@@ -7,8 +7,8 @@ import UsersIconSelected from "../../assets/users-icon-selected.svg";
 // import RolesIconSelected from "../../assets/roles-icon-selected.svg";
 
 import User from "./User/User";
-import TabNav from "../../components/TabNav/TabNav";
-import Tab from "../../components/Tab/Tab";
+import TabNav from "../../components/Tabs/TabNav/TabNav";
+import Tab from "../../components/Tabs/Tab/Tab";
 
 const users = [
 	{
@@ -18,17 +18,14 @@ const users = [
 	},
 ];
 
-const userTypes = [
-	"Administrator",
-	"User"
-];
+const userTypes = ["Administrator", "User"];
 
 const tabs = [
 	{ name: "Users", icon: UsersIcon, iconSelected: UsersIconSelected },
 ];
 
 const Users = () => {
-	const [selected, setSelected] = useState("Users");
+	const [selectedTab, setSelectedTab] = useState("Users");
 
 	const userFields = users.map((u) => {
 		return (
@@ -39,10 +36,10 @@ const Users = () => {
 		<section className={classes.Users}>
 			<TabNav
 				tabs={tabs}
-				isSelectedTab={selected}
-				onSetActiveTabHandler={(tab) => setSelected(tab)}
+				isSelectedTab={selectedTab}
+				onSetActiveTabHandler={(tab) => setSelectedTab(tab)}
 			>
-				<Tab isSelected={selected === "Users"}>
+				<Tab isSelected={selectedTab === "Users"}>
 					<div className={classes.header}>
 						<p>Users</p>
 						<button>+</button>

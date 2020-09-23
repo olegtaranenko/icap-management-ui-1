@@ -15,12 +15,10 @@ const Filter = ({ type, filterName, checkboxList, style }) => {
 	const checkboxes = checkboxList.map(({ id, type, head, name }) => {
 		return (
 			<CheckboxItem
-				selectedValue={selectedValue}
 				key={id}
 				type={type}
 				label={head}
 				name={name}
-				id={id}
 				onHandleChange={(evt) => handleChange(evt.target.value)}
 			/>
 		);

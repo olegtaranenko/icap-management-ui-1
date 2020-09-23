@@ -7,6 +7,8 @@ import SidebarModal from "../../components/SidebarModal/SidebarModal";
 import FileInfo from "./FileRow/FileInfo/FileInfo";
 import Filter from "./Filter/Filter";
 
+import { ReactComponent as FilterIcon } from "../../assets/subject-icon.svg";
+
 import {
 	Table,
 	TableHead,
@@ -258,12 +260,10 @@ const RequestHistory = () => {
 		setRowId(id);
 	};
 
-/*
 	const openFileTypeModal = () => {
 		setIsOpen(true);
 		setHeadModal("Filter: File Type");
 	};
-*/
 
 	const openOutcomeModal = () => {
 		setIsOpen(true);
@@ -316,7 +316,16 @@ const RequestHistory = () => {
 				);
 				break;
 
-			case sortLabel.DEFAULT:
+			case "outcome":
+				setSortedRows(
+					rows.sort((a, b) => {
+						if (a.props.type < b.props.type) return -1;
+						if (a.props.type > b.props.type) return 1;
+						return 0;
+					})
+				);
+				break;
+
 			default:
 				sortedRows = rows;
 				break;
@@ -359,7 +368,6 @@ const RequestHistory = () => {
 			return (
 				<Filter
 					key={id}
-					//style={{ borderTop: "none" }}
 					filterName={filterName}
 					checkboxList={checkboxList}
 				/>
@@ -393,7 +401,6 @@ const RequestHistory = () => {
 								</TableSortLabel>
 							</TableCell>
 
-							{/*<TableCell onClick={openModalFileType}>*/}
 							<TableCell>
 								<TableSortLabel
 									onClick={() => getSortedRows(files, "filename")}
@@ -408,10 +415,22 @@ const RequestHistory = () => {
 								>
 									File Type
 								</TableSortLabel>
+								<FilterIcon
+									className={classes.icon}
+									onClick={openFileTypeModal}
+								/>
 							</TableCell>
 
-							<TableCell onClick={openOutcomeModal}>
-								<p>Outcome</p>
+							<TableCell>
+								<TableSortLabel
+									onClick={() => getSortedRows(files, "outcome")}
+								>
+									Outcome
+								</TableSortLabel>
+								<FilterIcon
+									className={classes.icon}
+									onClick={openOutcomeModal}
+								/>
 							</TableCell>
 						</TableRow>
 					</TableHead>
@@ -421,10 +440,7 @@ const RequestHistory = () => {
 				</Table>
 			</div>
 			{isOpen && (
-				<SidebarModal
-					head={headModal || fileInfo.name}
-					onClose={closeModal}
-				>
+				<SidebarModal head={headModal || fileInfo.name} onClose={closeModal}>
 					{innerContent}
 				</SidebarModal>
 			)}

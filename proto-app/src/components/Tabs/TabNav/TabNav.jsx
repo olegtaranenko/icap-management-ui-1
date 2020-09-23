@@ -20,7 +20,7 @@ const TabNav = ({ tabs, isSelectedTab, onSetActiveTabHandler, children }) => {
 					className={clsButton.join(" ")}
 					onClick={() => onSetActiveTabHandler(tab.name)}
 				>
-					<img src={icon} alt="tab.name" />
+					{icon ? <img src={icon} alt={tab.name} /> : null}
 					{tab.name}
 				</button>
 			</li>
