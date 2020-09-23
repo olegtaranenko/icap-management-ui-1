@@ -6,7 +6,7 @@ import { FormControl, FormLabel, FormGroup } from "@material-ui/core";
 import classes from "./Filter.module.scss";
 
 const Filter = ({ type, filterName, checkboxList, style }) => {
-	const [selectedValue, setSelectedValue] = React.useState("");
+	const [, setSelectedValue] = React.useState("");
 
 	const handleChange = (value) => {
 		setSelectedValue(value);

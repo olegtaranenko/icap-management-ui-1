@@ -1,5 +1,4 @@
 import React from "react";
-import RadioButton from "../../../components/UI/RadioButton/RadioButton";
 
 import classes from "./Current.module.scss";
 
