@@ -19,6 +19,9 @@ import GlobalStoreContext from "./context/globalStore/globalStore-context";
 import Config from "./containers/Config/Config";
 import RequestHistory from "./containers/RequestHistory/RequestHistory";
 
+// TODO: Remove from production, for prototype only
+//import Sow from "./containers/Sow/Sow";
+
 const App = () => {
 	const [navExpanded, setNavExpanded] = useState(true);
 	const { isAuth } = useContext(AuthContext);
@@ -26,6 +29,11 @@ const App = () => {
 
 	let routes = (
 		<Switch>
+			{/* // TODO: Remove from production, for prototype only */}
+			<Route path="/sow">
+				{/* <Sow /> */}
+			</Route>
+
 			<Route path="/dashboard">
 				<div>dashboard</div>
 			</Route>
