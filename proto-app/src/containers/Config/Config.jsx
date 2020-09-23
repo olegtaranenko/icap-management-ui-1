@@ -52,7 +52,7 @@ const Config = () => {
 						</div>
 						<DomainField
 							name={userDomain}
-							onCangeInputHandler={(evt) => changeInput(evt.target.value)}
+							onChangeInputHandler={(evt) => changeInput(evt.target.value)}
 						/>
 					</div>
 				</Tab>

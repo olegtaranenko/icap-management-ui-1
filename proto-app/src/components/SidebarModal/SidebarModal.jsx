@@ -1,18 +1,17 @@
 import React from "react";
 import Backdrop from "../UI/Backdrop/Backdrop";
+import classes from "./SidebarModal.module.scss";
 
-import classes from "./Modal.module.scss";
-
-const Modal = ({ head, onButtonCloseClick, children }) => {
+const SidebarModal = ({ head, onClose, children }) => {
 	return (
 		<>
-			<Backdrop onClickOutside={onButtonCloseClick} />
+			<Backdrop onClickOutside={onClose} />
 			<article className={classes.Modal}>
 				<header>
 					<span>{head}</span>
 					<button
 						className={classes.buttonClose}
-						onClick={onButtonCloseClick}
+						onClick={onClose}
 					>
 						X
 					</button>
@@ -23,4 +22,4 @@ const Modal = ({ head, onButtonCloseClick, children }) => {
 	);
 };
 
-export default Modal;
+export default SidebarModal;

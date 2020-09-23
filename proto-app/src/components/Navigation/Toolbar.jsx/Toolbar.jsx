@@ -12,7 +12,7 @@ import Popup from "../../UI/Popup/Popup";
 
 import usersIcon from "../../../assets/menu-icons/icon-users.svg";
 import releaseIcon from "../../../assets/menu-icons/icon-release.svg";
-import polisy from "../../../assets/menu-icons/icon-policies.svg";
+import policy from "../../../assets/menu-icons/icon-policies.svg";
 import transactionIcon from "../../../assets/menu-icons/icon-transactions.svg";
 import configIcon from "../../../assets/menu-icons/icon-config.svg";
 import dashIcon from "../../../assets/menu-icons/icon-dashboard.svg";
@@ -44,7 +44,7 @@ const navLinks = [
 	{
 		link: "/policy",
 		name: "Policy",
-		icon: polisy,
+		icon: policy,
 		id: "id-4",
 	},
 	{

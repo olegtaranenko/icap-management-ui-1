@@ -6,11 +6,11 @@ import { ReactComponent as DeleteIcon } from "../../../assets/delete-icon-white.
 
 import Input from "../../../components/UI/Input/Input";
 
-const DomainField = ({ name, onCangeInputHandler }) => {
+const DomainField = ({ name, onChangeInputHandler }) => {
 	return (
 		<div className={classes.DomainField}>
 			<div className={classes.td}>
-				<Input type="text" value={name} onChange={onCangeInputHandler} />
+				<Input type="text" value={name} onChange={onChangeInputHandler} />
 				<div className={classes.validated}>
 					<TickIcon stroke="#73AE6F" />
 					<DeleteIcon stroke="#D69598" />

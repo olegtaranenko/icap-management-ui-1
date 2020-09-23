@@ -1,4 +1,4 @@
-# icap-management-ui
+# p-ui-wireframes
 UI for p-icap
 
 ## Requirements
