@@ -1,5 +1,5 @@
 import React from "react";
-import CheckboxItem from "../../../components/UI/Checkbox/Checkbox";
+import CheckboxItem from "../../UI/Checkbox/Checkbox";
 
 import { FormControl, FormLabel, FormGroup } from "@material-ui/core";
 

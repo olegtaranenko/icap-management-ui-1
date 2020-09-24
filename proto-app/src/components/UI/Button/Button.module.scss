@@ -1,7 +1,6 @@
 .button {
 	display: block;
-	width: 10rem;
-	//margin: 4rem auto 0;
+	min-width: 10rem;
 	padding: 0;
 	font-size: 1.4rem;
 	line-height: 3.2rem;
@@ -13,5 +12,7 @@
 	border: #6697a6 2px solid;
 	border-radius: 0.3rem;
 	transition: all 0.3s;
+
+	white-space: nowrap;
 	cursor: pointer;
 }

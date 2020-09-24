@@ -51,7 +51,7 @@ const Current = () => {
 	return (
 		<div className={classes.Current}>
 			<div className={classes.header}>
-				<p>Rules</p>
+				<p>Content Flags</p>
 			</div>
 			<div className={classes.inner}>
 				<section>

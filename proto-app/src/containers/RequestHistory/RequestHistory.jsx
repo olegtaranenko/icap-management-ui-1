@@ -2,13 +2,6 @@ import React, { useState } from "react";
 
 import classes from "./RequestHistory.module.scss";
 
-import FileRow from "./FileRow/FileRow";
-import SidebarModal from "../../components/SidebarModal/SidebarModal";
-import FileInfo from "./FileRow/FileInfo/FileInfo";
-import Filter from "./Filter/Filter";
-
-import { ReactComponent as FilterIcon } from "../../assets/subject-icon.svg";
-
 import {
 	Table,
 	TableHead,
@@ -17,6 +10,9 @@ import {
 	TableBody,
 	TableSortLabel,
 } from "@material-ui/core";
+
+import FileRow from "./FileRow/FileRow";
+import Filters from "../../components/Filters/Filters";
 
 const userfiles = [
 	{
@@ -175,106 +171,8 @@ const userfiles = [
 	},
 ];
 
-const fileTypeList = [
-	{
-		id: "microsoftword",
-		filterName: "Microsoft Word",
-		checkboxList: [
-			{ type: "checkbox", head: "doc", name: "docType", id: "doc" },
-			{ type: "radio", head: "dot", name: "docType", id: "dot" },
-			{ type: "radio", head: "docx", name: "docType", id: "docx" },
-			{ type: "radio", head: "docm", name: "docType", id: "docm" },
-		],
-	},
-	{
-		id: "microsoftexcel",
-		filterName: "Microsoft Excel",
-		checkboxList: [
-			{ type: "radio", head: "xlsx", name: "xlsType", id: "xlsx" },
-			{ type: "radio", head: "xls", name: "xlsType", id: "xls" },
-			{ type: "radio", head: "xlsm", name: "xlsType", id: "xlsm" },
-		],
-	},
-	{
-		id: "microsoftpowerpoint",
-		filterName: "Microsoft Powerpoint",
-		checkboxList: [
-			{ type: "radio", head: "ppt", name: "pptType", id: "ppt" },
-			{ type: "radio", head: "pptx", name: "pptType", id: "pptx" },
-		],
-	},
-	{
-		id: "images",
-		filterName: "Images",
-		checkboxList: [
-			{ type: "radio", head: "jpeg", name: "imgType", id: "jpeg" },
-			{ type: "radio", head: "png", name: "imgType", id: "png" },
-			{ type: "radio", head: "gif", name: "imgType", id: "gif" },
-		],
-	},
-	{
-		id: "pdf",
-		filterName: "",
-		checkboxList: [
-			{ type: "radio", head: "pdf", name: "pdfType", id: "pdf" },
-		],
-	},
-];
-
-const outcomeList = [
-	{
-		id: "outcome",
-		checkboxList: [
-			{ type: "checkbox", head: "Safe", name: "docType", id: "doc" },
-			{ type: "checkbox", head: "Blocked", name: "docType", id: "dot" },
-			{ type: "checkbox", head: "docx", name: "docType", id: "docx" },
-			{ type: "checkbox", head: "docm", name: "docType", id: "docm" },
-		],
-	},
-];
-
 const RequestHistory = () => {
-	const [isOpen, setIsOpen] = useState(false);
-	const [rowId, setRowId] = useState(null);
-	const [headModal, setHeadModal] = useState("");
-
 	const [sortedRows, setSortedRows] = useState(null);
-
-	let files = userfiles.map((file) => {
-		return (
-			<FileRow
-				key={file.id}
-				id={file.id}
-				timestamp={file.timestamp}
-				fileId={file.fileId}
-				name={file.name}
-				type={file.type}
-				outcome={file.outcome}
-				onRowClickHandler={(evt) => openInfoModal(evt.target.id)}
-			/>
-		);
-	});
-
-	const openInfoModal = (id) => {
-		setIsOpen(true);
-		setRowId(id);
-	};
-
-	const openFileTypeModal = () => {
-		setIsOpen(true);
-		setHeadModal("Filter: File Type");
-	};
-
-	const openOutcomeModal = () => {
-		setIsOpen(true);
-		setHeadModal("Filter: Outcome");
-	};
-
-	const closeModal = () => {
-		setIsOpen(false);
-		setRowId(null);
-		setHeadModal("");
-	};
 
 	const getSortedRows = (rows, sortLabel) => {
 		let sortedRows;
@@ -334,76 +232,49 @@ const RequestHistory = () => {
 		return sortedRows;
 	};
 
-	const fileInfo = userfiles.find((it) => it.id === rowId);
+	//const fileInfo = userfiles.find((it) => it.id === rowId);
 
-	files = userfiles.map(({ id, timestamp, fileId, name, type, outcome }) => {
-		return (
-			<FileRow
-				key={id}
-				id={id}
-				timestamp={timestamp}
-				fileId={fileId}
-				name={name}
-				type={type}
-				outcome={outcome}
-				onRowClickHandler={(evt) => openInfoModal(evt.target.id)}
-			/>
-		);
-	});
-
-	let innerContent;
-
-	if (headModal === "Filter: File Type") {
-		innerContent = fileTypeList.map(({ id, filterName, checkboxList }) => {
+	const rows = userfiles.map(
+		({ id, timestamp, fileId, name, type, outcome }) => {
 			return (
-				<Filter
+				<FileRow
 					key={id}
-					filterName={filterName}
-					checkboxList={checkboxList}
+					id={id}
+					timestamp={timestamp}
+					fileId={fileId}
+					name={name}
+					type={type}
+					outcome={outcome}
+					//onRowClickHandler={(evt) => openInfoModal(evt.target.id)}
 				/>
 			);
-		});
-	} else if (headModal === "Filter: Outcome") {
-		innerContent = outcomeList.map(({ id, filterName, checkboxList }) => {
-			return (
-				<Filter
-					key={id}
-					filterName={filterName}
-					checkboxList={checkboxList}
-				/>
-			);
-		});
-	} else if (fileInfo) {
-		innerContent = <FileInfo row={fileInfo} />;
-	} else {
-		innerContent = null;
-	}
+		}
+	);
 
 	return (
-		<>
-			<div className={classes.RequestHistory}>
+		<article className={classes.RequestHistory}>
+			<Filters />
+			<div className={classes.wrapTable}>
 				<Table className={classes.table}>
 					<TableHead>
 						<TableRow>
 							<TableCell>
 								<TableSortLabel
-									onClick={() => getSortedRows(files, "timestamp")}
+									onClick={() => getSortedRows(rows, "timestamp")}
 								>
 									Timestamp
 								</TableSortLabel>
 							</TableCell>
 
 							<TableCell>
-								<TableSortLabel
-									onClick={() => getSortedRows(files, "fileId")}
-								>
+								<TableSortLabel onClick={() => getSortedRows(rows, "fileId")}>
 									File ID
 								</TableSortLabel>
 							</TableCell>
 
 							<TableCell>
 								<TableSortLabel
-									onClick={() => getSortedRows(files, "filename")}
+									onClick={() => getSortedRows(rows, "filename")}
 								>
 									Filename
 								</TableSortLabel>
@@ -411,40 +282,32 @@ const RequestHistory = () => {
 
 							<TableCell>
 								<TableSortLabel
-									onClick={() => getSortedRows(files, "fileType")}
+									onClick={() => getSortedRows(rows, "fileType")}
 								>
 									File Type
 								</TableSortLabel>
-								<FilterIcon
-									className={classes.icon}
-									onClick={openFileTypeModal}
-								/>
 							</TableCell>
 
 							<TableCell>
 								<TableSortLabel
-									onClick={() => getSortedRows(files, "outcome")}
+									onClick={() => getSortedRows(rows, "outcome")}
 								>
 									Outcome
 								</TableSortLabel>
-								<FilterIcon
-									className={classes.icon}
-									onClick={openOutcomeModal}
-								/>
 							</TableCell>
 						</TableRow>
 					</TableHead>
 					<TableBody className={classes.tbody}>
-						{sortedRows || files}
+						{sortedRows || rows}
 					</TableBody>
 				</Table>
 			</div>
-			{isOpen && (
-				<SidebarModal head={headModal || fileInfo.name} onClose={closeModal}>
+			{/*{isOpen && (
+				<Modal head={headModal || fileInfo.name}>
 					{innerContent}
-				</SidebarModal>
-			)}
-		</>
+				</Modal>
+			)}*/}
+		</article>
 	);
 };
 
