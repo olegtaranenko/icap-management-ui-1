@@ -1,12 +1,12 @@
-import React from "react";
-import CheckboxItem from "../../UI/Checkbox/Checkbox";
-
+import React, { useState } from "react";
 import { FormControl, FormLabel, FormGroup } from "@material-ui/core";
+
+import CheckboxItem from "../../UI/Checkbox/Checkbox";
 
 import classes from "./Filter.module.scss";
 
 const Filter = ({ type, filterName, checkboxList, style }) => {
-	const [, setSelectedValue] = React.useState("");
+	const [, setSelectedValue] = useState("");
 
 	const handleChange = (value) => {
 		setSelectedValue(value);
