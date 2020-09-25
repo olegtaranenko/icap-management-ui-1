@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import classes from "./Filters.module.scss";
 
 import Button from "../UI/Button/Button";
-import Modal from "../Modal/Modal";
+
+import Popup from "../UI/Popup/Popup";
 import Filter from "./Filter/Filter";
+import PopupFilter from "../UI/PopupFilter/PopupFilter";
 
 const fileTypeList = [
 	{
@@ -65,25 +67,49 @@ const outcomeList = [
 
 const Filters = () => {
 	const [openFilterRow, setOpenFilterRow] = useState(false);
-	const [openModal, setOpenModal] = useState(false);
+	const [openPopup, setOpenPopup] = useState(false);
 	const [openFilter, setOpenFilter] = useState(null);
 
 	const clsList = [classes.filters];
 	const clsMoreFilters = [classes.moreFilters];
+	const clsHeader = [classes.header];
 
 	if (openFilterRow) {
 		clsList.push(classes.expanded);
 		clsMoreFilters.push(classes.hide);
+		clsHeader.push(classes.rotate);
 	}
+
+	const filterList = [
+		{
+			name: "File Types",
+			onClickButtonHandler: function () {
+				setOpenFilter("File Types");
+			},
+		},
+		{
+			name: "Outcomes",
+			onClickButtonHandler: function () {
+				setOpenFilter("Outcomes");
+			},
+		},
+		{ name: "File ID" },
+		{ name: "File Name" },
+	];
 
 	const openFilterRowHandler = () => {
 		setOpenFilterRow((prevState) => !prevState);
-		setOpenModal(false);
+		setOpenPopup(false);
 		setOpenFilter(null);
 	};
 
-	const openModalHandler = () => {
-		setOpenModal((prevState) => !prevState);
+	const openPopupHandler = () => {
+		setOpenPopup((prevState) => !prevState);
+		setOpenFilter(null);
+	};
+
+	const closePopupHoverHandler = () => {
+		setOpenPopup(false);
 		setOpenFilter(null);
 	};
 
@@ -110,17 +136,11 @@ const Filters = () => {
 			);
 		});
 	}
-	// else if (fileInfo) {
-	//	innerContent = <FileInfo row={fileInfo} />;
-	//}
-	//else {
-	//	return innerContent = null;
-	//}
 
 	return (
 		<section className={classes.Filters}>
 			<div className={classes.wrap}>
-				<div className={classes.header} onClick={openFilterRowHandler}>
+				<div className={clsHeader.join(" ")} onClick={openFilterRowHandler}>
 					<h2>Filters</h2>
 					<span className={clsMoreFilters.join(" ")}>More Filters...</span>
 				</div>
@@ -130,75 +150,34 @@ const Filters = () => {
 						<Button
 							buttonType={"button"}
 							buttonClasses={classes.addFilter}
-							onButtonClick={openModalHandler}
+							onButtonClick={openPopupHandler}
 						>
 							+ Add Filter
 						</Button>
 					) : null}
 				</div>
 			</div>
-			{openModal ? (
-				<>
-					<Modal
-						styleModal={{ top: "189px", left: "78px" }}
-						onClose={() => setOpenModal(false)}
-					>
-						<ul className={classes.filterList}>
-							<li>
-								<button
-									type="button"
-									onClick={() => {
-										setOpenFilter("File Types");
-									}}
-								>
-									File Types
-								</button>
-							</li>
-							<li>
-								<button
-									type="button"
-									onClick={() => {
-										setOpenFilter("Outcomes");
-									}}
-								>
-									Outcomes
-								</button>
-							</li>
-							<li>
-								<button
-									type="button"
-									onClick={() => {
-										setOpenFilter("File ID");
-									}}
-								>
-									File ID
-								</button>
-							</li>
-							<li>
-								<button
-									type="button"
-									onClick={() => {
-										setOpenFilter("File Name");
-									}}
-								>
-									File Name
-								</button>
-							</li>
-						</ul>
-					</Modal>
-					{openFilter ? (
-						<Modal
-							styleModal={{
-								top: "18rem",
-								left: "24rem",
-								padding: "2rem",
-								zIndex: "1000",
-							}}
-						>
-							{innerContent}
-						</Modal>
-					) : null}
-				</>
+			{openPopup ? (
+				<Popup
+					links={filterList}
+					openPopupHover={() => setOpenPopup(true)}
+					closePopupHover={() => setOpenPopup(false)}
+				></Popup>
+			) : null}
+
+			{openFilter && openPopup ? (
+				<PopupFilter
+					stylePopup={{
+						top: "18rem",
+						left: "24rem",
+						padding: "2rem",
+						zIndex: "1000",
+					}}
+					openPopupHover={() => setOpenPopup(true)}
+					closePopupHover={closePopupHoverHandler}
+				>
+					{innerContent}
+				</PopupFilter>
 			) : null}
 		</section>
 	);

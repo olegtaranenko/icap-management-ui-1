@@ -1,13 +1,14 @@
 .Filters {
 	background: #e6e9ea;
 
+	cursor: pointer;
+
 	& h2 {
 		margin: 0;
 		padding: 0;
 		font-size: 1.4rem;
-
-		//line-height: 3rem;
 	}
+
 	& .addFilter {
 		max-width: 11rem;
 		color: #4592b0;
@@ -18,11 +19,7 @@
 		border: #4592b0 1px solid;
 	}
 
-	cursor: pointer;
-
 	.wrap {
-		//display: flex;
-		//justify-content: space-between;
 		padding: 1rem;
 		margin: 2rem;
 		background-color: #fff;
@@ -35,6 +32,24 @@
 		position: relative;
 		display: flex;
 		justify-content: space-between;
+
+		&::before {
+			content: "";
+			position: absolute;
+			width: 1rem;
+			height: 100%;
+			top: 0;
+			right: 0;
+			background-repeat: no-repeat;
+			background-position: center center;
+			background-image: url("../../assets/svg/filters/expand-arrow-grey.svg");
+			transition: all 0.3s;
+		}
+
+		&.rotate::before {
+			transform: rotate(-90deg);
+			transition: all 0.3s;
+		}
 
 		& .moreFilters {
 			position: absolute;
@@ -75,6 +90,10 @@
 				height: 8rem;
 				transition: all 0.5s;
 			}
+
+			//&.expanded > .header::before {
+			//	transform: rotate(45deg);
+			//}
 		}
 	}
 
