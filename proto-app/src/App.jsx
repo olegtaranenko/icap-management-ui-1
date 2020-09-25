@@ -18,6 +18,7 @@ import Users from "./containers/Users/Users";
 import GlobalStoreContext from "./context/globalStore/globalStore-context";
 import Config from "./containers/Config/Config";
 import RequestHistory from "./containers/RequestHistory/RequestHistory";
+import Policy from "./containers/Policy/Policy";
 
 const App = () => {
 	const [navExpanded, setNavExpanded] = useState(true);
@@ -36,9 +37,8 @@ const App = () => {
 			<Route path="/file-drop">
 				<div>File drop</div>
 			</Route>
-			<Route path="/policy">
-				<div>Policy</div>
-			</Route>
+			<Route path="/policy" component={Policy} />
+
 			<Route path="/configuration" component={Config} />
 			<Route path="/users" component={Users} />
 			<Redirect to="/" />
