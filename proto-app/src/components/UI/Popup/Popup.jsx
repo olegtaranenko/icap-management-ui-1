@@ -1,7 +1,12 @@
 import React from "react";
 import classes from "./Popup.module.scss";
 
-const Popup = ({ links, openPopupHover, closePopupHover }) => {
+const Popup = ({
+	links,
+	openPopupHover,
+	closePopupHover,
+	externalStyles,
+}) => {
 	const buttonList = links.map(({ name, icon, onClickButtonHandler }) => {
 		return (
 			<button
@@ -17,7 +22,7 @@ const Popup = ({ links, openPopupHover, closePopupHover }) => {
 	});
 	return (
 		<div
-			className={classes.popup}
+			className={[classes.Popup, externalStyles].join(" ")}
 			onMouseEnter={openPopupHover}
 			onMouseLeave={closePopupHover}
 		>

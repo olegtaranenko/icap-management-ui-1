@@ -172,10 +172,168 @@ const userfileList = [
 	},
 ];
 
+const outcomeFilter = [
+	{
+		id: "outcome",
+		checkboxList: [
+			{
+				type: "checkbox",
+				format: "Safe",
+				name: "docType",
+				id: "outcome-doc-1",
+			},
+			{
+				type: "checkbox",
+				format: "Blocked",
+				name: "docType",
+				id: "outcome-dot-2",
+			},
+			{
+				type: "checkbox",
+				format: "docx",
+				name: "docType",
+				id: "outcome-docx-3",
+			},
+			{
+				type: "checkbox",
+				format: "docm",
+				name: "docType",
+				id: "outcome-docm-4",
+			},
+		],
+	},
+];
+
 export const GlobalStoreState = ({ children }) => {
 	const initialState = {
 		title: "Glasswall React App",
 		userfiles: userfileList,
+		fileFilter: [
+			{
+				id: "microsoftword",
+				filterName: "Microsoft Word",
+				checkboxList: [
+					{
+						id: "microsoftword-doc-1",
+						type: "checkbox",
+						format: "doc",
+						name: "docType",
+						isChecked: false,
+					},
+					{
+						id: "microsoftword-dot-2",
+						type: "radio",
+						format: "dot",
+						name: "docType",
+						isChecked: false,
+					},
+					{
+						id: "microsoftword-docx-3",
+						type: "radio",
+						format: "docx",
+						name: "docType",
+						isChecked: false,
+					},
+					{
+						id: "microsoftword-docm-4",
+						type: "radio",
+						format: "docm",
+						name: "docType",
+						isChecked: false,
+					},
+				],
+			},
+			{
+				id: "microsoftexcel",
+				filterName: "Microsoft Excel",
+				checkboxList: [
+					{
+						id: "microsoftexcel-xlsx-1",
+						type: "radio",
+						format: "xlsx",
+						name: "xlsType",
+						isChecked: false,
+					},
+					{
+						id: "microsoftexcel-xls-2",
+						type: "radio",
+						format: "xls",
+						name: "xlsType",
+						isChecked: false,
+					},
+					{
+						id: "microsoftexcel-xlsm-3",
+						type: "radio",
+						format: "xlsm",
+						name: "xlsType",
+						isChecked: false,
+					},
+				],
+			},
+			{
+				id: "microsoftpowerpoint",
+				filterName: "Microsoft Powerpoint",
+				checkboxList: [
+					{
+						id: "microsoftpowerpoint-ppt-1",
+						type: "radio",
+						format: "ppt",
+						name: "pptType",
+						isChecked: false,
+					},
+					{
+						id: "microsoftpowerpoint-pptx-2",
+						type: "radio",
+						format: "pptx",
+						name: "pptType",
+						isChecked: false,
+					},
+				],
+			},
+			{
+				id: "images",
+				filterName: "Images",
+				checkboxList: [
+					{
+						id: "images-jpeg-1",
+						type: "radio",
+						format: "jpeg",
+						name: "imgType",
+						isChecked: false,
+					},
+					{
+						id: "images-png-2",
+						type: "radio",
+						format: "png",
+						name: "imgType",
+						isChecked: false,
+					},
+					{
+						id: "images-gif-3",
+						type: "radio",
+						format: "gif",
+						name: "imgType",
+						isChecked: false,
+					},
+				],
+			},
+			{
+				id: "pdf",
+				filterName: "",
+				checkboxList: [
+					{
+						id: "pdf-pdf-1",
+						type: "radio",
+						format: "pdf",
+						name: "pdfType",
+						isChecked: false,
+					},
+				],
+			},
+		],
+
+		outcomeFilter: outcomeFilter,
+		selectedFilters: [],
 	};
 
 	const [globalStoreState, dispatch] = useReducer(
@@ -187,12 +345,25 @@ export const GlobalStoreState = ({ children }) => {
 		dispatch({ type: actionTypes.CHANGE_PAGE_TITLE, title: pageTitle });
 	};
 
+	const addFilter = (filter) => {
+		dispatch({ type: actionTypes.ADD_FILTER, filter });
+	};
+
+	const removeFilter = (filter) => {
+		dispatch({ type: actionTypes.REMOVE_FILTER, filter });
+	};
+
 	return (
 		<GlobalStoreContext.Provider
 			value={{
 				title: globalStoreState.title,
 				userfiles: globalStoreState.userfiles,
+				fileFilter: globalStoreState.fileFilter,
+				outcomeFilter: globalStoreState.outcomeFilter,
+				selectedFilters: globalStoreState.selectedFilters,
 				changePageTitleHandler,
+				addFilter,
+				removeFilter,
 			}}
 		>
 			{children}

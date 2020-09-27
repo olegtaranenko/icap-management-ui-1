@@ -96,6 +96,7 @@ const Toolbar = ({ expanded, navExpandedHandler }) => {
 			{isOpen && (
 				<Popup
 					links={accountLinks}
+					externalStyles={classes.popup}
 					openPopupHover={() => setIsOpen(true)}
 					closePopupHover={() => setIsOpen(false)}
 				/>

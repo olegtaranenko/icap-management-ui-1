@@ -1,4 +1,5 @@
 .Filters {
+	position: relative;
 	background: #e6e9ea;
 
 	cursor: pointer;
@@ -85,15 +86,13 @@
 			background-color: #e9ecec;
 
 			transition: all 0.5s;
+
 			&.expanded {
 				margin-top: 2rem;
 				height: 8rem;
 				transition: all 0.5s;
+				padding: 0.3rem 0;
 			}
-
-			//&.expanded > .header::before {
-			//	transform: rotate(45deg);
-			//}
 		}
 	}
 
@@ -119,5 +118,12 @@
 				text-align: left;
 			}
 		}
+	}
+
+	.popupFilter {
+		top: 18rem;
+		left: 24rem;
+		padding: 2rem;
+		z-index: 1000;
 	}
 }
