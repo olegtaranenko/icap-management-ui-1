@@ -1,32 +1,49 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import { FormControl, FormLabel, FormGroup } from "@material-ui/core";
 
-import CheckboxItem from "../../UI/Checkbox/Checkbox";
+import GlobalStoreContext from "../../../context/globalStore/globalStore-context";
 
 import classes from "./Filter.module.scss";
 
-const Filter = ({ type, filterName, checkboxList, style }) => {
-	const [, setSelectedValue] = useState("");
+import CheckboxItem from "../../UI/Checkbox/Checkbox";
 
-	const handleChange = (value) => {
-		setSelectedValue(value);
+const Filter = ({ filter, checkboxList }) => {
+	const { addFilter } = useContext(GlobalStoreContext);
+
+	const handleChange = (selectedCheckbox) => {
+		addFilter(selectedCheckbox);
 	};
 
-	const checkboxes = checkboxList.map(({ id, type, head, name }) => {
-		return (
-			<CheckboxItem
-				key={id}
-				type={type}
-				label={head}
-				name={name}
-				onHandleChange={(evt) => handleChange(evt.target.value)}
-			/>
-		);
-	});
+	const checkboxes = checkboxList.map(
+		({ id, type, format, name, isChecked, titleColor }) => {
+			return (
+				<CheckboxItem
+					key={id}
+					type={type}
+					label={format}
+					name={name}
+					checked={isChecked}
+					filter={filter}
+					backgroundColor={titleColor}
+					onHandleChange={(evt) =>
+						handleChange({
+							value: format,
+							filter: filter,
+							id: id,
+							checked: evt.target.checked,
+							titleColor: titleColor,
+						})
+					}
+				/>
+			);
+		}
+	);
 
 	return (
 		<FormControl component="fieldset" className={classes.Filter}>
-			<FormLabel component="legend">{filterName}</FormLabel>
+			<FormLabel component="legend">
+				{filter === "Outcome" ? "" : filter}
+			</FormLabel>
 			<FormGroup
 				className={classes.formGroup}
 				style={{ flexDirection: "row" }}

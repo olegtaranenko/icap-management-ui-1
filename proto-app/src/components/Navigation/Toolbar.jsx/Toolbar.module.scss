@@ -28,3 +28,12 @@
 	height: 8rem;
 	margin: 3rem 0;
 }
+
+.popup {
+	bottom: 5rem;
+	left: 0.5rem;
+
+	& button {
+		padding-left: 5rem;
+	}
+}

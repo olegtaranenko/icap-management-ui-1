@@ -41,9 +41,9 @@ const History = () => {
 							<TableCell>Updated By</TableCell>
 						</TableRow>
 					</TableHead>
-					<TableBody className={classes.tbody}> {rows}</TableBody>
-					<Pagination />
-				</Table>
+					<TableBody className={classes.tbody}>{rows}</TableBody>
+				</Table>{" "}
+				<Pagination />
 			</div>
 		</div>
 	);
