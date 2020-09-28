@@ -11,3 +11,10 @@
 
 	background: linear-gradient(-45deg, #196480, #0c3450);
 }
+
+
+@media(max-width: 992px) {
+	.Auth {
+		padding-top: 0;
+	}
+}

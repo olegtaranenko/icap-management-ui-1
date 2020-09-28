@@ -20,10 +20,18 @@ export const AuthState = ({ children }) => {
 	const login = () => {
 		dispatch({ type: actionTypes.AUTH_LOGIN });
 	};
+	const logout = () => {
+		dispatch({ type: actionTypes.AUTH_LOGOUT });
+	};
 
 	return (
 		<AuthContext.Provider
-			value={{ isAuth: authState.isAuthenticated, login, switchAuthMode }}
+			value={{
+				isAuth: authState.isAuthenticated,
+				login,
+				logout,
+				switchAuthMode,
+			}}
 		>
 			{children}
 		</AuthContext.Provider>

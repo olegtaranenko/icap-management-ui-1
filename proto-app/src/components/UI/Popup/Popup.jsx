@@ -1,15 +1,32 @@
 import React from "react";
 import classes from "./Popup.module.scss";
 
-const Popup = ({ openPopup, closePopup }) => {
+const Popup = ({
+	links,
+	openPopupHover,
+	closePopupHover,
+	externalStyles,
+}) => {
+	const buttonList = links.map(({ name, icon, onClickButtonHandler }) => {
+		return (
+			<button
+				key={name}
+				onClick={onClickButtonHandler}
+				style={{
+					backgroundImage: `url(${icon})`,
+				}}
+			>
+				<p>{name}</p>
+			</button>
+		);
+	});
 	return (
 		<div
-			className={classes.popup}
-			onMouseEnter={openPopup}
-			onMouseLeave={closePopup}
+			className={[classes.Popup, externalStyles].join(" ")}
+			onMouseEnter={openPopupHover}
+			onMouseLeave={closePopupHover}
 		>
-			<button>Log out</button>
-			<button>Change password</button>
+			{buttonList}
 		</div>
 	);
 };

@@ -1,0 +1,88 @@
+.Modal {
+	position: absolute;
+	z-index: 999;
+	left: 50%;
+	top: 50%;
+
+	transform: translate(-50%, -50%);
+
+	min-height: 80%;
+	min-width: 80%;
+
+	overflow: hidden;
+	background-color: #fff;
+	opacity: 1;
+	border: 1px solid #b6bfc9;
+	border-radius: 0.6rem;
+	box-shadow: 0 3px 16px 1.6px rgba(0, 0, 0, 0.34);
+	transition: 0.5s all;
+
+	& header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+
+		width: 100%;
+		height: 4rem;
+
+		color: #196480;
+		background: #e6e9ea;
+
+		& span {
+			padding: 0.5rem 1.5rem;
+			margin-right: 2rem;
+
+			text-transform: uppercase;
+
+			color: #fff;
+			background-color: rgb(16, 218, 124);
+
+			border-radius: 15px;
+		}
+	}
+
+	& .inner {
+		padding: 3rem 1rem;
+		display: flex;
+		flex-direction: column;
+
+		& .block {
+			border: 1px solid #b6bfc9;
+			border-radius: 0.6rem;
+			overflow: hidden;
+			margin-bottom: 1.5rem;
+			padding: 1rem;
+
+			& h3 {
+				margin: 0;
+				padding: 0;
+				line-height: 3rem;
+				border-bottom: 1px solid #b6bfc9;
+			}
+		}
+	}
+
+	& .buttonClose {
+		margin-right: 1rem;
+	}
+
+	& .table {
+		& thead th {
+			position: relative;
+
+			padding: 1rem;
+
+			font-size: 1.2rem;
+			color: #196480;
+			border-bottom: 1px solid #54e0e8;
+		}
+		& tbody {
+			& td {
+				font-size: 1.2rem;
+			}
+			& td .noborder {
+				border-bottom: none;
+			}
+		}
+	}
+}
