@@ -32,7 +32,7 @@ const RequestHistory = () => {
 		setOpenModal(false);
 	};
 
-	const { userfiles } = useContext(GlobalStoreContext);
+	const { userfiles, selectedFilters } = useContext(GlobalStoreContext);
 
 	const getSortedRows = (rows, sortLabel) => {
 		let sortedRows;
@@ -51,15 +51,6 @@ const RequestHistory = () => {
 					rows.sort((a, b) => {
 						if (a.props.fileId < b.props.fileId) return -1;
 						if (a.props.fileId > b.props.fileId) return 1;
-						return 0;
-					})
-				);
-				break;
-			case "filename":
-				setSortedRows(
-					rows.sort((a, b) => {
-						if (a.props.name < b.props.name) return -1;
-						if (a.props.name > b.props.name) return 1;
 						return 0;
 					})
 				);
@@ -88,13 +79,21 @@ const RequestHistory = () => {
 				sortedRows = rows;
 				break;
 		}
-
 		return sortedRows;
 	};
 
-	const fileInfo = userfiles.find((it) => it.id === rowId);
+	let filteredUserfiles = userfiles;
 
-	const rows = userfiles.map(
+	if (selectedFilters.length > 0) {
+		filteredUserfiles = userfiles.filter(
+			(file) =>
+				file.type.toLowerCase() === selectedFilters[0].value.toLowerCase()
+		);
+	}
+
+	const fileInfo = filteredUserfiles.find((it) => it.id === rowId);
+
+	const rows = filteredUserfiles.map(
 		({ id, timestamp, fileId, name, type, outcome }) => {
 			return (
 				<FileRow
@@ -129,14 +128,6 @@ const RequestHistory = () => {
 							<TableCell>
 								<TableSortLabel onClick={() => getSortedRows(rows, "fileId")}>
 									File ID
-								</TableSortLabel>
-							</TableCell>
-
-							<TableCell>
-								<TableSortLabel
-									onClick={() => getSortedRows(rows, "filename")}
-								>
-									Filename
 								</TableSortLabel>
 							</TableCell>
 

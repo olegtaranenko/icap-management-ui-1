@@ -88,10 +88,12 @@
 			transition: all 0.5s;
 
 			&.expanded {
+				height: 100%;
+				min-height: 8rem;
+
 				margin-top: 2rem;
-				height: 8rem;
 				transition: all 0.5s;
-				padding: 0.3rem 0;
+				//padding: 0.3rem 0;
 			}
 		}
 	}

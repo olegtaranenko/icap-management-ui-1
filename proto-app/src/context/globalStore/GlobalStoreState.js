@@ -175,30 +175,42 @@ const userfileList = [
 const outcomeFilter = [
 	{
 		id: "outcome",
+		filterName: "Outcome",
 		checkboxList: [
 			{
 				type: "checkbox",
 				format: "Safe",
 				name: "docType",
-				id: "outcome-doc-1",
+				titleColor: "#91CAA8",
+				id: "outcome-safe-1",
 			},
 			{
 				type: "checkbox",
 				format: "Blocked",
 				name: "docType",
-				id: "outcome-dot-2",
+				titleColor: "#E6CC70",
+				id: "outcome-blocked-2",
 			},
 			{
 				type: "checkbox",
-				format: "docx",
+				format: "Dangerous",
 				name: "docType",
-				id: "outcome-docx-3",
+				titleColor: "#DF9F81",
+				id: "outcome-dangerous-3",
 			},
 			{
 				type: "checkbox",
-				format: "docm",
+				format: "Checked",
 				name: "docType",
-				id: "outcome-docm-4",
+				titleColor: "#86C1CB",
+				id: "outcome-checked-4",
+			},
+			{
+				type: "checkbox",
+				format: "Unclassified",
+				name: "docType",
+				titleColor: "#A7A3C8",
+				id: "outcome-unclassified-5",
 			},
 		],
 	},
@@ -222,21 +234,21 @@ export const GlobalStoreState = ({ children }) => {
 					},
 					{
 						id: "microsoftword-dot-2",
-						type: "radio",
+						type: "checkbox",
 						format: "dot",
 						name: "docType",
 						isChecked: false,
 					},
 					{
 						id: "microsoftword-docx-3",
-						type: "radio",
+						type: "checkbox",
 						format: "docx",
 						name: "docType",
 						isChecked: false,
 					},
 					{
 						id: "microsoftword-docm-4",
-						type: "radio",
+						type: "checkbox",
 						format: "docm",
 						name: "docType",
 						isChecked: false,
@@ -249,21 +261,21 @@ export const GlobalStoreState = ({ children }) => {
 				checkboxList: [
 					{
 						id: "microsoftexcel-xlsx-1",
-						type: "radio",
+						type: "checkbox",
 						format: "xlsx",
 						name: "xlsType",
 						isChecked: false,
 					},
 					{
 						id: "microsoftexcel-xls-2",
-						type: "radio",
+						type: "checkbox",
 						format: "xls",
 						name: "xlsType",
 						isChecked: false,
 					},
 					{
 						id: "microsoftexcel-xlsm-3",
-						type: "radio",
+						type: "checkbox",
 						format: "xlsm",
 						name: "xlsType",
 						isChecked: false,
@@ -276,14 +288,14 @@ export const GlobalStoreState = ({ children }) => {
 				checkboxList: [
 					{
 						id: "microsoftpowerpoint-ppt-1",
-						type: "radio",
+						type: "checkbox",
 						format: "ppt",
 						name: "pptType",
 						isChecked: false,
 					},
 					{
 						id: "microsoftpowerpoint-pptx-2",
-						type: "radio",
+						type: "checkbox",
 						format: "pptx",
 						name: "pptType",
 						isChecked: false,
@@ -296,21 +308,21 @@ export const GlobalStoreState = ({ children }) => {
 				checkboxList: [
 					{
 						id: "images-jpeg-1",
-						type: "radio",
+						type: "checkbox",
 						format: "jpeg",
 						name: "imgType",
 						isChecked: false,
 					},
 					{
 						id: "images-png-2",
-						type: "radio",
+						type: "checkbox",
 						format: "png",
 						name: "imgType",
 						isChecked: false,
 					},
 					{
 						id: "images-gif-3",
-						type: "radio",
+						type: "checkbox",
 						format: "gif",
 						name: "imgType",
 						isChecked: false,
@@ -319,11 +331,11 @@ export const GlobalStoreState = ({ children }) => {
 			},
 			{
 				id: "pdf",
-				filterName: "",
+				filterName: "Adobe",
 				checkboxList: [
 					{
 						id: "pdf-pdf-1",
-						type: "radio",
+						type: "checkbox",
 						format: "pdf",
 						name: "pdfType",
 						isChecked: false,

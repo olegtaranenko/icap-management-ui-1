@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { FormControl, FormLabel, FormGroup } from "@material-ui/core";
 
 import GlobalStoreContext from "../../../context/globalStore/globalStore-context";
@@ -15,7 +15,7 @@ const Filter = ({ filter, checkboxList }) => {
 	};
 
 	const checkboxes = checkboxList.map(
-		({ id, type, format, name, isChecked }) => {
+		({ id, type, format, name, isChecked, titleColor }) => {
 			return (
 				<CheckboxItem
 					key={id}
@@ -24,12 +24,15 @@ const Filter = ({ filter, checkboxList }) => {
 					name={name}
 					value={format}
 					checked={isChecked}
+					filter={filter}
+					backgroundColor={titleColor}
 					onHandleChange={(evt) =>
 						handleChange({
 							value: evt.target.value,
 							filter: filter,
 							id: id,
 							checked: evt.target.checked,
+							titleColor: titleColor,
 						})
 					}
 				/>
@@ -39,7 +42,9 @@ const Filter = ({ filter, checkboxList }) => {
 
 	return (
 		<FormControl component="fieldset" className={classes.Filter}>
-			<FormLabel component="legend">{filter}</FormLabel>
+			<FormLabel component="legend">
+				{filter === "Outcome" ? "" : filter}
+			</FormLabel>
 			<FormGroup
 				className={classes.formGroup}
 				style={{ flexDirection: "row" }}

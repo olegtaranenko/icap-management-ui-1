@@ -9,12 +9,14 @@ const changePageTitle = (state, title) => {
 const _checkboxChange = (updateFilter, changeFilter) => {
 	updateFilter.map((filter) => {
 		if (changeFilter.filter === filter.filterName) {
-			return filter.checkboxList.map((checkbox) => {
+			filter.checkboxList.map((checkbox) => {
 				if (checkbox.id === changeFilter.id) {
-					return (checkbox.isChecked = !checkbox.isChecked);
+					checkbox.isChecked = !checkbox.isChecked;
 				}
+				return null;
 			});
 		}
+		return null;
 	});
 };
 
@@ -23,7 +25,14 @@ const addFilterToSelected = (state, addedFilter) => {
 
 	_checkboxChange([...state.fileFilter], addedFilter);
 
-	if (updatedList.length <= 0 || addedFilter.checked === true) {
+	const included = updatedList.some((filter) => {
+		return filter.id === addedFilter.id;
+	});
+
+	if (
+		updatedList.length <= 0 ||
+		(addedFilter.checked === true && !included)
+	) {
 		updatedList.push(addedFilter);
 	} else {
 		updatedList = updatedList.filter(
@@ -43,10 +52,12 @@ const removeFilterFromSelected = (state, removedFilter) => {
 		if (removedFilter.filter === filter.filterName) {
 			filter.checkboxList.map((checkbox) => {
 				if (checkbox.id === removedFilter.id) {
-					return (checkbox.isChecked = !checkbox.isChecked);
+					checkbox.isChecked = false;
 				}
+				return null;
 			});
 		}
+		return null;
 	});
 
 	const updatedList = [...state.selectedFilters].filter(

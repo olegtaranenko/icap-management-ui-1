@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import GlobalStoreContext from "../../context/globalStore/globalStore-context";
 
 import classes from "./Filters.module.scss";
@@ -44,7 +44,6 @@ const Filters = () => {
 			},
 		},
 		{ name: "File ID" },
-		{ name: "File Name" },
 	];
 
 	const openFilterRowHandler = () => {
@@ -79,19 +78,20 @@ const Filters = () => {
 			break;
 	}
 
-	console.log(selectedFilters);
-
-	const selectedFiltersArr = selectedFilters.map(({ id, value, filter }) => {
-		return (
-			<SelectedFilter
-				key={id}
-				id={id}
-				filter={filter}
-				value={value}
-				remove={removeFilter}
-			/>
-		);
-	});
+	const selectedFiltersArr = selectedFilters.map(
+		({ id, value, filter, titleColor }) => {
+			return (
+				<SelectedFilter
+					key={id}
+					id={id}
+					filter={filter}
+					value={value}
+					titleColor={titleColor}
+					remove={removeFilter}
+				/>
+			);
+		}
+	);
 
 	return (
 		<section className={classes.Filters}>
