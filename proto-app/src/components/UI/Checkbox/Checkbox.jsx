@@ -7,7 +7,6 @@ import classes from "./Checkbox.module.scss";
 const Checkbox = ({
 	label,
 	onHandleChange,
-	value,
 	checked,
 	filter,
 	backgroundColor,
@@ -18,15 +17,19 @@ const Checkbox = ({
 		checkbox = (
 			<MuiCheckbox
 				disableRipple
+				onChange={onHandleChange}
 				checkedIcon={<span className={classes.icon} />}
 				icon={<span className={classes.icon} />}
-				//color="primary"
-				onChange={onHandleChange}
 			/>
 		);
 	} else {
 		checkbox = (
-			<MuiCheckbox disableRipple color="primary" onChange={onHandleChange} />
+			<MuiCheckbox
+				disableRipple
+				onChange={onHandleChange}
+				checked={checked}
+				color="primary"
+			/>
 		);
 	}
 
@@ -39,8 +42,6 @@ const Checkbox = ({
 					: [classes.Checkbox, classes.outcome].join(" ")
 			}
 			label={label}
-			value={value}
-			checked={checked}
 			labelPlacement={filter !== "Outcome" ? "start" : "end"}
 			control={checkbox}
 		/>

@@ -13,7 +13,6 @@ import Input from "../../../components/UI/Input/Input";
 
 const User = ({ name, email, groupList }) => {
 	const [userName, setUserName] = useState(name);
-	// const [padlockOpen, setPadlockOpen] = useState(false);
 
 	const changeInput = (name) => {
 		setUserName(name);
@@ -41,8 +40,8 @@ const User = ({ name, email, groupList }) => {
 				</div>
 				<div className={classes.td}>
 					<TickIcon stroke="#73AE6F" />
-					<div className={classes.padlock}/>
-{/*
+					<div className={classes.padlock} />
+					{/*
 					<div className={classes.padlock}>{padlockOpen ?
 						<div onClick={() => setPadlockOpen(false)} className={classes.open}>
 							<PadlockBarIcon />

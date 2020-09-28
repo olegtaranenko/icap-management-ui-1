@@ -8,10 +8,10 @@ const changePageTitle = (state, title) => {
 
 const _checkboxChange = (updateFilter, changeFilter) => {
 	updateFilter.map((filter) => {
-		if (changeFilter.filter === filter.filterName) {
+		if (filter.filterName === changeFilter.filter) {
 			filter.checkboxList.map((checkbox) => {
 				if (checkbox.id === changeFilter.id) {
-					checkbox.isChecked = !checkbox.isChecked;
+					checkbox.isChecked = changeFilter.checked;
 				}
 				return null;
 			});
@@ -23,11 +23,11 @@ const _checkboxChange = (updateFilter, changeFilter) => {
 const addFilterToSelected = (state, addedFilter) => {
 	let updatedList = [...state.selectedFilters];
 
-	_checkboxChange([...state.fileFilter], addedFilter);
-
 	const included = updatedList.some((filter) => {
 		return filter.id === addedFilter.id;
 	});
+
+	_checkboxChange([...state.fileFilter], addedFilter);
 
 	if (
 		updatedList.length <= 0 ||
