@@ -1,13 +1,15 @@
 .Filters {
+	position: relative;
 	background: #e6e9ea;
+
+	cursor: pointer;
 
 	& h2 {
 		margin: 0;
 		padding: 0;
 		font-size: 1.4rem;
-
-		//line-height: 3rem;
 	}
+
 	& .addFilter {
 		max-width: 11rem;
 		color: #4592b0;
@@ -18,11 +20,7 @@
 		border: #4592b0 1px solid;
 	}
 
-	cursor: pointer;
-
 	.wrap {
-		//display: flex;
-		//justify-content: space-between;
 		padding: 1rem;
 		margin: 2rem;
 		background-color: #fff;
@@ -35,6 +33,24 @@
 		position: relative;
 		display: flex;
 		justify-content: space-between;
+
+		&::before {
+			content: "";
+			position: absolute;
+			width: 1rem;
+			height: 100%;
+			top: 0;
+			right: 0;
+			background-repeat: no-repeat;
+			background-position: center center;
+			background-image: url("../../assets/svg/filters/expand-arrow-grey.svg");
+			transition: all 0.3s;
+		}
+
+		&.rotate::before {
+			transform: rotate(-90deg);
+			transition: all 0.3s;
+		}
 
 		& .moreFilters {
 			position: absolute;
@@ -70,10 +86,14 @@
 			background-color: #e9ecec;
 
 			transition: all 0.5s;
+
 			&.expanded {
+				height: 100%;
+				min-height: 8rem;
+
 				margin-top: 2rem;
-				height: 8rem;
 				transition: all 0.5s;
+				//padding: 0.3rem 0;
 			}
 		}
 	}
@@ -100,5 +120,12 @@
 				text-align: left;
 			}
 		}
+	}
+
+	.popupFilter {
+		top: 18rem;
+		left: 24rem;
+		padding: 2rem;
+		z-index: 1000;
 	}
 }

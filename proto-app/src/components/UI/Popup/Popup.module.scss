@@ -1,8 +1,7 @@
-.popup {
+.Popup {
 	position: absolute;
 	z-index: 99;
-	bottom: 12rem;
-	left: 0.5rem;
+
 	padding: 2rem;
 
 	background-color: #fff;
@@ -13,8 +12,6 @@
 	& button {
 		display: flex;
 		width: 20rem;
-
-		padding-left: 5rem;
 
 		text-decoration: none;
 		text-transform: uppercase;

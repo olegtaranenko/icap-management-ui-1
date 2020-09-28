@@ -20,9 +20,6 @@ const FileRow = ({
 				{fileId}
 			</TableCell>
 			<TableCell component="th" scope="row" id={id}>
-				{name}
-			</TableCell>
-			<TableCell component="th" scope="row" id={id}>
 				{type}
 			</TableCell>
 			<TableCell component="th" scope="row" id={id}>
