@@ -10,8 +10,8 @@ import CheckboxItem from "../../UI/Checkbox/Checkbox";
 const Filter = ({ filter, checkboxList }) => {
 	const { addFilter } = useContext(GlobalStoreContext);
 
-	const handleChange = (selected) => {
-		addFilter(selected);
+	const handleChange = (selectedCheckbox) => {
+		addFilter(selectedCheckbox);
 	};
 
 	const checkboxes = checkboxList.map(
@@ -22,13 +22,12 @@ const Filter = ({ filter, checkboxList }) => {
 					type={type}
 					label={format}
 					name={name}
-					value={format}
 					checked={isChecked}
 					filter={filter}
 					backgroundColor={titleColor}
 					onHandleChange={(evt) =>
 						handleChange({
-							value: evt.target.value,
+							value: format,
 							filter: filter,
 							id: id,
 							checked: evt.target.checked,

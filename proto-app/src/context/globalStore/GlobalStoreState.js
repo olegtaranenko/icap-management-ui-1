@@ -172,49 +172,49 @@ const userfileList = [
 	},
 ];
 
-const outcomeFilter = [
-	{
-		id: "outcome",
-		filterName: "Outcome",
-		checkboxList: [
-			{
-				type: "checkbox",
-				format: "Safe",
-				name: "docType",
-				titleColor: "#91CAA8",
-				id: "outcome-safe-1",
-			},
-			{
-				type: "checkbox",
-				format: "Blocked",
-				name: "docType",
-				titleColor: "#E6CC70",
-				id: "outcome-blocked-2",
-			},
-			{
-				type: "checkbox",
-				format: "Dangerous",
-				name: "docType",
-				titleColor: "#DF9F81",
-				id: "outcome-dangerous-3",
-			},
-			{
-				type: "checkbox",
-				format: "Checked",
-				name: "docType",
-				titleColor: "#86C1CB",
-				id: "outcome-checked-4",
-			},
-			{
-				type: "checkbox",
-				format: "Unclassified",
-				name: "docType",
-				titleColor: "#A7A3C8",
-				id: "outcome-unclassified-5",
-			},
-		],
-	},
-];
+//const outcomeFilter = [
+//	{
+//		id: "outcome",
+//		filterName: "Outcome",
+//		checkboxList: [
+//			{
+//				type: "checkbox",
+//				format: "Safe",
+//				name: "docType",
+//				titleColor: "#91CAA8",
+//				id: "outcome-safe-1",
+//			},
+//			{
+//				type: "checkbox",
+//				format: "Blocked",
+//				name: "docType",
+//				titleColor: "#E6CC70",
+//				id: "outcome-blocked-2",
+//			},
+//			{
+//				type: "checkbox",
+//				format: "Dangerous",
+//				name: "docType",
+//				titleColor: "#DF9F81",
+//				id: "outcome-dangerous-3",
+//			},
+//			{
+//				type: "checkbox",
+//				format: "Checked",
+//				name: "docType",
+//				titleColor: "#86C1CB",
+//				id: "outcome-checked-4",
+//			},
+//			{
+//				type: "checkbox",
+//				format: "Unclassified",
+//				name: "docType",
+//				titleColor: "#A7A3C8",
+//				id: "outcome-unclassified-5",
+//			},
+//		],
+//	},
+//];
 
 export const GlobalStoreState = ({ children }) => {
 	const initialState = {
@@ -231,6 +231,7 @@ export const GlobalStoreState = ({ children }) => {
 						format: "doc",
 						name: "docType",
 						isChecked: false,
+						titleColor: "",
 					},
 					{
 						id: "microsoftword-dot-2",
@@ -343,8 +344,54 @@ export const GlobalStoreState = ({ children }) => {
 				],
 			},
 		],
-
-		outcomeFilter: outcomeFilter,
+		outcomeFilter: [
+			{
+				id: "outcome",
+				filterName: "Outcome",
+				checkboxList: [
+					{
+						id: "outcome-safe-1",
+						type: "checkbox",
+						format: "Safe",
+						name: "docType",
+						titleColor: "#91CAA8",
+						isChecked: false,
+					},
+					{
+						type: "checkbox",
+						format: "Blocked",
+						name: "docType",
+						titleColor: "#E6CC70",
+						id: "outcome-blocked-2",
+						isChecked: false,
+					},
+					{
+						type: "checkbox",
+						format: "Dangerous",
+						name: "docType",
+						titleColor: "#DF9F81",
+						id: "outcome-dangerous-3",
+						isChecked: false,
+					},
+					{
+						type: "checkbox",
+						format: "Checked",
+						name: "docType",
+						titleColor: "#86C1CB",
+						id: "outcome-checked-4",
+						isChecked: false,
+					},
+					{
+						type: "checkbox",
+						format: "Unclassified",
+						name: "docType",
+						titleColor: "#A7A3C8",
+						id: "outcome-unclassified-5",
+						isChecked: false,
+					},
+				],
+			},
+		],
 		selectedFilters: [],
 	};
 
