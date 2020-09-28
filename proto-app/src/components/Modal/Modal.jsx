@@ -27,7 +27,7 @@ const Modal = ({ data, onClose, styleModal }) => {
 		<>
 			<section className={classes.Modal} style={styleModal}>
 				<header className={classes.header}>
-					<h2>Request Ditails: {name}</h2>
+					<h2>Request Details: {name}</h2>
 					<div>
 						<span>{outcome}</span>
 						<button type="button" onClick={onClose}>
