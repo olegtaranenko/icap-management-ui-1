@@ -21,7 +21,7 @@ import RequestHistory from "./containers/RequestHistory/RequestHistory";
 import Policy from "./containers/Policy/Policy";
 
 // TODO: Remove from production, for prototype only
-//import Sow from "./containers/Sow/Sow";
+import Sow from "./components/Sow/Sow";
 
 const App = () => {
 	const [navExpanded, setNavExpanded] = useState(true);
@@ -30,11 +30,6 @@ const App = () => {
 
 	let routes = (
 		<Switch>
-			{/* // TODO: Remove from production, for prototype only */}
-			<Route path="/sow">
-				{/* <Sow /> */}
-			</Route>
-
 			<Route path="/dashboard">
 				<div>dashboard</div>
 			</Route>
@@ -59,6 +54,10 @@ const App = () => {
 				{!isAuth && (
 					<Auth>
 						<Switch>
+
+							{/* // TODO: Remove from production, for prototype only */}
+							<Route path="/sow" component={Sow}/>
+
 							<Route path="/pass-reminder" component={PassReminder} />
 							<Route path="/" component={Login} exact />
 							<Redirect to="/" />

@@ -90,7 +90,7 @@ const Toolbar = ({ expanded, navExpandedHandler }) => {
 			name: "Change password",
 			icon: changePassIcon,
 			onClickButtonHandler: () => alert("Change password"),
-		},
+		}
 	];
 
 	return (
