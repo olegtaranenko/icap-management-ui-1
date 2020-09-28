@@ -2,14 +2,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import { ReactComponent as IconPass } from "../../assets/password-icon.svg";
-import iconUser from "../../assets/user-icon.svg";
-
 import classes from "./Sow.module.scss";
 
 import GlasswallLogo from "../GlasswallLogo/GlasswallLogo";
 import Button from "../UI/Button/Button";
-import Input from "../UI/Input/Input";
 
 
 const requirementsData = [
