@@ -10,9 +10,6 @@ import { ExpandButton } from "../../GlasswallNav/GlasswallNav";
 import UserLink from "../../UI/UserLink/UserLink";
 import Popup from "../../UI/Popup/Popup";
 
-// TODO: Remove from production, for prototype only
-import sowIcon from "../../../assets/menu-icons/icon-tenant.svg";
-
 import usersIcon from "../../../assets/menu-icons/icon-users.svg";
 import releaseIcon from "../../../assets/menu-icons/icon-release.svg";
 import policy from "../../../assets/menu-icons/icon-policies.svg";
@@ -24,16 +21,6 @@ import logoutIcon from "../../../assets/svg/account-icons/logout-icon.svg";
 import changePassIcon from "../../../assets/svg/account-icons/change-password-icon.svg";
 
 const navLinks = [
-	
-	// TODO: Remove from production, for prototype only	
-	{
-		link: "/sow",
-		name: "SOW",
-		icon: sowIcon,
-		id: "id-sow",
-		exact: true
-	},
-
 	{
 		link: "/dashboard",
 		name: "Dashboard",

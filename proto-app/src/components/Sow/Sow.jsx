@@ -63,7 +63,7 @@ const Sow = ({ onLoginHandler }) => {
             <GlasswallLogo className={classes.logo} />
             <div className={classes.wrapForm}>
                 <h2 className={classes.heading}>
-                    Requirements from the Scheme of Work
+                    Requirements from the SOW Document
 				    </h2>
                 <p className={classes.message}>
                     The abridged requirements document can be
@@ -73,12 +73,6 @@ const Sow = ({ onLoginHandler }) => {
                         rel="noopener noreferrer">here.</a>
                 </p>
 
-                <table className={classes.requirementsTable}>
-                    <tbody>
-                        {requirementsTableRows}
-                    </tbody>
-                </table>
-
                 <form>
                     <div className={classes.wrapButtons}>
                         <Link to={"/"}>
@@ -86,6 +80,21 @@ const Sow = ({ onLoginHandler }) => {
                         </Link>
                     </div>
                 </form>
+
+                <table className={classes.requirementsTable}>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Title</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {requirementsTableRows}
+                    </tbody>
+                </table>
+
+                
             </div>
         </section>
     );
