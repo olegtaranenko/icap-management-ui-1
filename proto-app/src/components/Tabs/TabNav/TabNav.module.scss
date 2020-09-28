@@ -3,6 +3,8 @@
 	width: 100%;
 	height: 100%;
 
+	border-radius: 0.6rem;
+
 	& ul {
 		display: flex;
 		padding-bottom: 1rem;
@@ -11,20 +13,18 @@
 
 .link {
 	display: flex;
-	width: 80%;
+	width: 20%;
 	height: 5rem;
 
 	margin-bottom: 1rem;
 
-	transition: all 0.3s ease-in;
+	&:last-child {
+		flex-grow: 1;
+	}
+
 	& img {
 		width: 2rem;
 		margin-right: 1rem;
-	}
-
-	&.active {
-		transition: all 0.3s ease-in;
-		width: 20%;
 	}
 }
 
@@ -49,8 +49,6 @@
 .wrap {
 	height: 100%;
 	background-color: #ffffff;
-	//!
-	background: #d60909;
 }
 
 .tabwrap {

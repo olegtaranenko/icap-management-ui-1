@@ -1,18 +1,14 @@
-.RequestHistory {
-	background: #e6e9ea;
-}
-
-.wrapTable {
+.History {
 	position: relative;
+
+	width: 100%;
+	height: 100%;
 	padding: 0 3rem;
-
-	background: #ffffff;
-
-	//border: 1px solid #b6bfc9;
-	//border-radius: 0.6rem;
 }
 
 .table {
+	height: 100%;
+	background: #ffffff;
 	color: #196480;
 
 	& th {
@@ -41,5 +37,11 @@
 	& .tbody {
 		border-top: 1px solid #54e0e8;
 		border-bottom: 1px solid #54e0e8;
+
+		& button {
+			font-size: 1.2rem;
+			line-height: 2rem;
+			background: #196480;
+		}
 	}
 }

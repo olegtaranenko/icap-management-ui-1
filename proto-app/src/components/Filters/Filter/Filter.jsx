@@ -1,12 +1,12 @@
-import React from "react";
-import CheckboxItem from "../../../components/UI/Checkbox/Checkbox";
-
+import React, { useState } from "react";
 import { FormControl, FormLabel, FormGroup } from "@material-ui/core";
+
+import CheckboxItem from "../../UI/Checkbox/Checkbox";
 
 import classes from "./Filter.module.scss";
 
 const Filter = ({ type, filterName, checkboxList, style }) => {
-	const [selectedValue, setSelectedValue] = React.useState("");
+	const [, setSelectedValue] = useState("");
 
 	const handleChange = (value) => {
 		setSelectedValue(value);
@@ -15,12 +15,10 @@ const Filter = ({ type, filterName, checkboxList, style }) => {
 	const checkboxes = checkboxList.map(({ id, type, head, name }) => {
 		return (
 			<CheckboxItem
-				selectedValue={selectedValue}
 				key={id}
 				type={type}
 				label={head}
 				name={name}
-				id={id}
 				onHandleChange={(evt) => handleChange(evt.target.value)}
 			/>
 		);

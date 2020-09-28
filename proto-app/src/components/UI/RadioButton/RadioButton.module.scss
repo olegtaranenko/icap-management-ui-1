@@ -1,0 +1,46 @@
+.RadioButton {
+	display: flex;
+	flex-direction: column;
+
+	width: 10%;
+
+	font-size: 1.2rem;
+
+	margin-left: 2rem;
+	& span {
+		margin-bottom: 1rem;
+	}
+	.button {
+		display: flex;
+		height: 3.4rem;
+		border: #b6bfc9 1px solid;
+		border-radius: 0.6rem;
+		background-color: #fff;
+		overflow: hidden;
+	}
+
+	& input[type="radio"] {
+		display: none;
+	}
+
+	& input[type="radio"] + label {
+		display: block;
+		line-height: 3.3rem;
+		width: 50%;
+		//min-width: 8rem;
+		//float: left;
+
+		text-align: center;
+
+		cursor: pointer;
+	}
+
+	& input[type="radio"]:first-child + label {
+		border-right: #e6e9ea 1px solid;
+	}
+
+	& input[type="radio"]:checked + label {
+		color: #fff;
+		background-color: #4592b0;
+	}
+}

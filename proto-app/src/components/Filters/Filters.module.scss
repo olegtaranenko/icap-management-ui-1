@@ -1,0 +1,104 @@
+.Filters {
+	background: #e6e9ea;
+
+	& h2 {
+		margin: 0;
+		padding: 0;
+		font-size: 1.4rem;
+
+		//line-height: 3rem;
+	}
+	& .addFilter {
+		max-width: 11rem;
+		color: #4592b0;
+		line-height: 2rem;
+		margin-top: 1rem;
+		margin-left: 1rem;
+		padding: 0 1rem;
+		border: #4592b0 1px solid;
+	}
+
+	cursor: pointer;
+
+	.wrap {
+		//display: flex;
+		//justify-content: space-between;
+		padding: 1rem;
+		margin: 2rem;
+		background-color: #fff;
+		overflow: hidden;
+		background-color: rgba(255, 255, 255, 0.4);
+		border-radius: 2.2rem;
+	}
+
+	.header {
+		position: relative;
+		display: flex;
+		justify-content: space-between;
+
+		& .moreFilters {
+			position: absolute;
+			top: -5px;
+			right: 30px;
+
+			padding: 0.3rem 1rem;
+			margin-bottom: 1rem;
+
+			opacity: 1;
+			background: #4592b0;
+			color: #fff;
+
+			border: #fff 2px solid;
+			border-radius: 1.2rem;
+			box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.15);
+
+			transition: all 0.3s;
+
+			&.hide {
+				right: -10px;
+				opacity: 0;
+				visibility: hidden;
+				transition: all 0.2s;
+			}
+		}
+	}
+
+	.footer {
+		position: relative;
+		& .filters {
+			height: 0;
+			background-color: #e9ecec;
+
+			transition: all 0.5s;
+			&.expanded {
+				margin-top: 2rem;
+				height: 8rem;
+				transition: all 0.5s;
+			}
+		}
+	}
+
+	.filterList {
+		display: flex;
+		flex-direction: column;
+		margin: 1rem 0;
+		& li {
+			width: 15rem;
+			height: 3rem;
+			&:hover {
+				background-color: #e6e9ea;
+				transition: all 0.1s;
+			}
+			& button {
+				border: none;
+				background: none;
+				cursor: pointer;
+				width: 100%;
+				height: 100%;
+				outline: none;
+
+				text-align: left;
+			}
+		}
+	}
+}

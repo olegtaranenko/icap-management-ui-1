@@ -4,24 +4,13 @@ import { FormControlLabel, Checkbox as MuiCheckbox } from "@material-ui/core";
 
 import classes from "./Checkbox.module.scss";
 
-const Checkbox = ({ type, label, selectedValue, onHandleChange, id }) => {
+const Checkbox = ({ label, onHandleChange }) => {
 	return (
 		<FormControlLabel
 			className={classes.Checkbox}
 			label={label}
 			labelPlacement="start"
-			control={
-				type === "checkbox" ? (
-					<MuiCheckbox color="primary" />
-				) : (
-					<MuiCheckbox
-						value={label}
-						color="primary"
-						checked={selectedValue === label}
-						onChange={onHandleChange}
-					/>
-				)
-			}
+			control={<MuiCheckbox color="primary" onChange={onHandleChange} />}
 		/>
 	);
 };

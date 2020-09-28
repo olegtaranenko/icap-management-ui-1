@@ -1,0 +1,37 @@
+.Current {
+	& h2 {
+		padding: 0;
+		margin: 0;
+		font-size: 1.4rem;
+		margin: 1rem;
+	}
+
+	& .inner {
+		margin: 2rem 1rem 3rem 1rem;
+		border: 1px solid #b6bfc9;
+		border-radius: 0.6rem;
+	}
+}
+.header {
+	display: flex;
+	justify-content: space-between;
+
+	width: 100%;
+	padding: 0 2rem;
+
+	border-bottom: 1px solid #b6bfc9;
+
+	& p {
+		margin: 0;
+		line-height: 4rem;
+		text-transform: uppercase;
+	}
+
+	& button {
+		border: 0;
+		outline: none;
+		background: none;
+		font-size: 3rem;
+		color: #498fa7;
+	}
+}
