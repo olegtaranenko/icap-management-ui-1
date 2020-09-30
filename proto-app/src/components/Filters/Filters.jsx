@@ -3,18 +3,26 @@ import GlobalStoreContext from "../../context/globalStore/globalStore-context";
 
 import classes from "./Filters.module.scss";
 
+import checkValidity from "../../shared/checkValidity";
+
 import Button from "../UI/Button/Button";
 import Popup from "../UI/Popup/Popup";
 import PopupFilter from "../UI/PopupFilter/PopupFilter";
 import SelectedFilter from "../UI/SelectedFilter/SelectedFilter";
 import DateAndTimePickers from "../UI/DateAndTimePickers/DateAndTimePickers";
+import Input from "../UI/Input/Input";
 
-const Filters = () => {
+const Filters = ({ popupIsOpen, changeVisibilityPopup }) => {
 	const [openFilterRow, setOpenFilterRow] = useState(false);
-	const [openPopup, setOpenPopup] = useState(false);
 	const [openFilter, setOpenFilter] = useState(null);
+	const [openFileId, setOpenFileId] = useState(false);
+
+	const [fileIdValue, setFileIdValue] = useState("");
+	const [isValid, setIsValid] = useState(false);
+	const [isTouched, setIsTouched] = useState(false);
 
 	const {
+		addFilterInput,
 		fileFilter,
 		outcomeFilter,
 		selectedFilters,
@@ -23,7 +31,6 @@ const Filters = () => {
 
 	const clsList = [classes.filters];
 	const clsMoreFilters = [classes.moreFilters];
-	//const clsHeader = [classes.header];
 	const clsArrow = [classes.arrow];
 
 	if (openFilterRow) {
@@ -35,33 +42,58 @@ const Filters = () => {
 	const filterList = [
 		{
 			name: "File Types",
-			onClickButtonHandler: function () {
+			onClickButtonHandler: () => {
+				setOpenFileId(false);
 				setOpenFilter("File Types");
 			},
 		},
 		{
 			name: "Outcomes",
-			onClickButtonHandler: function () {
+			onClickButtonHandler: () => {
+				setOpenFileId(false);
 				setOpenFilter("Outcomes");
 			},
 		},
-		{ name: "File ID" },
+		{
+			name: "File ID",
+			onClickButtonHandler: () => {
+				setOpenFilter(null);
+				setOpenFileId((prevState) => !prevState);
+			},
+		},
 	];
 
 	const openFilterRowHandler = () => {
 		setOpenFilterRow((prevState) => !prevState);
-		setOpenPopup(false);
+		changeVisibilityPopup(false);
 		setOpenFilter(null);
 	};
 
 	const openPopupHandler = () => {
-		setOpenPopup((prevState) => !prevState);
+		changeVisibilityPopup((prevState) => !prevState);
 		setOpenFilter(null);
 	};
 
 	const closePopupHoverHandler = () => {
-		setOpenPopup(false);
+		changeVisibilityPopup(false);
 		setOpenFilter(null);
+	};
+
+	const inputChangedHandler = (inputValue) => {
+		setFileIdValue(inputValue);
+
+		setIsValid(checkValidity(inputValue));
+
+		setIsTouched(true);
+	};
+
+	const submitHandler = (evt) => {
+		evt.preventDefault();
+		addFilterInput({
+			id: fileIdValue,
+			value: fileIdValue,
+			filter: "File ID",
+		});
 	};
 
 	let filter = null;
@@ -74,7 +106,6 @@ const Filters = () => {
 		case "Outcomes":
 			filter = outcomeFilter;
 			break;
-
 		default:
 			filter = null;
 			break;
@@ -116,33 +147,62 @@ const Filters = () => {
 					<div className={clsList.join(" ")}>
 						<div className={classes.storyLine}>{selectedFiltersArr}</div>
 					</div>
-					{openFilterRow ? (
-						<Button
-							buttonType={"button"}
-							buttonClasses={classes.addFilter}
-							onButtonClick={openPopupHandler}
-						>
-							+ Add Filter
-						</Button>
-					) : null}
+					{openFilterRow && (
+						<div>
+							<Button
+								buttonType={"button"}
+								buttonClasses={classes.addFilter}
+								onButtonClick={openPopupHandler}
+							>
+								+ Add Filter
+							</Button>
+						</div>
+					)}
 				</div>
+
+				{popupIsOpen ? (
+					<>
+						<Popup
+							links={filterList}
+							externalStyles={classes.popup}
+							//openPopupHover={() => changeVisibilityPopup(true)}
+							//closePopupHover={() => changeVisibilityPopup(false)}
+						/>
+						{openFilter && (
+							<PopupFilter
+								filter={filter}
+								selectedFilters={selectedFilters}
+								externalStyles={classes.popupFilter}
+								//openPopupHover={() => changeVisibilityPopup(true)}
+								//closePopupHover={closePopupHoverHandler}
+							/>
+						)}
+						{openFileId && (
+							<form className={classes.fileId} onSubmit={submitHandler}>
+								<Input
+									type="text"
+									name="fileId"
+									externalStyles={classes.inputFileId}
+									placeholder={"File ID"}
+									value={fileIdValue}
+									valid={isValid}
+									touched={isTouched}
+									onChange={(evt) => {
+										inputChangedHandler(evt.target.value);
+									}}
+								/>
+								<button
+									type="submit"
+									className={classes.addButton}
+									disabled={!isValid}
+								>
+									{`+ ADD`}
+								</button>
+							</form>
+						)}
+					</>
+				) : null}
 			</div>
-			{openPopup ? (
-				<Popup
-					links={filterList}
-					openPopupHover={() => setOpenPopup(true)}
-					closePopupHover={() => setOpenPopup(false)}
-				/>
-			) : null}
-			{openFilter && openPopup ? (
-				<PopupFilter
-					filter={filter}
-					selectedFilters={selectedFilters}
-					externalStyles={classes.popupFilter}
-					openPopupHover={() => setOpenPopup(true)}
-					closePopupHover={closePopupHoverHandler}
-				/>
-			) : null}
 		</section>
 	);
 };

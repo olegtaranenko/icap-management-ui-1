@@ -21,14 +21,14 @@
 
 	.wrap {
 		padding: 1rem;
-		margin: 2rem;
+		margin: 2rem 2rem 0 2rem;
 		background-color: #fff;
 		overflow: hidden;
 		background-color: rgba(255, 255, 255, 0.4);
 		border-radius: 2.2rem;
 	}
 
-	.header {
+	& .header {
 		position: relative;
 		display: flex;
 		justify-content: space-between;
@@ -83,7 +83,7 @@
 		}
 	}
 
-	.footer {
+	& .footer {
 		position: relative;
 		& .filters {
 			height: 0;
@@ -102,7 +102,7 @@
 		}
 	}
 
-	.filterList {
+	& .filterList {
 		display: flex;
 		flex-direction: column;
 		margin: 1rem 0;
@@ -126,10 +126,70 @@
 		}
 	}
 
-	.popupFilter {
-		top: 18rem;
-		left: 24rem;
+	& .popup {
+		top: 19.2rem;
+		left: 2rem;
+	}
+
+	& .popupFilter {
+		top: 19.2rem;
+		left: 27rem;
+		z-index: 98;
+
 		padding: 2rem;
-		z-index: 1000;
+	}
+
+	& .fileId {
+		position: absolute;
+		top: 29.2rem;
+		left: 27rem;
+		z-index: 98;
+
+		display: flex;
+
+		width: 45rem;
+		padding: 1rem;
+
+		background-color: #fff;
+		border-radius: 0.3rem;
+		box-shadow: 0 3px 16px 1.6px rgba(0, 0, 0, 0.34);
+		transition: 0.3s opacity, 0.3s transform;
+
+		& .inputFileId {
+			border: 1px solid #b6bfc9;
+			border-radius: 0.3rem;
+
+			padding: 0;
+			margin: 0;
+			color: black;
+
+			&::placeholder {
+				padding-left: 1rem;
+
+				color: #b6bfc9;
+				opacity: 1;
+
+				text-transform: initial;
+			}
+		}
+		& .addButton {
+			margin-left: 1rem;
+			padding: 0 2rem;
+
+			color: #fff;
+			white-space: nowrap;
+			background: #4592b0;
+
+			border: none;
+			border-radius: 0.3rem;
+
+			cursor: pointer;
+
+			&:disabled {
+				opacity: 0.5;
+				color: #ccc;
+				cursor: not-allowed;
+			}
+		}
 	}
 }

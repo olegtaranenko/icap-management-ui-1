@@ -7,14 +7,14 @@ const Input = ({
 	name,
 	value,
 	style,
+	externalStyles,
 	onChange,
 	placeholder,
-	htmlFor,
 }) => {
-	const cls = [classes.Input];
+	const cls = [classes.Input, externalStyles];
 	return (
 		<>
-			<label htmlFor={htmlFor}></label>
+			<label htmlFor={name}></label>
 			<input
 				className={cls.join(" ")}
 				style={style}
