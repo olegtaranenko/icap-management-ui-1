@@ -32,8 +32,13 @@
 		position: relative;
 		display: flex;
 		justify-content: space-between;
+		align-items: center;
 
-		&::before {
+		& .head {
+			display: block;
+		}
+
+		& .arrow::before {
 			content: "";
 			position: absolute;
 			width: 1rem;
@@ -46,14 +51,14 @@
 			transition: all 0.3s;
 		}
 
-		&.rotate::before {
+		& .arrow.rotate::before {
 			transform: rotate(-90deg);
 			transition: all 0.3s;
 		}
 
 		& .moreFilters {
 			position: absolute;
-			top: -5px;
+			top: 0px;
 			right: 30px;
 
 			padding: 0.3rem 1rem;

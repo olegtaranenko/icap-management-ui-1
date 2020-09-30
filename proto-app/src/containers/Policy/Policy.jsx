@@ -13,7 +13,7 @@ const Policy = () => {
 	const tabs = [{ name: "Current" }, { name: "History" }];
 
 	return (
-		<section className={classes.Policy}>
+		<article className={classes.Policy}>
 			<TabNav
 				tabs={tabs}
 				isSelectedTab={selectedTab}
@@ -30,7 +30,7 @@ const Policy = () => {
 					<History />
 				</Tab>
 			</TabNav>
-		</section>
+		</article>
 	);
 };
 

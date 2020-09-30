@@ -32,7 +32,7 @@ const Config = () => {
 	];
 
 	return (
-		<div className={classes.Config}>
+		<article className={classes.Config}>
 			<TabNav
 				tabs={tabs}
 				isSelectedTab={selected}
@@ -58,7 +58,7 @@ const Config = () => {
 				</Tab>
 				<Tab isSelected={selected === "System Settings"}>System Settings</Tab>
 			</TabNav>
-		</div>
+		</article>
 	);
 };
 
