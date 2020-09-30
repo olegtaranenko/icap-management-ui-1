@@ -81,9 +81,7 @@ const Filters = ({ popupIsOpen, changeVisibilityPopup }) => {
 
 	const inputChangedHandler = (inputValue) => {
 		setFileIdValue(inputValue);
-
 		setIsValid(checkValidity(inputValue));
-
 		setIsTouched(true);
 	};
 
@@ -165,20 +163,24 @@ const Filters = ({ popupIsOpen, changeVisibilityPopup }) => {
 						<Popup
 							links={filterList}
 							externalStyles={classes.popup}
-							//openPopupHover={() => changeVisibilityPopup(true)}
-							//closePopupHover={() => changeVisibilityPopup(false)}
+							openPopupHover={() => changeVisibilityPopup(true)}
+							closePopupHover={() => changeVisibilityPopup(false)}
 						/>
 						{openFilter && (
 							<PopupFilter
 								filter={filter}
 								selectedFilters={selectedFilters}
 								externalStyles={classes.popupFilter}
-								//openPopupHover={() => changeVisibilityPopup(true)}
-								//closePopupHover={closePopupHoverHandler}
+								openPopupHover={() => changeVisibilityPopup(true)}
+								closePopupHover={closePopupHoverHandler}
 							/>
 						)}
 						{openFileId && (
-							<form className={classes.fileId} onSubmit={submitHandler}>
+							<form
+								className={classes.fileId}
+								onSubmit={submitHandler}
+								onMouseEnter={() => changeVisibilityPopup(true)}
+							>
 								<Input
 									type="text"
 									name="fileId"
