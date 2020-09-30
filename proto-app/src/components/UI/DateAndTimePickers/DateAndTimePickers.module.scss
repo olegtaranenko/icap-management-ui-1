@@ -1,0 +1,23 @@
+.DateAndTimePickers {
+	display: flex;
+
+	align-items: center;
+
+	height: 2.2rem;
+
+	border: 1px solid #b6bfc9;
+	border-radius: 1.5rem;
+	& span {
+		display: flex;
+		align-items: center;
+
+		height: 100%;
+
+		padding: 0 1rem;
+
+		background: #4592b0;
+		color: #ffffff;
+		border-right: 1px solid #b6bfc9;
+		border-radius: 1.5rem 0 0 1.5rem;
+	}
+}
