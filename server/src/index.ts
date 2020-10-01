@@ -1,5 +1,6 @@
 import express from "express";
 import winston from "winston";
+import path from "path";
 // import http from "http";
 
 const logger = winston.createLogger({
@@ -24,16 +25,40 @@ const logger = winston.createLogger({
 const app = express();
 const port = 8080;
 
-app.get("/", (req, res) => {
-    res.send("Hello world!");
+
+/*
+    TODO: Once the prototype phase is over,
+    Move UI code to the /server directory and stop using the /proto-app code,
+    then we can start using this code
+*/
+
+// const workingDirectory = process.cwd();
+// const tempFrontendDirectory = "temp-frontend";
+
+// app.use(express.static(`${workingDirectory}/${tempFrontendDirectory}/build`));
+
+// app.get("*", (req, res) => {
+//     res.sendFile(path.join(`${workingDirectory}/${tempFrontendDirectory}/build/index.html`));
+// });
+
+
+const workingDirectory = process.cwd();
+const prototypeUiDirectory = workingDirectory.replace("\\server", "") + "/proto-app/build";
+
+app.use(express.static(prototypeUiDirectory));
+
+app.get("*", (req, res) => {
+    res.sendFile(path.join(`${prototypeUiDirectory}/index.html`));
 });
 
 app.listen(port, () => {
-    // tslint:disable-next-line:no-console
-    console.info(`Server is Running at http://localhost:${port}`);
-
     logger.log({
         level: "info",
         message: `env: ${process.env.NODE_ENV}`
+    });
+
+    logger.log({
+        level: "info",
+        message: `Server is Running at http://localhost:${port}`
     });
 });
