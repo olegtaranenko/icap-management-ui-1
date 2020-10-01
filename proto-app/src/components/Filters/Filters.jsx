@@ -7,6 +7,7 @@ import Button from "../UI/Button/Button";
 import Popup from "../UI/Popup/Popup";
 import PopupFilter from "../UI/PopupFilter/PopupFilter";
 import SelectedFilter from "../UI/SelectedFilter/SelectedFilter";
+import DateAndTimePickers from "../UI/DateAndTimePickers/DateAndTimePickers";
 
 const Filters = () => {
 	const [openFilterRow, setOpenFilterRow] = useState(false);
@@ -22,12 +23,13 @@ const Filters = () => {
 
 	const clsList = [classes.filters];
 	const clsMoreFilters = [classes.moreFilters];
-	const clsHeader = [classes.header];
+	//const clsHeader = [classes.header];
+	const clsArrow = [classes.arrow];
 
 	if (openFilterRow) {
 		clsList.push(classes.expanded);
 		clsMoreFilters.push(classes.hide);
-		clsHeader.push(classes.rotate);
+		clsArrow.push(classes.rotate);
 	}
 
 	const filterList = [
@@ -96,9 +98,19 @@ const Filters = () => {
 	return (
 		<section className={classes.Filters}>
 			<div className={classes.wrap}>
-				<div className={clsHeader.join(" ")} onClick={openFilterRowHandler}>
-					<h2>Filters</h2>
-					<span className={clsMoreFilters.join(" ")}>More Filters...</span>
+				<div className={classes.header}>
+					<h2 className={classes.head}>Filters</h2>
+					<DateAndTimePickers />
+					<button
+						className={clsMoreFilters.join(" ")}
+						onClick={openFilterRowHandler}
+					>
+						More Filters...
+					</button>
+					<span
+						onClick={openFilterRowHandler}
+						className={clsArrow.join(" ")}
+					/>
 				</div>
 				<div className={classes.footer}>
 					<div className={clsList.join(" ")}>
