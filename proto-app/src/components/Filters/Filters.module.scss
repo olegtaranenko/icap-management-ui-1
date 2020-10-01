@@ -97,7 +97,6 @@
 
 				margin-top: 2rem;
 				transition: all 0.5s;
-				//padding: 0.3rem 0;
 			}
 		}
 	}
@@ -161,11 +160,11 @@
 
 			padding: 0;
 			margin: 0;
+
+			padding-left: 2rem;
 			color: black;
 
 			&::placeholder {
-				padding-left: 1rem;
-
 				color: #b6bfc9;
 				opacity: 1;
 

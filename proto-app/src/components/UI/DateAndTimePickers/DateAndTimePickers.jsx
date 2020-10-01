@@ -32,7 +32,7 @@ const DateAndTimePickers = () => {
 			<span>Date/Time</span>
 			<form className={classesTextField.container} noValidate>
 				<MuiTextField
-					id="datetime-local"
+					id="datetime-local-left"
 					margin="none"
 					type="datetime-local"
 					defaultValue={earlierDate}
@@ -45,7 +45,7 @@ const DateAndTimePickers = () => {
 			<p>-</p>
 			<form className={classesTextField.container} noValidate>
 				<MuiTextField
-					id="datetime-local"
+					id="datetime-local-right"
 					margin="none"
 					type="datetime-local"
 					defaultValue={currentDate}

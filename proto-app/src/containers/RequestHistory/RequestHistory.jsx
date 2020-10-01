@@ -24,6 +24,8 @@ const RequestHistory = () => {
 	const [rowId, setRowId] = useState(null);
 	const [openPopup, setOpenPopup] = useState(false);
 
+	const { userfiles, selectedFilters } = useContext(GlobalStoreContext);
+
 	const clsWrapTable = [classes.wrapTable];
 
 	if (openPopup) {
@@ -38,8 +40,6 @@ const RequestHistory = () => {
 	const closeInfoModal = () => {
 		setOpenModal(false);
 	};
-
-	const { userfiles, selectedFilters } = useContext(GlobalStoreContext);
 
 	const getSortedRows = (rows, sortLabel) => {
 		let sortedRows;

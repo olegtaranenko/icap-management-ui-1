@@ -143,7 +143,9 @@ const Filters = ({ popupIsOpen, changeVisibilityPopup }) => {
 				</div>
 				<div className={classes.footer}>
 					<div className={clsList.join(" ")}>
-						<div className={classes.storyLine}>{selectedFiltersArr}</div>
+						{openFilterRow && (
+							<div className={classes.storyLine}>{selectedFiltersArr}</div>
+						)}
 					</div>
 					{openFilterRow && (
 						<div>
@@ -185,6 +187,7 @@ const Filters = ({ popupIsOpen, changeVisibilityPopup }) => {
 									type="text"
 									name="fileId"
 									externalStyles={classes.inputFileId}
+									autofocus
 									placeholder={"File ID"}
 									value={fileIdValue}
 									valid={isValid}

@@ -1,5 +1,4 @@
 import { updateObject } from "../../shared/updateObject";
-import { checkValidity } from "../../shared/checkValidity";
 
 import * as actionTypes from "../actionTypes";
 
@@ -54,8 +53,9 @@ const addFilterFromInput = (state, addedFilter) => {
 
 	updateCheckbox.map((filter) => {
 		filter.checkboxList.map((checkbox) => {
-			checkbox.isChecked = false;
+			return (checkbox.isChecked = false);
 		});
+		return null;
 	});
 
 	updatedList = updatedList.filter(
