@@ -8,10 +8,10 @@ import classes from "./Filter.module.scss";
 import CheckboxItem from "../../UI/Checkbox/Checkbox";
 
 const Filter = ({ filter, checkboxList }) => {
-	const { addFilter } = useContext(GlobalStoreContext);
+	const { addFilterCheckbox } = useContext(GlobalStoreContext);
 
 	const handleChange = (selectedCheckbox) => {
-		addFilter(selectedCheckbox);
+		addFilterCheckbox(selectedCheckbox);
 	};
 
 	const checkboxes = checkboxList.map(

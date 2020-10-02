@@ -1,5 +1,6 @@
 .Modal {
-	position: absolute;
+	//position: absolute;
+	position: fixed;
 	z-index: 999;
 	left: 50%;
 	top: 50%;
@@ -23,10 +24,20 @@
 		justify-content: space-between;
 
 		width: 100%;
-		height: 4rem;
+		min-height: 4rem;
+
+		padding: 1rem;
 
 		color: #196480;
 		background: #e6e9ea;
+		& div {
+			display: flex;
+		}
+
+		& h2 {
+			margin: 0;
+			padding: 0;
+		}
 
 		& span {
 			padding: 0.5rem 1.5rem;
@@ -35,29 +46,63 @@
 			text-transform: uppercase;
 
 			color: #fff;
-			background-color: rgb(16, 218, 124);
 
 			border-radius: 15px;
+		}
+		& .buttonClose {
+			position: relative;
 		}
 	}
 
 	& .inner {
+		position: relative;
 		padding: 3rem 1rem;
 		display: flex;
 		flex-direction: column;
 
 		& .block {
+			position: relative;
 			border: 1px solid #b6bfc9;
 			border-radius: 0.6rem;
 			overflow: hidden;
 			margin-bottom: 1.5rem;
 			padding: 1rem;
+			transition: 0.5s all;
 
 			& h3 {
-				margin: 0;
+				margin: 0 0 1rem 0;
 				padding: 0;
-				line-height: 3rem;
-				border-bottom: 1px solid #b6bfc9;
+				line-height: 2rem;
+			}
+			& .wrapArrow {
+				position: absolute;
+				top: 0rem;
+				right: 4rem;
+				width: 100%;
+				height: 4rem;
+
+				& label {
+					width: 100%;
+					height: 100%;
+				}
+			}
+
+			& .arrow::before {
+				content: "";
+				position: absolute;
+				top: 0.5rem;
+				width: 2rem;
+				height: 2rem;
+
+				background-repeat: no-repeat;
+				background-position: center center;
+				background-image: url("../../assets/svg/filters/expand-arrow-grey.svg");
+				transition: all 0.3s;
+			}
+
+			& .arrow.rotate::before {
+				transform: rotate(-90deg);
+				transition: all 0.3s;
 			}
 		}
 	}
@@ -67,6 +112,8 @@
 	}
 
 	& .table {
+		border-top: 1px solid #b6bfc9;
+
 		& thead th {
 			position: relative;
 

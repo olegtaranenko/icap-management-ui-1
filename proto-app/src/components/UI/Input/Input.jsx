@@ -7,14 +7,15 @@ const Input = ({
 	name,
 	value,
 	style,
+	externalStyles,
 	onChange,
 	placeholder,
-	htmlFor,
+	autofocus,
 }) => {
-	const cls = [classes.Input];
+	const cls = [classes.Input, externalStyles];
 	return (
 		<>
-			<label htmlFor={htmlFor}></label>
+			<label htmlFor={name}></label>
 			<input
 				className={cls.join(" ")}
 				style={style}
@@ -23,6 +24,7 @@ const Input = ({
 				value={value}
 				onChange={onChange}
 				placeholder={placeholder}
+				autoFocus={autofocus}
 			/>
 		</>
 	);
