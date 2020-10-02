@@ -8,8 +8,17 @@
 
 	background: #ffffff;
 
+	transition: all 0.5s;
+
 	//border: 1px solid #b6bfc9;
 	//border-radius: 0.6rem;
+
+	&.notActive {
+		opacity: 0.5;
+		filter: blur(0.2rem);
+		pointer-events: none;
+		transition: all 0.5s;
+	}
 }
 
 .table {

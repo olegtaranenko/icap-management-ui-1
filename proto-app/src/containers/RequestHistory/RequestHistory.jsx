@@ -22,6 +22,15 @@ const RequestHistory = () => {
 	const [sortedRows, setSortedRows] = useState(null);
 	const [openModal, setOpenModal] = useState(false);
 	const [rowId, setRowId] = useState(null);
+	const [openPopup, setOpenPopup] = useState(false);
+
+	const { userfiles, selectedFilters } = useContext(GlobalStoreContext);
+
+	const clsWrapTable = [classes.wrapTable];
+
+	if (openPopup) {
+		clsWrapTable.push(classes.notActive);
+	}
 
 	const openInfoModal = (id) => {
 		setOpenModal((prevState) => !prevState);
@@ -31,8 +40,6 @@ const RequestHistory = () => {
 	const closeInfoModal = () => {
 		setOpenModal(false);
 	};
-
-	const { userfiles, selectedFilters } = useContext(GlobalStoreContext);
 
 	const getSortedRows = (rows, sortLabel) => {
 		let sortedRows;
@@ -112,8 +119,8 @@ const RequestHistory = () => {
 
 	return (
 		<article className={classes.RequestHistory}>
-			<Filters />
-			<div className={classes.wrapTable}>
+			<Filters popupIsOpen={openPopup} changeVisibilityPopup={setOpenPopup} />
+			<div className={clsWrapTable.join(" ")}>
 				<Table className={classes.table}>
 					<TableHead>
 						<TableRow>

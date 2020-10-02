@@ -404,8 +404,12 @@ export const GlobalStoreState = ({ children }) => {
 		dispatch({ type: actionTypes.CHANGE_PAGE_TITLE, title: pageTitle });
 	};
 
-	const addFilter = (filter) => {
-		dispatch({ type: actionTypes.ADD_FILTER, filter });
+	const addFilterCheckbox = (filter) => {
+		dispatch({ type: actionTypes.ADD_FILTER_FROM_CHECKBOXES, filter });
+	};
+
+	const addFilterInput = (filter) => {
+		dispatch({ type: actionTypes.ADD_FILTER_FROM_INPUT, filter });
 	};
 
 	const removeFilter = (filter) => {
@@ -421,7 +425,8 @@ export const GlobalStoreState = ({ children }) => {
 				outcomeFilter: globalStoreState.outcomeFilter,
 				selectedFilters: globalStoreState.selectedFilters,
 				changePageTitleHandler,
-				addFilter,
+				addFilterCheckbox,
+				addFilterInput,
 				removeFilter,
 			}}
 		>
