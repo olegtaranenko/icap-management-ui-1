@@ -42,7 +42,7 @@ const History = () => {
 						</TableRow>
 					</TableHead>
 					<TableBody className={classes.tbody}>{rows}</TableBody>
-				</Table>{" "}
+				</Table>
 				<Pagination />
 			</div>
 		</div>
