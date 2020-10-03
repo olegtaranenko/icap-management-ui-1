@@ -46,44 +46,44 @@
         "pos": "disallow"
       }
     ],
-    "exel": [
+    "excel": [
       {
-        "id": "exel-id-1",
+        "id": "excel-id-1",
         "name": "Dynamic Data Exchange",
         "pos": "disallow"
       },
       {
-        "id": "exel-id-2",
+        "id": "excel-id-2",
         "name": "Embedded Files",
         "pos": "disallow"
       },
       {
-        "id": "exel-id-3",
+        "id": "excel-id-3",
         "name": "Embedded Files",
         "pos": "sanitise"
       },
       {
-        "id": "exel-id-4",
+        "id": "excel-id-4",
         "name": "External Hyperlinks",
         "pos": "sanitise"
       },
       {
-        "id": "exel-id-5",
+        "id": "excel-id-5",
         "name": "Internal Hyperlinks",
         "pos": "disallow"
       },
       {
-        "id": "exel-id-6",
+        "id": "excel-id-6",
         "name": "Macros",
         "pos": "sanitise"
       },
       {
-        "id": "exel-id-7",
+        "id": "excel-id-7",
         "name": "Metadata",
         "pos": "disallow"
       },
       {
-        "id": "exel-id-8",
+        "id": "excel-id-8",
         "name": "Review Comments",
         "pos": "disallow"
       }

@@ -20,10 +20,10 @@ const Current = ({ policyFlags, changeToggle }) => {
 					/>
 				</section>
 				<section>
-					<h2>Exel</h2>
+					<h2>Excel</h2>
 					<CurrentRow
-						block="exel"
-						itemList={policyFlags.exel}
+						block="excel"
+						itemList={policyFlags.excel}
 						onChangeHandler={changeToggle}
 					/>
 				</section>

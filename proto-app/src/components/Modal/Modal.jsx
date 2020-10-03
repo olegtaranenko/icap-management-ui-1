@@ -11,6 +11,7 @@ import {
 import Checkbox from "../UI/Checkbox/Checkbox";
 import Backdrop from "../UI/Backdrop/Backdrop";
 import ButtonClose from "../UI/ButtonClose/ButtonClose";
+import Badge from "../UI/Badge/Badge";
 
 const Modal = ({ data, onClose, styleModal }) => {
 	const { fileId, outcome, timestamp, type } = data;
@@ -73,6 +74,9 @@ const Modal = ({ data, onClose, styleModal }) => {
 
 					<div className={clsBlockExpandend.join(" ")}>
 						<h3>Issue Items</h3>
+						{!blockExpanded.issue && (
+							<Badge value="1" externalStyles={classes.badge} />
+						)}
 						<div className={classes.wrapArrow}>
 							<Checkbox
 								id="span-issue"
@@ -112,6 +116,9 @@ const Modal = ({ data, onClose, styleModal }) => {
 
 					<div className={classes.block}>
 						<h3>Sanitisation Items</h3>
+						{!blockExpanded.sanitisation && (
+							<Badge value="8" externalStyles={classes.badge} />
+						)}
 						<div className={classes.wrapArrow}>
 							<Checkbox
 								id="span-sanitisation"
@@ -151,6 +158,9 @@ const Modal = ({ data, onClose, styleModal }) => {
 
 					<div className={classes.block}>
 						<h3>Remedy Items</h3>
+						{!blockExpanded.remedy && (
+							<Badge value="3" externalStyles={classes.badge} />
+						)}
 						<div className={classes.wrapArrow}>
 							<Checkbox
 								id="span-remedy"
@@ -207,9 +217,12 @@ const Modal = ({ data, onClose, styleModal }) => {
 							/>
 						</div>
 						<h3>Content Management Policy Details</h3>
+						{!blockExpanded.policyDetails && false && (
+							<Badge value="3" externalStyles={classes.badge} />
+						)}
 						{blockExpanded.policyDetails && (
 							<Table className={classes.table}>
-								<TableHead>
+								{/*<TableHead>
 									<TableRow>
 										<TableCell>Issue</TableCell>
 										<TableCell>Description</TableCell>
@@ -222,7 +235,7 @@ const Modal = ({ data, onClose, styleModal }) => {
 										<TableCell>Metadata detected in Created</TableCell>
 										<TableCell>1</TableCell>
 									</TableRow>
-								</TableBody>
+								</TableBody>*/}
 							</Table>
 						)}
 					</div>

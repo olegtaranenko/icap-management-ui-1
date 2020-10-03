@@ -62,12 +62,22 @@
 
 		& .block {
 			position: relative;
+
+			margin-bottom: 1.5rem;
+			padding: 1rem;
+
 			border: 1px solid #b6bfc9;
 			border-radius: 0.6rem;
 			overflow: hidden;
-			margin-bottom: 1.5rem;
-			padding: 1rem;
+
 			transition: 0.5s all;
+
+			& .badge {
+				position: absolute;
+				top: 1rem;
+				right: 1rem;
+				margin-right: 4rem;
+			}
 
 			& h3 {
 				margin: 0 0 1rem 0;
