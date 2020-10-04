@@ -1,19 +1,20 @@
 FROM node:12
 
-# Create app dir
-WORKDIR /usr/src/app
+# Set up Frontend
+WORKDIR /usr/bin/proto-app
 
-# Copy package.json AND yarn.lock
-COPY package.json ./
-COPY yarn.lock ./
+COPY ./proto-app ./
 
-# Install NPM packages
-RUN yarn install --frozen-lockfile
+RUN yarn install --frozen-lockfile && yarn build-localhost
 
-COPY . .
-COPY ../proto-app ./proto-app
+
+# Set up Server
+WORKDIR /usr/bin/server
+
+COPY ./server ./
+
+RUN yarn install --frozen-lockfile && yarn build
 
 EXPOSE 8080
 
-CMD yarn build && \
-    yarn start
+CMD yarn start

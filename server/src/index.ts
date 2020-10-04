@@ -29,7 +29,7 @@ const port = 8080;
 /*
     TODO: Once the prototype phase is over,
     Move UI code to the /server directory and stop using the /proto-app code,
-    then we can start using this code
+    then we can start using this
 */
 
 // const workingDirectory = process.cwd();

@@ -32,7 +32,7 @@ This command runs the 'dev' script in the package.json file, which starts a loca
 <hr/>    
   
 ### Running the Server Locally (Docker)
-#### Make sure you're in the ./server directory of the project and Docker is running.
+#### Make sure you're in the root directory of the project and Docker is running.
   
 #### Build the Docker Image
 ```
