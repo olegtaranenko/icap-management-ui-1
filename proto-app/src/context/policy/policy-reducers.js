@@ -3,8 +3,8 @@ import { updateObject } from "../../shared/updateObject";
 import * as actionTypes from "../actionTypes";
 
 const changeTogglePosition = (state, clickedToggle) => {
-	const updatedList = updateObject(state.policyFlags, {
-		[clickedToggle.block]: state.policyFlags[clickedToggle.block].map(
+	const updatedList = updateObject(state.policyFlagList, {
+		[clickedToggle.block]: state.policyFlagList[clickedToggle.block].map(
 			(toggle) => {
 				if (toggle.id === clickedToggle.id) {
 					toggle.pos = clickedToggle.pos;
@@ -15,15 +15,16 @@ const changeTogglePosition = (state, clickedToggle) => {
 		),
 	});
 
+	console.log(updatedList);
 	return updateObject(state, {
-		policyFlags: updatedList,
+		policyFlagList: updatedList,
 		isPolicyChanged: true,
 	});
 };
 
 const cancelChangesPolisy = (state) => {
 	return updateObject(state, {
-		policyFlags: {
+		policyFlagList: {
 			word: [
 				{ id: "word-id-1", name: "Dynamic Data Exchange", pos: "disallow" },
 				{ id: "word-id-2", name: "Embedded Files", pos: "disallow" },
@@ -78,8 +79,8 @@ const cancelChangesPolisy = (state) => {
 };
 
 const saveChangesPolisy = (state) => {
-	for (let key in state.policyFlags) {
-		state.policyFlags[key].map((it) => {
+	for (let key in state.policyFlagList) {
+		state.policyFlagList[key].map((it) => {
 			it.touched = false;
 			return it.touched;
 		});

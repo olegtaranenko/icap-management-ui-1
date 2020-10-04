@@ -8,6 +8,7 @@ const RadioButton = ({
 	position,
 	changed,
 	onChangeHandler,
+	disabled,
 }) => {
 	const cls = [classes.button];
 	if (changed) {
@@ -28,6 +29,7 @@ const RadioButton = ({
 					value="0"
 					name={buttonId + "disallow"}
 					tabIndex="-1"
+					disabled={disabled}
 				/>
 				<label htmlFor={buttonId + "disallow"}>Disallow</label>
 				<input
@@ -40,6 +42,7 @@ const RadioButton = ({
 					value="1"
 					name={buttonId + "sanitise"}
 					tabIndex="-1"
+					disabled={disabled}
 				/>
 				<label htmlFor={buttonId + "sanitise"}>Sanitise</label>
 			</div>

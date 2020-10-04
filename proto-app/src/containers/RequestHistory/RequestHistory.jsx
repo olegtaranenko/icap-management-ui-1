@@ -1,10 +1,11 @@
 import React, { useState, useContext } from "react";
 
-import GlobalStoreContext from "../../context/globalStore/globalStore-context";
+import { GlobalStoreContext } from "../../context/globalStore/globalStore-context";
 
 import classes from "./RequestHistory.module.scss";
 
-import Modal from "../../components/Modal/Modal";
+import FileInfo from "./FileInfo/FileInfo";
+import Modal from "../../components/UI/Modal/Modal";
 
 import {
 	Table,
@@ -160,7 +161,11 @@ const RequestHistory = () => {
 					</TableBody>
 				</Table>
 			</div>
-			{openModal && <Modal data={fileInfo} onClose={closeInfoModal} />}
+			{openModal && (
+				<Modal onCloseHandler={closeInfoModal}>
+					<FileInfo data={fileInfo} />
+				</Modal>
+			)}
 		</article>
 	);
 };

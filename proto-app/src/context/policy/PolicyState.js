@@ -4,15 +4,16 @@ import { PolicyContext } from "./policy-context";
 import { policyReducer } from "./policy-reducers";
 
 import * as actionTypes from "../actionTypes";
-import store from "../../store/store.json";
+
+import policy from "../../data/currentPolicy.json";
 
 export const PolicyState = ({ children }) => {
 	const initialState = {
-		id: store.id,
-		username: store.username,
-		userEmail: store.userEmail,
-		timestamp: store.timestamp,
-		policyFlags: store.policyFlagList,
+		id: policy.id,
+		username: policy.userEmail,
+		userEmail: policy.userEmail,
+		timestamp: new Date().toUTCString(),
+		policyFlagList: policy.policyFlagList,
 		isPolicyChanged: false,
 	};
 
@@ -36,8 +37,8 @@ export const PolicyState = ({ children }) => {
 				id: policyState.id,
 				user: policyState.username,
 				email: policyState.userEmail,
-				currentTime: policyState.timestamp,
-				policyFlags: policyState.policyFlags,
+				timestamp: policyState.timestamp,
+				policyFlags: policyState.policyFlagList,
 				isPolicyChanged: policyState.isPolicyChanged,
 				changeToggle,
 				saveChanges,

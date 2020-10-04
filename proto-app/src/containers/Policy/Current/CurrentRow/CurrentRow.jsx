@@ -3,7 +3,7 @@ import RadioButton from "../../../../components/UI/RadioButton/RadioButton";
 
 import classes from "./CurrentRow.module.scss";
 
-const CurrentRow = ({ itemList, block, onChangeHandler }) => {
+const CurrentRow = ({ itemList, block, onChangeHandler, disabled }) => {
 	const content = itemList.map((it) => {
 		return (
 			<RadioButton
@@ -14,6 +14,7 @@ const CurrentRow = ({ itemList, block, onChangeHandler }) => {
 				buttonId={it.id}
 				position={it.pos}
 				onChangeHandler={onChangeHandler}
+				disabled={disabled}
 			/>
 		);
 	});

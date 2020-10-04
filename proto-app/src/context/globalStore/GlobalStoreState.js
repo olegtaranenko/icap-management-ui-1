@@ -1,6 +1,6 @@
 import React, { useReducer } from "react";
 
-import GlobalStoreContext from "./globalStore-context";
+import { GlobalStoreContext } from "./globalStore-context";
 import { globalStoreReducer } from "./globalStore-reducers";
 
 import * as actionTypes from "../actionTypes";
@@ -348,7 +348,7 @@ export const GlobalStoreState = ({ children }) => {
 				],
 			},
 		],
-
+		isCurrentPolicy: true,
 		selectedFilters: [],
 	};
 
@@ -381,6 +381,7 @@ export const GlobalStoreState = ({ children }) => {
 				fileFilter: globalStoreState.fileFilter,
 				outcomeFilter: globalStoreState.outcomeFilter,
 				selectedFilters: globalStoreState.selectedFilters,
+				isCurrentPolicy: globalStoreState.isCurrentPolicy,
 				changePageTitleHandler,
 				addFilterCheckbox,
 				addFilterInput,

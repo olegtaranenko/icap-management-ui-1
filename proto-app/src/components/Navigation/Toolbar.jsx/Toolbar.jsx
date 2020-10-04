@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 
 import classes from "./Toolbar.module.scss";
 
-import AuthContext from "../../../context/auth/auth-context";
+import { AuthContext } from "../../../context/auth/auth-context";
 
 import GlasswallLogo from "../../GlasswallLogo/GlasswallLogo";
 import NavigationItems from "../NavigationItems/NavigationItems";
@@ -77,7 +77,7 @@ const Toolbar = ({ expanded, navExpandedHandler }) => {
 			name: "Change password",
 			icon: changePassIcon,
 			onClickButtonHandler: () => alert("Change password"),
-		}
+		},
 	];
 
 	return (

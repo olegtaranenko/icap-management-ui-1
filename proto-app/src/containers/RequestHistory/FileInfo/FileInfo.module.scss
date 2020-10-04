@@ -1,26 +1,8 @@
-.Modal {
-	//position: absolute;
-	position: fixed;
-	z-index: 999;
-	left: 50%;
-	top: 50%;
-
-	transform: translate(-50%, -50%);
-
-	min-height: 80%;
-	min-width: 80%;
-
+.FileInfo {
 	overflow: hidden;
-	background-color: #fff;
-	opacity: 1;
-	border: 1px solid #b6bfc9;
-	border-radius: 0.6rem;
-	box-shadow: 0 3px 16px 1.6px rgba(0, 0, 0, 0.34);
-	transition: 0.5s all;
 
 	& header {
 		display: flex;
-		align-items: center;
 		justify-content: space-between;
 
 		width: 100%;
@@ -30,6 +12,7 @@
 
 		color: #196480;
 		background: #e6e9ea;
+
 		& div {
 			display: flex;
 		}
@@ -41,7 +24,7 @@
 
 		& span {
 			padding: 0.5rem 1.5rem;
-			margin-right: 2rem;
+			margin-right: 5rem;
 
 			text-transform: uppercase;
 
@@ -106,7 +89,7 @@
 
 				background-repeat: no-repeat;
 				background-position: center center;
-				background-image: url("../../assets/svg/filters/expand-arrow-grey.svg");
+				background-image: url("../../../assets/svg/filters/expand-arrow-grey.svg");
 				transition: all 0.3s;
 			}
 

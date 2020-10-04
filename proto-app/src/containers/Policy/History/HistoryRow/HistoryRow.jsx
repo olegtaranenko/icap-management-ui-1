@@ -1,9 +1,19 @@
 import React from "react";
-import classes from "./HistoryRow.module.scss";
 import { TableRow, TableCell } from "@material-ui/core";
+
+import classes from "./HistoryRow.module.scss";
+
 import Button from "../../../../components/UI/Button/Button";
 
-const FileRow = ({ id, timestamp, updatedBy, onRowClickHandler }) => {
+const FileRow = ({
+	id,
+	timestamp,
+	updatedBy,
+	isCurrent,
+	onRowClickHandler,
+	onActivePrevPolicyHandler,
+	openModalPreviousPolicyHandler,
+}) => {
 	return (
 		<TableRow
 			className={classes.HistoryRow}
@@ -17,10 +27,15 @@ const FileRow = ({ id, timestamp, updatedBy, onRowClickHandler }) => {
 				{updatedBy}
 			</TableCell>
 			<TableCell component="th" scope="row" id={id}>
-				<Button>View</Button>
+				<Button onButtonClick={openModalPreviousPolicyHandler}>View</Button>
 			</TableCell>
 			<TableCell component="th" scope="row" id={id}>
-				<Button>Activate</Button>
+				<Button
+					onButtonClick={onActivePrevPolicyHandler}
+					disabled={!isCurrent}
+				>
+					Activate
+				</Button>
 			</TableCell>
 		</TableRow>
 	);

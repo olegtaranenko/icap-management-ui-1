@@ -6,16 +6,17 @@ import {
 	Redirect,
 } from "react-router-dom";
 
+import { GlobalStoreContext } from "./context/globalStore/globalStore-context";
+import { AuthContext } from "./context/auth/auth-context";
+
 import Auth from "./hoc/Auth/Auth";
 import Main from "./hoc/Main/Main";
 
 import styles from "./App.module.scss";
-import AuthContext from "./context/auth/auth-context";
 import Toolbar from "./components/Navigation/Toolbar.jsx/Toolbar";
 import Login from "./components/Login/Login";
 import PassReminder from "./components/PassReminder/PassReminder";
 import Users from "./containers/Users/Users";
-import GlobalStoreContext from "./context/globalStore/globalStore-context";
 import Config from "./containers/Config/Config";
 import RequestHistory from "./containers/RequestHistory/RequestHistory";
 import Policy from "./containers/Policy/Policy";
@@ -54,9 +55,8 @@ const App = () => {
 				{!isAuth && (
 					<Auth>
 						<Switch>
-
 							{/* // TODO: Remove from production, for prototype only */}
-							<Route path="/sow" component={Sow}/>
+							<Route path="/sow" component={Sow} />
 
 							<Route path="/pass-reminder" component={PassReminder} />
 							<Route path="/" component={Login} exact />

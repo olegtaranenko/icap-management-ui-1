@@ -8,6 +8,7 @@ const Button = ({
 	buttonClasses,
 	buttonStyle,
 	children,
+	disabled,
 }) => {
 	const cls = [classes.button, buttonClasses];
 	return (
@@ -17,6 +18,7 @@ const Button = ({
 			style={buttonStyle}
 			type={buttonType}
 			id={buttonId}
+			disabled={disabled}
 		>
 			{children}
 		</button>

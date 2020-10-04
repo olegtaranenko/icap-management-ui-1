@@ -1,13 +1,4 @@
 import React, { useState, useContext } from "react";
-import { PolicyContext } from "../../context/policy/policy-context";
-
-import Current from "./Current/Current";
-import History from "./History/History";
-import TabNav from "../../components/Tabs/TabNav/TabNav";
-import Tab from "../../components/Tabs/Tab/Tab";
-import classes from "./Policy.module.scss";
-import Button from "../../components/UI/Button/Button";
-
 import {
 	Table,
 	TableHead,
@@ -16,20 +7,38 @@ import {
 	TableBody,
 } from "@material-ui/core";
 
+import { PolicyContext } from "../../context/policy/policy-context";
+
+import prevPolicy from "../../data/prevPolicy.json";
+
+import Current from "./Current/Current";
+import History from "./History/History";
+import TabNav from "../../components/Tabs/TabNav/TabNav";
+import Tab from "../../components/Tabs/Tab/Tab";
+import classes from "./Policy.module.scss";
+import Button from "../../components/UI/Button/Button";
+
 const Policy = () => {
 	const {
 		id,
 		email,
-		//currentTime,
 		policyFlags,
+		timestamp,
 		isPolicyChanged,
 		changeToggle,
 		cancelChanges,
 		saveChanges,
 	} = useContext(PolicyContext);
 
+	const policy = prevPolicy.find(
+		(it) => it.id === "prev-Adam2-20092020165445"
+	);
+
+	const [currentPolicy, setCurrentPolicy] = useState(true);
 	const [selectedTab, setSelectedTab] = useState("Current");
+
 	const tabs = [{ name: "Current" }, { name: "History" }];
+
 	return (
 		<article className={classes.Policy}>
 			<TabNav
@@ -49,11 +58,19 @@ const Policy = () => {
 								</TableHead>
 								<TableBody className={classes.tbody}>
 									<TableRow>
-										<TableCell component="th" scope="row" id={id}>
-											{new Date().toUTCString()}
+										<TableCell
+											component="th"
+											scope="row"
+											id={currentPolicy ? id : policy.id}
+										>
+											{currentPolicy ? timestamp : policy.timestamp}
 										</TableCell>
-										<TableCell component="th" scope="row" id={id}>
-											{email}
+										<TableCell
+											component="th"
+											scope="row"
+											id={currentPolicy ? id : policy.id}
+										>
+											{currentPolicy ? email : policy.userEmail}
 										</TableCell>
 									</TableRow>
 								</TableBody>
@@ -66,10 +83,16 @@ const Policy = () => {
 							</div>
 						)}
 					</div>
-					<Current policyFlags={policyFlags} changeToggle={changeToggle} />
+					<Current
+						policyFlags={currentPolicy ? policyFlags : policy.policyFlagList}
+						changeToggle={changeToggle}
+					/>
 				</Tab>
 				<Tab isSelected={selectedTab === "History"}>
-					<History />
+					<History
+						setPrevPolicy={() => setCurrentPolicy(false)}
+						isCurrent={currentPolicy}
+					/>
 				</Tab>
 			</TabNav>
 		</article>
