@@ -43,7 +43,8 @@ const port = 8080;
 
 
 const workingDirectory = process.cwd();
-const prototypeUiDirectory = workingDirectory.replace("\\server", "") + "/proto-app/build";
+const prototypeUiDirectory = workingDirectory.replace("server", "") + "/proto-app/build";
+
 
 app.use(express.static(prototypeUiDirectory));
 
