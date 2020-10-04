@@ -37,6 +37,10 @@
 .buttonClose {
 	top: 5px;
 	right: 0;
+	& svg {
+		width: 1rem;
+		fill: #b6bfc9;
+	}
 }
 
 .outcome {

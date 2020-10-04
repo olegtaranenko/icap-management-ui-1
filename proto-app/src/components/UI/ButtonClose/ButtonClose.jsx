@@ -10,7 +10,7 @@ const ButtonClose = ({ onButtonClick, externalStyles }) => {
 			onClick={onButtonClick}
 			className={[classes.ButtonClose, externalStyles].join(" ")}
 		>
-			<CloseIcon className={classes.icon} />
+			<CloseIcon />
 		</button>
 	);
 };

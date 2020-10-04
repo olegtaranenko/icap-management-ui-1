@@ -8,6 +8,7 @@ const PopupFilter = ({
 	openPopupHover,
 	closePopupHover,
 }) => {
+	console.log(filter);
 	const addedFilter = filter.map(({ id, filterName, checkboxList }) => {
 		return (
 			<Filter key={id} filter={filterName} checkboxList={checkboxList} />
