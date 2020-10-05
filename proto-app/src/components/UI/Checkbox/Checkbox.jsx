@@ -10,6 +10,8 @@ const Checkbox = ({
 	checked,
 	filter,
 	backgroundColor,
+	checkboxIcon,
+	checkedIcon,
 }) => {
 	let checkbox = null;
 
@@ -29,6 +31,8 @@ const Checkbox = ({
 				onChange={onHandleChange}
 				checked={checked}
 				color="primary"
+				checkedIcon={checkedIcon}
+				icon={checkboxIcon}
 			/>
 		);
 	}
