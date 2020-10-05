@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A Glasswall template for CRA with a Glasswall NPM library pre-loaded. To enforce a consistent codebase and allow for our frontend styles to come together from pre-packaged NPM modules.",
   "main": "template.json",
-  "homepage": "https://k8-proxy.github.io/p-ui-wireframes/",
+  "homepage": "/",
   "author": "glasswallsolutions",
   "license": "MIT",
   "dependencies": {
@@ -39,7 +39,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "build-localhost": "cross-env PUBLIC_URL=/ react-scripts build",
+    "build-ghpages": "cross-env PUBLIC_URL=https://k8-proxy.github.io/p-ui-wireframes/ react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint:fix": "eslint src/**/*.{js,jsx} --fix"

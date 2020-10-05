@@ -5,7 +5,7 @@ WORKDIR /usr/bin/proto-app
 
 COPY ./proto-app ./
 
-RUN yarn install --frozen-lockfile && yarn build-localhost
+RUN yarn install --frozen-lockfile && yarn build
 
 
 # Set up Server
