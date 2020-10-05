@@ -23,6 +23,7 @@ import Policy from "./containers/Policy/Policy";
 
 // TODO: Remove from production, for prototype only
 import Sow from "./components/Sow/Sow";
+import Dashboard from "./containers/Dashboard/Dashboard";
 
 const App = () => {
 	const [navExpanded, setNavExpanded] = useState(true);
@@ -31,9 +32,7 @@ const App = () => {
 
 	let routes = (
 		<Switch>
-			<Route path="/dashboard">
-				<div>dashboard</div>
-			</Route>
+			<Route path="/dashboard" component={Dashboard} />
 			<Route path="/request-history" component={RequestHistory} />
 			<Route path="/request-history">
 				<div>Request history</div>

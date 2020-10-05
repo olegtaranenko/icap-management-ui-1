@@ -1,2 +1,48 @@
 .Dashboard {
+	position: relative;
+	height: 100%;
+
+	background: #ffffff;
+
+	& .top {
+		display: flex;
+
+		height: 4rem;
+
+		align-items: center;
+		padding-left: 1rem;
+
+		text-transform: uppercase;
+
+		background: #ffffff;
+	}
+
+	& .infoBlocks {
+		display: flex;
+		justify-content: center;
+		flex-wrap: wrap;
+
+		width: 60%;
+
+		margin-bottom: 4rem;
+
+		& div {
+			margin: 2rem 2rem;
+		}
+	}
+	& .pieChart {
+		position: absolute;
+		top: 13rem;
+		right: 3.5rem;
+	}
+
+	& .pickers {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		height: 5rem;
+
+		background: #e6e9ea;
+	}
 }
