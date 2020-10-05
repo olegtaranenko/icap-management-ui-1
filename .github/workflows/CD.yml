@@ -24,7 +24,7 @@ jobs:
         working-directory: ${{env.working-directory}}
 
       - name: Build 🧱
-        run: yarn build
+        run: yarn build-ghpages
         working-directory: ${{env.working-directory}}
 
       - name: Deploy 🚀
