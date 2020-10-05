@@ -130,7 +130,7 @@ const Filters = ({ popupIsOpen, changeVisibilityPopup }) => {
 			<div className={classes.wrap}>
 				<div className={classes.header}>
 					<h2 className={classes.head}>Filters</h2>
-					<DateAndTimePickers />
+
 					<button
 						className={clsMoreFilters.join(" ")}
 						onClick={openFilterRowHandler}
@@ -142,6 +142,7 @@ const Filters = ({ popupIsOpen, changeVisibilityPopup }) => {
 						className={clsArrow.join(" ")}
 					/>
 				</div>
+				<DateAndTimePickers externalStyles={classes.pickers} />
 				<div className={classes.footer}>
 					<div className={clsList.join(" ")}>
 						{openFilterRow && (
@@ -178,6 +179,7 @@ const Filters = ({ popupIsOpen, changeVisibilityPopup }) => {
 								closePopupHover={closePopupHoverHandler}
 							/>
 						)}
+
 						{openFileId && (
 							<form
 								className={classes.fileId}
