@@ -1,4 +1,7 @@
 .Current {
+	border: 1px solid #b6bfc9;
+	border-radius: 0.6rem;
+	margin: 1rem 2rem 1rem 2rem;
 	& h2 {
 		padding: 0;
 		margin: 0;
@@ -33,5 +36,54 @@
 		background: none;
 		font-size: 3rem;
 		color: #498fa7;
+	}
+}
+
+.routes {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+
+	margin: 1rem 2rem 2rem 2rem;
+
+	border: 1px solid #b6bfc9;
+	border-radius: 0.6rem;
+	overflow: hidden;
+
+	& h3 {
+		padding-left: 1rem;
+
+		line-height: 4rem;
+		border-bottom: 1px solid #b6bfc9;
+	}
+
+	& p {
+		padding: 4rem 10rem;
+	}
+
+	& .table {
+		padding: 1rem 1rem 4rem 1rem;
+
+		& .th {
+			display: flex;
+			justify-content: space-between;
+			color: #196480;
+
+			& h3 {
+				line-height: 1rem;
+				margin-right: 4rem;
+				border: none;
+			}
+
+			p {
+				padding-left: 1rem;
+				width: 100%;
+			}
+
+			& p:last-child {
+				width: 14rem;
+				padding-left: 3rem;
+			}
+		}
 	}
 }

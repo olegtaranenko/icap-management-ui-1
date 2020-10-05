@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
-import GlobalStoreContext from "../../context/globalStore/globalStore-context";
+
+import { GlobalStoreContext } from "../../context/globalStore/globalStore-context";
 
 import classes from "./Filters.module.scss";
 

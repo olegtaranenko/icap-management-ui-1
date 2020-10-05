@@ -5,4 +5,10 @@
 	border: none;
 
 	cursor: pointer;
+
+	& svg {
+		fill: #196480;
+		width: 2rem;
+		height: 2rem;
+	}
 }

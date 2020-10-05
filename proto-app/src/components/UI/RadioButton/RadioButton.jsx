@@ -1,33 +1,50 @@
-import React, { useState } from "react";
+import React from "react";
 import classes from "./RadioButton.module.scss";
 
-const RadioButton = ({ buttonName, buttonId }) => {
-	const [selectedId, setSlectedId] = useState(0);
+const RadioButton = ({
+	block,
+	buttonName,
+	buttonId,
+	position,
+	changed,
+	onChangeHandler,
+	disabled,
+}) => {
+	const cls = [classes.button];
+	if (changed) {
+		cls.push(classes.changed);
+	}
 
 	return (
 		<div className={classes.RadioButton}>
 			<span>{buttonName}</span>
-			<div className={classes.button}>
+			<div className={cls.join(" ")}>
 				<input
-					checked={selectedId === 0}
-					onChange={() => setSlectedId(0)}
+					checked={position === "disallow"}
+					onChange={() =>
+						onChangeHandler({ id: buttonId, block: block, pos: "disallow" })
+					}
 					type="radio"
-					id={buttonId + "Allow"}
+					id={buttonId + "disallow"}
 					value="0"
-					name={buttonId + "control"}
+					name={buttonId + "disallow"}
 					tabIndex="-1"
+					disabled={disabled}
 				/>
-				<label htmlFor={buttonId + "Allow"}>Allow</label>
+				<label htmlFor={buttonId + "disallow"}>Disallow</label>
 				<input
-					checked={selectedId === 1}
-					onChange={() => setSlectedId(1)}
+					checked={position === "sanitise"}
+					onChange={() =>
+						onChangeHandler({ id: buttonId, block: block, pos: "sanitise" })
+					}
 					type="radio"
-					id={buttonId + "Sanitise"}
+					id={buttonId + "sanitise"}
 					value="1"
-					name={buttonId + "control"}
+					name={buttonId + "sanitise"}
 					tabIndex="-1"
+					disabled={disabled}
 				/>
-				<label htmlFor={buttonId + "Sanitise"}>Sanitise</label>
+				<label htmlFor={buttonId + "sanitise"}>Sanitise</label>
 			</div>
 		</div>
 	);

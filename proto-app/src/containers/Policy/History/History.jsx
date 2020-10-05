@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
 	Table,
 	TableHead,
@@ -9,43 +9,51 @@ import {
 
 import classes from "./History.module.scss";
 
+import previously from "../../../data/prevPolicy.json";
+
 import HistoryRow from "./HistoryRow/HistoryRow";
 import Pagination from "../../../components/UI/Pagination/Pagination";
+import Modal from "../../../components/UI/Modal/Modal";
+import HistoryInfo from "../../../containers/Policy/History/HistoryInfo/HistoryInfo";
 
-const historyfiles = [
-	{
-		id: "history-01",
-		timestamp: new Date("05.11.19").toUTCString(),
-		updatedBy: "test@test-user.com",
-	},
-];
+const History = ({ setPrevPolicy, isCurrent }) => {
+	const [modalIsOpen, setModalIsOpen] = useState(false);
 
-const History = () => {
-	const rows = historyfiles.map(({ id, timestamp, updatedBy }) => {
+	const rows = previously.map(({ id, timestamp, userEmail }) => {
 		return (
 			<HistoryRow
 				key={id}
 				id={id}
+				isCurrent={isCurrent}
+				openModalPreviousPolicyHandler={setModalIsOpen}
+				onActivePrevPolicyHandler={setPrevPolicy}
 				timestamp={timestamp}
-				updatedBy={updatedBy}
+				updatedBy={userEmail}
 			/>
 		);
 	});
 	return (
-		<div className={classes.History}>
-			<div>
-				<Table className={classes.table}>
-					<TableHead>
-						<TableRow>
-							<TableCell>Timestamp</TableCell>
-							<TableCell>Updated By</TableCell>
-						</TableRow>
-					</TableHead>
-					<TableBody className={classes.tbody}>{rows}</TableBody>
-				</Table>{" "}
-				<Pagination />
+		<>
+			<div className={classes.History}>
+				<div>
+					<Table className={classes.table}>
+						<TableHead>
+							<TableRow>
+								<TableCell>Timestamp</TableCell>
+								<TableCell>Updated By</TableCell>
+							</TableRow>
+						</TableHead>
+						<TableBody className={classes.tbody}>{rows}</TableBody>
+					</Table>
+					<Pagination />
+				</div>
 			</div>
-		</div>
+			{modalIsOpen && (
+				<Modal onCloseHandler={() => setModalIsOpen(false)}>
+					<HistoryInfo prevPolicy={previously} />
+				</Modal>
+			)}
+		</>
 	);
 };
 

@@ -11,6 +11,7 @@ const Input = ({
 	onChange,
 	placeholder,
 	autofocus,
+	disabled,
 }) => {
 	const cls = [classes.Input, externalStyles];
 	return (
@@ -25,6 +26,7 @@ const Input = ({
 				onChange={onChange}
 				placeholder={placeholder}
 				autoFocus={autofocus}
+				disabled={disabled}
 			/>
 		</>
 	);

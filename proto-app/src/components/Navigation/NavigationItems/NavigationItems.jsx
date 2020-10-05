@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import classes from "./NavigationItems.module.scss";
 
 import NavigationItem from "./NavigationItem/NavigationItem";
-import GlobalStoreContext from "../../../context/globalStore/globalStore-context";
+import { GlobalStoreContext } from "../../../context/globalStore/globalStore-context";
 
 const NavigationItems = ({ expanded, items }) => {
 	const { changePageTitleHandler } = useContext(GlobalStoreContext);
