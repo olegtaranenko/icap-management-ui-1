@@ -1,13 +1,13 @@
 # Server
 
 ## Local Development
-#### Make sure you're in the ./server directory of the project.
 
 ### Prerequisites
 - [Docker](https://www.docker.com/)
 - [Node.js](https://nodejs.org/en/)
 
 ### Running the Server Locally (Node.js)
+#### Make sure you're in the ./server directory of the project.
 #### Yarn
 ```
 npm install -g yarn
