@@ -24,11 +24,11 @@ export const PolicyState = ({ children }) => {
 	};
 
 	const saveChanges = () => {
-		dispatch({ type: actionTypes.SAVE_CHANGES_POLISY });
+		dispatch({ type: actionTypes.SAVE_CHANGES_POLICY });
 	};
 
 	const cancelChanges = () => {
-		dispatch({ type: actionTypes.CANCEL_CHANGES_POLISY });
+		dispatch({ type: actionTypes.CANCEL_CHANGES_POLICY });
 	};
 
 	return (
