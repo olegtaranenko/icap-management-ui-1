@@ -14,20 +14,23 @@ const Dashboard = () => {
 			<div className={classes.pickers}>
 				<DateAndTimePickers />
 			</div>
-
-			<div className={classes.infoBlocks}>
-				<InfoBlock headline={"Total files processed"} sum={"134,326"} />
-				<InfoBlock headline={"Total ICAP requests"} sum={"213,596"} />
-				<InfoBlock
-					headline={"Files submitted to non-compliant file service"}
-					sum={"30,000"}
-				/>
-			</div>
-			<div className={classes.pieChart}>
-				<PieChart />
-			</div>
-			<div>
-				<LineChart className={classes.lineChart} />
+			<div className={classes.innerContent}>
+				<div className={classes.innerTop}>
+					<div className={classes.infoBlocks}>
+						<InfoBlock headline={"Total files processed"} sum={"134,326"} />
+						<InfoBlock headline={"Total ICAP requests"} sum={"213,596"} />
+						<InfoBlock
+							headline={"Files submitted to non-compliant file service"}
+							sum={"30,000"}
+						/>
+					</div>
+					<div className={classes.pieChart}>
+						<PieChart />
+					</div>
+				</div>
+				<div className={classes.lineChart}>
+					<LineChart />
+				</div>
 			</div>
 		</article>
 	);

@@ -27,7 +27,7 @@ const PieChart = () => {
 		<div
 			style={{
 				width: "50rem",
-				border: "1px solid #b6bfc9",
+
 				position: "relative",
 				padding: "3rem 3rem 6rem 3rem",
 			}}

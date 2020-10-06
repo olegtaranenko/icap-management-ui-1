@@ -2,19 +2,19 @@ import React from "react";
 import classes from "./Button.module.scss";
 
 const Button = ({
+	type,
 	onButtonClick,
 	buttonId,
 	buttonType,
-	buttonClasses,
+	externalStyles,
 	buttonStyle,
 	children,
 	disabled,
 }) => {
-	const cls = [classes.button, buttonClasses];
 	return (
 		<button
 			onClick={onButtonClick}
-			className={cls.join(" ")}
+			className={[classes.button, externalStyles].join(" ")}
 			style={buttonStyle}
 			type={buttonType}
 			id={buttonId}

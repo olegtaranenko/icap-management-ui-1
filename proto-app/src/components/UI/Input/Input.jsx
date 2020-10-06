@@ -3,6 +3,7 @@ import React from "react";
 import classes from "./Input.module.scss";
 
 const Input = ({
+	label,
 	type,
 	name,
 	value,
@@ -13,12 +14,10 @@ const Input = ({
 	autofocus,
 	disabled,
 }) => {
-	const cls = [classes.Input, externalStyles];
 	return (
-		<>
-			<label htmlFor={name}></label>
+		<div className={[classes.Input, externalStyles].join(" ")}>
+			<label htmlFor={name}>{label}</label>
 			<input
-				className={cls.join(" ")}
 				style={style}
 				type={type}
 				name={name}
@@ -28,7 +27,7 @@ const Input = ({
 				autoFocus={autofocus}
 				disabled={disabled}
 			/>
-		</>
+		</div>
 	);
 };
 

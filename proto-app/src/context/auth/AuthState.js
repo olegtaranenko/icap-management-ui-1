@@ -9,6 +9,7 @@ export const AuthState = ({ children }) => {
 	const initialState = {
 		isAuthenticated: false,
 		isSignin: false,
+		changePassIsOpen: false,
 	};
 
 	const [authState, dispatch] = useReducer(authReducer, initialState);
@@ -24,13 +25,24 @@ export const AuthState = ({ children }) => {
 		dispatch({ type: actionTypes.AUTH_LOGOUT });
 	};
 
+	const openChangePass = () => {
+		dispatch({ type: actionTypes.OPEN_CHANGE_PASSWORD_MODAL });
+	};
+
+	const closeChangePass = () => {
+		dispatch({ type: actionTypes.CLOSE_CHANGE_PASSWORD_MODAL });
+	};
+
 	return (
 		<AuthContext.Provider
 			value={{
 				isAuth: authState.isAuthenticated,
+				isChangePass: authState.changePassIsOpen,
 				login,
 				logout,
 				switchAuthMode,
+				openChangePass,
+				closeChangePass,
 			}}
 		>
 			{children}

@@ -201,9 +201,7 @@ const LineChart = () => {
 	return (
 		<div
 			style={{
-				width: "90%",
-				//height: "300px",
-				border: " 1px solid #b6bfc9",
+				width: "100%",
 				position: "relative",
 			}}
 		>

@@ -153,7 +153,7 @@ const Filters = ({ popupIsOpen, changeVisibilityPopup }) => {
 						<div>
 							<Button
 								buttonType={"button"}
-								buttonClasses={classes.addFilter}
+								externalStyles={classes.addFilter}
 								onButtonClick={openPopupHandler}
 							>
 								+ Add Filter
