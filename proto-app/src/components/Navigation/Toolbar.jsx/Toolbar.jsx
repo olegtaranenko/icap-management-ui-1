@@ -19,6 +19,7 @@ import dashIcon from "../../../assets/menu-icons/icon-dashboard.svg";
 
 import logoutIcon from "../../../assets/svg/account-icons/logout-icon.svg";
 import changePassIcon from "../../../assets/svg/account-icons/change-password-icon.svg";
+import ChangePassword from "../../ChangePassword/ChangePassword";
 
 const navLinks = [
 	{
@@ -58,7 +59,12 @@ const navLinks = [
 
 const Toolbar = ({ expanded, navExpandedHandler }) => {
 	const [isOpen, setIsOpen] = useState(false);
-	const { logout } = useContext(AuthContext);
+	const {
+		logout,
+		isChangePass,
+		openChangePass,
+		closeChangePass,
+	} = useContext(AuthContext);
 
 	const cls = [classes.Toolbar];
 	const clsNav = [classes.nav];
@@ -76,7 +82,7 @@ const Toolbar = ({ expanded, navExpandedHandler }) => {
 		{
 			name: "Change password",
 			icon: changePassIcon,
-			onClickButtonHandler: () => alert("Change password"),
+			onClickButtonHandler: () => openChangePass(),
 		},
 	];
 
@@ -101,6 +107,7 @@ const Toolbar = ({ expanded, navExpandedHandler }) => {
 					closePopupHover={() => setIsOpen(false)}
 				/>
 			)}
+			{isChangePass && <ChangePassword closeModal={closeChangePass} />}
 		</>
 	);
 };

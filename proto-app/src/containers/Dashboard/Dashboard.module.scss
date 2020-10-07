@@ -1,2 +1,71 @@
 .Dashboard {
+	overflow: hidden;
+	height: 100%;
+
+	background: #ffffff;
+
+	& .top {
+		display: flex;
+
+		height: 4rem;
+
+		align-items: center;
+		padding-left: 1rem;
+
+		text-transform: uppercase;
+
+		background: #ffffff;
+	}
+
+	& .innerContent {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+
+		width: 100%;
+		height: 100%;
+
+		overflow-y: auto;
+		& .innerTop {
+			display: flex;
+		}
+	}
+
+	& .infoBlocks {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		flex-wrap: wrap;
+
+		width: 60%;
+
+		margin: 5rem 2rem 4rem 2rem;
+
+		& div {
+			margin: 2rem 2rem;
+		}
+	}
+
+	& .pieChart {
+		margin: 5rem;
+		border: 1px solid #b6bfc955;
+	}
+
+	& .lineChart {
+		width: 90%;
+		margin-bottom: 10rem;
+		border: 1px solid #b6bfc955;
+	}
+
+	& .pickers {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		height: 5rem;
+
+		background: #e6e9ea;
+	}
 }
