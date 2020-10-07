@@ -1,18 +1,20 @@
 FROM node:12
 
-# Create app dir
-WORKDIR /usr/src/app
+# Set up Frontend
+WORKDIR /usr/bin/icap-management-portal/proto-app
 
-# Copy package.json AND yarn.lock
-COPY package.json ./
-COPY yarn.lock ./
+COPY ./proto-app ./
 
-# Install NPM packages
-RUN yarn install --frozen-lockfile
+RUN yarn install --frozen-lockfile && yarn build
 
-COPY . .
+
+# Set up Server
+WORKDIR /usr/bin/icap-management-portal/server
+
+COPY ./server ./
+
+RUN yarn install --frozen-lockfile && yarn build
 
 EXPOSE 8080
 
-CMD yarn build && \
-    yarn start
+CMD yarn start

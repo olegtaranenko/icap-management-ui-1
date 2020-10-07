@@ -22,7 +22,7 @@ const changeTogglePosition = (state, clickedToggle) => {
 	});
 };
 
-const cancelChangesPolisy = (state) => {
+const cancelChangesPolicy = (state) => {
 	return updateObject(state, {
 		policyFlagList: {
 			word: [
@@ -78,7 +78,7 @@ const cancelChangesPolisy = (state) => {
 	});
 };
 
-const saveChangesPolisy = (state) => {
+const saveChangesPolicy = (state) => {
 	for (let key in state.policyFlagList) {
 		state.policyFlagList[key].map((it) => {
 			it.touched = false;
@@ -95,10 +95,10 @@ export const policyReducer = (state, action) => {
 	switch (action.type) {
 		case actionTypes.CHANGE_TOGGLE_POSITION:
 			return changeTogglePosition(state, action.toggle);
-		case actionTypes.SAVE_CHANGES_POLISY:
-			return saveChangesPolisy(state);
-		case actionTypes.CANCEL_CHANGES_POLISY:
-			return cancelChangesPolisy(state);
+		case actionTypes.SAVE_CHANGES_POLICY:
+			return saveChangesPolicy(state);
+		case actionTypes.CANCEL_CHANGES_POLICY:
+			return cancelChangesPolicy(state);
 		default:
 			return state;
 	}
