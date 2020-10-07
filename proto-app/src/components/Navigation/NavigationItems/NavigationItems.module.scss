@@ -1,7 +1,11 @@
 .NavigationItems {
 	height: calc(100% - 19rem);
-	visibility: hidden;
-	opacity: 0;
+
+	& p {
+		opacity: 0;
+		visibility: hidden;
+	}
+
 	transition: all 0s 0s;
 
 	&.menuExpanded {
@@ -9,6 +13,11 @@
 		display: block;
 		visibility: visible;
 		transition: visibility 0s 0.3s;
+
+		& p {
+			opacity: 1;
+			visibility: visible;
+		}
 	}
 
 	& ul {

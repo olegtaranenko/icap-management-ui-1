@@ -92,7 +92,7 @@ const Toolbar = ({ expanded, navExpandedHandler }) => {
 				<GlasswallLogo className={classes.logo} />
 				<NavigationItems expanded={expanded} items={navLinks} />
 				<UserLink
-					username={"usertest@test.com"}
+					username={"usertest@glasswallsolutions.com"}
 					expanded={expanded}
 					openPopup={() => setIsOpen(true)}
 					closePopup={() => setIsOpen(false)}
