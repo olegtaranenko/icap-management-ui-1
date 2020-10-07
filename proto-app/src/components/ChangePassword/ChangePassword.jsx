@@ -9,7 +9,7 @@ import Input from "../UI/Input/Input";
 const ChangePassword = ({ closeModal }) => {
 	const [passValue, setPassValue] = useState("");
 	const [newPassValue, setNewPassValue] = useState("");
-	const [reNewPassValue, setReNewPassValue] = useState("");
+	const [confirmNewPassValue, setConfirmNewPassValue] = useState("");
 
 	const submitHandler = (evt) => {
 		evt.preventDefault();
@@ -46,13 +46,13 @@ const ChangePassword = ({ closeModal }) => {
 						}}
 					/>
 					<Input
-						label="Re-type New Password"
+						label="Confirm New Password"
 						type="password"
-						name="reTypeNewPassword"
+						name="confirmNewPassword"
 						externalStyles={classes.input}
-						value={reNewPassValue}
+						value={confirmNewPassValue}
 						onChange={(evt) => {
-							setReNewPassValue(evt.target.value);
+							setConfirmNewPassValue(evt.target.value);
 						}}
 					/>
 					<Button buttonType="submit" externalStyles={classes.button}>

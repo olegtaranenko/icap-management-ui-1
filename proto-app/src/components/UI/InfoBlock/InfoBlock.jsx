@@ -2,10 +2,10 @@ import React from "react";
 
 import classes from "./InfoBlock.module.scss";
 
-const InfoBlock = ({ headline, sum }) => {
+const InfoBlock = ({ title, sum }) => {
 	return (
 		<div className={classes.InfoBlock}>
-			<header>{headline}</header>
+			<header>{title}</header>
 			<span>{sum}</span>
 		</div>
 	);

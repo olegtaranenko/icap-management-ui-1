@@ -17,10 +17,10 @@ const Dashboard = () => {
 			<div className={classes.innerContent}>
 				<div className={classes.innerTop}>
 					<div className={classes.infoBlocks}>
-						<InfoBlock headline={"Total files processed"} sum={"134,326"} />
-						<InfoBlock headline={"Total ICAP requests"} sum={"213,596"} />
+						<InfoBlock title={"Total files processed"} sum={"134,326"} />
+						<InfoBlock title={"Total ICAP requests"} sum={"213,596"} />
 						<InfoBlock
-							headline={"Files submitted to non-compliant file service"}
+							title={"Files submitted to non-compliant file service"}
 							sum={"30,000"}
 						/>
 					</div>
