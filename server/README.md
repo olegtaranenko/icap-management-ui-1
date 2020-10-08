@@ -36,7 +36,7 @@ This command runs the 'dev' script in the package.json file, which starts a loca
   
 #### Build the Docker Image
 ```
-docker build --tag icap-management-portal -f server/Dockerfile .
+docker build --tag icap-management-portal:version -f server/Dockerfile .
 ```
   
 This command builds the Docker image from the Dockerfile, [docker build](https://docs.docker.com/engine/reference/commandline/build/).

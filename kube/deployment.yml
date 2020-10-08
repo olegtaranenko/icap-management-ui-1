@@ -1,0 +1,49 @@
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: icap-management-portal
+# spec:
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app: icap-management-portal
+#   template:
+#     metadata:
+#       labels:
+#         app: icap-management-portal
+#     spec:
+#       containers:
+#         - name: app
+#           image: icap-management-portal
+#           ports:
+#             - containerPort: 4000
+#           imagePullPolicy: Always
+#           resources:
+#             limits:
+#               memory: "128Mi"
+#               cpu: "500m"
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: icap-management-portal
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: icap-management-portal
+  template:
+    metadata:
+      labels:
+        app: icap-management-portal
+    spec:
+      containers:
+        - name: icap-management-portal
+          image: icap-management-portal:1.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 4000
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
