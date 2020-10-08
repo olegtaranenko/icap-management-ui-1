@@ -7,13 +7,11 @@ const PieChart = () => {
 
 	const chart = () => {
 		setChartData({
-			labels: ["Sales"],
+			labels: ["Safe", "Blocked", "Dangerous", "Unclassified"],
 			datasets: [
 				{
-					label: ["Sales"],
-					data: [100],
-					backgroundColor: ["#7394ca"],
-					borderColor: "transparent",
+					data: [87420, 43823, 313, 1770],
+					backgroundColor: ["#7394ca", "#e1974e", "#818787", "#ccc374"],
 				},
 			],
 		});
@@ -37,12 +35,22 @@ const PieChart = () => {
 				data={chartData}
 				options={{
 					legend: {
-						position: "right",
+						position: "bottom",
 
 						labels: {
 							padding: 10,
 							boxWidth: 10,
 						},
+					},
+					tooltips: {
+						//enabled: false,
+						backgroundColor: "#FFF",
+						titleFontSize: 16,
+						titleFontColor: "#0066ff",
+						bodyFontColor: "#000",
+						bodyFontSize: 14,
+						displayColors: true,
+						//intersect: false,
 					},
 					scales: {
 						yAxes: [

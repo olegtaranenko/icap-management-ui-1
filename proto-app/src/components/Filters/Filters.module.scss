@@ -130,18 +130,42 @@
 		left: 2rem;
 	}
 
-	& .popupFilter {
+	& .popupFilterFileType {
 		top: 19.2rem;
-		left: 26rem;
+		left: 14rem;
 		z-index: 98;
 
+		width: 60rem;
+
 		padding: 2rem;
+
+		& fieldset {
+			margin-bottom: 5rem;
+
+			& label {
+				margin-left: 0.5rem;
+			}
+		}
+	}
+
+	& .popupFilterOutcome {
+		top: 19.2rem;
+		left: 14rem;
+		z-index: 98;
+
+		width: 30rem;
+
+		padding: 2rem;
+
+		& label {
+			width: 12rem;
+		}
 	}
 
 	& .fileId {
 		position: absolute;
-		top: 29.2rem;
-		left: 26rem;
+		top: 23rem;
+		left: 14rem;
 		z-index: 98;
 
 		display: flex;

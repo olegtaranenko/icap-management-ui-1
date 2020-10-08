@@ -8,10 +8,18 @@ const PopupFilter = ({
 	openPopupHover,
 	closePopupHover,
 }) => {
-	console.log(filter);
 	const addedFilter = filter.map(({ id, filterName, checkboxList }) => {
+		let filterStyle = classes.fileType;
+		if (filterName === "Outcome") {
+			filterStyle = classes.outcome;
+		}
 		return (
-			<Filter key={id} filter={filterName} checkboxList={checkboxList} />
+			<Filter
+				key={id}
+				filter={filterName}
+				externalStyles={filterStyle}
+				checkboxList={checkboxList}
+			/>
 		);
 	});
 	return (
