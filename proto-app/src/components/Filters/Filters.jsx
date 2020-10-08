@@ -208,7 +208,7 @@ const Filters = ({ popupIsOpen, changeVisibilityPopup }) => {
 									className={classes.addButton}
 									disabled={!isValid}
 								>
-									{`+ ADD`}
+									+ ADD
 								</button>
 							</form>
 						)}
