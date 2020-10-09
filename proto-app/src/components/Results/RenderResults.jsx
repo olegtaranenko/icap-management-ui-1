@@ -44,13 +44,13 @@ function RenderResults({
 					<SectionTitle className={classes.title} hasIssues={hasIssues}>
 						{sectionTitle}
 					</SectionTitle>
-					<ButtonsContainer context="analysis" touchFull>
+					{/*<ButtonsContainer context="analysis" touchFull>
 						<DownloadFile file={file} hasIssues={hasIssues} />
 						<DownloadAnalysisReport
 							report={analysisReportString}
 							filename={fileName}
 						/>
-					</ButtonsContainer>
+					</ButtonsContainer>*/}
 
 					<FileAttributes file={file} fileType={fileType} />
 
@@ -60,7 +60,10 @@ function RenderResults({
 						issues={issues}
 					/>
 					<ButtonsContainer touchFull>
-						<Button externalStyles={classes.button} onClick={onAnotherFile}>
+						<Button
+							externalStyles={classes.button}
+							onButtonClick={onAnotherFile}
+						>
 							Sanitise another file
 						</Button>
 					</ButtonsContainer>

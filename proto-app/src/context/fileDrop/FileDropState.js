@@ -23,6 +23,10 @@ export const FileDropState = ({ children }) => {
 		dispatch({ type: actionTypes.SET_RESULT_FROM_SERVER, result });
 	};
 
+	const resetState = () => {
+		dispatch({ type: actionTypes.RESET_STATE });
+	};
+
 	return (
 		<FileDropContext.Provider
 			value={{
@@ -35,6 +39,7 @@ export const FileDropState = ({ children }) => {
 				loading: fileDropState.loading,
 				feedback: fileDropState.feedback,
 				setResultFromServer,
+				resetState,
 			}}
 		>
 			{children}

@@ -11,9 +11,12 @@ import classes from "./FileDrop.module.scss";
 import supporting from "../../data/fileDrop/supportedFileTypes.json";
 import messages from "../../data/fileDrop/messages.json";
 
+import refreshIcon from "../../assets/svg/file-drop/refresh-button.svg";
+
 import StyledDropzone from "../../components/UI/StyledDropzone/StyledDropzone";
 import Button from "../../components/UI/Button/Button";
-import { RenderResults } from "../../components/Results";
+import RenderResults from "../../components/Results/RenderResults";
+import IconButton from "../../components/UI/IconButton/IconButton";
 
 const FileDrop = () => {
 	const { addToast } = useToasts();
@@ -25,16 +28,8 @@ const FileDrop = () => {
 		fileProcessed,
 		loading,
 		setResultFromServer,
+		resetState,
 	} = useContext(FileDropContext);
-
-	console.log(
-		file,
-		analysisReport,
-		analysisReportString,
-		validation,
-		fileProcessed,
-		loading
-	);
 
 	const accept = [];
 	// const vendors = [];
@@ -97,7 +92,6 @@ const FileDrop = () => {
 					// console.warn(` ----------- File Analysis is done ${new Date().toISOString()} -------------`);
 					const XMLParser = require("react-xml-parser");
 					const xml = new XMLParser().parseFromString(result);
-					console.log(xml);
 
 					setResultFromServer({
 						analysisReport: xml,
@@ -164,11 +158,41 @@ const FileDrop = () => {
 			) : (
 				<>
 					<div className={[classes.dropzone, classes.processed].join(" ")}>
-						<div className="drop-border drop-results">
-							{/*<IconButton className="button-refresh" onClick={onAnotherFile}>
-						<img src="/img/refresh-button.svg" alt="drop refresh icon" />
-					</IconButton>*/}
-							<div className="drop-message drop-message__processed">
+						<div
+							style={{
+								width: "100%",
+								height: "100%",
+								display: "flex",
+								flexDirection: "column",
+								justifyContent: "space-around",
+								alignItems: "center",
+							}}
+							className="drop-border drop-results"
+						>
+							<IconButton className="button-refresh" onClick={resetState}>
+								<img
+									style={{
+										width: "5rem",
+										height: "5rem",
+										position: "absolute",
+										right: "3rem",
+										top: "3rem",
+									}}
+									src={refreshIcon}
+									alt="drop refresh icon"
+								/>
+							</IconButton>
+							<div
+								style={{
+									display: "block",
+									marginTop: "4.2rem",
+									fontSize: "2.4rem",
+									fontWeight: "300",
+									lineHeight: "0.8rem",
+									color: "#ffffff",
+								}}
+								className="drop-message drop-message__processed"
+							>
 								Your file has been processed
 							</div>
 							<div
@@ -182,6 +206,7 @@ const FileDrop = () => {
 						analysisReport={analysisReport}
 						analysisReportString={analysisReportString}
 						validation={validation}
+						onAnotherFile={resetState}
 					/>
 				</>
 			)}
