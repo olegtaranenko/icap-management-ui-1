@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: icap-management-portal-service
+  name: icap-management-portal
 spec:
   selector:
-    app: icap-management-portal-service
+    app: icap-management-portal
   ports:
-    - port: 4000
+    - port: 80
       targetPort: 8080
   type: LoadBalancer

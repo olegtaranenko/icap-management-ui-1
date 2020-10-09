@@ -15,6 +15,4 @@ COPY ./server ./
 
 RUN yarn install --frozen-lockfile && yarn build
 
-EXPOSE 8080
-
 CMD yarn start
