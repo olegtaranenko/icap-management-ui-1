@@ -1,13 +1,11 @@
 import React from "react";
 import classes from "./RenderResults.module.scss";
 
-import RenderAnalysis from "./RenderAnalysis";
-import DownloadFile from "./DownloadFile";
+import RenderAnalysis from "./RenderAnalysis/RenderAnalysis";
 import SectionTitle from "../SectionTitle/SectionTitle";
-import DownloadAnalysisReport from "./DownloadAnalysisReport";
-import FileAttributes from "./FileAttributes";
+import DownloadAnalysisReport from "./DownloadAnalysisReport/DownloadAnalysisReport";
+import FileAttributes from "./FileAttributes/FileAttributes";
 import ButtonsContainer from "../ButtonsContainer/ButtonsContainer";
-import messages from "../../data/fileDrop/messages.json";
 import Button from "../UI/Button/Button";
 
 function RenderResults({
@@ -15,7 +13,7 @@ function RenderResults({
 	analysisReport,
 	analysisReportString,
 	validation,
-	onAnotherFile,
+	isShowResult,
 }) {
 	if (validation) {
 		return (
@@ -36,60 +34,54 @@ function RenderResults({
 		] = analysisReport.getElementsByTagName("gw:FileType");
 		const { name: fileName } = file;
 		const hasIssues = !!issues.length;
-		if (sanitisations.length || remediations.length || hasIssues) {
-			const code = hasIssues ? "unable-to-protect" : "file-is-ready";
-			const sectionTitle = messages[code];
+
+		if (
+			!isShowResult &&
+			(sanitisations.length || remediations.length || hasIssues)
+		) {
 			return (
 				<div className={classes.RenderResults}>
-					<SectionTitle className={classes.title} hasIssues={hasIssues}>
-						{sectionTitle}
+					<SectionTitle externalStyles={classes.headline}>
+						Analisys Report
 					</SectionTitle>
-					{/*<ButtonsContainer context="analysis" touchFull>
-						<DownloadFile file={file} hasIssues={hasIssues} />
-						<DownloadAnalysisReport
-							report={analysisReportString}
-							filename={fileName}
+
+					<div className={classes.container}>
+						<ButtonsContainer externalStyles={classes.buttons}>
+							<Button
+								//onButtonClick={() => setShowResult(true)}
+								externalStyles={classes.button}
+							>
+								PDF
+							</Button>
+							<Button
+								//onButtonClick={() => setShowResult(true)}
+								externalStyles={classes.button}
+							>
+								XML
+							</Button>
+						</ButtonsContainer>
+						<FileAttributes file={file} fileType={fileType} />
+						<RenderAnalysis
+							remediations={remediations}
+							sanitisations={sanitisations}
+							issues={issues}
 						/>
-					</ButtonsContainer>*/}
-
-					<FileAttributes file={file} fileType={fileType} />
-
-					<RenderAnalysis
-						remediations={remediations}
-						sanitisations={sanitisations}
-						issues={issues}
-					/>
-					<ButtonsContainer touchFull>
-						<Button
-							externalStyles={classes.button}
-							onButtonClick={onAnotherFile}
-						>
-							Sanitise another file
-						</Button>
-					</ButtonsContainer>
+					</div>
 				</div>
 			);
 		} else {
 			return (
-				<div className="is-clean analysis">
-					<SectionTitle context="clean">File is clean!</SectionTitle>
-					<ButtonsContainer context="download" touchFull>
-						<DownloadAnalysisReport
-							report={analysisReportString}
-							filename={fileName}
-						/>
-					</ButtonsContainer>
+				<div className={[classes.RenderResults, classes.result].join(" ")}>
+					<SectionTitle>File is clean!</SectionTitle>
+					<DownloadAnalysisReport
+						report={analysisReportString}
+						filename={fileName}
+					/>
 					<FileAttributes file={file} fileType={fileType} />
-					<ButtonsContainer touchFull>
-						<Button externalStyles={classes.button} onClick={onAnotherFile}>
-							Sanitise another file
-						</Button>
-					</ButtonsContainer>
 				</div>
 			);
 		}
 	}
-
 	return null;
 }
 

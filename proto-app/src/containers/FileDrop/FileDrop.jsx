@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useToasts } from "react-toast-notifications";
 import { trackPromise } from "react-promise-tracker";
 
@@ -30,6 +30,7 @@ const FileDrop = () => {
 		setResultFromServer,
 		resetState,
 	} = useContext(FileDropContext);
+	const [showResult, setShowResult] = useState(false);
 
 	const accept = [];
 	// const vendors = [];
@@ -139,77 +140,69 @@ const FileDrop = () => {
 		);
 	};
 
+	const dropAnotherFile = () => {
+		resetState();
+		setShowResult(false);
+	};
+
 	return (
 		<section className={classes.FileDrop}>
-			{!fileProcessed ? (
-				<StyledDropzone
-					externalStyles={classes.dropzone}
-					onDrop={handleDrop}
-					accept={accept}
-					loading={loading}
-				>
-					<div className={classes.message}>Drop a file here</div>
-					<div className={[classes.message, classes.reject].join(" ")}>
-						Please use a supported file type
-					</div>
-					<div className={[classes.image, classes.imageDrop].join(" ")} />
-					<Button externalStyles={classes.button}>SELECT A FILE</Button>
-				</StyledDropzone>
-			) : (
-				<>
-					<div className={[classes.dropzone, classes.processed].join(" ")}>
-						<div
-							style={{
-								width: "100%",
-								height: "100%",
-								display: "flex",
-								flexDirection: "column",
-								justifyContent: "space-around",
-								alignItems: "center",
-							}}
-							className="drop-border drop-results"
-						>
-							<IconButton className="button-refresh" onClick={resetState}>
-								<img
-									style={{
-										width: "5rem",
-										height: "5rem",
-										position: "absolute",
-										right: "3rem",
-										top: "3rem",
-									}}
-									src={refreshIcon}
-									alt="drop refresh icon"
-								/>
-							</IconButton>
-							<div
-								style={{
-									display: "block",
-									marginTop: "4.2rem",
-									fontSize: "2.4rem",
-									fontWeight: "300",
-									lineHeight: "0.8rem",
-									color: "#ffffff",
-								}}
-								className="drop-message drop-message__processed"
-							>
-								Your file has been processed
-							</div>
-							<div
-								className={[classes.image, classes.imageProcessed].join(" ")}
-							/>
-							<Button externalStyles={classes.button}>VIEW RESULT</Button>
+			<div className={classes.dropzoneWrap}>
+				{!fileProcessed ? (
+					<StyledDropzone
+						externalStyles={classes.dropzone}
+						onDrop={handleDrop}
+						accept={accept}
+						loading={loading}
+					>
+						<div className={classes.message}>Drop a file here</div>
+						<div className={[classes.message, classes.reject].join(" ")}>
+							Please use a supported file type
 						</div>
-					</div>
-					<RenderResults
-						file={file}
-						analysisReport={analysisReport}
-						analysisReportString={analysisReportString}
-						validation={validation}
-						onAnotherFile={resetState}
-					/>
-				</>
-			)}
+						<div className={[classes.image, classes.imageDrop].join(" ")} />
+						<Button externalStyles={classes.button}>SELECT A FILE</Button>
+					</StyledDropzone>
+				) : (
+					<>
+						<div className={[classes.dropzone, classes.processed].join(" ")}>
+							<div className={classes.results}>
+								<IconButton
+									externalStyles={classes.buttonRefresh}
+									onClick={dropAnotherFile}
+								>
+									<img src={refreshIcon} alt="drop refresh icon" />
+								</IconButton>
+								<div
+									className={[classes.message, classes.messageProcessed].join(
+										" "
+									)}
+								>
+									Your file has been processed
+								</div>
+								<div
+									className={[classes.image, classes.imageProcessed].join(
+										" "
+									)}
+								/>
+								<Button
+									onButtonClick={() => setShowResult(true)}
+									externalStyles={classes.button}
+								>
+									VIEW RESULT
+								</Button>
+							</div>
+						</div>
+						<RenderResults
+							file={file}
+							analysisReport={analysisReport}
+							analysisReportString={analysisReportString}
+							validation={validation}
+							onAnotherFile={dropAnotherFile}
+							isShowResult={showResult}
+						/>
+					</>
+				)}
+			</div>
 		</section>
 	);
 };

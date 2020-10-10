@@ -1,11 +1,13 @@
 import React from "react";
 
-function ButtonsContainer({ context, children, touchFull} = {}) {
-    return (
-        <div className={`buttons-container${context ? ` ${context}-buttons` : ''}${touchFull ? ` touch-full` : ''}`}>
-            {children}
-        </div>
-    )
+import classes from "./ButtonsContainer.module.scss";
+
+function ButtonsContainer({ externalStyles, children }) {
+	return (
+		<div className={[classes.buttonsContainer, externalStyles].join(" ")}>
+			{children}
+		</div>
+	);
 }
 
 export default ButtonsContainer;

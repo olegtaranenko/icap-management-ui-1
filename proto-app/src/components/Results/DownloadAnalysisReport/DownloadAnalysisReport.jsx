@@ -1,14 +1,8 @@
 import React from "react";
-import Button from "../UI/Button/Button";
 
-const clsButton = {
-	fontSize: `1rem`,
-	fontWeight: `800`,
-	background: ` #1a919a`,
-	padding: `1.25rem 2.75rem`,
-	color: `white`,
-	border: ` none`,
-};
+import classes from "./DownloadAnalysisReport.module.scss";
+
+import Button from "../../UI/Button/Button";
 
 class DownloadAnalysisReport extends React.Component {
 	getAnalysisReport = () => {
@@ -25,7 +19,10 @@ class DownloadAnalysisReport extends React.Component {
 
 	render() {
 		return (
-			<Button buttonStyle={clsButton} onClick={this.getAnalysisReport}>
+			<Button
+				externalStyles={classes.button}
+				onButtonClick={this.getAnalysisReport}
+			>
 				Download Analysis Report
 			</Button>
 		);

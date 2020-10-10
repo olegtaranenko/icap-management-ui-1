@@ -1,23 +1,13 @@
 import React from "react";
 
+import classes from "./FileAttributes.module.scss";
+
 function FileAttributes({ file, fileType } = {}) {
 	const { name, size } = file;
 	return (
-		<div className="file-attributes analysis-table table-container">
-			<div
-				style={{
-					textTransform: "uppercase",
-					fontSize: "1.6rem",
-					background: "grey",
-					color: "#ffffff",
-					textAlign: "center",
-					lineHeight: "4rem",
-				}}
-				className="h1 table-header"
-			>
-				File Attributes
-			</div>
-			<table>
+		<div className={classes.FileAttributes}>
+			<div className={classes.header}>File Attributes</div>
+			<table className={classes.table}>
 				<tbody>
 					<tr>
 						<td>File Name: </td>
