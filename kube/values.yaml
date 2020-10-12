@@ -3,5 +3,5 @@ deployment:
   name: icap-management-portal
   port: 8080
 service:
-  port: 80
   name: icap-management-portal-service
+  port: 80
