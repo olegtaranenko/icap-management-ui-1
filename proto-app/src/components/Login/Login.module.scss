@@ -6,6 +6,11 @@
 		width: 100%;
 
 		margin: 4rem 0;
+
+		& input {
+			margin: 2rem 0;
+			padding-left: 5rem;
+		}
 	}
 	& button {
 		margin: 4rem auto 0;

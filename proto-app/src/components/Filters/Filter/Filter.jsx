@@ -7,7 +7,7 @@ import classes from "./Filter.module.scss";
 
 import CheckboxItem from "../../UI/Checkbox/Checkbox";
 
-const Filter = ({ filter, checkboxList }) => {
+const Filter = ({ filter, checkboxList, externalStyles }) => {
 	const { addFilterCheckbox } = useContext(GlobalStoreContext);
 
 	const handleChange = (selectedCheckbox) => {
@@ -40,7 +40,10 @@ const Filter = ({ filter, checkboxList }) => {
 	);
 
 	return (
-		<FormControl component="fieldset" className={classes.Filter}>
+		<FormControl
+			component="fieldset"
+			className={[classes.Filter, externalStyles].join(" ")}
+		>
 			<FormLabel component="legend">
 				{filter === "Outcome" ? "" : filter}
 			</FormLabel>

@@ -20,10 +20,11 @@ import Users from "./containers/Users/Users";
 import Config from "./containers/Config/Config";
 import RequestHistory from "./containers/RequestHistory/RequestHistory";
 import Policy from "./containers/Policy/Policy";
+import Dashboard from "./containers/Dashboard/Dashboard";
+import FileDrop from "./containers/FileDrop/FileDrop";
 
 // TODO: Remove from production, for prototype only
 import Sow from "./components/Sow/Sow";
-import Dashboard from "./containers/Dashboard/Dashboard";
 
 const App = () => {
 	const [navExpanded, setNavExpanded] = useState(true);
@@ -37,9 +38,7 @@ const App = () => {
 			<Route path="/request-history">
 				<div>Request history</div>
 			</Route>
-			<Route path="/file-drop">
-				<div>File drop</div>
-			</Route>
+			<Route path="/file-drop" component={FileDrop} />
 			<Route path="/policy" component={Policy} />
 
 			<Route path="/configuration" component={Config} />

@@ -1,0 +1,132 @@
+.FileDrop {
+	position: relative;
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	height: 100%;
+
+	& .dropzoneWrap {
+		display: flex;
+		justify-content: space-between;
+
+		width: 100%;
+		padding: 1rem 0.5rem;
+
+		& .dropzone {
+			width: 100%;
+			height: 100%;
+
+			background: #ffffff;
+		}
+
+		& .processed {
+			position: relative;
+			top: 0;
+			left: 0;
+
+			width: 48%;
+
+			padding: 5% 3%;
+
+			transform: none;
+			border: 1px solid #b6bfc9;
+			border-radius: 0.6rem;
+
+			& .results {
+				position: relative;
+
+				display: flex;
+				flex-direction: column;
+				justify-content: space-around;
+				align-items: center;
+
+				width: 100%;
+				height: 100%;
+
+				padding: 5rem 0;
+
+				background: #b6bfc9;
+				box-shadow: 0 0px 6px 3px rgba(0, 0, 0, 0.5);
+
+				& .buttonRefresh {
+					width: 5rem;
+					height: 5rem;
+					position: absolute;
+					right: 3rem;
+					top: 3rem;
+				}
+				& .messageProcessed {
+					margin-top: 0;
+				}
+			}
+		}
+	}
+
+	//background: #ffffff;
+
+	//& .dropzone {
+	//	position: absolute;
+	//	top: 50%;
+	//	left: 50%;
+	//	transform: translate(-50%, -50%);
+
+	//	width: 50rem;
+	//	height: 60rem;
+
+	//	background: #b6bfc9;
+	//}
+
+	& .message {
+		display: block;
+
+		margin-top: 4.2rem;
+
+		font-size: 2.4rem;
+		font-weight: 300;
+		line-height: 0.8rem;
+
+		color: #ffffff;
+	}
+	& .reject {
+		display: none;
+	}
+
+	//& .processed {
+	//	position: relative;
+	//	top: 0;
+	//	left: 0;
+
+	//	//width: 40%;
+
+	//	transform: none;
+	//}
+}
+
+.image {
+	background-repeat: no-repeat;
+}
+
+.imageDrop {
+	width: 11.3rem;
+	height: 10.3rem;
+	background-image: url(../../assets/svg/file-drop/drag-drop-area.svg);
+}
+
+.imageProcessed {
+	width: 11.44rem;
+	height: 15rem;
+	//noinspection CssUnknownTarget
+	background-image: url(../../assets/svg/file-drop/sanitised-file.svg);
+	margin-top: 0.2rem;
+}
+
+.button {
+	font-size: 1.7rem;
+	font-weight: 800;
+
+	background-color: #1a919a;
+	padding: 1.25rem 2.75rem;
+
+	color: white;
+	border: none;
+}

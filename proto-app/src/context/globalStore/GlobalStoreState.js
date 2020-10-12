@@ -45,6 +45,7 @@ export const GlobalStoreState = ({ children }) => {
 	return (
 		<GlobalStoreContext.Provider
 			value={{
+				state: globalStoreState,
 				title: globalStoreState.title,
 				userfiles: globalStoreState.userfiles,
 				fileFilter: globalStoreState.fileFilter,

@@ -6,7 +6,7 @@ section {
 	margin-bottom: 2rem;
 }
 
-.logo {	
+.logo {
 	margin-left: 4vw;
 	width: 20rem;
 	height: 10rem;
@@ -78,18 +78,15 @@ section {
 	}
 }
 
-
-
 .wrapButtons {
 	display: flex;
 	justify-content: space-between;
-	margin-bottom: 3rem;	
+	margin-bottom: 3rem;
 }
 
 .recaptcha {
 	margin-bottom: 3rem;
 }
-
 
 .requirementsTable {
 	margin-bottom: 2rem;
@@ -101,14 +98,16 @@ section {
 
 	text-align: center;
 
-	tr, td, th {
+	tr,
+	td,
+	th {
 		border: 1px solid #ffffff;
 		padding: 8px;
 		text-align: left;
 	}
 
 	th {
-		font-size: 2rem
+		font-size: 2rem;
 	}
 
 	td {
@@ -116,7 +115,7 @@ section {
 	}
 }
 
-@media(max-width: 992px) {
+@media (max-width: 992px) {
 	.wrapForm {
 		width: 95%;
 		margin-left: 2.5%;

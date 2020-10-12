@@ -50,22 +50,38 @@
 
 	& .pieChart {
 		margin: 5rem;
-		border: 1px solid #b6bfc955;
 	}
 
 	& .lineChart {
 		width: 90%;
 		margin-bottom: 10rem;
-		border: 1px solid #b6bfc955;
 	}
 
-	& .pickers {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-
-		height: 5rem;
+	& .pickersWrap {
+		width: 100%;
+		padding: 1rem 0.5rem;
 
 		background: #e6e9ea;
+
+		& .pickersBlock {
+			display: flex;
+
+			align-items: center;
+
+			height: 4rem;
+
+			background: #f6f9fa;
+			border-radius: 3rem;
+
+			& h3 {
+				margin: 0;
+				margin-left: 2rem;
+			}
+
+			& .pickers {
+				left: 50%;
+				transform: translateX(-50%);
+			}
+		}
 	}
 }
