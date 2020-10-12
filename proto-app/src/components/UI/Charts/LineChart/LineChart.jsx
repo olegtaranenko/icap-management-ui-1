@@ -184,7 +184,6 @@ const LineChart = () => {
 						0,
 						0,
 					],
-					//bezierCurve: false,
 					lineTension: 0,
 					backgroundColor: ["transparent"],
 					borderColor: "#7394ca",
@@ -223,7 +222,7 @@ const LineChart = () => {
 							{
 								ticks: {
 									min: 0,
-									max: 40000,
+									max: 25000,
 									autoSkip: true,
 									maxTicksLimit: 6,
 									beginAtZero: true,

@@ -58,11 +58,10 @@
 
 		& .moreFilters {
 			position: absolute;
-			top: 0px;
+			top: -4px;
 			right: 30px;
 
 			padding: 0.3rem 1rem;
-			margin-bottom: 1rem;
 
 			opacity: 1;
 			background: #4592b0;
@@ -128,20 +127,48 @@
 	& .popup {
 		top: 19.2rem;
 		left: 2rem;
+
+		& button {
+			text-transform: none;
+		}
 	}
 
-	& .popupFilter {
+	& .popupFilterFileType {
 		top: 19.2rem;
-		left: 26rem;
+		left: 14rem;
 		z-index: 98;
 
+		width: 60rem;
+
 		padding: 2rem;
+
+		& fieldset {
+			margin-bottom: 5rem;
+
+			& label {
+				margin-left: 0.5rem;
+			}
+		}
+	}
+
+	& .popupFilterOutcome {
+		top: 19.2rem;
+		left: 14rem;
+		z-index: 98;
+
+		width: 30rem;
+
+		padding: 2rem;
+
+		& label {
+			width: 12rem;
+		}
 	}
 
 	& .fileId {
 		position: absolute;
-		top: 29.2rem;
-		left: 26rem;
+		top: 29rem;
+		left: 14rem;
 		z-index: 98;
 
 		display: flex;
@@ -163,6 +190,10 @@
 
 			padding-left: 2rem;
 			color: black;
+
+			& input {
+				color: #000000;
+			}
 
 			&::placeholder {
 				color: #b6bfc9;

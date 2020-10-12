@@ -96,17 +96,21 @@ const Filters = ({ popupIsOpen, changeVisibilityPopup }) => {
 	};
 
 	let filter = null;
+	let filterStyle = null;
 
 	switch (openFilter) {
 		case "File Types":
 			filter = fileFilter;
+			filterStyle = classes.popupFilterFileType;
 			break;
 
 		case "Outcomes":
 			filter = outcomeFilter;
+			filterStyle = classes.popupFilterOutcome;
 			break;
 		default:
 			filter = null;
+			filterStyle = null;
 			break;
 	}
 
@@ -174,7 +178,7 @@ const Filters = ({ popupIsOpen, changeVisibilityPopup }) => {
 							<PopupFilter
 								filter={filter}
 								selectedFilters={selectedFilters}
-								externalStyles={classes.popupFilter}
+								externalStyles={filterStyle}
 								openPopupHover={() => changeVisibilityPopup(true)}
 								closePopupHover={closePopupHoverHandler}
 							/>
@@ -204,7 +208,7 @@ const Filters = ({ popupIsOpen, changeVisibilityPopup }) => {
 									className={classes.addButton}
 									disabled={!isValid}
 								>
-									{`+ ADD`}
+									+ ADD
 								</button>
 							</form>
 						)}

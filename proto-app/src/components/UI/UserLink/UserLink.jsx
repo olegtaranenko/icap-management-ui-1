@@ -20,8 +20,9 @@ const UserLink = ({ username, expanded, openPopup, closePopup }) => {
 				style={{
 					backgroundImage: `url(${AccountIcon})`,
 				}}
-			></div>
-			<p>{username}</p>
+			>
+				<p className={classes.clip}>{username}</p>
+			</div>
 		</section>
 	);
 };
