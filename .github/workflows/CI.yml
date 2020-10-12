@@ -58,7 +58,7 @@ jobs:
         if: steps.lint.outputs.changed == 'true'
         run: |
           kubectl create namespace icap
-          helm install icap-management-portal --namespace icap --generate-name
+          helm install icap-management-portal ./kube --namespace icap --generate-name
       - name: List pods
         if: steps.lint.outputs.changed == 'true'
         run: |
