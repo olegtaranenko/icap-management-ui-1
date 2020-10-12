@@ -1,0 +1,9 @@
+apiVersion: v2
+name: hellokubernetes
+description: A simple Helm chart for running Hello Kubernetes
+type: application
+version: 0.1.0
+home: https://github.com/filetrust/icap-management-ui
+maintainers:
+  - name: werzl
+    email: ahewitt@glasswallsolutions.com
