@@ -1,6 +1,6 @@
 apiVersion: v2
-name: hellokubernetes
-description: A simple Helm chart for running Hello Kubernetes
+name: icap-management-portal
+description: A simple Helm chart for running icap-management-portal
 type: application
 version: 0.1.0
 home: https://github.com/filetrust/icap-management-ui
