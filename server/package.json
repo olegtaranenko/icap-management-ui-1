@@ -6,7 +6,6 @@
   "scripts": {
     "prebuild": "tslint -c tslint.json -p tsconfig.json --fix",
     "build": "tsc",
-    "prestart": "yarn build",
     "start": "cross-env NODE_ENV=production node .",
     "predev": "yarn build && cd ../proto-app && yarn install && yarn build",
     "dev": "cross-env NODE_ENV=development node .",

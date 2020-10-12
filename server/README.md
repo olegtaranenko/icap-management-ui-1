@@ -36,7 +36,7 @@ This command runs the 'dev' script in the package.json file, which starts a loca
   
 #### Build the Docker Image
 ```
-docker build --tag icap-management-portal -f server/Dockerfile .
+docker build --tag icap-management-portal:version -f server/Dockerfile .
 ```
   
 This command builds the Docker image from the Dockerfile, [docker build](https://docs.docker.com/engine/reference/commandline/build/).
@@ -50,3 +50,36 @@ docker run -p 4000:8080 -d icap-management-portal
 This command runs the Docker container using the Docker image that was just built, [docker run](https://docs.docker.com/engine/reference/run/).  
 The <b>-p</b> flag maps the exposed port 8080 to port 4000.  
   The <b>-d</b> flag runs the container in detached mode, which runs in the background.
+
+<hr/>
+
+### Running the Server in Minikube
+#### Make sure you're in the root directory of the project and Docker is running.
+
+#### Prerequisites
+- kubectl + Minikube
+
+#### Start a Minikube cluster
+```
+minikube start
+```
+
+If Minikube installed correctly, you should see a cluster spin up in the Docker Desktop dashboard.
+
+#### Add the Helm Chart to the Cluster
+```
+helm install icap-management-portal ./kube
+```
+Deploys a helm chart to the default namespace using the chart in ./kube.Chart.yaml and the values in ./kube/values.yaml. The deployment and service yaml files from /kube/template will be applied to the cluster automatically.
+
+#### Verify the Pod(s) are Spinning Up
+```
+kubectl get pods --watch
+```
+The pod icap-management-portal should be spinning up after the helm install, the --watch flag will show any changes in the status. The status should change from ContainerCreating to Running.
+
+#### Start the Service and Tunnel in to the Minikube Cluster (Windows)
+```
+minikube service icap-management-portal-service
+```
+Runs the service, exposing the icap-management-portal container. Minikube should automatically tunnel into the service, and a browser window should pop up with the app running on a random port. If the browser window doesn't open, the IP and port of the running service should be displayed on the command output.
