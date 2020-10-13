@@ -1,0 +1,12 @@
+.Tab {
+	width: calc(100% - 4rem);
+	height: calc(100% - 9rem);
+
+	border-radius: 0.6rem;
+
+	& .innerContent {
+		background: #ffffff;
+		border: 1px solid #b6bfc9;
+		border-radius: 0.6rem;
+	}
+}
