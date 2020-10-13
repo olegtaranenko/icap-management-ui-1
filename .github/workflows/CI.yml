@@ -68,7 +68,7 @@ jobs:
         if: steps.lint.outputs.changed == 'true'
         run: |
           kubectl get pods -n icap -l app=icap-management-portal
-          kubectl wait --for=condition=ready pod -n icap -l app=icap-management-portal --timeout=60s
+          kubectl wait --for=condition=ready pod -n icap -l app=icap-management-portal --timeout=120s
       - name: Port Forward to Service
         if: steps.lint.outputs.changed == 'true'
         run: "kubectl port-forward -n icap service/icap-management-portal-service 8081:80 &"
