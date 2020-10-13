@@ -69,7 +69,7 @@ jobs:
         # TODO: If the Pods never become Ready, e.g. because of config or image problems, this will hang until the workflow
         # times out. Should add a timeout condition to the loop.
         run: |
-          timeout 30 while [[ $(kubectl get pods -n icap -l app=icap-management-portal -o 'jsonpath={..status.conditions[?(@.type=="Ready")].status}') != "True True" ]]; do echo "waiting for pod" && sleep 1; done
+          timeout 30 kubectl get pods -n icap -l app=icap-management-portal
       - name: Port Forward to Service
         if: steps.lint.outputs.changed == 'true'
         run: "kubectl port-forward -n icap service/icap-management-portal-service 8081:80 &"
