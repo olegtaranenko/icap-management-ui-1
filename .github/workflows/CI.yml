@@ -58,7 +58,7 @@ jobs:
         if: steps.lint.outputs.changed == 'true'
         run: |
           kubectl create namespace icap
-          helm install icap-management-portal --namespace icap --generate-name
+          helm install icap-management-portal ./kube --namespace icap
       - name: List pods
         if: steps.lint.outputs.changed == 'true'
         run: |
@@ -66,10 +66,9 @@ jobs:
           kubectl get services --all-namespaces
       - name: Wait for app
         if: steps.lint.outputs.changed == 'true'
-        # TODO: If the Pods never become Ready, e.g. because of config or image problems, this will hang until the workflow
-        # times out. Should add a timeout condition to the loop.
         run: |
-          while [[ $(kubectl get pods -n icap -l app=icap-management-portal -o 'jsonpath={..status.conditions[?(@.type=="Ready")].status}') != "True True" ]]; do echo "waiting for pod" && sleep 1; done
+          kubectl get pods -n icap -l app=icap-management-portal
+          kubectl wait --for=condition=ready pod -n icap -l app=icap-management-portal --timeout=120s
       - name: Port Forward to Service
         if: steps.lint.outputs.changed == 'true'
         run: "kubectl port-forward -n icap service/icap-management-portal-service 8081:80 &"
