@@ -1,9 +1,9 @@
 FROM node:12
 
 # Set up Frontend
-WORKDIR /usr/bin/icap-management-portal/proto-app
+WORKDIR /usr/bin/icap-management-portal/frontend
 
-COPY ./proto-app ./
+COPY ./frontend ./
 
 RUN yarn install && yarn build
 

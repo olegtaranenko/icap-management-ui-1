@@ -1,13 +1,10 @@
-{
-  "name": "icap-management-ui",
-  "version": "1.0.0",
-  "description": "UI for p-icap",
+{  
   "main": "dist/index.js",
   "scripts": {
     "prebuild": "tslint -c tslint.json -p tsconfig.json --fix",
     "build": "tsc",
     "start": "cross-env NODE_ENV=production node .",
-    "predev": "yarn build && cd ../proto-app && yarn install && yarn build",
+    "predev": "yarn build && cd ../frontend && yarn install && yarn build",
     "dev": "cross-env NODE_ENV=development node .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
