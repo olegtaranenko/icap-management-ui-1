@@ -1,12 +1,10 @@
-# icap-management-ui
-Repository for the Management UI in the Glasswall ICAP Program
+# Server
 
-## Setup
+## Local Development
 
 ### Prerequisites
-- [Docker desktop](https://www.docker.com/)
-- [Node.js](https://nodejs.org/en/) version 12 or later
-- [Minikube](https://minikube.sigs.k8s.io/docs/start/)
+- [Docker](https://www.docker.com/)
+- [Node.js](https://nodejs.org/en/)
 
 ### Running the Server Locally (Node.js)
 #### Make sure you're in the ./server directory of the project.

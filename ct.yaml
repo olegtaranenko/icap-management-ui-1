@@ -1,0 +1,4 @@
+  
+target-branch: develop
+chart-dirs:
+  - .

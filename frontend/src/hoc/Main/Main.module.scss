@@ -1,0 +1,23 @@
+.main {	
+	display: block;
+	padding-top: 0;
+	margin-left: 7rem;
+	width: calc(100% - 7rem);
+	height: 100%;
+	padding: 2rem;
+	transition: all 0.3s ease-in-out;
+
+	&.expanded {
+		width: calc(100% - 26rem);
+		margin-left: 26rem;
+	}
+}
+
+.content {
+	position: relative;
+	height: 100%;
+	padding: 0;
+	background-color: #fff;
+	border: 1px solid #b6bfc9;
+	border-radius: 0.6rem;
+}

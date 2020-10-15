@@ -1,0 +1,59 @@
+{"level":"info","message":"env: development","service":"user-service"}
+{"level":"info","message":"env: production","service":"user-service"}
+{"level":"info","message":"env: production"}
+{"level":"info","message":"env: development"}
+{ level: 'info', message: 'env: production' }
+{ level: 'info', message: 'env: development' }
+{ level: 'info', message: 'env: development' }
+{ level: 'info', message: 'env: development' }
+{ level: 'info', message: 'env: development' }
+{ level: 'info', message: 'env: development' }
+{ level: 'info', message: 'env: development' }
+{"level":"info","message":"env: production"}
+{"level":"info","message":"env: production"}
+{"level":"info","message":"env: development"}
+{"level":"info","message":"env: development"}
+{"level":"info","message":"env: development"}
+{"level":"info","message":"env: development"}
+{"level":"info","message":"Server is Running at http://localhost:8080"}
+{"level":"info","message":"env: development"}
+{"level":"info","message":"Server is Running at http://localhost:8080"}
+{"level":"info","message":"env: development"}
+{"level":"info","message":"Server is Running at http://localhost:8080"}
+{"level":"info","message":"env: development"}
+{"level":"info","message":"Server is Running at http://localhost:8080"}
+{"level":"info","message":"C:\\Users\\Adam\\GitHub\\p-ui-wireframes\\server"}
+{"level":"info","message":"env: development"}
+{"level":"info","message":"Server is Running at http://localhost:8080"}
+{"level":"info","message":"C:\\Users\\Adam\\GitHub\\p-ui-wireframes\\server"}
+{"level":"info","message":"env: development"}
+{"level":"info","message":"Server is Running at http://localhost:8080"}
+{"level":"info","message":"C:\\Users\\Adam\\GitHub\\p-ui-wireframes"}
+{"level":"info","message":"env: development"}
+{"level":"info","message":"Server is Running at http://localhost:8080"}
+{"level":"info","message":"env: development"}
+{"level":"info","message":"Server is Running at http://localhost:8080"}
+{"level":"info","message":"env: development"}
+{"level":"info","message":"Server is Running at http://localhost:8080"}
+{"level":"info","message":"env: development"}
+{"level":"info","message":"Server is Running at http://localhost:8080"}
+{"level":"info","message":"env: development"}
+{"level":"info","message":"Server is Running at http://localhost:8080"}
+{"level":"info","message":"env: development"}
+{"level":"info","message":"Server is Running at http://localhost:8080"}
+{"level":"info","message":"env: development"}
+{"level":"info","message":"Server is Running at http://localhost:8080"}
+{"level":"info","message":"env: development"}
+{"level":"info","message":"Server is Running at http://localhost:8080"}
+{"level":"info","message":"env: development"}
+{"level":"info","message":"Server is Running at http://localhost:8080"}
+{"level":"info","message":"env: development"}
+{"level":"info","message":"Server is Running at http://localhost:8080"}
+{"level":"info","message":"env: development"}
+{"level":"info","message":"Server is Running at http://localhost:8080"}
+{"level":"info","message":"env: development"}
+{"level":"info","message":"Server is Running at http://localhost:8080"}
+{"level":"info","message":"env: development"}
+{"level":"info","message":"Server is Running at http://localhost:8080"}
+{"level":"info","message":"env: development"}
+{"level":"info","message":"Server is Running at http://localhost:8080"}
