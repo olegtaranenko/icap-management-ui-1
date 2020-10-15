@@ -1,11 +1,15 @@
 .DateAndTimePickers {
-	position: absolute;
 	z-index: 1;
 	display: flex;
 
 	align-items: center;
 
-	height: 2.2rem;
+	margin-left: calc(50% - 22.5rem);
+
+	height: 3rem;
+	width: 45rem;
+
+	background-color: #fff;
 
 	border: 1px solid #b6bfc9;
 	border-radius: 1.5rem;
@@ -26,17 +30,30 @@
 
 		cursor: pointer;
 	}
+
 	& .popup {
 		top: 3rem;
 		left: 12rem;
+
 		& button {
 			margin-bottom: 1rem;
 			transition: all 0.2s ease-in-out;
+
 			&:hover {
 				color: #ffffff;
 				background-color: #4592b0;
 				transition: all 0.2s ease-in-out;
 			}
 		}
+	}
+}
+
+
+@media(max-width: 992px) {
+	.DateAndTimePickers {
+		display: block;
+		height: auto;
+		width: auto;
+		margin-left: 20%;
 	}
 }

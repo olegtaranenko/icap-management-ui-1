@@ -51,7 +51,6 @@ const DateAndTimePickers = ({ externalStyles }) => {
 					margin="none"
 					type="datetime-local"
 					defaultValue={earlierDate}
-					className={classes.textField}
 					InputLabelProps={{
 						shrink: true,
 					}}
@@ -64,7 +63,6 @@ const DateAndTimePickers = ({ externalStyles }) => {
 					margin="none"
 					type="datetime-local"
 					defaultValue={currentDate}
-					className={classes.textField}
 					InputLabelProps={{
 						shrink: true,
 					}}

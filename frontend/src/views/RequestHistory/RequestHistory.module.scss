@@ -1,13 +1,5 @@
-.RequestHistory {
-	background: #e6e9ea;
-}
-
 .wrapTable {
-	//position: relative;
 	padding: 0 3rem;
-
-	background: #ffffff;
-
 	transition: all 0.5s;
 
 	&.notActive {
@@ -48,4 +40,8 @@
 		border-top: 1px solid #54e0e8;
 		border-bottom: 1px solid #54e0e8;
 	}
+}
+
+.main {
+	top: 12rem !important;
 }

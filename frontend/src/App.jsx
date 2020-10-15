@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import {
 	BrowserRouter as Router,
 	Switch,
@@ -6,11 +6,11 @@ import {
 	Redirect,
 } from "react-router-dom";
 
-import { GlobalStoreContext } from "./context/globalStore/globalStore-context";
 import { AuthContext } from "./context/auth/auth-context";
 
 import Auth from "./hoc/Auth/Auth";
 import Main from "./hoc/Main/Main";
+import MainTitle from "./hoc/MainTitle/MainTitle";
 
 import styles from "./App.module.scss";
 import Toolbar from "./components/Navigation/Toolbar/Toolbar";
@@ -20,28 +20,38 @@ import RequestHistory from "./views/RequestHistory/RequestHistory";
 
 
 const App = () => {
-	const [navExpanded, setNavExpanded] = useState(true);
 	const { isAuth } = useContext(AuthContext);
-	const { title } = useContext(GlobalStoreContext);
 
 	let routes = (
 		<Switch>
 			<Route path="/dashboard">
-				<div>Dashboard</div>
+				<MainTitle />
+				<Main>
+					<div>Dashboard</div>
+				</Main>
 			</Route>
 
 			<Route path="/request-history" component={RequestHistory} />
 
 			<Route path="/policy">
-				<div>Policy</div>
+				<MainTitle />
+				<Main>
+					<div>Policy</div>
+				</Main>
 			</Route>
 
 			<Route path="/users">
-				<div>Users</div>
+				<MainTitle />
+				<Main>
+					<div>Users</div>
+				</Main>
 			</Route>
 
 			<Route path="/file-drop">
-				<div>File Drop</div>
+				<MainTitle />
+				<Main>
+					<div>File Drop</div>
+				</Main>
 			</Route>
 
 			<Redirect to="/" />
@@ -63,13 +73,8 @@ const App = () => {
 
 				{isAuth && (
 					<div className={styles.mainContainer}>
-						<Main showTitle title={title} expanded={navExpanded}>
-							{routes}
-						</Main>
-						<Toolbar
-							expanded={navExpanded}
-							navExpandedHandler={() => setNavExpanded(!navExpanded)}
-						/>
+						{routes}
+						<Toolbar />
 					</div>
 				)}
 			</Router>

@@ -19,6 +19,7 @@ export const GlobalStoreState = ({ children }) => {
 		outcomeFilter: outcomeFilter,
 		isCurrentPolicy: true,
 		selectedFilters: [],
+		navExpanded: true
 	};
 
 	const [globalStoreState, dispatch] = useReducer(
@@ -42,6 +43,10 @@ export const GlobalStoreState = ({ children }) => {
 		dispatch({ type: actionTypes.REMOVE_FILTER, filter });
 	};
 
+	const toggleNavExpanded = () => {
+		dispatch({ type: actionTypes.TOGGLE_NAV_EXPANDED });
+	}
+
 	return (
 		<GlobalStoreContext.Provider
 			value={{
@@ -52,10 +57,12 @@ export const GlobalStoreState = ({ children }) => {
 				outcomeFilter: globalStoreState.outcomeFilter,
 				selectedFilters: globalStoreState.selectedFilters,
 				isCurrentPolicy: globalStoreState.isCurrentPolicy,
+				navExpanded: globalStoreState.navExpanded,
 				changePageTitleHandler,
 				addFilterCheckbox,
 				addFilterInput,
 				removeFilter,
+				toggleNavExpanded
 			}}
 		>
 			{children}

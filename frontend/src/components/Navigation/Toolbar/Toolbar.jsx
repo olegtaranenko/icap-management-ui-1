@@ -4,6 +4,8 @@ import classes from "./Toolbar.module.scss";
 
 import { AuthContext } from "../../../context/auth/auth-context";
 
+import { GlobalStoreContext } from "../../../context/globalStore/globalStore-context";
+
 import GlasswallLogo from "../../GlasswallLogo/GlasswallLogo";
 import NavigationItems from "../NavigationItems/NavigationItems";
 import { ExpandButton } from "../../GlasswallNav/GlasswallNav";
@@ -14,7 +16,6 @@ import usersIcon from "../../../assets/menu-icons/icon-users.svg";
 import releaseIcon from "../../../assets/menu-icons/icon-release.svg";
 import policy from "../../../assets/menu-icons/icon-policies.svg";
 import transactionIcon from "../../../assets/menu-icons/icon-transactions.svg";
-import configIcon from "../../../assets/menu-icons/icon-config.svg";
 import dashIcon from "../../../assets/menu-icons/icon-dashboard.svg";
 
 import logoutIcon from "../../../assets/svg/account-icons/logout-icon.svg";
@@ -48,16 +49,10 @@ const navLinks = [
 		icon: policy,
 		id: "id-4",
 	},
-	{
-		link: "/configuration",
-		name: "Configuration",
-		icon: configIcon,
-		id: "id-5",
-	},
 	{ link: "/users", name: "Users", icon: usersIcon, id: "id-6" },
 ];
 
-const Toolbar = ({ expanded, navExpandedHandler }) => {
+const Toolbar = () => {
 	const [isOpen, setIsOpen] = useState(false);
 	const {
 		logout,
@@ -66,9 +61,11 @@ const Toolbar = ({ expanded, navExpandedHandler }) => {
 		closeChangePass,
 	} = useContext(AuthContext);
 
+	const { navExpanded, toggleNavExpanded } = useContext(GlobalStoreContext);
+
 	const cls = [classes.Toolbar];
 	const clsNav = [classes.nav];
-	if (expanded) {
+	if (navExpanded) {
 		cls.push(classes.expanded);
 		clsNav.push(classes.expanded);
 	}
@@ -90,14 +87,14 @@ const Toolbar = ({ expanded, navExpandedHandler }) => {
 		<>
 			<section className={cls.join(" ")}>
 				<GlasswallLogo className={classes.logo} />
-				<NavigationItems expanded={expanded} items={navLinks} />
+				<NavigationItems expanded={navExpanded} items={navLinks} />
 				<UserLink
 					username={"usertest@glasswallsolutions.com"}
-					expanded={expanded}
+					expanded={navExpanded}
 					openPopup={() => setIsOpen(true)}
 					closePopup={() => setIsOpen(false)}
 				/>
-				<ExpandButton expanded={expanded} clickHandler={navExpandedHandler} />
+				<ExpandButton expanded={navExpanded} clickHandler={toggleNavExpanded} />
 			</section>
 			{isOpen && (
 				<Popup

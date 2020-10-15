@@ -28,6 +28,7 @@ const Filters = ({ popupIsOpen, changeVisibilityPopup }) => {
 		outcomeFilter,
 		selectedFilters,
 		removeFilter,
+		navExpanded
 	} = useContext(GlobalStoreContext);
 
 	const clsList = [classes.filters];
@@ -130,23 +131,22 @@ const Filters = ({ popupIsOpen, changeVisibilityPopup }) => {
 	);
 
 	return (
-		<section className={classes.Filters}>
+		<section className={`${classes.Filters} ${navExpanded ? classes.expanded : ""}`}>
 			<div className={classes.wrap}>
 				<div className={classes.header}>
 					<h2 className={classes.head}>Filters</h2>
 
 					<button
 						className={clsMoreFilters.join(" ")}
-						onClick={openFilterRowHandler}
-					>
+						onClick={openFilterRowHandler}>
 						More Filters...
 					</button>
 					<span
 						onClick={openFilterRowHandler}
 						className={clsArrow.join(" ")}
 					/>
+					<DateAndTimePickers externalStyles={classes.pickers} />
 				</div>
-				<DateAndTimePickers externalStyles={classes.pickers} />
 				<div className={classes.footer}>
 					<div className={clsList.join(" ")}>
 						{openFilterRow && (

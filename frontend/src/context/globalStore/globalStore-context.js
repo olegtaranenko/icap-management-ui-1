@@ -6,4 +6,5 @@ export const GlobalStoreContext = createContext({
 	userfiles: [],
 	outcomeFilterList: [],
 	selectedFilters: [],
+	navExpanded: true
 });

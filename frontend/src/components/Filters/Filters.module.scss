@@ -1,7 +1,7 @@
 .Filters {
 	background: #e6e9ea;
-
-	cursor: pointer;
+	width: calc(100% - 7rem);
+	margin-left: 7rem;
 
 	& h2 {
 		margin: 0;
@@ -26,12 +26,13 @@
 		overflow: hidden;
 		background-color: rgba(255, 255, 255, 0.4);
 		border-radius: 2.2rem;
+		justify-content: center;
+		align-items: center;
 	}
 
 	& .header {
 		position: relative;
 		display: flex;
-		justify-content: space-between;
 		align-items: center;
 
 		& .head {
@@ -39,6 +40,7 @@
 		}
 
 		& .arrow::before {
+			cursor: pointer;
 			content: "";
 			position: absolute;
 			width: 1rem;
@@ -57,8 +59,9 @@
 		}
 
 		& .moreFilters {
+			cursor: pointer;
 			position: absolute;
-			top: -4px;
+			top: 2px;
 			right: 30px;
 
 			padding: 0.3rem 1rem;
@@ -84,6 +87,7 @@
 
 	& .footer {
 		position: relative;
+
 		& .filters {
 			height: 0;
 			background-color: #e9ecec;
@@ -104,13 +108,16 @@
 		display: flex;
 		flex-direction: column;
 		margin: 1rem 0;
+
 		& li {
 			width: 15rem;
 			height: 3rem;
+
 			&:hover {
 				background-color: #e6e9ea;
 				transition: all 0.1s;
 			}
+
 			& button {
 				border: none;
 				background: none;
@@ -202,6 +209,7 @@
 				text-transform: initial;
 			}
 		}
+
 		& .addButton {
 			margin-left: 1rem;
 			padding: 0 2rem;
@@ -224,8 +232,26 @@
 	}
 
 	& .pickers {
-		top: 3rem;
-		left: 50%;
-		transform: translateX(-50%);
+		transform: translateX(-25%);
+	}
+
+	&.expanded {
+		width: calc(100% - 26rem);
+		margin-left: 26rem;
+	}
+}
+
+@media(max-width: 992px) {
+	.Filters {
+		.header {
+			.head {
+				display: none;
+				font-size: 1rem;
+			}
+		}
+
+		& .moreFilters {
+			display: none;
+		}
 	}
 }

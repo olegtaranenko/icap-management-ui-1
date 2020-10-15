@@ -99,6 +99,12 @@ const removeFilterFromSelected = (state, removedFilter) => {
 	});
 };
 
+const toggleNavExpanded = (state) => {
+	return updateObject(state, {
+		navExpanded: !state.navExpanded
+	});	
+};
+
 export const globalStoreReducer = (state, action) => {
 	switch (action.type) {
 		case actionTypes.CHANGE_PAGE_TITLE:
@@ -109,6 +115,8 @@ export const globalStoreReducer = (state, action) => {
 			return addFilterFromInput(state, action.filter);
 		case actionTypes.REMOVE_FILTER:
 			return removeFilterFromSelected(state, action.filter);
+		case actionTypes.TOGGLE_NAV_EXPANDED:
+			return toggleNavExpanded(state);
 		default:
 			return state;
 	}

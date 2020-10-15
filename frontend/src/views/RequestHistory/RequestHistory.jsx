@@ -4,6 +4,9 @@ import { GlobalStoreContext } from "../../context/globalStore/globalStore-contex
 
 import classes from "./RequestHistory.module.scss";
 
+import Main from "../../hoc/Main/Main";
+import MainTitle from "../../hoc/MainTitle/MainTitle";
+
 import FileInfo from "./FileInfo/FileInfo";
 import Modal from "../../components/UI/Modal/Modal";
 
@@ -119,54 +122,58 @@ const RequestHistory = () => {
 	);
 
 	return (
-		<article className={classes.RequestHistory}>
+		<>
+			<MainTitle />
+
 			<Filters popupIsOpen={openPopup} changeVisibilityPopup={setOpenPopup} />
-			<div className={clsWrapTable.join(" ")}>
-				<Table className={classes.table}>
-					<TableHead>
-						<TableRow>
-							<TableCell>
-								<TableSortLabel
-									onClick={() => getSortedRows(rows, "timestamp")}
-								>
-									Timestamp
-								</TableSortLabel>
-							</TableCell>
 
-							<TableCell>
-								<TableSortLabel onClick={() => getSortedRows(rows, "fileId")}>
-									File ID
-								</TableSortLabel>
-							</TableCell>
+			<Main externalStyles={[classes.main,]}>
+				<article>
+					<div className={clsWrapTable.join(" ")}>
+						<Table className={classes.table}>
+							<TableHead>
+								<TableRow>
+									<TableCell>
+										<TableSortLabel
+											onClick={() => getSortedRows(rows, "timestamp")}>
+											Timestamp
+										</TableSortLabel>
+									</TableCell>
 
-							<TableCell>
-								<TableSortLabel
-									onClick={() => getSortedRows(rows, "fileType")}
-								>
-									File Type
-								</TableSortLabel>
-							</TableCell>
+									<TableCell>
+										<TableSortLabel onClick={() => getSortedRows(rows, "fileId")}>
+											File ID
+										</TableSortLabel>
+									</TableCell>
 
-							<TableCell>
-								<TableSortLabel
-									onClick={() => getSortedRows(rows, "outcome")}
-								>
-									Outcome
-								</TableSortLabel>
-							</TableCell>
-						</TableRow>
-					</TableHead>
-					<TableBody className={classes.tbody}>
-						{sortedRows || rows}
-					</TableBody>
-				</Table>
-			</div>
-			{openModal && (
-				<Modal onCloseHandler={closeInfoModal}>
-					<FileInfo data={fileInfo} />
-				</Modal>
-			)}
-		</article>
+									<TableCell>
+										<TableSortLabel
+											onClick={() => getSortedRows(rows, "fileType")}>
+											File Type
+										</TableSortLabel>
+									</TableCell>
+
+									<TableCell>
+										<TableSortLabel
+											onClick={() => getSortedRows(rows, "outcome")}>
+											Outcome
+										</TableSortLabel>
+									</TableCell>
+								</TableRow>
+							</TableHead>
+							<TableBody className={classes.tbody}>
+								{sortedRows || rows}
+							</TableBody>
+						</Table>
+					</div>
+					{openModal && (
+						<Modal onCloseHandler={closeInfoModal}>
+							<FileInfo data={fileInfo} />
+						</Modal>
+					)}
+				</article>
+			</Main>
+		</>
 	);
 };
 

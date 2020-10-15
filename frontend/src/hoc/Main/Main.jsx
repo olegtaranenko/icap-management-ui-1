@@ -1,29 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import styles from "./Main.module.scss";
 
-const Main = ({ title, showTitle, children, expanded }) => {
-	if (showTitle && (title === undefined || title === null)) {
-		console.error(
-			"showTitle is set to true, but no title was supplied to <Main>."
-		);
-	}
+import { GlobalStoreContext } from "../../context/globalStore/globalStore-context";
+
+const Main = ({ children }) => {
+	const { navExpanded } = useContext(GlobalStoreContext);
+
 	return (
 		<>
-			{showTitle && (
-				<h1
-					className={`${styles.pageHeading} ${
-						expanded ? styles.expanded : ""
-					}`}
-				>
-					{title}
-				</h1>
-			)}
-
 			<div
-				className={`${styles.main} ${expanded ? styles.expanded : ""} ${
-					showTitle ? styles.showTitle : ""
-				}`}
-			>
+				className={`${styles.main} ${navExpanded ? styles.expanded : ""}`}>
 				<div className={styles.content}>{children}</div>
 			</div>
 		</>
