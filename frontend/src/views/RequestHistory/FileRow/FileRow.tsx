@@ -6,7 +6,6 @@ export interface FileRowProps {
 	id: string,
 	timestamp: string,
 	fileId: string,
-	name: string,
 	type: string,
 	outcome: string,
 	onRowClickHandler: MouseEventHandler<HTMLTableRowElement>

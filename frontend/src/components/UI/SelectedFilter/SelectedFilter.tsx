@@ -4,25 +4,33 @@ import classes from "./SelectedFilter.module.scss";
 
 import ButtonClose from "../ButtonClose/ButtonClose";
 
-const SelectedFilter = ({ id, filter, value, titleColor, remove }) => {
+export interface SelectedFilterProps {
+	id: string,
+	filter: string,
+	value: string,
+	titleColor: string,
+	remove: Function
+};
+
+const SelectedFilter = (props: SelectedFilterProps) => {
 	const clsFooter = [classes.footer];
 
-	if (filter === "Outcome") {
+	if (props.filter === "Outcome") {
 		clsFooter.push(classes.outcome);
 	}
 
 	return (
 		<div className={classes.SelectedFilter}>
 			<div className={classes.header}>
-				<h3>{filter}</h3>
+				<h3>{props.filter}</h3>
 				<ButtonClose
 					color={"#b6bfc9"}
 					externalStyles={classes.buttonClose}
-					onButtonClick={() => remove({ id, filter })}
+					onButtonClick={() => props.remove}
 				/>
 			</div>
 			<div className={clsFooter.join(" ")}>
-				<span style={{ backgroundColor: titleColor }}>{value}</span>
+				<span style={{ backgroundColor: props.titleColor }}>{props.value}</span>
 			</div>
 		</div>
 	);

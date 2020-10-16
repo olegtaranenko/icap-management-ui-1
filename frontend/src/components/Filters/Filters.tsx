@@ -5,7 +5,7 @@ import { GlobalStoreContext } from "../../context/globalStore/globalStore-contex
 import checkValidity from "../../helpers/checkValidity";
 
 import Button from "../UI/Button/Button";
-import Popup from "../UI/Popup/Popup";
+import Popup, { PopupButton } from "../UI/Popup/Popup";
 import PopupFilter from "../UI/PopupFilter/PopupFilter";
 import SelectedFilter from "../UI/SelectedFilter/SelectedFilter";
 import DateAndTimePickers from "../UI/DateAndTimePickers/DateAndTimePickers";
@@ -47,7 +47,7 @@ const Filters = (props: FiltersProps) => {
 		clsArrow.push(classes.rotate);
 	}
 
-	const filterList = [
+	const filterList: Array<PopupButton> = [
 		{
 			name: "File Types",
 			onClickButtonHandler: () => {
@@ -175,7 +175,7 @@ const Filters = (props: FiltersProps) => {
 				{props.popupIsOpen ? (
 					<>
 						<Popup
-							links={filterList}
+							popupButtons={filterList}
 							externalStyles={classes.popup}
 							openPopupHover={() => props.changeVisibilityPopup(true)}
 							closePopupHover={() => props.changeVisibilityPopup(false)}>

@@ -10,7 +10,7 @@ import GlasswallLogo from "../../GlasswallLogo/GlasswallLogo";
 import NavigationItems from "../NavigationItems/NavigationItems";
 import { ExpandButton } from "../../GlasswallNav/GlasswallNav";
 import UserLink from "../../UI/UserLink/UserLink";
-import Popup from "../../UI/Popup/Popup";
+import Popup, { PopupButton } from "../../UI/Popup/Popup";
 
 import usersIcon from "../../../assets/menu-icons/icon-users.svg";
 import releaseIcon from "../../../assets/menu-icons/icon-release.svg";
@@ -70,7 +70,7 @@ const Toolbar = () => {
 		clsNav.push(classes.expanded);
 	}
 
-	const accountLinks = [
+	const accountLinks: Array<PopupButton> = [
 		{
 			name: "Log out",
 			icon: logoutIcon,
@@ -98,7 +98,7 @@ const Toolbar = () => {
 			</section>
 			{isOpen && (
 				<Popup
-					links={accountLinks}
+					popupButtons={accountLinks}
 					externalStyles={classes.popup}
 					openPopupHover={() => setIsOpen(true)}
 					closePopupHover={() => setIsOpen(false)}

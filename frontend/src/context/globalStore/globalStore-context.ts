@@ -6,7 +6,7 @@ export interface GlobalStore {
 	userfiles: Array<any>,
 	outcomeFilterList: Array<any>,
 	selectedFilters: Array<any>,
-	navExpanded: Boolean,
+	navExpanded: boolean,
 	fileFilter: any,
 	outcomeFilter: any,
 	changePageTitleHandler: Function,
