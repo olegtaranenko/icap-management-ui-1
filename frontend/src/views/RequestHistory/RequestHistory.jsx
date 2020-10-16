@@ -2,12 +2,11 @@ import React, { useState, useContext } from "react";
 
 import { GlobalStoreContext } from "../../context/globalStore/globalStore-context";
 
-import classes from "./RequestHistory.module.scss";
-
 import Main from "../../hoc/Main/Main";
 import MainTitle from "../../hoc/MainTitle/MainTitle";
-
 import FileInfo from "./FileInfo/FileInfo";
+import FileRow from "./FileRow/FileRow";
+import Filters from "../../components/Filters/Filters";
 import Modal from "../../components/UI/Modal/Modal";
 
 import {
@@ -19,8 +18,7 @@ import {
 	TableSortLabel,
 } from "@material-ui/core";
 
-import FileRow from "./FileRow/FileRow";
-import Filters from "../../components/Filters/Filters";
+import classes from "./RequestHistory.module.scss";
 
 const RequestHistory = () => {
 	const [sortedRows, setSortedRows] = useState(null);

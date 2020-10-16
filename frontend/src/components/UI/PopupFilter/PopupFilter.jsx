@@ -26,7 +26,7 @@ const PopupFilter = ({
 		<section
 			className={[classes.PopupFilter, externalStyles].join(" ")}
 			onMouseEnter={openPopupHover}
-			onMouseLeave={closePopupHover}
+			//onMouseLeave={closePopupHover}
 		>
 			<div className={classes.inner}>{addedFilter}</div>
 		</section>

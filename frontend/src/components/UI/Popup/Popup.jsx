@@ -3,6 +3,7 @@ import classes from "./Popup.module.scss";
 
 const Popup = ({
 	links,
+	children,
 	openPopupHover,
 	closePopupHover,
 	externalStyles,
@@ -27,6 +28,7 @@ const Popup = ({
 			onMouseLeave={closePopupHover}
 		>
 			{buttonList}
+			{children}
 		</div>
 	);
 };

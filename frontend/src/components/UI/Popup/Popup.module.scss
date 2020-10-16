@@ -1,6 +1,7 @@
 .Popup {
 	position: absolute;
 	z-index: 99;
+	width: 14rem;
 
 	padding: 2rem;
 
@@ -8,6 +9,17 @@
 	border-radius: 0.6rem;
 	box-shadow: 0 3px 16px 1.6px rgba(0, 0, 0, 0.34);
 	transition: 0.3s opacity, 0.3s transform;
+
+	&::after {
+		content: '';
+		position: absolute;
+		top: -.8rem;
+		left: calc(50% - .8rem);
+		display: block;
+		border-bottom: .8rem solid #fff;
+		border-left: .8rem solid transparent;
+		border-right: .8rem solid transparent;
+	}
 
 	& button {
 		display: flex;

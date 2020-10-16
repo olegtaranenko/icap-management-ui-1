@@ -22,10 +22,24 @@ const FileInfo = ({ data }) => {
 	});
 
 	let background = null;
-	if (outcome === "Safe") {
-		background = "#91CAA8";
-	} else if (outcome === "Blocked") {
-		background = "#E6CC70";
+	switch (outcome) {
+		case "Allowed by Policy":
+			background = "#86C1CB";
+			break;
+		case "Blocked by Policy":
+			background = "#DF9F81";
+			break;
+		case "Allowed by NCFS":
+			background = "#7a7aff";
+			break;
+		case "Blocked by NCFS":
+			background = "#ff8d8d";
+			break;
+		case "Safe":
+			background = "#91CAA8";
+			break;
+		default:
+			background = "";
 	}
 
 	const clsBlockExpandend = [classes.block];
@@ -204,20 +218,20 @@ const FileInfo = ({ data }) => {
 					)}
 					{blockExpanded.policyDetails && (
 						<Table className={classes.table}>
-							{/*<TableHead>
-									<TableRow>
-										<TableCell>Issue</TableCell>
-										<TableCell>Description</TableCell>
-										<TableCell>Count</TableCell>
-									</TableRow>
-								</TableHead>
-								<TableBody>
-									<TableRow>
-										<TableCell>0x05cf00ec</TableCell>
-										<TableCell>Metadata detected in Created</TableCell>
-										<TableCell>1</TableCell>
-									</TableRow>
-								</TableBody>*/}
+							<TableHead>
+								<TableRow>
+									<TableCell>Issue</TableCell>
+									<TableCell>Description</TableCell>
+									<TableCell>Count</TableCell>
+								</TableRow>
+							</TableHead>
+							<TableBody>
+								<TableRow>
+									<TableCell>0x05cf00ec</TableCell>
+									<TableCell>Metadata detected in Created</TableCell>
+									<TableCell>1</TableCell>
+								</TableRow>
+							</TableBody>
 						</Table>
 					)}
 				</div>
