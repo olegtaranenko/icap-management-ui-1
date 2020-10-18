@@ -1,19 +1,5 @@
 import { createContext } from "react";
 
-export interface GlobalStore {
-	title: String,
-	fileFilterList: Array<any>,
-	userfiles: Array<any>,
-	outcomeFilterList: Array<any>,
-	selectedFilters: Array<any>,
-	navExpanded: boolean,
-	fileFilter: any,
-	outcomeFilter: any,
-	changePageTitleHandler: Function,
-	addFilterCheckbox: Function,
-	addFilterInput: Function,
-	removeFilter: Function,
-	toggleNavExpanded: Function
-};
+import { GlobalStore } from "./globalStore";
 
 export const GlobalStoreContext = createContext<Partial<GlobalStore>>({});

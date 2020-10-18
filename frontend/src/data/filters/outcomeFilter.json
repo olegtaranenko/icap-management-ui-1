@@ -4,43 +4,38 @@
     "filterName": "Outcome",
     "checkboxList": [
       {
-        "type": "checkbox",
-        "format": "Blocked By Policy",
-        "name": "docType",
-        "titleColor": "#DF9F81",
         "id": "outcome-blocked-by-policy",
+        "name": "docType",
+        "format": "Blocked By Policy",
+        "titleColor": "#DF9F81",
         "isChecked": false
       },
       {
-        "type": "checkbox",
-        "format": "Allowed By Policy",
-        "name": "docType",
-        "titleColor": "#86C1CB",
         "id": "outcome-allowed-by-policy",
+        "name": "docType",
+        "format": "Allowed By Policy",
+        "titleColor": "#86C1CB",
         "isChecked": false
       },
       {
-        "type": "checkbox",
-        "format": "Blocked By NCFS",
-        "name": "docType",
-        "titleColor": "#ff8d8d",
         "id": "outcome-blocked-by-ncfs",
+        "name": "docType",
+        "format": "Blocked By NCFS",
+        "titleColor": "#ff8d8d",
         "isChecked": false
       },
       {
-        "type": "checkbox",
-        "format": "Allowed By NCFS",
-        "name": "docType",
-        "titleColor": "#7a7aff",
         "id": "outcome-allowed-by-ncfs",
+        "name": "docType",
+        "format": "Allowed By NCFS",
+        "titleColor": "#7a7aff",
         "isChecked": false
       },
       {
-        "type": "checkbox",
-        "format": "Safe",
-        "name": "docType",
-        "titleColor": "#91CAA8",
         "id": "outcome-safe",
+        "name": "docType",
+        "format": "Safe",
+        "titleColor": "#91CAA8",
         "isChecked": false
       }
     ]

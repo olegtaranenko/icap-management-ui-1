@@ -21,3 +21,12 @@
 	border: 1px solid #b6bfc9;
 	border-radius: 0.6rem;
 }
+
+@media(min-width: 992px) and (max-width: 1920px) {
+	.main {		
+		&.expanded {
+			width: calc(100% - 20rem);
+			margin-left: 20rem;
+		}
+	}
+}

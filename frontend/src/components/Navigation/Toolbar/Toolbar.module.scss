@@ -46,3 +46,15 @@
 		padding-left: 5rem;
 	}
 }
+
+@media(min-width: 992px) and (max-width: 1920px) {
+	.Toolbar {
+		& .logo {
+			height: 6rem;
+		}
+
+		&.expanded {
+			width: 20rem;
+		}
+	}
+}

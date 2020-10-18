@@ -5,33 +5,37 @@ import { GlobalStoreContext } from "../../../context/globalStore/globalStore-con
 
 import classes from "./Filter.module.scss";
 
-import CheckboxItem from "../../UI/Checkbox/Checkbox";
+import Checkbox from "../../UI/Checkbox/Checkbox";
+import { OutcomeFilter } from "../../../@types/OutcomeFilter";
 
-const Filter = ({ filter, checkboxList, externalStyles }) => {
+export interface FilterProps {
+	filter: string,
+	checkboxList: Array<OutcomeFilter>,
+	externalStyles: string
+};
+
+const Filter = (props: FilterProps) => {
 	const { addFilterCheckbox } = useContext(GlobalStoreContext);
 
-	const handleChange = (selectedCheckbox) => {
+	const handleChange = (selectedCheckbox: OutcomeFilter) => {
 		addFilterCheckbox(selectedCheckbox);
 	};
 
-	const checkboxes = checkboxList.map(
-		({ id, type, format, name, isChecked, titleColor }) => {
+	const checkboxes = props.checkboxList.map((checkbox) => {
 			return (
-				<CheckboxItem
-					key={id}
-					type={type}
-					label={format}
-					name={name}
-					checked={isChecked}
-					filter={filter}
-					backgroundColor={titleColor}
-					onHandleChange={(evt) =>
+				<Checkbox
+					key={checkbox.id}
+					label={checkbox.format}
+					checked={checkbox.isChecked}
+					filter={props.filter}
+					backgroundColor={checkbox.titleColor}
+					onHandleChange={(evt: React.ChangeEvent<HTMLInputElement>) =>
 						handleChange({
-							value: format,
-							filter: filter,
-							id: id,
-							checked: evt.target.checked,
-							titleColor: titleColor,
+							value: checkbox.format,
+							filter: props.filter,
+							id: checkbox.id,
+							isChecked: evt.target.checked,
+							titleColor: checkbox.titleColor,
 						})
 					}
 				/>
@@ -42,15 +46,13 @@ const Filter = ({ filter, checkboxList, externalStyles }) => {
 	return (
 		<FormControl
 			component="fieldset"
-			className={[classes.Filter, externalStyles].join(" ")}
-		>
+			className={[classes.Filter, props.externalStyles].join(" ")}>
 			<FormLabel component="legend">
-				{filter === "Outcome" ? "" : filter}
+				{props.filter === "Outcome" ? "" : props.filter}
 			</FormLabel>
 			<FormGroup
 				className={classes.formGroup}
-				style={{ flexDirection: "row" }}
-			>
+				style={{ flexDirection: "row" }}>
 				{checkboxes}
 			</FormGroup>
 		</FormControl>

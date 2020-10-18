@@ -2,6 +2,7 @@
 	background: #e6e9ea;
 	width: calc(100% - 7rem);
 	margin-left: 7rem;
+	transition: all 0.3s ease-in-out;
 
 	& h2 {
 		margin: 0;
@@ -262,6 +263,15 @@
 
 		& .moreFilters {
 			display: none;
+		}
+	}
+}
+
+@media(min-width: 992px) and (max-width: 1920px) {
+	.Filters {		
+		&.expanded {
+			width: calc(100% - 20rem);
+			margin-left: 20rem;
 		}
 	}
 }

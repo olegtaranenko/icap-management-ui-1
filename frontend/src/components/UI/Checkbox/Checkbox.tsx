@@ -11,8 +11,8 @@ export interface CheckboxProps {
 	checked?: boolean,
 	filter?: string,
 	backgroundColor?: string,
-	checkboxIcon: React.ReactNode,
-	checkedIcon: React.ReactNode
+	checkboxIcon?: React.ReactNode,
+	checkedIcon?: React.ReactNode
 };
 
 const Checkbox = (props: CheckboxProps) => {
