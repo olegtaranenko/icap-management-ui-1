@@ -1,6 +1,7 @@
 import express from "express";
 import winston from "winston";
 import path from "path";
+import setup from "./service/Setup";
 
 const logger = winston.createLogger({
     level: 'info',
@@ -28,10 +29,12 @@ const prototypeUiDirectory = workingDirectory.replace("server", "") + "/frontend
 
 
 app.use(express.static(prototypeUiDirectory));
+setup(app);
 
-app.get("*", (req, res) => {
-    res.sendFile(path.join(`${prototypeUiDirectory}/index.html`));
-});
+// app.get("/", (req, res) => {
+//     res.sendFile(path.join(`${prototypeUiDirectory}/index.html`));
+// });
+
 
 app.listen(port, () => {
     logger.log({
