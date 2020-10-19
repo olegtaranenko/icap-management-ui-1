@@ -66,9 +66,21 @@
 		background-repeat: no-repeat;
 		background-position: -6px -72px;
 		fill: aqua;
+	}
+}
 
-		& div {
-			background: #e6e9ea;
+@media(min-width: 992px) and (max-width: 1920px) {
+	.NavigationItem {
+		& a {
+			padding-left: 5rem;
+
+			& div {
+				height: 80%;
+			}
+
+			& p {
+				font-size: 1rem;
+			}
 		}
 	}
 }

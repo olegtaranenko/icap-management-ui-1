@@ -1,19 +1,25 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, FormEvent } from "react";
 
 import { GlobalStoreContext } from "../../context/globalStore/globalStore-context";
-
-import classes from "./Filters.module.scss";
 
 import checkValidity from "../../helpers/checkValidity";
 
 import Button from "../UI/Button/Button";
-import Popup from "../UI/Popup/Popup";
+import Popup, { PopupButton } from "../UI/Popup/Popup";
 import PopupFilter from "../UI/PopupFilter/PopupFilter";
 import SelectedFilter from "../UI/SelectedFilter/SelectedFilter";
 import DateAndTimePickers from "../UI/DateAndTimePickers/DateAndTimePickers";
 import Input from "../UI/Input/Input";
 
-const Filters = ({ popupIsOpen, changeVisibilityPopup }) => {
+import classes from "./Filters.module.scss";
+
+
+export interface FiltersProps {
+	popupIsOpen: boolean,
+	changeVisibilityPopup: (value: boolean | ((prevVar: boolean) => boolean)) => void;
+};
+
+const Filters = (props: FiltersProps) => {
 	const [openFilterRow, setOpenFilterRow] = useState(false);
 	const [openFilter, setOpenFilter] = useState(null);
 	const [openFileId, setOpenFileId] = useState(false);
@@ -22,14 +28,8 @@ const Filters = ({ popupIsOpen, changeVisibilityPopup }) => {
 	const [isValid, setIsValid] = useState(false);
 	const [isTouched, setIsTouched] = useState(false);
 
-	const {
-		addFilterInput,
-		fileFilter,
-		outcomeFilter,
-		selectedFilters,
-		removeFilter,
-		navExpanded
-	} = useContext(GlobalStoreContext);
+	// @ts-ignore
+	const { addFilterInput, fileFilter, outcomeFilter, selectedFilters, removeFilter, navExpanded } = useContext(GlobalStoreContext);
 
 	const clsList = [classes.filters];
 	const clsMoreFilters = [classes.moreFilters];
@@ -41,7 +41,7 @@ const Filters = ({ popupIsOpen, changeVisibilityPopup }) => {
 		clsArrow.push(classes.rotate);
 	}
 
-	const filterList = [
+	const filterList: Array<PopupButton> = [
 		{
 			name: "File Types",
 			onClickButtonHandler: () => {
@@ -67,27 +67,27 @@ const Filters = ({ popupIsOpen, changeVisibilityPopup }) => {
 
 	const openFilterRowHandler = () => {
 		setOpenFilterRow((prevState) => !prevState);
-		changeVisibilityPopup(false);
+		props.changeVisibilityPopup(false);
 		setOpenFilter(null);
 	};
 
 	const openPopupHandler = () => {
-		changeVisibilityPopup((prevState) => !prevState);
+		props.changeVisibilityPopup((prevState) => !prevState);
 		setOpenFilter(null);
 	};
 
 	const closePopupHoverHandler = () => {
-		changeVisibilityPopup(false);
+		props.changeVisibilityPopup(false);
 		setOpenFilter(null);
 	};
 
-	const inputChangedHandler = (inputValue) => {
+	const inputChangedHandler = (inputValue: string) => {
 		setFileIdValue(inputValue);
 		setIsValid(checkValidity(inputValue));
 		setIsTouched(true);
 	};
 
-	const submitHandler = (evt) => {
+	const submitHandler = (evt: FormEvent<HTMLFormElement>) => {
 		evt.preventDefault();
 		addFilterInput({
 			id: fileIdValue,
@@ -159,36 +159,35 @@ const Filters = ({ popupIsOpen, changeVisibilityPopup }) => {
 								buttonType={"button"}
 								externalStyles={classes.addFilter}
 								onButtonClick={openPopupHandler}
-							>
+								disabled={false}>
 								+ Add Filter
 							</Button>
 						</div>
 					)}
 				</div>
 
-				{popupIsOpen ? (
+				{props.popupIsOpen ? (
 					<>
 						<Popup
-							links={filterList}
+							popupButtons={filterList}
 							externalStyles={classes.popup}
-							openPopupHover={() => changeVisibilityPopup(true)}
-							closePopupHover={() => changeVisibilityPopup(false)}
-						/>
-						{openFilter && (
-							<PopupFilter
-								filter={filter}
-								selectedFilters={selectedFilters}
-								externalStyles={filterStyle}
-								openPopupHover={() => changeVisibilityPopup(true)}
-								closePopupHover={closePopupHoverHandler}
-							/>
-						)}
+							openPopupHover={() => props.changeVisibilityPopup(true)}
+							closePopupHover={() => props.changeVisibilityPopup(false)}>
+							{openFilter && (
+								<PopupFilter
+									filters={filter}
+									externalStyles={filterStyle}
+									openPopupHover={() => props.changeVisibilityPopup(true)}
+									closePopupHover={closePopupHoverHandler}
+								/>
+							)}
+						</Popup>
 
 						{openFileId && (
 							<form
 								className={classes.fileId}
 								onSubmit={submitHandler}
-								onMouseEnter={() => changeVisibilityPopup(true)}
+								onMouseEnter={() => props.changeVisibilityPopup(true)}
 							>
 								<Input
 									type="text"
@@ -199,9 +198,10 @@ const Filters = ({ popupIsOpen, changeVisibilityPopup }) => {
 									value={fileIdValue}
 									valid={isValid}
 									touched={isTouched}
-									onChange={(evt) => {
+									onChange={(evt: React.ChangeEvent<HTMLInputElement>) => {
 										inputChangedHandler(evt.target.value);
 									}}
+									disabled={false}
 								/>
 								<button
 									type="submit"

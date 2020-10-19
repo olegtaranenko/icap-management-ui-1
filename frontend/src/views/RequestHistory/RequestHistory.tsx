@@ -2,12 +2,11 @@ import React, { useState, useContext } from "react";
 
 import { GlobalStoreContext } from "../../context/globalStore/globalStore-context";
 
-import classes from "./RequestHistory.module.scss";
-
 import Main from "../../hoc/Main/Main";
 import MainTitle from "../../hoc/MainTitle/MainTitle";
-
 import FileInfo from "./FileInfo/FileInfo";
+import FileRow from "./FileRow/FileRow";
+import Filters from "../../components/Filters/Filters";
 import Modal from "../../components/UI/Modal/Modal";
 
 import {
@@ -19,8 +18,7 @@ import {
 	TableSortLabel,
 } from "@material-ui/core";
 
-import FileRow from "./FileRow/FileRow";
-import Filters from "../../components/Filters/Filters";
+import classes from "./RequestHistory.module.scss";
 
 const RequestHistory = () => {
 	const [sortedRows, setSortedRows] = useState(null);
@@ -36,7 +34,7 @@ const RequestHistory = () => {
 		clsWrapTable.push(classes.notActive);
 	}
 
-	const openInfoModal = (id) => {
+	const openInfoModal = (id: string) => {
 		setOpenModal((prevState) => !prevState);
 		setRowId(id);
 	};
@@ -45,7 +43,7 @@ const RequestHistory = () => {
 		setOpenModal(false);
 	};
 
-	const getSortedRows = (rows, sortLabel) => {
+	const getSortedRows = (rows: Array<any>, sortLabel: string) => {
 		let sortedRows;
 		switch (sortLabel) {
 			case "timestamp":
@@ -105,17 +103,16 @@ const RequestHistory = () => {
 	const fileInfo = filteredUserfiles.find((it) => it.id === rowId);
 
 	const rows = filteredUserfiles.map(
-		({ id, timestamp, fileId, name, type, outcome }) => {
+		({ id, timestamp, fileId, type, outcome }) => {
 			return (
 				<FileRow
 					key={id}
 					id={id}
 					timestamp={timestamp}
 					fileId={fileId}
-					name={name}
 					type={type}
 					outcome={outcome}
-					onRowClickHandler={(evt) => openInfoModal(evt.target.id)}
+					onRowClickHandler={(evt) => openInfoModal((evt.target as HTMLElement).id)}
 				/>
 			);
 		}
@@ -127,7 +124,7 @@ const RequestHistory = () => {
 
 			<Filters popupIsOpen={openPopup} changeVisibilityPopup={setOpenPopup} />
 
-			<Main externalStyles={[classes.main,]}>
+			<Main>
 				<article>
 					<div className={clsWrapTable.join(" ")}>
 						<Table className={classes.table}>

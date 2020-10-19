@@ -4,44 +4,44 @@
     "filterName": "Outcome",
     "checkboxList": [
       {
-        "id": "outcome-safe-1",
-        "type": "checkbox",
-        "format": "Safe",
+        "id": "outcome-blocked-by-policy",
         "name": "docType",
-        "titleColor": "#91CAA8",
-        "isChecked": false
-      },
-      {
-        "type": "checkbox",
-        "format": "Blocked",
-        "name": "docType",
-        "titleColor": "#E6CC70",
-        "id": "outcome-blocked-2",
-        "isChecked": false
-      },
-      {
-        "type": "checkbox",
-        "format": "Dangerous",
-        "name": "docType",
+        "format": "Blocked By Policy",
         "titleColor": "#DF9F81",
-        "id": "outcome-dangerous-3",
-        "isChecked": false
+        "isChecked": false,
+        "type": "checkbox"
       },
       {
-        "type": "checkbox",
-        "format": "Checked",
+        "id": "outcome-allowed-by-policy",
         "name": "docType",
+        "format": "Allowed By Policy",
         "titleColor": "#86C1CB",
-        "id": "outcome-checked-4",
-        "isChecked": false
+        "isChecked": false,
+        "type": "checkbox"
       },
       {
-        "type": "checkbox",
-        "format": "Unclassified",
+        "id": "outcome-blocked-by-ncfs",
         "name": "docType",
-        "titleColor": "#A7A3C8",
-        "id": "outcome-unclassified-5",
-        "isChecked": false
+        "format": "Blocked By NCFS",
+        "titleColor": "#ff8d8d",
+        "isChecked": false,
+        "type": "checkbox"
+      },
+      {
+        "id": "outcome-allowed-by-ncfs",
+        "name": "docType",
+        "format": "Allowed By NCFS",
+        "titleColor": "#7a7aff",
+        "isChecked": false,
+        "type": "checkbox"
+      },
+      {
+        "id": "outcome-safe",
+        "name": "docType",
+        "format": "Safe",
+        "titleColor": "#91CAA8",
+        "isChecked": false,
+        "type": "checkbox"
       }
     ]
   }

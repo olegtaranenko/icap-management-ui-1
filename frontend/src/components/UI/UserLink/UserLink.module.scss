@@ -51,3 +51,14 @@
 		}
 	}
 }
+
+@media(min-width: 992px) and (max-width: 1920px) {
+	.UserLink {
+		height: 7rem;
+		margin-top: 2rem;
+
+		& p {
+			font-size: 1rem;
+		}
+	}
+}

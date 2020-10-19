@@ -2,6 +2,7 @@
 	background: #e6e9ea;
 	width: calc(100% - 7rem);
 	margin-left: 7rem;
+	transition: all 0.3s ease-in-out;
 
 	& h2 {
 		margin: 0;
@@ -132,50 +133,61 @@
 	}
 
 	& .popup {
-		top: 19.2rem;
-		left: 2rem;
+		transform: translateY(1rem);
 
 		& button {
 			text-transform: none;
 		}
-	}
 
-	& .popupFilterFileType {
-		top: 19.2rem;
-		left: 14rem;
-		z-index: 98;
-
-		width: 60rem;
-
-		padding: 2rem;
-
-		& fieldset {
-			margin-bottom: 5rem;
-
-			& label {
-				margin-left: 0.5rem;
-			}
+		&::after {
+			content: '';
+			position: absolute;
+			top: -.8rem;
+			left: calc(50% - .8rem);
+			display: block;
+			border-bottom: .8rem solid #fff;
+			border-left: .8rem solid transparent;
+			border-right: .8rem solid transparent;
 		}
 	}
 
-	& .popupFilterOutcome {
-		top: 19.2rem;
-		left: 14rem;
+	& .popupFilterFileType {
 		z-index: 98;
 
 		width: 30rem;
 
 		padding: 2rem;
 
+		transform: translateX(13rem);
+
+		& fieldset {
+			margin-bottom: 5rem;
+
+			& label {
+				margin-left: 4.5rem;
+			}
+		}
+	}
+
+	& .popupFilterOutcome {
+		top: 6.2rem;
+		z-index: 98;
+
+		width: 36rem;
+
+		padding: 2rem;
+
+		transform: translateX(13rem);
+
 		& label {
-			width: 12rem;
+			width: 15rem;
 		}
 	}
 
 	& .fileId {
 		position: absolute;
-		top: 29rem;
-		left: 14rem;
+		top: 36rem;
+		transform: translateX(13rem);
 		z-index: 98;
 
 		display: flex;
@@ -195,7 +207,6 @@
 			padding: 0;
 			margin: 0;
 
-			padding-left: 2rem;
 			color: black;
 
 			& input {
@@ -252,6 +263,15 @@
 
 		& .moreFilters {
 			display: none;
+		}
+	}
+}
+
+@media(min-width: 992px) and (max-width: 1920px) {
+	.Filters {		
+		&.expanded {
+			width: calc(100% - 20rem);
+			margin-left: 20rem;
 		}
 	}
 }

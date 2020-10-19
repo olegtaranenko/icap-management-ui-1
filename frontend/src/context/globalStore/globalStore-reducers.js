@@ -11,7 +11,7 @@ const _checkboxChange = (updateFilter, changeFilter) => {
 		if (filter.filterName === changeFilter.filter) {
 			filter.checkboxList.map((checkbox) => {
 				if (checkbox.id === changeFilter.id) {
-					checkbox.isChecked = changeFilter.checked;
+					checkbox.isChecked = changeFilter.isChecked;
 				}
 				return null;
 			});
@@ -33,7 +33,7 @@ const addFilterFromCheckboxes = (state, addedFilter) => {
 
 	if (
 		updatedList.length <= 0 ||
-		(addedFilter.checked === true && !included)
+		(addedFilter.isChecked === true && !included)
 	) {
 		updatedList.push(addedFilter);
 	} else {
