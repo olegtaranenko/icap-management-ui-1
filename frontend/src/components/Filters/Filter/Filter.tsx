@@ -6,18 +6,18 @@ import { GlobalStoreContext } from "../../../context/globalStore/globalStore-con
 import classes from "./Filter.module.scss";
 
 import Checkbox from "../../UI/Checkbox/Checkbox";
-import { OutcomeFilter } from "../../../@types/OutcomeFilter";
+import { TransactionLogFilter } from "../../../types/TransactionLogFilter";
 
 export interface FilterProps {
 	filter: string,
-	checkboxList: Array<OutcomeFilter>,
+	checkboxList: Array<TransactionLogFilter>,
 	externalStyles: string
 };
 
 const Filter = (props: FilterProps) => {
 	const { addFilterCheckbox } = useContext(GlobalStoreContext);
 
-	const handleChange = (selectedCheckbox: OutcomeFilter) => {
+	const handleChange = (selectedCheckbox: TransactionLogFilter) => {
 		addFilterCheckbox(selectedCheckbox);
 	};
 
@@ -35,7 +35,7 @@ const Filter = (props: FilterProps) => {
 							filter: props.filter,
 							id: checkbox.id,
 							isChecked: evt.target.checked,
-							titleColor: checkbox.titleColor,
+							titleColor: checkbox.titleColor
 						})
 					}
 				/>

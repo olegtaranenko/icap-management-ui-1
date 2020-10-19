@@ -181,7 +181,7 @@ const Filters = (props: FiltersProps) => {
 							closePopupHover={() => props.changeVisibilityPopup(false)}>
 							{openFilter && (
 								<PopupFilter
-									filter={filter}
+									filters={filter}
 									externalStyles={filterStyle}
 									openPopupHover={() => props.changeVisibilityPopup(true)}
 									closePopupHover={closePopupHoverHandler}

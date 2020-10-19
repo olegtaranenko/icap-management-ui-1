@@ -2,18 +2,17 @@ import React from "react";
 import classes from "./PopupFilter.module.scss";
 import Filter from "../../Filters/Filter/Filter";
 
-import { OutcomeFilters } from "../../../@types/OutcomeFilter";
-import { FileFilters } from "../../../@types/FileFilter";
+import { TransactionLogFilters } from "../../../types/TransactionLogFilter";
 
 export interface PopupFilterProps {
-	filter: Array<OutcomeFilters | FileFilters>,
+	filters: Array<TransactionLogFilters>,
 	externalStyles: string,
 	openPopupHover: React.MouseEventHandler<HTMLDivElement>,
 	closePopupHover: React.MouseEventHandler<HTMLDivElement>,
 };
 
 const PopupFilter = (props: PopupFilterProps) => {
-	const addedFilter = props.filter.map((filter: OutcomeFilters | FileFilters) => {
+	const addedFilter = props.filters.map((filter: TransactionLogFilters) => {
 		let filterStyle = classes.fileType;
 		if (filter.filterName === "Outcome") {
 			filterStyle = classes.outcome;

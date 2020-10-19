@@ -8,35 +8,40 @@
         "name": "docType",
         "format": "Blocked By Policy",
         "titleColor": "#DF9F81",
-        "isChecked": false
+        "isChecked": false,
+        "type": "checkbox"
       },
       {
         "id": "outcome-allowed-by-policy",
         "name": "docType",
         "format": "Allowed By Policy",
         "titleColor": "#86C1CB",
-        "isChecked": false
+        "isChecked": false,
+        "type": "checkbox"
       },
       {
         "id": "outcome-blocked-by-ncfs",
         "name": "docType",
         "format": "Blocked By NCFS",
         "titleColor": "#ff8d8d",
-        "isChecked": false
+        "isChecked": false,
+        "type": "checkbox"
       },
       {
         "id": "outcome-allowed-by-ncfs",
         "name": "docType",
         "format": "Allowed By NCFS",
         "titleColor": "#7a7aff",
-        "isChecked": false
+        "isChecked": false,
+        "type": "checkbox"
       },
       {
         "id": "outcome-safe",
         "name": "docType",
         "format": "Safe",
         "titleColor": "#91CAA8",
-        "isChecked": false
+        "isChecked": false,
+        "type": "checkbox"
       }
     ]
   }

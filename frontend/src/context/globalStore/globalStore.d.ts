@@ -1,10 +1,9 @@
-import { FileFilters } from "../../@types/FileFilter";
-import { OutcomeFilters } from "../../@types/OutcomeFilter";
+import { TransactionLogFilters } from "../../types/TransactionLogFilter";
 
 export interface GlobalStore {
     title: String,
-    fileFilter: Array<FileFilters>,
-    outcomeFilter: Array<OutcomeFilters>,
+    fileFilter: Array<TransactionLogFilters>,
+    outcomeFilter: Array<TransactionLogFilters>,
     selectedFilters: Array<any>,
     userfiles: Array<any>,
     navExpanded: boolean,
