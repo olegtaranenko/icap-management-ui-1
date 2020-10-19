@@ -28,14 +28,8 @@ const Filters = (props: FiltersProps) => {
 	const [isValid, setIsValid] = useState(false);
 	const [isTouched, setIsTouched] = useState(false);
 
-	const {
-		addFilterInput,
-		fileFilter,
-		outcomeFilter,
-		selectedFilters,
-		removeFilter,
-		navExpanded
-	} = useContext(GlobalStoreContext);
+	// @ts-ignore
+	const { addFilterInput, fileFilter, outcomeFilter, selectedFilters, removeFilter, navExpanded } = useContext(GlobalStoreContext);
 
 	const clsList = [classes.filters];
 	const clsMoreFilters = [classes.moreFilters];

@@ -15,6 +15,7 @@ export interface FilterProps {
 };
 
 const Filter = (props: FilterProps) => {
+	// @ts-ignore
 	const { addFilterCheckbox } = useContext(GlobalStoreContext);
 
 	const handleChange = (selectedCheckbox: TransactionLogFilter) => {
@@ -26,7 +27,7 @@ const Filter = (props: FilterProps) => {
 				<Checkbox
 					key={checkbox.id}
 					label={checkbox.format}
-					checked={checkbox.isChecked}
+					isChecked={checkbox.isChecked}
 					filter={props.filter}
 					backgroundColor={checkbox.titleColor}
 					onHandleChange={(evt: React.ChangeEvent<HTMLInputElement>) =>

@@ -8,7 +8,7 @@ export interface SelectedFilterProps {
 	id: string,
 	filter: string,
 	value: string,
-	titleColor: string,
+	titleColor?: string,
 	remove: Function
 };
 
@@ -26,7 +26,7 @@ const SelectedFilter = (props: SelectedFilterProps) => {
 				<ButtonClose
 					color={"#b6bfc9"}
 					externalStyles={classes.buttonClose}
-					onButtonClick={() => props.remove}
+					onButtonClick={() => props.remove({id: props.id, filter: props.filter})}
 				/>
 			</div>
 			<div className={clsFooter.join(" ")}>

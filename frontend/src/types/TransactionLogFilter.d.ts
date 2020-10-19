@@ -6,7 +6,7 @@ export interface TransactionLogFilter {
     value?: string,
     filter?: string,
     type?: string,
-    titleColor?: string
+    titleColor: string
 };
 
 export interface TransactionLogFilters {

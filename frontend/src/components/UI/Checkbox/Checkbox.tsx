@@ -8,7 +8,7 @@ export interface CheckboxProps {
 	id?: string,
 	label?: string,
 	onHandleChange: React.ChangeEventHandler,
-	checked?: boolean,
+	isChecked?: boolean,
 	filter?: string,
 	backgroundColor?: string,
 	checkboxIcon?: React.ReactNode,
@@ -34,7 +34,7 @@ const Checkbox = (props: CheckboxProps) => {
 				id={props.id}
 				disableRipple
 				onChange={props.onHandleChange}
-				checked={props.checked}
+				checked={props.isChecked}
 				color="primary"
 				checkedIcon={props.checkedIcon}
 				icon={props.checkboxIcon}

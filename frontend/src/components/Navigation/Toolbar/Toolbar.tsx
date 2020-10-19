@@ -61,6 +61,7 @@ const Toolbar = () => {
 		closeChangePass,
 	} = useContext(AuthContext);
 
+	// @ts-ignore
 	const { navExpanded, toggleNavExpanded } = useContext(GlobalStoreContext);
 
 	const cls = [classes.Toolbar];
