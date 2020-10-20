@@ -27,22 +27,15 @@ dotenv.config();
 
 const app = express();
 const port = 8080;
-
 const workingDirectory = process.cwd();
-const prototypeUiDirectory = workingDirectory.replace("server", "") + "/frontend/build";
 
-app.use(express.static(prototypeUiDirectory));
+app.use(express.static(`${workingDirectory}/frontend/build`));
+
 app.use(bodyParser.json());
+
 setup(app, logger);
 
 app.listen(port, () => {
-    logger.log({
-        level: "info",
-        message: `env: ${process.env.NODE_ENV}`
-    });
-
-    logger.log({
-        level: "info",
-        message: `Server is Running at http://localhost:${port}`
-    });
+    logger.info(`env: ${process.env.NODE_ENV}`);
+    logger.info(`Server is Running at http://localhost:${port}`);
 });

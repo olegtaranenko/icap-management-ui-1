@@ -3,7 +3,6 @@ import TransactionEventApi from "../../../common/http/TransactionEventApi";
 import { Logger } from "winston";
 import GetTransactionsRequest from "../../../common/models/TransactionEventService/GetTransactions/GetTransactionsRequest";
 import GetTransactionsResponse from "../../../common/models/TransactionEventService/GetTransactions/GetTransactionsResponse";
-import ArgumentNullException from "../../../common/models/erros/ArgumentNullException";
 
 class TransactionEventService implements ITransactionEventService {
     logger: Logger;
@@ -13,23 +12,22 @@ class TransactionEventService implements ITransactionEventService {
     };
 
     getTransactions = async (request: GetTransactionsRequest) => {
-        if (!request.url) {
-            this.logger.error("No Url Supplied",);
-            throw new ArgumentNullException("request.url");
-        }
         const transactionEventApi = new TransactionEventApi();
         let transactions: GetTransactionsResponse;
 
         try {
+            this.logger.info("Retrieving Transactions from the TransactionEventService");
+
             const transactionsResponse = await transactionEventApi.getTransactions(request.url,  request.body);
-            transactions = JSON.parse(transactionsResponse);
+            const responseJSON = JSON.parse(transactionsResponse);
+            transactions = new GetTransactionsResponse(responseJSON.count, responseJSON.files);
 
             if (transactions) {
-                this.logger.log("info", `Retrieved Transactions: ${transactionsResponse}`);
+                this.logger.info(`Retrieved ${transactions.count} Transactions: ${transactionsResponse}`);
             }
         }
-        catch (err) {
-            this.logger.error(`Could not get Transactions: ${err} ${err.stack}`);
+        catch (error) {
+            this.logger.error(`Could not get Transactions: ${error} ${error.stack !== undefined ? error.stack : ""}`);
         }
 
         return transactions;

@@ -49,7 +49,7 @@ This command builds the Docker image from the Dockerfile, [docker build](https:/
   
 #### Run the Docker Container
 ```
-docker run -p 4000:8080 -d icap-management-portal
+docker run -p 4000:8080 -d icap-management-portal:version
 ```
   
 <b>Note:</b> This will run the server in production-mode.  

@@ -8,13 +8,19 @@ const setupRequestHistory = (app: Express, logger: Logger) => {
     const getTransactionsPath = process.env.TRANSACTION_EVENT_SERVICE_GET_TRANSACTIONS_PATH;
     const transactionEventService = new TransactionEventService(logger);
 
-    app.post("/request-history/transactions", (req, res) => {
+    app.post("/request-history/transactions", async(req, res) => {
         const requestUrl = transactionEventServiceBaseUrl + getTransactionsPath;
-        const transactionRequest = new GetTransactionsRequest(requestUrl, req.body);
 
-        const transactions = transactionEventService.getTransactions(transactionRequest);
+        try {
+            const transactionRequest = new GetTransactionsRequest(requestUrl, req.body);
 
-        res.json(transactions);
+            const transactions = await transactionEventService.getTransactions(transactionRequest);
+
+            res.json(transactions);
+        }
+        catch (error) {
+            logger.error("Error Retrieving Transactions: " + error.stack);
+        }
     });
 };
 
