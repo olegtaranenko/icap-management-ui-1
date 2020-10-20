@@ -1,7 +1,8 @@
 import express from "express";
+import bodyParser from "body-parser";
 import winston from "winston";
-import path from "path";
 import setup from "./service/Setup";
+import dotenv from "dotenv";
 
 const logger = winston.createLogger({
     level: 'info',
@@ -17,9 +18,12 @@ const logger = winston.createLogger({
         //
         new winston.transports.File({ filename: 'error.log', level: 'error' }),
         new winston.transports.File({ filename: 'combined.log' }),
-        new winston.transports.Console({ format: winston.format.combine(winston.format.cli(), winston.format.timestamp()) })
-    ],
+        new winston.transports.Console({
+            format: winston.format.combine(winston.format.cli(), winston.format.timestamp()),
+        })],
 });
+
+dotenv.config();
 
 const app = express();
 const port = 8080;
@@ -27,14 +31,9 @@ const port = 8080;
 const workingDirectory = process.cwd();
 const prototypeUiDirectory = workingDirectory.replace("server", "") + "/frontend/build";
 
-
 app.use(express.static(prototypeUiDirectory));
-setup(app);
-
-// app.get("/", (req, res) => {
-//     res.sendFile(path.join(`${prototypeUiDirectory}/index.html`));
-// });
-
+app.use(bodyParser.json());
+setup(app, logger);
 
 app.listen(port, () => {
     logger.log({
