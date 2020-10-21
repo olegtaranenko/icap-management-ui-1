@@ -1,6 +1,11 @@
 # icap-management-ui
 ![CI](https://github.com/filetrust/icap-management-ui/workflows/CI/badge.svg)
   
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=filetrust_icap-management-ui&metric=bugs)](https://sonarcloud.io/dashboard?id=filetrust_icap-management-ui)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=filetrust_icap-management-ui&metric=code_smells)](https://sonarcloud.io/dashboard?id=filetrust_icap-management-ui)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=filetrust_icap-management-ui&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=filetrust_icap-management-ui)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=filetrust_icap-management-ui&metric=ncloc)](https://sonarcloud.io/dashboard?id=filetrust_icap-management-ui)
+  
 Repository for the Management UI in the Glasswall ICAP Program
 
 ## Setup
