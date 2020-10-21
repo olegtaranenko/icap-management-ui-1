@@ -49,13 +49,6 @@ const addFilterFromCheckboxes = (state, addedFilter) => {
 
 const addFilterFromInput = (state, addedFilter) => {
 	let updatedList = [...state.selectedFilters];
-	const updateCheckbox = [...state.fileFilter];
-
-	updateCheckbox.map((filter) => {
-		return filter.checkboxList.map((checkbox) => {
-			return (checkbox.isChecked = false);
-		});
-	});
 
 	updatedList = updatedList.filter(
 		(filter) => addedFilter.filter === filter.filter

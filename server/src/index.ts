@@ -26,9 +26,11 @@ const logger = winston.createLogger({
 
 dotenv.config();
 
-const app = express();
 const port = 8080;
 const workingDirectory = process.cwd();
+
+const app = express();
+app.disable("x-powered-by");
 
 app.use(express.static(`${workingDirectory}/frontend/build`));
 
