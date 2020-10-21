@@ -2,10 +2,11 @@ import { Express } from "express";
 import { Logger } from "winston";
 import TransactionEventService from "../../business/services/TransactionEventService/TransactionEventService";
 import GetTransactionsRequest from "../../common/models/TransactionEventService/GetTransactions/GetTransactionsRequest";
+import IConfig from "../../common/models/IConfig";
 
-const setupRequestHistory = (app: Express, logger: Logger) => {
-    const transactionEventServiceBaseUrl = process.env.TRANSACTION_EVENT_SERVICE_BASE_URL;
-    const getTransactionsPath = process.env.TRANSACTION_EVENT_SERVICE_GET_TRANSACTIONS_PATH;
+const setupRequestHistory = (config: IConfig, app: Express, logger: Logger) => {
+    const transactionEventServiceBaseUrl = config.transactionEventServiceBaseUrl;
+    const getTransactionsPath = config.getTransactionsPath;
     const transactionEventService = new TransactionEventService(logger);
 
     app.post("/request-history/transactions", async(req, res) => {

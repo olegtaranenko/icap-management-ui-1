@@ -1,7 +1,7 @@
 import fetch from "node-fetch";
 
 export default class TransactionEventApi {
-    getTransactions = async (getTransactionsUrl: string, body: any, headers?: { [header: string]: string }): Promise<string> => {
+    static getTransactions = async (getTransactionsUrl: string, body: any, headers?: { [header: string]: string }): Promise<string> => {
         const response = await fetch(`${getTransactionsUrl}`, {
             method: "POST",
             body: JSON.stringify(body),

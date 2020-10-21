@@ -1,7 +1,7 @@
 import { Guid } from "guid-typescript";
 import { FileType } from "../../enums/FileType";
 import { Risk } from "../../enums/Risk";
-import ArgumentNullException from "../../erros/ArgumentNullException";
+import ArgumentNullException from "../../errors/ArgumentNullException";
 
 export interface Filter {
     TimestampRangeStart: Date,
@@ -20,10 +20,6 @@ export default class GetTransactionsRequest {
     constructor(url: string, body: { Filter: Filter }, headers?: { [header: string]: string }) {
         if (!url) {
             throw new ArgumentNullException("url");
-        }
-
-        if (!body.Filter) {
-            throw new ArgumentNullException("body.Filter");
         }
 
         this.url = url;

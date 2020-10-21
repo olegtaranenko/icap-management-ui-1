@@ -1,8 +1,9 @@
 import express from "express";
 import bodyParser from "body-parser";
 import winston from "winston";
-import setup from "./service/Setup";
 import dotenv from "dotenv";
+import setup from "./service/Setup";
+import Config from "./service/Config";
 
 const logger = winston.createLogger({
     level: 'info',
@@ -33,9 +34,11 @@ app.use(express.static(`${workingDirectory}/frontend/build`));
 
 app.use(bodyParser.json());
 
-setup(app, logger);
+setup(Config(), app, logger);
 
 app.listen(port, () => {
     logger.info(`env: ${process.env.NODE_ENV}`);
     logger.info(`Server is Running at http://localhost:${port}`);
 });
+
+module.exports.app = app;

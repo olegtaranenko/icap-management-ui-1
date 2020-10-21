@@ -1,5 +1,5 @@
 import ITransactionEventService from "../../../common/services/ITransactionEventService";
-import TransactionEventApi from "../../../common/http/TransactionEventApi";
+import TransactionEventApi from "../../../common/http/TransactionEventApi/TransactionEventApi";
 import { Logger } from "winston";
 import GetTransactionsRequest from "../../../common/models/TransactionEventService/GetTransactions/GetTransactionsRequest";
 import GetTransactionsResponse from "../../../common/models/TransactionEventService/GetTransactions/GetTransactionsResponse";
@@ -12,13 +12,12 @@ class TransactionEventService implements ITransactionEventService {
     };
 
     getTransactions = async (request: GetTransactionsRequest) => {
-        const transactionEventApi = new TransactionEventApi();
         let transactions: GetTransactionsResponse;
 
         try {
             this.logger.info("Retrieving Transactions from the TransactionEventService");
 
-            const transactionsResponse = await transactionEventApi.getTransactions(request.url,  request.body);
+            const transactionsResponse = await TransactionEventApi.getTransactions(request.url,  request.body);
             const responseJSON = JSON.parse(transactionsResponse);
             transactions = new GetTransactionsResponse(responseJSON.count, responseJSON.files);
 
