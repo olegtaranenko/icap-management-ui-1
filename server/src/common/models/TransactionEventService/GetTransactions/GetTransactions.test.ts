@@ -1,5 +1,5 @@
 import { Guid } from "guid-typescript";
-import FileType from "../../../../business/enums/FileType";
+import { FileType } from "../../enums/FileType";
 import { Risk } from "../../enums/Risk";
 import GetTransactionsRequest from "./GetTransactionsRequest";
 import GetTransactionsResponse from "./GetTransactionsResponse";
