@@ -24,11 +24,11 @@ export default class GetTransactionsResponse {
                 throw new ArgumentNullException("file.fileId");
             }
 
-            if (!file.detectionFileType) {
+            if (file.detectionFileType === undefined || file.detectionType === null) {
                 throw new ArgumentNullException("file.detectionFileType");
             }
 
-            if (!file.risk) {
+            if (file.risk === undefined || file.risk === null) {
                 throw new ArgumentNullException("file.risk");
             }
 

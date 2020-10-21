@@ -4,6 +4,7 @@ import winston from "winston";
 import dotenv from "dotenv";
 import setup from "./service/Setup";
 import Config from "./service/Config";
+import path from "path";
 
 const logger = winston.createLogger({
     level: 'info',
@@ -37,6 +38,10 @@ app.use(express.static(`${workingDirectory}/frontend/build`));
 app.use(bodyParser.json());
 
 setup(Config(), app, logger);
+
+app.get("*", (req, res) => {
+    res.sendFile(path.join(`${workingDirectory}/frontend/build/index.html`));
+});
 
 app.listen(port, () => {
     logger.info(`env: ${process.env.NODE_ENV}`);

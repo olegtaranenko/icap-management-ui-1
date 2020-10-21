@@ -137,12 +137,13 @@ describe("GetTransactions", () => {
 
             it("throws_ArgumentNullException_if_empty_detectionFileType_found_in_files", () => {
                 // Arrange
+                const detectionFileType: number = null;
                 const count = 1;
                 const files = [
                     {
                         timestamp: new Date(),
                         fileId: Guid.create(),
-                        detectionFileType: "",
+                        detectionFileType,
                         risk: Risk.Safe,
                         activePolicyId: Guid.create(),
                         directory: "/some/directory"
