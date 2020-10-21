@@ -1,10 +1,10 @@
 .main {	
 	display: block;
+	padding: 2rem;
 	padding-top: 0;
 	margin-left: 7rem;
 	width: calc(100% - 7rem);
 	height: 100%;
-	padding: 2rem;
 	transition: all 0.3s ease-in-out;
 
 	&.expanded {

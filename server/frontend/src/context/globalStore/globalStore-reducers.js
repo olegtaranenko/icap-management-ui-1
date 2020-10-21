@@ -54,8 +54,7 @@ const addFilterFromInput = (state, addedFilter) => {
 	updateCheckbox.map((filter) => {
 		filter.checkboxList.map((checkbox) => {
 			return (checkbox.isChecked = false);
-		});
-		return null;
+		});		
 	});
 
 	updatedList = updatedList.filter(
