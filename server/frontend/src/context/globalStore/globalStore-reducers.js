@@ -52,9 +52,9 @@ const addFilterFromInput = (state, addedFilter) => {
 	const updateCheckbox = [...state.fileFilter];
 
 	updateCheckbox.map((filter) => {
-		filter.checkboxList.map((checkbox) => {
+		return filter.checkboxList.map((checkbox) => {
 			return (checkbox.isChecked = false);
-		});		
+		});
 	});
 
 	updatedList = updatedList.filter(
