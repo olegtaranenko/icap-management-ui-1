@@ -9,7 +9,7 @@ export interface ButtonProps {
 	buttonStyle?: React.CSSProperties,
 	children: React.ReactNode,
 	disabled: boolean
-}; 
+}
 
 const Button = (props: ButtonProps) => {
 	return (

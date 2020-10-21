@@ -9,7 +9,7 @@ class TransactionEventService implements ITransactionEventService {
 
     constructor(logger: Logger) {
         this.logger = logger;
-    };
+    }
 
     getTransactions = async (request: GetTransactionsRequest) => {
         let transactions: GetTransactionsResponse;
@@ -31,6 +31,6 @@ class TransactionEventService implements ITransactionEventService {
 
         return transactions;
     };
-};
+}
 
 export default TransactionEventService;

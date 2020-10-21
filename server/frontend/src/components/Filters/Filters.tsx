@@ -17,7 +17,7 @@ import classes from "./Filters.module.scss";
 export interface FiltersProps {
 	popupIsOpen: boolean,
 	changeVisibilityPopup: (value: boolean | ((prevVar: boolean) => boolean)) => void;
-};
+}
 
 const Filters = (props: FiltersProps) => {
 	const [openFilterRow, setOpenFilterRow] = useState(false);

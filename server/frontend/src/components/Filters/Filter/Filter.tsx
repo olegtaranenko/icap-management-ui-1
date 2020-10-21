@@ -12,7 +12,7 @@ export interface FilterProps {
 	filter: string,
 	checkboxList: Array<TransactionLogFilter>,
 	externalStyles: string
-};
+}
 
 const Filter = (props: FilterProps) => {
 	// @ts-ignore

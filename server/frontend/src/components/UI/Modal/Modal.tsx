@@ -9,7 +9,7 @@ export interface ModalProps {
 	onCloseHandler: React.MouseEventHandler<HTMLButtonElement>,
 	children?: React.ReactNode,
 	externalStyles?: string
-};
+}
 
 const Modal = (props: ModalProps) => {
 	return (

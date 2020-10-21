@@ -4,7 +4,7 @@ import classes from "./Badge.module.scss";
 export interface BadgeProps {
 	value: string,
 	externalStyles: string
-};
+}
 
 const Badge = (props: BadgeProps) => {
 	const cls = [classes.Badge, props.externalStyles];

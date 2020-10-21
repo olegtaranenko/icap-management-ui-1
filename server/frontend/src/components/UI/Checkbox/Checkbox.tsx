@@ -13,7 +13,7 @@ export interface CheckboxProps {
 	backgroundColor?: string,
 	checkboxIcon?: React.ReactNode,
 	checkedIcon?: React.ReactNode
-};
+}
 
 const Checkbox = (props: CheckboxProps) => {
 	let checkbox = null;

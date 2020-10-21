@@ -14,4 +14,4 @@ export default class TransactionEventApi {
 
         return response.text();
     };
-};
+}

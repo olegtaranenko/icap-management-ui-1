@@ -25,7 +25,7 @@ export default class GetTransactionsResponse {
             }
 
             if (!file.detectionFileType) {
-                throw new ArgumentNullException("file.fileType");
+                throw new ArgumentNullException("file.detectionFileType");
             }
 
             if (!file.risk) {
@@ -50,4 +50,4 @@ export default class GetTransactionsResponse {
             )
         });
     }
-};
+}

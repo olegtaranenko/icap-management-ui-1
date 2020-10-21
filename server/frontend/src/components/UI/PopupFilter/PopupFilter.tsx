@@ -9,7 +9,7 @@ export interface PopupFilterProps {
 	externalStyles: string,
 	openPopupHover: React.MouseEventHandler<HTMLDivElement>,
 	closePopupHover: React.MouseEventHandler<HTMLDivElement>,
-};
+}
 
 const PopupFilter = (props: PopupFilterProps) => {
 	const addedFilter = props.filters.map((filter: TransactionLogFilters) => {

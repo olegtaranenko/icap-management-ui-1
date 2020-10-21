@@ -16,11 +16,11 @@ interface FileData {
 	outcome: string,
 	timestamp: string,
 	type: string
-};
+}
 
 export interface FileInfoProps {
 	data: FileData
-};
+}
 
 const FileInfo = (props: FileInfoProps) => {
 	const [blockExpanded, setBlockExpanded] = useState({

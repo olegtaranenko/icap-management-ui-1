@@ -7,10 +7,10 @@ export interface TransactionLogFilter {
     filter?: string,
     type?: string,
     titleColor: string
-};
+}
 
 export interface TransactionLogFilters {
     id: string,
     filterName: string,
     checkboxList: Array<TransactionLogFilter>
-};
+}

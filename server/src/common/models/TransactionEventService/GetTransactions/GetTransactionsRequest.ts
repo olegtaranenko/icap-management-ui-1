@@ -10,7 +10,7 @@ export interface Filter {
     FileTypes?: FileType[],
     FileIds?: Guid[],
     PolicyIds?: Guid[]
-};
+}
 
 export default class GetTransactionsRequest {
     url: string;
@@ -26,4 +26,4 @@ export default class GetTransactionsRequest {
         this.body = body;
         this.headers = headers;
     }
-};
+}

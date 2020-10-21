@@ -3,7 +3,7 @@ import styles from "./MainTitle.module.scss";
 
 import { GlobalStoreContext } from "../../context/globalStore/globalStore-context";
 
-const Main = () => {
+const MainTitle = () => {
     const { navExpanded, title } = useContext(GlobalStoreContext);
 
     return (
@@ -14,4 +14,4 @@ const Main = () => {
     );
 };
 
-export default Main;
+export default MainTitle;

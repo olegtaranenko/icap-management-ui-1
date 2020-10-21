@@ -1,4 +1,3 @@
-import { Guid } from "guid-typescript";
 import { stub, SinonStub } from "sinon";
 import winston from "winston";
 import TransactionEventApi from "../../../common/http/TransactionEventApi/TransactionEventApi";
@@ -39,7 +38,7 @@ describe("TransactionEventService", () => {
                 {
                     timestamp: new Date(),
                     fileId: "11111111-1111-1111-1111-11111111111",
-                    fileType: FileType.Bmp,
+                    detectionFileType: FileType.Bmp,
                     risk: Risk.Safe,
                     activePolicyId: "11111111-1111-1111-1111-11111111111",
                     directory: "/some/directory"

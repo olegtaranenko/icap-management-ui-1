@@ -9,7 +9,7 @@ export interface UserLinkProps {
 	expanded: boolean,
 	openPopup: React.MouseEventHandler<HTMLDivElement>,
 	closePopup: React.MouseEventHandler<HTMLDivElement>
-};
+}
 
 const UserLink = (props: UserLinkProps) => {
 	const cls = [classes.UserLink];

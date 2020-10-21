@@ -3,12 +3,12 @@ import styles from "./Main.module.scss";
 
 import { GlobalStoreContext } from "../../context/globalStore/globalStore-context";
 
-export interface MainProps { children?: React.ReactNode };
+export interface MainProps { children?: React.ReactNode }
 
 const Main = (props: MainProps) => {
 	const { navExpanded } = useContext(GlobalStoreContext);
 
-	return (
+return (
 		<>
 			<div
 				className={`${styles.main} ${navExpanded ? styles.expanded : ""}`}>

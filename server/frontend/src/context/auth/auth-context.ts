@@ -10,6 +10,6 @@ export interface AuthStore {
 	switchAuthMode: Function,
 	openChangePass: Function,
 	closeChangePass: Function
-};
+}
 
 export const AuthContext = createContext<Partial<AuthStore>>({});

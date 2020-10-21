@@ -62,7 +62,7 @@ describe("GetTransactions", () => {
                     {
                         timestamp: new Date(),
                         fileId: Guid.create(),
-                        fileType: FileType.Bmp,
+                        detectionFileType: FileType.Bmp,
                         risk: Risk.Safe,
                         activePolicyId: Guid.create(),
                         directory: "/some/directory"
@@ -86,7 +86,7 @@ describe("GetTransactions", () => {
                     {
                         timestamp: "",
                         fileId: Guid.create(),
-                        fileType: FileType.Bmp,
+                        detectionFileType: FileType.Bmp,
                         risk: Risk.Safe,
                         activePolicyId: Guid.create(),
                         directory: "/some/directory"
@@ -114,7 +114,7 @@ describe("GetTransactions", () => {
                     {
                         timestamp: new Date(),
                         fileId: "",
-                        fileType: FileType.Bmp,
+                        detectionFileType: FileType.Bmp,
                         risk: Risk.Safe,
                         activePolicyId: Guid.create(),
                         directory: "/some/directory"
@@ -135,14 +135,14 @@ describe("GetTransactions", () => {
                 }
             });
 
-            it("throws_ArgumentNullException_if_empty_fileType_found_in_files", () => {
+            it("throws_ArgumentNullException_if_empty_detectionFileType_found_in_files", () => {
                 // Arrange
                 const count = 1;
                 const files = [
                     {
                         timestamp: new Date(),
                         fileId: Guid.create(),
-                        fileType: "",
+                        detectionFileType: "",
                         risk: Risk.Safe,
                         activePolicyId: Guid.create(),
                         directory: "/some/directory"
@@ -159,7 +159,7 @@ describe("GetTransactions", () => {
                 catch (error) {
                     // Assert
                     expect(error.message)
-                    .toEqual("Argument is invalid: 'file.fileType'. Argument 'file.fileType' must not be null");
+                    .toEqual("Argument is invalid: 'file.detectionFileType'. Argument 'file.detectionFileType' must not be null");
                 }
             });
 
@@ -170,7 +170,7 @@ describe("GetTransactions", () => {
                     {
                         timestamp: new Date(),
                         fileId: Guid.create(),
-                        fileType: FileType.Bmp,
+                        detectionFileType: FileType.Bmp,
                         risk: "",
                         activePolicyId: Guid.create(),
                         directory: "/some/directory"
@@ -198,7 +198,7 @@ describe("GetTransactions", () => {
                     {
                         timestamp: new Date(),
                         fileId: Guid.create(),
-                        fileType: FileType.Bmp,
+                        detectionFileType: FileType.Bmp,
                         risk: Risk.Safe,
                         activePolicyId: "",
                         directory: "/some/directory"
@@ -226,7 +226,7 @@ describe("GetTransactions", () => {
                     {
                         timestamp: new Date(),
                         fileId: Guid.create(),
-                        fileType: FileType.Bmp,
+                        detectionFileType: FileType.Bmp,
                         risk: Risk.Safe,
                         activePolicyId: Guid.create(),
                         directory: ""

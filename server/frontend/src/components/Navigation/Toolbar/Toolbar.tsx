@@ -65,10 +65,8 @@ const Toolbar = () => {
 	const { navExpanded, toggleNavExpanded } = useContext(GlobalStoreContext);
 
 	const cls = [classes.Toolbar];
-	const clsNav = [classes.nav];
 	if (navExpanded) {
 		cls.push(classes.expanded);
-		clsNav.push(classes.expanded);
 	}
 
 	const accountLinks: Array<PopupButton> = [

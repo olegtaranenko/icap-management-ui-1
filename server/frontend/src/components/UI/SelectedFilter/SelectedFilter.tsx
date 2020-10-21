@@ -10,7 +10,7 @@ export interface SelectedFilterProps {
 	value: string,
 	titleColor?: string,
 	remove: Function
-};
+}
 
 const SelectedFilter = (props: SelectedFilterProps) => {
 	const clsFooter = [classes.footer];

@@ -5,7 +5,7 @@ export interface PopupButton {
 	name: string,
 	icon?: string,
 	onClickButtonHandler: React.MouseEventHandler<HTMLButtonElement>
-};
+}
 
 export interface PopupProps {
 	popupButtons: Array<PopupButton>,
@@ -13,7 +13,7 @@ export interface PopupProps {
 	openPopupHover: React.MouseEventHandler<HTMLDivElement>,
 	closePopupHover: React.MouseEventHandler<HTMLDivElement>,
 	externalStyles: string
-};
+}
 
 const Popup = (props: PopupProps) => {
 	const buttonList = props.popupButtons.map(({ name, icon, onClickButtonHandler }) => {

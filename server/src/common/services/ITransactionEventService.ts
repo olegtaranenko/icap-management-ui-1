@@ -6,4 +6,4 @@ import GetTransactionsResponse from "../../common/models/TransactionEventService
 export default interface ITransactionEventService {
     logger: Logger,
     getTransactions: (request: GetTransactionsRequest) => Promise<GetTransactionsResponse>
-};
+}

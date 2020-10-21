@@ -9,7 +9,7 @@ export interface FileRowProps {
 	type: string,
 	outcome: string,
 	onRowClickHandler: MouseEventHandler<HTMLTableRowElement>
-};
+}
 
 const FileRow = (props: FileRowProps) => {
 	return (
