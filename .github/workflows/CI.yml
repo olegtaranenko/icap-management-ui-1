@@ -10,7 +10,7 @@ jobs:
   build-frontend:
     runs-on: ubuntu-latest
     env:
-      working-directory: ./frontend
+      working-directory: ./server/frontend
 
     steps:
       - uses: actions/checkout@v2

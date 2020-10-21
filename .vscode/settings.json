@@ -1,0 +1,7 @@
+{
+    "git.ignoreLimitWarning": true,
+    "jest.debugMode": true,
+    "jest.pathToJest": "./server/node_modules/jest/bin/jest.js",
+    "jestrunner.jestPath": "./server/node_modules/jest/bin/jest.js",
+    "jestrunner.configPath": "./server/jest.config.js",
+}

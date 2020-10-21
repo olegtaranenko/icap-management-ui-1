@@ -26,12 +26,14 @@ yarn install
   
 Installs all NPM packages and dependencies specified in the package.json file.
   
-#### Running the Server
+#### Debugging the Server in vscode
 ```
 yarn dev
 ```
   
 This command runs the 'dev' script in the package.json file, which starts a local development server, the server is exposed on port 8080. Navigating to http://localhost:8080 should show the homepage.
+
+To break on server code, the nodemon debugger needs to be attached. We have a launch.json file defined in the project, so head to the "debug" tab on the sidebar and click the "play" button. This should attach the debugger and allow you to hit breakpoints in the ./server code.
   
 <hr/>    
   
@@ -47,7 +49,7 @@ This command builds the Docker image from the Dockerfile, [docker build](https:/
   
 #### Run the Docker Container
 ```
-docker run -p 4000:8080 -d icap-management-portal
+docker run -p 4000:8080 -d icap-management-portal:version
 ```
   
 <b>Note:</b> This will run the server in production-mode.  

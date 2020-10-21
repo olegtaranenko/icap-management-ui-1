@@ -1,0 +1,31 @@
+.pageHeading {
+	margin-top: 0;
+	margin-left: 7rem;
+	width: calc(100% - 7rem);
+	height: 6rem;
+	padding-left: 3rem;
+	font-size: 1.8rem;
+	text-align: left;
+	line-height: 6rem;
+	display: block;
+	font-family: "montserratregular", sans-serif;
+	font-weight: 300;
+	text-transform: uppercase;
+	color: #4592b0;
+	border-bottom: #fff 1px solid;
+	transition: all 0.3s ease-in-out;
+
+	&.expanded {
+		margin-left: 26rem;
+		width: calc(100% - 26rem);
+	}
+}
+
+@media(min-width: 992px) and (max-width: 1800px) {
+	.pageHeading {		
+		&.expanded {
+			width: calc(100% - 20rem);
+			margin-left: 20rem;
+		}
+	}
+}
