@@ -29,4 +29,4 @@ export enum FileType {
     Wav = 37,
     Mpg = 38,
     Coff = 39
-};
+}

@@ -1,4 +1,4 @@
-import React, { useState, useContext, FormEvent } from "react";
+import React, { useState, useContext, FormEvent, useEffect } from "react";
 
 import { GlobalStoreContext } from "../../context/globalStore/globalStore-context";
 
@@ -10,6 +10,7 @@ import PopupFilter from "../UI/PopupFilter/PopupFilter";
 import SelectedFilter from "../UI/SelectedFilter/SelectedFilter";
 import DateAndTimePickers from "../UI/DateAndTimePickers/DateAndTimePickers";
 import Input from "../UI/Input/Input";
+import { RequestHistoryTimeFilter } from "../../data/filters/RequestHistory/requestHistoryTimeFilter";
 
 import classes from "./Filters.module.scss";
 
@@ -20,6 +21,9 @@ export interface FiltersProps {
 }
 
 const Filters = (props: FiltersProps) => {
+	// @ts-ignore
+	const { addFilterInput, fileFilter, outcomeFilter, selectedFilters, removeFilter, navExpanded, updateRequestHistoryTimeFilter, requestHistoryTimeFilter } = useContext(GlobalStoreContext);
+
 	const [openFilterRow, setOpenFilterRow] = useState(false);
 	const [openFilter, setOpenFilter] = useState(null);
 	const [openFileId, setOpenFileId] = useState(false);
@@ -28,8 +32,8 @@ const Filters = (props: FiltersProps) => {
 	const [isValid, setIsValid] = useState(false);
 	const [isTouched, setIsTouched] = useState(false);
 
-	// @ts-ignore
-	const { addFilterInput, fileFilter, outcomeFilter, selectedFilters, removeFilter, navExpanded } = useContext(GlobalStoreContext);
+	const [startTimestampValue, setStartTimestampValue] = useState(requestHistoryTimeFilter.timestampRangeStart);
+	const [endTimestampValue, setEndTimestampValue] = useState(requestHistoryTimeFilter.timestampRangeEnd);
 
 	const clsList = [classes.filters];
 	const clsMoreFilters = [classes.moreFilters];
@@ -40,30 +44,6 @@ const Filters = (props: FiltersProps) => {
 		clsMoreFilters.push(classes.hide);
 		clsArrow.push(classes.rotate);
 	}
-
-	const filterList: Array<PopupButton> = [
-		{
-			name: "File Types",
-			onClickButtonHandler: () => {
-				setOpenFileId(false);
-				setOpenFilter("File Types");
-			},
-		},
-		{
-			name: "Outcomes",
-			onClickButtonHandler: () => {
-				setOpenFileId(false);
-				setOpenFilter("Outcomes");
-			},
-		},
-		{
-			name: "File ID",
-			onClickButtonHandler: () => {
-				setOpenFilter(null);
-				setOpenFileId((prevState) => !prevState);
-			},
-		},
-	];
 
 	const openFilterRowHandler = () => {
 		setOpenFilterRow((prevState) => !prevState);
@@ -96,21 +76,21 @@ const Filters = (props: FiltersProps) => {
 		});
 	};
 
-	let filter = null;
+	let selectedFilter = null;
 	let filterStyle = null;
 
 	switch (openFilter) {
 		case "File Types":
-			filter = fileFilter;
+			selectedFilter = fileFilter;
 			filterStyle = classes.popupFilterFileType;
 			break;
 
 		case "Outcomes":
-			filter = outcomeFilter;
+			selectedFilter = outcomeFilter;
 			filterStyle = classes.popupFilterOutcome;
 			break;
 		default:
-			filter = null;
+			selectedFilter = null;
 			filterStyle = null;
 			break;
 	}
@@ -130,6 +110,41 @@ const Filters = (props: FiltersProps) => {
 		}
 	);
 
+	const filterList: PopupButton[] = [
+		{
+			name: "File Types",
+			onClickButtonHandler: () => {
+				setOpenFileId(false);
+				setOpenFilter("File Types");
+			},
+		},
+		{
+			name: "Outcomes",
+			onClickButtonHandler: () => {
+				setOpenFileId(false);
+				setOpenFilter("Outcomes");
+			},
+		},
+		{
+			name: "File ID",
+			onClickButtonHandler: () => {
+				setOpenFilter(null);
+				setOpenFileId((prevState) => !prevState);
+			},
+		},
+	];
+
+	useEffect(() => {
+		const newTimeFilter: RequestHistoryTimeFilter = {
+			timestampRangeStart: startTimestampValue,
+			timestampRangeEnd: endTimestampValue
+		};
+
+		updateRequestHistoryTimeFilter(newTimeFilter);
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [startTimestampValue, endTimestampValue])
+
 	return (
 		<section className={`${classes.Filters} ${navExpanded ? classes.expanded : ""}`}>
 			<div className={classes.wrap}>
@@ -145,7 +160,12 @@ const Filters = (props: FiltersProps) => {
 						onClick={openFilterRowHandler}
 						className={clsArrow.join(" ")}
 					/>
-					<DateAndTimePickers externalStyles={classes.pickers} />
+					<DateAndTimePickers
+						externalStyles={classes.pickers}
+						initialStartTimestamp={startTimestampValue}
+						initialEndTimestamp={endTimestampValue}
+						onChangeStartTimestamp={setStartTimestampValue}
+						onChangeEndTimestamp={setEndTimestampValue} />
 				</div>
 				<div className={classes.footer}>
 					<div className={clsList.join(" ")}>
@@ -175,7 +195,7 @@ const Filters = (props: FiltersProps) => {
 							closePopupHover={() => props.changeVisibilityPopup(false)}>
 							{openFilter && (
 								<PopupFilter
-									filters={filter}
+									filters={selectedFilter}
 									externalStyles={filterStyle}
 									openPopupHover={() => props.changeVisibilityPopup(true)}
 									closePopupHover={closePopupHoverHandler}

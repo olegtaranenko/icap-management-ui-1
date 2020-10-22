@@ -5,7 +5,7 @@ import Filter from "../../Filters/Filter/Filter";
 import { TransactionLogFilters } from "../../../types/TransactionLogFilter";
 
 export interface PopupFilterProps {
-	filters: Array<TransactionLogFilters>,
+	filters: TransactionLogFilters[],
 	externalStyles: string,
 	openPopupHover: React.MouseEventHandler<HTMLDivElement>,
 	closePopupHover: React.MouseEventHandler<HTMLDivElement>,

@@ -1,5 +1,5 @@
 import { Guid } from "guid-typescript";
-import { FileType } from "../enums/FileType";
+import { FileType } from "../../../../frontend/src/enums/FileType";
 import { Risk } from "../enums/Risk";
 
 export default class TransactionFile {

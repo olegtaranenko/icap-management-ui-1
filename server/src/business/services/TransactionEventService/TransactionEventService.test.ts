@@ -2,7 +2,7 @@ import { stub, SinonStub } from "sinon";
 import winston from "winston";
 import TransactionEventApi from "../../../common/http/TransactionEventApi/TransactionEventApi";
 import GetTransactionsRequest from "../../../common/models/TransactionEventService/GetTransactions/GetTransactionsRequest";
-import { FileType } from "../../../common/models/enums/FileType";
+import { FileType } from "../../../../frontend/src/enums/FileType";
 import { Risk } from "../../../common/models/enums/Risk";
 import TransactionEventService from "./TransactionEventService";
 import GetTransactionsResponse from "../../../common/models/TransactionEventService/GetTransactions/GetTransactionsResponse";
