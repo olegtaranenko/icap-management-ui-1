@@ -15,6 +15,7 @@
 }
 
 .main {
+	top: 12rem !important;
 	height: calc(100% - 13.5rem);
 }
 
@@ -57,8 +58,4 @@
 	& .emptyTableCell {
 		text-align: center;
 	}
-}
-
-.main {
-	top: 12rem !important;
 }
