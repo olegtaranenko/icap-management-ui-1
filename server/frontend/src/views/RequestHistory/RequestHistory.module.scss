@@ -1,5 +1,9 @@
+.container {
+	max-height: 83rem;
+}
+
 .wrapTable {
-	padding: 0 3rem;
+	padding: 0 2.5rem;
 	transition: all 0.5s;
 
 	&.notActive {
@@ -10,8 +14,14 @@
 	}
 }
 
+.main {
+	height: calc(100% - 13.5rem);
+}
+
 .table {
 	color: #196480;
+	overflow-y: scroll;
+	height: 100%;
 
 	& th {
 		height: 4rem;
@@ -19,6 +29,10 @@
 		padding: 0;
 
 		border: none;
+	}
+
+	& thead {
+		border-bottom: 1px solid #4592b0;
 	}
 
 	& thead th {
@@ -37,8 +51,11 @@
 	}
 
 	& .tbody {
-		border-top: 1px solid #54e0e8;
-		border-bottom: 1px solid #54e0e8;
+		border-top: 1px solid #4592b0;
+	}
+
+	& .emptyTableCell {
+		text-align: center;
 	}
 }
 

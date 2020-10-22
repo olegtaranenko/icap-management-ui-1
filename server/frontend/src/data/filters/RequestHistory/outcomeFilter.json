@@ -9,7 +9,8 @@
         "format": "Blocked By Policy",
         "titleColor": "#DF9F81",
         "isChecked": false,
-        "type": "checkbox"
+        "type": "checkbox",
+        "riskEnum": "BlockedByPolicy"
       },
       {
         "id": "outcome-allowed-by-policy",
@@ -17,7 +18,8 @@
         "format": "Allowed By Policy",
         "titleColor": "#86C1CB",
         "isChecked": false,
-        "type": "checkbox"
+        "type": "checkbox",
+        "riskEnum": "AllowedByPolicy"
       },
       {
         "id": "outcome-blocked-by-ncfs",
@@ -25,7 +27,8 @@
         "format": "Blocked By NCFS",
         "titleColor": "#ff8d8d",
         "isChecked": false,
-        "type": "checkbox"
+        "type": "checkbox",
+        "riskEnum": "BlockedByNCFS"
       },
       {
         "id": "outcome-allowed-by-ncfs",
@@ -33,7 +36,8 @@
         "format": "Allowed By NCFS",
         "titleColor": "#7a7aff",
         "isChecked": false,
-        "type": "checkbox"
+        "type": "checkbox",
+        "riskEnum": "AllowedByNCFS"
       },
       {
         "id": "outcome-safe",
@@ -41,7 +45,8 @@
         "format": "Safe",
         "titleColor": "#91CAA8",
         "isChecked": false,
-        "type": "checkbox"
+        "type": "checkbox",
+        "riskEnum": "Safe"
       }
     ]
   }

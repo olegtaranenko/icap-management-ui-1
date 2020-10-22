@@ -6,8 +6,9 @@ import { globalStoreReducer } from "./globalStore-reducers";
 import * as actionTypes from "../actionTypes";
 
 import userfiles from "../../data/userfiles.json";
-import fileFilter from "../../data/filters/fileFilter.json";
-import outcomeFilter from "../../data/filters/outcomeFilter.json";
+import fileFilter from "../../data/filters/RequestHistory/fileFilter.json";
+import outcomeFilter from "../../data/filters/RequestHistory/outcomeFilter.json";
+import requestHistoryTimeFilter from "../../data/filters/RequestHistory/requestHistoryTimeFilter";
 
 const userfileList = userfiles;
 
@@ -17,6 +18,7 @@ export const GlobalStoreState = ({ children }) => {
 		userfiles: userfileList,
 		fileFilter: fileFilter,
 		outcomeFilter: outcomeFilter,
+		requestHistoryTimeFilter: requestHistoryTimeFilter,
 		isCurrentPolicy: true,
 		selectedFilters: [],
 		navExpanded: true
@@ -43,6 +45,10 @@ export const GlobalStoreState = ({ children }) => {
 		dispatch({ type: actionTypes.REMOVE_FILTER, filter });
 	};
 
+	const updateRequestHistoryTimeFilter = (timeDateFilter) => {
+		dispatch({type: actionTypes.UPDATE_REQUEST_HISTORY_TIME_FILTER, timeDateFilter});
+	};
+
 	const toggleNavExpanded = () => {
 		dispatch({ type: actionTypes.TOGGLE_NAV_EXPANDED });
 	}
@@ -57,11 +63,13 @@ export const GlobalStoreState = ({ children }) => {
 				outcomeFilter: globalStoreState.outcomeFilter,
 				selectedFilters: globalStoreState.selectedFilters,
 				isCurrentPolicy: globalStoreState.isCurrentPolicy,
+				requestHistoryTimeFilter: globalStoreState.requestHistoryTimeFilter,
 				navExpanded: globalStoreState.navExpanded,
 				changePageTitleHandler,
 				addFilterCheckbox,
 				addFilterInput,
 				removeFilter,
+				updateRequestHistoryTimeFilter,
 				toggleNavExpanded
 			}}
 		>

@@ -91,10 +91,16 @@ const removeFilterFromSelected = (state, removedFilter) => {
 	});
 };
 
+const updateRequestHistoryTimeFilter = (state, timeDateFilter) => {
+	return updateObject(state, {
+		requestHistoryTimeFilter: timeDateFilter
+	});
+};
+
 const toggleNavExpanded = (state) => {
 	return updateObject(state, {
 		navExpanded: !state.navExpanded
-	});	
+	});
 };
 
 export const globalStoreReducer = (state, action) => {
@@ -109,6 +115,8 @@ export const globalStoreReducer = (state, action) => {
 			return removeFilterFromSelected(state, action.filter);
 		case actionTypes.TOGGLE_NAV_EXPANDED:
 			return toggleNavExpanded(state);
+		case actionTypes.UPDATE_REQUEST_HISTORY_TIME_FILTER:
+			return updateRequestHistoryTimeFilter(state, action.timeDateFilter);
 		default:
 			return state;
 	}

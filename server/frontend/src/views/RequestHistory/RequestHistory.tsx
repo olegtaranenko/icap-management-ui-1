@@ -1,13 +1,17 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 
 import { GlobalStoreContext } from "../../context/globalStore/globalStore-context";
 
 import Main from "../../hoc/Main/Main";
 import MainTitle from "../../hoc/MainTitle/MainTitle";
-import FileInfo from "./FileInfo/FileInfo";
+//import FileInfo from "./FileInfo/FileInfo";
 import FileRow from "./FileRow/FileRow";
 import Filters from "../../components/Filters/Filters";
 import Modal from "../../components/UI/Modal/Modal";
+
+import { Filter as TFilter } from "../../../../src/common/models/TransactionEventService/GetTransactions/GetTransactionsRequest";
+import { RequestHistoryRoutes } from "../../routes";
+import getTransactions from "./api/getTranasctions";
 
 import {
 	Table,
@@ -15,18 +19,21 @@ import {
 	TableRow,
 	TableCell,
 	TableBody,
-	TableSortLabel,
+	TableContainer,
 } from "@material-ui/core";
 
 import classes from "./RequestHistory.module.scss";
 
 const RequestHistory = () => {
-	const [sortedRows, setSortedRows] = useState(null);
 	const [openModal, setOpenModal] = useState(false);
-	const [rowId, setRowId] = useState(null);
+	//const [selectedRowId, setSelectedRowId] = useState(null);
 	const [openPopup, setOpenPopup] = useState(false);
 
-	const { userfiles, selectedFilters } = useContext(GlobalStoreContext);
+	const [transactions, setTransactions] = useState(null);
+	const [isError, setIsError] = useState(false);
+	const [isLoading, setIsLoading] = useState(true);
+
+	const { selectedFilters, requestHistoryTimeFilter } = useContext(GlobalStoreContext);
 
 	const clsWrapTable = [classes.wrapTable];
 
@@ -36,87 +43,50 @@ const RequestHistory = () => {
 
 	const openInfoModal = (id: string) => {
 		setOpenModal((prevState) => !prevState);
-		setRowId(id);
+		//setSelectedRowId(id);
 	};
 
 	const closeInfoModal = () => {
 		setOpenModal(false);
 	};
 
-	const getSortedRows = (rows: Array<any>, sortLabel: string) => {
-		let sortedRows;
-		switch (sortLabel) {
-			case "timestamp":
-				setSortedRows(
-					rows.sort(
-						(a, b) =>
-							new Date(a.props.timestamp).getTime() -
-							new Date(b.props.timestamp).getTime()
-					)
-				);
-				break;
-			case "fileId":
-				setSortedRows(
-					rows.sort((a, b) => {
-						if (a.props.fileId < b.props.fileId) return -1;
-						if (a.props.fileId > b.props.fileId) return 1;
-						return 0;
-					})
-				);
-				break;
-			case "fileType":
-				setSortedRows(
-					rows.sort((a, b) => {
-						if (a.props.type < b.props.type) return -1;
-						if (a.props.type > b.props.type) return 1;
-						return 0;
-					})
-				);
-				break;
+	useEffect(() => {
+		setIsLoading(true);
 
-			case "outcome":
-				setSortedRows(
-					rows.sort((a, b) => {
-						if (a.props.type < b.props.type) return -1;
-						if (a.props.type > b.props.type) return 1;
-						return 0;
-					})
-				);
-				break;
+		const getRows = async () => {
+			const Risks = selectedFilters
+				.filter(f => f.filter === "Outcome")
+				.map(outcomeFilter => outcomeFilter.riskEnum);
 
-			default:
-				sortedRows = rows;
-				break;
+			const FileTypes = selectedFilters
+				.filter(f => f.filter !== "Outcome")
+				.map(fileTypeFilter => fileTypeFilter.fileTypeEnum);
+
+			const requestBody: TFilter = {
+				TimestampRangeStart: requestHistoryTimeFilter.timestampRangeStart,
+				TimestampRangeEnd: requestHistoryTimeFilter.timestampRangeEnd,
+				Risks,
+				FileTypes
+			};
+
+			try {
+				const transactionResponse = await getTransactions(RequestHistoryRoutes.getTransactionsRoute.route, requestBody);
+				setTransactions(JSON.parse(transactionResponse));
+			}
+			catch (error) {
+				setIsError(true);
+			}
+			finally {
+				setIsLoading(false);
+			}
 		}
-		return sortedRows;
-	};
 
-	let filteredUserfiles = userfiles;
+		getRows();
 
-	if (selectedFilters.length > 0) {
-		filteredUserfiles = userfiles.filter(
-			(file) =>
-				file.type.toLowerCase() === selectedFilters[0].value.toLowerCase()
-		);
-	}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [selectedFilters, requestHistoryTimeFilter]);
 
-	const fileInfo = filteredUserfiles.find((it) => it.id === rowId);
-
-	const rows = filteredUserfiles.map(
-		({ id, timestamp, fileId, type, outcome }) => {
-			return (
-				<FileRow
-					key={id}
-					id={id}
-					timestamp={timestamp}
-					fileId={fileId}
-					type={type}
-					outcome={outcome}
-					onRowClickHandler={(evt) => openInfoModal((evt.target as HTMLElement).id)}
-				/>
-			);
-		}
-	);
+	//const fileInfo = transactions.find((it) => it.id === selectedRowId);
 
 	return (
 		<>
@@ -124,48 +94,81 @@ const RequestHistory = () => {
 
 			<Filters popupIsOpen={openPopup} changeVisibilityPopup={setOpenPopup} />
 
-			<Main>
-				<article>
+			<Main externalStyles={classes.main}>
+				<article className={classes.container}>
 					<div className={clsWrapTable.join(" ")}>
-						<Table className={classes.table}>
-							<TableHead>
-								<TableRow>
-									<TableCell>
-										<TableSortLabel
-											onClick={() => getSortedRows(rows, "timestamp")}>
-											Timestamp
-										</TableSortLabel>
-									</TableCell>
+						{isLoading &&
+							<div>Loading...</div>
+						}
 
-									<TableCell>
-										<TableSortLabel onClick={() => getSortedRows(rows, "fileId")}>
-											File ID
-										</TableSortLabel>
-									</TableCell>
+						{!isLoading &&
+							<>
+								<TableContainer className={classes.container}>
+									<Table className={classes.table}>
+										<TableHead>
+											<TableRow>
+												<TableCell>
+													Timestamp
+												</TableCell>
 
-									<TableCell>
-										<TableSortLabel
-											onClick={() => getSortedRows(rows, "fileType")}>
-											File Type
-										</TableSortLabel>
-									</TableCell>
+												<TableCell>
+													File ID
+												</TableCell>
 
-									<TableCell>
-										<TableSortLabel
-											onClick={() => getSortedRows(rows, "outcome")}>
-											Outcome
-										</TableSortLabel>
-									</TableCell>
-								</TableRow>
-							</TableHead>
-							<TableBody className={classes.tbody}>
-								{sortedRows || rows}
-							</TableBody>
-						</Table>
+												<TableCell>
+													File Type
+												</TableCell>
+
+												<TableCell>
+													Outcome
+												</TableCell>
+											</TableRow>
+										</TableHead>
+										<TableBody className={classes.tbody}>
+											{!isError &&
+												<>
+													{transactions.count > 0 &&
+														<>
+															{transactions.files.map((f: any) => {
+																return (
+																	<FileRow
+																		key={f.fileId.value}
+																		id={f.fileId.value}
+																		timestamp={f.timestamp}
+																		fileId={f.fileId.value}
+																		type={f.fileType}
+																		outcome={f.risk}
+																		onRowClickHandler={(evt) => openInfoModal((evt.target as HTMLElement).id)} />
+																);
+															})}
+														</>
+													}
+
+													{transactions.count === 0 &&
+														<TableRow>
+															<TableCell colSpan={4} className={classes.emptyTableCell}>
+																<h2>No Transaction Data Found</h2>
+															</TableCell>
+														</TableRow>
+													}
+												</>}
+
+											{isError &&
+												<TableRow>
+													<TableCell colSpan={4} className={classes.emptyTableCell}>
+														<h2>Error Getting Transaction Data</h2>
+													</TableCell>
+												</TableRow>
+											}
+										</TableBody>
+									</Table>
+								</TableContainer>
+							</>
+						}
 					</div>
 					{openModal && (
 						<Modal onCloseHandler={closeInfoModal}>
-							<FileInfo data={fileInfo} />
+							{/* <FileInfo data={fileInfo} /> */}
 						</Modal>
 					)}
 				</article>

@@ -10,7 +10,7 @@ import { TransactionLogFilter } from "../../../types/TransactionLogFilter";
 
 export interface FilterProps {
 	filter: string,
-	checkboxList: Array<TransactionLogFilter>,
+	checkboxList: TransactionLogFilter[],
 	externalStyles: string
 }
 
@@ -36,7 +36,9 @@ const Filter = (props: FilterProps) => {
 							filter: props.filter,
 							id: checkbox.id,
 							isChecked: evt.target.checked,
-							titleColor: checkbox.titleColor
+							titleColor: checkbox.titleColor,
+							fileTypeEnum: checkbox.fileTypeEnum,
+							riskEnum: checkbox.riskEnum
 						})
 					}
 				/>

@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import setup from "./service/Setup";
 import Config from "./service/Config";
 import path from "path";
+import cors from "cors";
 
 const logger = winston.createLogger({
     level: 'info',
@@ -32,10 +33,12 @@ const workingDirectory = process.cwd();
 
 const app = express();
 app.disable("x-powered-by");
-
 app.use(express.static(`${workingDirectory}/frontend/build`));
-
 app.use(bodyParser.json());
+
+if (process.env.NODE_ENV === "development") {
+    app.use(cors())
+}
 
 setup(Config(), app, logger);
 

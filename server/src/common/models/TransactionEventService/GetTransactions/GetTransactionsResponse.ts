@@ -1,5 +1,5 @@
 import { Guid } from "guid-typescript";
-import { FileType } from "../../enums/FileType";
+import { FileType } from "../../../../../frontend/src/enums/FileType";
 import { Risk } from "../../enums/Risk";
 import ArgumentException from "../../errors/ArgumentException";
 import ArgumentNullException from "../../errors/ArgumentNullException";
@@ -43,7 +43,7 @@ export default class GetTransactionsResponse {
             return new TransactionFile(
                 new Date(file.timestamp),
                 Guid.parse(file.fileId),
-                file.fileType as FileType,
+                file.detectionFileType as FileType,
                 file.risk as Risk,
                 Guid.parse(file.activePolicyId),
                 file.directory

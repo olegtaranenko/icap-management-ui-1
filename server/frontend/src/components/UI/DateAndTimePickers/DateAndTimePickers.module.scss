@@ -1,4 +1,5 @@
 .DateAndTimePickers {
+	position: fixed;
 	z-index: 1;
 	display: flex;
 
@@ -34,6 +35,7 @@
 	& .popup {
 		top: 3rem;
 		left: 12rem;
+		width: 12rem;
 
 		& button {
 			margin-bottom: 1rem;

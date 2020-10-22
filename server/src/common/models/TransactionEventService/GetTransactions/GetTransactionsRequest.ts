@@ -1,5 +1,5 @@
 import { Guid } from "guid-typescript";
-import { FileType } from "../../enums/FileType";
+import { FileType } from "../../../../../frontend/src/enums/FileType";
 import { Risk } from "../../enums/Risk";
 import ArgumentNullException from "../../errors/ArgumentNullException";
 
@@ -20,6 +20,10 @@ export default class GetTransactionsRequest {
     constructor(url: string, body: { Filter: Filter }, headers?: { [header: string]: string }) {
         if (!url) {
             throw new ArgumentNullException("url");
+        }
+
+        if (body === undefined || body === null || (Object.keys(body).length === 0 && body.constructor === Object)) {
+            throw new ArgumentNullException("body");
         }
 
         this.url = url;

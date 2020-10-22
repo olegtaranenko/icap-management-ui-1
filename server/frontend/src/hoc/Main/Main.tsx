@@ -3,7 +3,7 @@ import styles from "./Main.module.scss";
 
 import { GlobalStoreContext } from "../../context/globalStore/globalStore-context";
 
-export interface MainProps { children?: React.ReactNode }
+export interface MainProps { children?: React.ReactNode, externalStyles?: string }
 
 const Main = (props: MainProps) => {
 	const { navExpanded } = useContext(GlobalStoreContext);
@@ -11,7 +11,7 @@ const Main = (props: MainProps) => {
 return (
 		<>
 			<div
-				className={`${styles.main} ${navExpanded ? styles.expanded : ""}`}>
+				className={`${styles.main} ${navExpanded ? styles.expanded : ""} ${props.externalStyles}`}>
 				<div className={styles.content}>{props.children}</div>
 			</div>
 		</>
