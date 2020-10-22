@@ -10,7 +10,7 @@ import Filters from "../../components/Filters/Filters";
 import Modal from "../../components/UI/Modal/Modal";
 
 import { Filter as TFilter } from "../../../../src/common/models/TransactionEventService/GetTransactions/GetTransactionsRequest";
-import { RequestHistoryRoutes } from "../../routes";
+import Routes from "../../Routes";
 import getTransactions from "./api/getTranasctions";
 
 import {
@@ -23,6 +23,8 @@ import {
 } from "@material-ui/core";
 
 import classes from "./RequestHistory.module.scss";
+
+const requestHistoryRoutes = Routes.requestHistoryRoutes();
 
 const RequestHistory = () => {
 	const [openModal, setOpenModal] = useState(false);
@@ -70,7 +72,7 @@ const RequestHistory = () => {
 			};
 
 			try {
-				const transactionResponse = await getTransactions(RequestHistoryRoutes.getTransactionsRoute.route, requestBody);
+				const transactionResponse = await getTransactions(requestHistoryRoutes.getTransactionsRoute, requestBody);
 				setTransactions(JSON.parse(transactionResponse));
 			}
 			catch (error) {

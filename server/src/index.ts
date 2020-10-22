@@ -37,7 +37,8 @@ app.use(express.static(`${workingDirectory}/frontend/build`));
 app.use(bodyParser.json());
 
 if (process.env.NODE_ENV === "development") {
-    app.use(cors())
+    const corsOptions = {origin: "http://localhost:3000"};
+    app.use(cors(corsOptions));
 }
 
 setup(Config(), app, logger);
