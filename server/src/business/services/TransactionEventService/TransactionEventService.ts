@@ -1,9 +1,11 @@
-import ITransactionEventService from "../../../common/services/ITransactionEventService";
-import TransactionEventApi from "../../../common/http/TransactionEventApi/TransactionEventApi";
 import { Logger } from "winston";
+import {injectable, inject} from "inversify";
+import ITransactionEventService from "../../../common/services/RequestHistory/ITransactionEventService";
+import TransactionEventApi from "../../../common/http/TransactionEventApi/TransactionEventApi";
 import GetTransactionsRequest from "../../../common/models/TransactionEventService/GetTransactions/GetTransactionsRequest";
 import GetTransactionsResponse from "../../../common/models/TransactionEventService/GetTransactions/GetTransactionsResponse";
 
+@injectable()
 class TransactionEventService implements ITransactionEventService {
     logger: Logger;
 
