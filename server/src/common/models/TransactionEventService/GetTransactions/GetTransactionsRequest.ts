@@ -3,7 +3,7 @@ import { FileType } from "../../../../../frontend/src/enums/FileType";
 import { Risk } from "../../enums/Risk";
 import ArgumentNullException from "../../errors/ArgumentNullException";
 
-export interface Filter {
+export interface GetTransactionsFilter {
     TimestampRangeStart: Date,
     TimestampRangeEnd: Date,
     Risks?: Risk[],
@@ -14,10 +14,10 @@ export interface Filter {
 
 export default class GetTransactionsRequest {
     url: string;
-    body: { Filter: Filter };
+    body: { Filter: GetTransactionsFilter };
     headers?: { [header: string]: string };
 
-    constructor(url: string, body: { Filter: Filter }, headers?: { [header: string]: string }) {
+    constructor(url: string, body: { Filter: GetTransactionsFilter }, headers?: { [header: string]: string }) {
         if (!url) {
             throw new ArgumentNullException("url");
         }
@@ -28,6 +28,8 @@ export default class GetTransactionsRequest {
 
         this.url = url;
         this.body = body;
-        this.headers = headers;
+        if (headers) {
+            this.headers = headers;
+        }
     }
 }

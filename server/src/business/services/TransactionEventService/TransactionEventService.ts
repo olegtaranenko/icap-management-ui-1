@@ -1,9 +1,10 @@
 import { Logger } from "winston";
-import {injectable, inject} from "inversify";
+import { injectable } from "inversify";
 import ITransactionEventService from "../../../common/services/RequestHistory/ITransactionEventService";
 import TransactionEventApi from "../../../common/http/TransactionEventApi/TransactionEventApi";
 import GetTransactionsRequest from "../../../common/models/TransactionEventService/GetTransactions/GetTransactionsRequest";
 import GetTransactionsResponse from "../../../common/models/TransactionEventService/GetTransactions/GetTransactionsResponse";
+import GetTransactionDetailsRequest from "../../../common/models/TransactionEventService/GetTransactionDetails/GetTransactionDetailsRequest";
 
 @injectable()
 class TransactionEventService implements ITransactionEventService {
@@ -19,7 +20,7 @@ class TransactionEventService implements ITransactionEventService {
         try {
             this.logger.info("Retrieving Transactions from the TransactionEventService");
 
-            const transactionsResponse = await TransactionEventApi.getTransactions(request.url,  request.body);
+            const transactionsResponse = await TransactionEventApi.getTransactions(request.url, request.body);
             const responseJSON = JSON.parse(transactionsResponse);
             transactions = new GetTransactionsResponse(responseJSON.count, responseJSON.files);
 
@@ -33,6 +34,10 @@ class TransactionEventService implements ITransactionEventService {
 
         return transactions;
     };
+
+    getTransactionDetails = async(request: GetTransactionDetailsRequest) => {
+        return "Not_Implemented";
+    }
 }
 
 export default TransactionEventService;

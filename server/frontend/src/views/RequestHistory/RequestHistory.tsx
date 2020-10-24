@@ -4,12 +4,12 @@ import { GlobalStoreContext } from "../../context/globalStore/globalStore-contex
 
 import Main from "../../hoc/Main/Main";
 import MainTitle from "../../hoc/MainTitle/MainTitle";
-//import FileInfo from "./FileInfo/FileInfo";
+// import FileInfo from "./FileInfo/FileInfo";
 import FileRow from "./FileRow/FileRow";
 import Filters from "../../components/Filters/Filters";
 import Modal from "../../components/UI/Modal/Modal";
 
-import { Filter as TFilter } from "../../../../src/common/models/TransactionEventService/GetTransactions/GetTransactionsRequest";
+import { GetTransactionsFilter as IGetTransactionsFilter } from "../../../../src/common/models/TransactionEventService/GetTransactions/GetTransactionsRequest";
 import Routes from "../../Routes";
 import getTransactions from "./api/getTranasctions";
 
@@ -28,7 +28,7 @@ const requestHistoryRoutes = Routes.requestHistoryRoutes();
 
 const RequestHistory = () => {
 	const [openModal, setOpenModal] = useState(false);
-	//const [selectedRowId, setSelectedRowId] = useState(null);
+	// const [selectedRowId, setSelectedRowId] = useState(null);
 	const [openPopup, setOpenPopup] = useState(false);
 
 	const [transactions, setTransactions] = useState(null);
@@ -45,7 +45,7 @@ const RequestHistory = () => {
 
 	const openInfoModal = (id: string) => {
 		setOpenModal((prevState) => !prevState);
-		//setSelectedRowId(id);
+		// setSelectedRowId(id);
 	};
 
 	const closeInfoModal = () => {
@@ -64,7 +64,7 @@ const RequestHistory = () => {
 				.filter(f => f.filter !== "Outcome")
 				.map(fileTypeFilter => fileTypeFilter.fileTypeEnum);
 
-			const requestBody: TFilter = {
+			const requestBody: IGetTransactionsFilter = {
 				TimestampRangeStart: requestHistoryTimeFilter.timestampRangeStart,
 				TimestampRangeEnd: requestHistoryTimeFilter.timestampRangeEnd,
 				Risks,
@@ -88,7 +88,7 @@ const RequestHistory = () => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [selectedFilters, requestHistoryTimeFilter]);
 
-	//const fileInfo = transactions.find((it) => it.id === selectedRowId);
+	// const fileInfo = transactions.find((it) => it.id === selectedRowId);
 
 	return (
 		<>

@@ -1,8 +1,8 @@
-import { Filter } from "../../../../../src/common/models/TransactionEventService/GetTransactions/GetTransactionsRequest";
+import { GetTransactionsFilter } from "../../../../../src/common/models/TransactionEventService/GetTransactions/GetTransactionsRequest";
 
 const getTransactions = async (
     getTransactionsUrl: string,
-    body: Filter
+    body: GetTransactionsFilter
 ): Promise<string> => {
     const response = await fetch(getTransactionsUrl, {
         method: "POST",

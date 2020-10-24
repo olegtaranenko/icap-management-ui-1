@@ -1,15 +1,26 @@
-import { stub, SinonStub } from "sinon";
+import container from "../../../service/DependencyInjectorConfig";
 import winston from "winston";
-import TransactionEventApi from "../../../common/http/TransactionEventApi/TransactionEventApi";
-import GetTransactionsRequest from "../../../common/models/TransactionEventService/GetTransactions/GetTransactionsRequest";
+import { stub, SinonStub } from "sinon";
+
 import { FileType } from "../../../../frontend/src/enums/FileType";
 import { Risk } from "../../../common/models/enums/Risk";
+import TransactionEventApi from "../../../common/http/TransactionEventApi/TransactionEventApi";
 import TransactionEventService from "./TransactionEventService";
+import GetTransactionsRequest from "../../../common/models/TransactionEventService/GetTransactions/GetTransactionsRequest";
 import GetTransactionsResponse from "../../../common/models/TransactionEventService/GetTransactions/GetTransactionsResponse";
 
 let getTransactionsStub: SinonStub;
 
 describe("TransactionEventService", () => {
+
+    beforeEach(() => {
+        container.snapshot();
+    });
+
+    afterEach(() => {
+        container.restore();
+    });
+
     describe("constructor", () => {
         it("should_construct_with_valid_arguments", () => {
             // Arrange
