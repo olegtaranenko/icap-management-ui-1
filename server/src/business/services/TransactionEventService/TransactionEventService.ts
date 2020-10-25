@@ -1,10 +1,10 @@
 import { Logger } from "winston";
 import { injectable } from "inversify";
 import ITransactionEventService from "../../../common/services/RequestHistory/ITransactionEventService";
+
 import TransactionEventApi from "../../../common/http/TransactionEventApi/TransactionEventApi";
-import GetTransactionsRequest from "../../../common/models/TransactionEventService/GetTransactions/GetTransactionsRequest";
-import GetTransactionsResponse from "../../../common/models/TransactionEventService/GetTransactions/GetTransactionsResponse";
-import GetTransactionDetailsRequest from "../../../common/models/TransactionEventService/GetTransactionDetails/GetTransactionDetailsRequest";
+import { GetTransactionsRequest, GetTransactionsResponse } from "../../../common/models/TransactionEventService/GetTransactions";
+import { GetTransactionDetailsRequest, GetTransactionDetailsResponse } from "../../../common/models/TransactionEventService/GetTransactionDetails";
 
 @injectable()
 class TransactionEventService implements ITransactionEventService {
@@ -20,12 +20,12 @@ class TransactionEventService implements ITransactionEventService {
         try {
             this.logger.info("Retrieving Transactions from the TransactionEventService");
 
-            const transactionsResponse = await TransactionEventApi.getTransactions(request.url, request.body);
-            const responseJSON = JSON.parse(transactionsResponse);
+            const response = await TransactionEventApi.getTransactions(request.url, request.body);
+            const responseJSON = JSON.parse(response);
             transactions = new GetTransactionsResponse(responseJSON.count, responseJSON.files);
 
             if (transactions) {
-                this.logger.info(`Retrieved ${transactions.count} Transactions: ${transactionsResponse}`);
+                this.logger.info(`Retrieved ${transactions.count} Transactions: ${response}`);
             }
         }
         catch (error) {
@@ -35,8 +35,25 @@ class TransactionEventService implements ITransactionEventService {
         return transactions;
     };
 
-    getTransactionDetails = async(request: GetTransactionDetailsRequest) => {
-        return "Not_Implemented";
+    getTransactionDetails = async (request: GetTransactionDetailsRequest) => {
+        let transactionDetails: GetTransactionDetailsResponse;
+
+        try {
+            this.logger.info(`Retrieving Transaction Details from the TransactionEventService - Directory: ${request.transactionFileDirectory}`);
+
+            const response = await TransactionEventApi.getTransactionDetails(request.url, request.transactionFileDirectory);
+            const responseJSON = JSON.parse(response);
+            transactionDetails = new GetTransactionDetailsResponse(responseJSON.status, responseJSON.analysisReport);
+
+            if (transactionDetails) {
+                this.logger.info(`Retrieved Transaction Details from file: ${request.transactionFileDirectory}`);
+            }
+        }
+        catch (error) {
+            this.logger.error(`Could not get Transaction Details from file: ${request.transactionFileDirectory}`);
+        }
+
+        return transactionDetails;
     }
 }
 

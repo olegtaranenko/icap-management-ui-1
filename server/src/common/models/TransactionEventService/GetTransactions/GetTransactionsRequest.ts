@@ -12,7 +12,7 @@ export interface GetTransactionsFilter {
     PolicyIds?: Guid[]
 }
 
-export default class GetTransactionsRequest {
+export class GetTransactionsRequest {
     url: string;
     body: { Filter: GetTransactionsFilter };
     headers?: { [header: string]: string };

@@ -1,8 +1,7 @@
 import { Guid } from "guid-typescript";
 import { FileType } from "../../../../../frontend/src/enums/FileType";
 import { Risk } from "../../enums/Risk";
-import GetTransactionsRequest from "./GetTransactionsRequest";
-import GetTransactionsResponse from "./GetTransactionsResponse";
+import { GetTransactionsRequest, GetTransactionsResponse } from "./index";
 
 describe("GetTransactions", () => {
     describe("GetTransactionsRequest", () => {
@@ -103,7 +102,7 @@ describe("GetTransactions", () => {
                 catch (error) {
                     // Assert
                     expect(error.message)
-                    .toEqual("Argument is invalid: 'file.timestamp'. Argument 'file.timestamp' must not be null");
+                        .toEqual("Argument is invalid: 'file.timestamp'. Argument 'file.timestamp' must not be null");
                 }
             });
 
@@ -131,7 +130,7 @@ describe("GetTransactions", () => {
                 catch (error) {
                     // Assert
                     expect(error.message)
-                    .toEqual("Argument is invalid: 'file.fileId'. Argument 'file.fileId' must not be null");
+                        .toEqual("Argument is invalid: 'file.fileId'. Argument 'file.fileId' must not be null");
                 }
             });
 
@@ -160,7 +159,7 @@ describe("GetTransactions", () => {
                 catch (error) {
                     // Assert
                     expect(error.message)
-                    .toEqual("Argument is invalid: 'file.detectionFileType'. Argument 'file.detectionFileType' must not be null");
+                        .toEqual("Argument is invalid: 'file.detectionFileType'. Argument 'file.detectionFileType' must not be null");
                 }
             });
 
@@ -188,7 +187,7 @@ describe("GetTransactions", () => {
                 catch (error) {
                     // Assert
                     expect(error.message)
-                    .toEqual("Argument is invalid: 'file.risk'. Argument 'file.risk' must not be null");
+                        .toEqual("Argument is invalid: 'file.risk'. Argument 'file.risk' must not be null");
                 }
             });
 
@@ -216,7 +215,7 @@ describe("GetTransactions", () => {
                 catch (error) {
                     // Assert
                     expect(error.message)
-                    .toEqual("Argument is invalid: 'file.activePolicyId'. Argument 'file.activePolicyId' must not be null");
+                        .toEqual("Argument is invalid: 'file.activePolicyId'. Argument 'file.activePolicyId' must not be null");
                 }
             });
 
@@ -244,7 +243,7 @@ describe("GetTransactions", () => {
                 catch (error) {
                     // Assert
                     expect(error.message)
-                    .toEqual("Argument is invalid: 'file.directory'. Argument 'file.directory' must not be null");
+                        .toEqual("Argument is invalid: 'file.directory'. Argument 'file.directory' must not be null");
                 }
             });
         });

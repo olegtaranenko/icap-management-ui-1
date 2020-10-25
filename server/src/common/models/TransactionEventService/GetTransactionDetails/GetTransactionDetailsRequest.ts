@@ -1,6 +1,6 @@
 import ArgumentNullException from "../../errors/ArgumentNullException";
 
-export default class GetTransactionDetailsRequest {
+export class GetTransactionDetailsRequest {
     url: string;
     transactionFileDirectory: string;
     headers?: { [header: string]: string };

@@ -5,7 +5,7 @@ import ArgumentException from "../../errors/ArgumentException";
 import ArgumentNullException from "../../errors/ArgumentNullException";
 import TransactionFile from "../TransactionFile";
 
-export default class GetTransactionsResponse {
+export class GetTransactionsResponse {
     count: number;
     files: TransactionFile[];
 

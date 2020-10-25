@@ -6,8 +6,7 @@ import { FileType } from "../../../../frontend/src/enums/FileType";
 import { Risk } from "../../../common/models/enums/Risk";
 import TransactionEventApi from "../../../common/http/TransactionEventApi/TransactionEventApi";
 import TransactionEventService from "./TransactionEventService";
-import GetTransactionsRequest from "../../../common/models/TransactionEventService/GetTransactions/GetTransactionsRequest";
-import GetTransactionsResponse from "../../../common/models/TransactionEventService/GetTransactions/GetTransactionsResponse";
+import { GetTransactionsRequest, GetTransactionsResponse } from "../../../common/models/TransactionEventService/GetTransactions";
 
 let getTransactionsStub: SinonStub;
 

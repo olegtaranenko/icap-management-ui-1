@@ -1,12 +1,10 @@
 import { Logger } from "winston";
-import GetTransactionsRequest from "../../models/TransactionEventService/GetTransactions/GetTransactionsRequest";
-import GetTransactionsResponse from "../../models/TransactionEventService/GetTransactions/GetTransactionsResponse";
-import GetTransactionDetailsRequest from "../../models/TransactionEventService/GetTransactionDetails/GetTransactionDetailsRequest";
-// import GetTransactionDetailsResponse from "../../models/TransactionEventService/GetTransactionDetails/GetTransactionDetailsResponse";
+import { GetTransactionsRequest, GetTransactionsResponse } from "../../models/TransactionEventService/GetTransactions";
+import { GetTransactionDetailsRequest, GetTransactionDetailsResponse } from "../../models/TransactionEventService/GetTransactionDetails";
 
 export default interface ITransactionEventService {
     logger: Logger,
     getTransactions: (request: GetTransactionsRequest) => Promise<GetTransactionsResponse>,
-    getTransactionDetails: (request: GetTransactionDetailsRequest) => Promise<string> // TODO add GetTransactionDetailsRequest and GetTransactionDetailsResponse
+    getTransactionDetails: (request: GetTransactionDetailsRequest) => Promise<GetTransactionDetailsResponse>
 }
 
