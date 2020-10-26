@@ -13,7 +13,7 @@ spec:
         app: {{ .Values.deployment.name }}
     spec:
       containers:
-        - name: icap-management-portal
+        - name: icap-management-ui
           image: glasswallsolutions/icap-management-ui:main
           imagePullPolicy: IfNotPresent
           ports:
