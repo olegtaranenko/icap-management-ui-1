@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: icap-management-portal
-          image: ahewitt/icap-management-portal:1.0
+          image: glasswallsolutions/icap-management-ui:main
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: {{ .Values.deployment.port }}
