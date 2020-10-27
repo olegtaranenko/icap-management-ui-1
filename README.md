@@ -47,14 +47,14 @@ To break on server code, the nodemon debugger needs to be attached. We have a la
   
 #### Build the Docker Image
 ```
-docker build --tag icap-management-portal:version -f server/Dockerfile .
+docker build --tag glasswallsolutions/icap-management-ui:version -f server/Dockerfile .
 ```
   
 This command builds the Docker image from the Dockerfile, [docker build](https://docs.docker.com/engine/reference/commandline/build/).
   
 #### Run the Docker Container
 ```
-docker run -p 4000:8080 -d icap-management-portal:version
+docker run -p 4000:8080 -d glasswallsolutions/icap-management-ui:version
 ```
   
 <b>Note:</b> This will run the server in production-mode.  
