@@ -1,5 +1,3 @@
-import "reflect-metadata";
-
 import {Container} from "inversify";
 
 import SERVICE_IDENTIFIERS from "./ServiceIdentifiers";
