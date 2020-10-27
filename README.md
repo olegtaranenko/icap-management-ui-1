@@ -1,5 +1,6 @@
 # icap-management-ui
 ![CI](https://github.com/filetrust/icap-management-ui/workflows/CI/badge.svg)
+![CD Build](https://github.com/filetrust/icap-management-ui/workflows/CD%20Build/badge.svg)
   
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=filetrust_icap-management-ui&metric=bugs)](https://sonarcloud.io/dashboard?id=filetrust_icap-management-ui)
 [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=filetrust_icap-management-ui&metric=code_smells)](https://sonarcloud.io/dashboard?id=filetrust_icap-management-ui)
