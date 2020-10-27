@@ -80,7 +80,7 @@ If Minikube installed correctly, you should see a cluster spin up in the Docker 
 
 #### Add the Helm Chart to the Cluster
 ```
-helm install icap-management-portal ./kube
+helm install icap-management-ui ./kube
 ```
 Deploys a helm chart to the default namespace using the chart in ./kube.Chart.yaml and the values in ./kube/values.yaml. The deployment and service yaml files from /kube/template will be applied to the cluster automatically.
 
@@ -92,6 +92,6 @@ The pod icap-management-portal should be spinning up after the helm install, the
 
 #### Start the Service and Tunnel in to the Minikube Cluster (Windows)
 ```
-minikube service icap-management-portal-service
+minikube service icap-management-ui-service
 ```
 Runs the service, exposing the icap-management-portal container. Minikube should automatically tunnel into the service, and a browser window should pop up with the app running on a random port. If the browser window doesn't open, the IP and port of the running service should be displayed on the command output.
