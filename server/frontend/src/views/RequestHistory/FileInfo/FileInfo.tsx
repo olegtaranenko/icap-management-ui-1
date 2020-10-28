@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import classes from "./FileInfo.module.scss";
+import React, { useState, useEffect } from "react";
 import {
 	Table,
 	TableHead,
@@ -7,31 +6,57 @@ import {
 	TableCell,
 	TableBody,
 } from "@material-ui/core";
+import TransactionDetails from "../TransactionDetails/TransactionDetails";
+import { FileDetailsStatus } from "../../../enums/FileDetailsStatus";
+import { FileType } from "../../../enums/FileType";
+import { Risk } from "../../../enums/Risk";
+import { getTransactionDetails } from "../api/index";
 
-import Checkbox from "../../../components/UI/Checkbox/Checkbox";
-import Badge from "../../../components/UI/Badge/Badge";
+import classes from "./FileInfo.module.scss";
 
 interface FileData {
-	fileId: string,
-	outcome: string,
-	timestamp: string,
-	type: string
+	timestamp: Date,
+	fileId: { value: string },
+	fileType: number,
+	risk: number,
+	activePolicyId: { value: string },
+	directory: string
 }
 
 export interface FileInfoProps {
-	data: FileData
+	fileData: FileData
 }
 
 const FileInfo = (props: FileInfoProps) => {
-	const [blockExpanded, setBlockExpanded] = useState({
-		issue: false,
-		sanitisation: false,
-		remedy: false,
-		policyDetails: false,
-	});
+	const [transactionDetails, setTransactionDetails] = useState(null);
+	const [isLoading, setIsLoading] = useState(true);
+	const [isError, setIsError] = useState(false);
+
+	useEffect(() => {
+		setIsLoading(true);
+		setIsError(false);
+
+		const getDetails = async () => {
+			try {
+				const transactionDetailResponse =
+					await getTransactionDetails(props.fileData.directory);
+				setTransactionDetails(JSON.parse(transactionDetailResponse));
+			}
+			catch (error) {
+				setIsError(true);
+			}
+			finally {
+				setIsLoading(false);
+			}
+		}
+
+		getDetails();
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	let background = null;
-	switch (props.data.outcome) {
+	switch (Risk[props.fileData.risk]) {
 		case "Allowed by Policy":
 			background = "#86C1CB";
 			break;
@@ -51,14 +76,12 @@ const FileInfo = (props: FileInfoProps) => {
 			background = "";
 	}
 
-	const clsBlockExpandend = [classes.block];
-
 	return (
 		<section className={classes.FileInfo}>
 			<header className={classes.header}>
-				<h2>File ID: {props.data.fileId}</h2>
+				<h2>File ID: {props.fileData.fileId.value}</h2>
 				<div>
-					<span style={{ background }}>{props.data.outcome}</span>
+					<span style={{ background }}>{Risk[props.fileData.risk]}</span>
 				</div>
 			</header>
 
@@ -71,178 +94,48 @@ const FileInfo = (props: FileInfoProps) => {
 								<TableCell>Timestamp</TableCell>
 								<TableCell>Unique File ID</TableCell>
 								<TableCell>Detected File Extension</TableCell>
-								<TableCell>Risk(Transaction)</TableCell>
+								<TableCell>Risk (Transaction)</TableCell>
 							</TableRow>
 						</TableHead>
 						<TableBody>
 							<TableRow className={classes.noborder}>
-								<TableCell>{props.data.timestamp}</TableCell>
-								<TableCell>{props.data.fileId}</TableCell>
-								<TableCell>{props.data.type}</TableCell>
-								<TableCell>{props.data.outcome}</TableCell>
+								<TableCell>{props.fileData.timestamp}</TableCell>
+								<TableCell>{props.fileData.fileId.value}</TableCell>
+								<TableCell>{FileType[props.fileData.fileType]}</TableCell>
+								<TableCell>{Risk[props.fileData.risk]}</TableCell>
 							</TableRow>
 						</TableBody>
 					</Table>
 				</div>
 
-				<div className={clsBlockExpandend.join(" ")}>
-					<h3>Issue Items</h3>
-					{!blockExpanded.issue && (
-						<Badge value="1" externalStyles={classes.badge} />
-					)}
-					<div className={classes.wrapArrow}>
-						<Checkbox
-							onHandleChange={() =>
-								setBlockExpanded((prevState) => ({
-									...prevState,
-									issue: !prevState.issue,
-								}))
-							}
-							checkboxIcon={<span className={classes.arrow} />}
-							checkedIcon={
-								<span className={[classes.arrow, classes.rotate].join(" ")} />
-							}
-						/>
-					</div>
-					{blockExpanded.issue && (
-						<Table className={classes.table}>
-							<TableHead>
-								<TableRow>
-									<TableCell>Issue</TableCell>
-									<TableCell>Description</TableCell>
-									<TableCell>Count</TableCell>
-								</TableRow>
-							</TableHead>
-							<TableBody>
-								<TableRow>
-									<TableCell>0x05cf00ec</TableCell>
-									<TableCell>Metadata detected in Created</TableCell>
-									<TableCell>1</TableCell>
-								</TableRow>
-							</TableBody>
-						</Table>
-					)}
-				</div>
+				{isLoading &&
+					<div>Loading...</div>
+				}
 
-				<div className={classes.block}>
-					<h3>Sanitisation Items</h3>
-					{!blockExpanded.sanitisation && (
-						<Badge value="8" externalStyles={classes.badge} />
-					)}
-					<div className={classes.wrapArrow}>
-						<Checkbox
-							id="span-sanitisation"
-							onHandleChange={() =>
-								setBlockExpanded((prevState) => ({
-									...prevState,
-									sanitisation: !prevState.sanitisation,
-								}))
-							}
-							checkboxIcon={<span className={classes.arrow} />}
-							checkedIcon={
-								<span className={[classes.arrow, classes.rotate].join(" ")} />
-							}
-						/>
-					</div>
-					{blockExpanded.sanitisation && (
-						<Table className={classes.table}>
-							<TableHead>
-								<TableRow>
-									<TableCell>Issue</TableCell>
-									<TableCell>Description</TableCell>
-									<TableCell>Count</TableCell>
-								</TableRow>
-							</TableHead>
-							<TableBody>
-								<TableRow>
-									<TableCell>0x05cf00ec</TableCell>
-									<TableCell>Metadata detected in Created</TableCell>
-									<TableCell>1</TableCell>
-								</TableRow>
-							</TableBody>
-						</Table>
-					)}
-				</div>
+				{!isLoading &&
+					<>
+						{isError &&
+							<Table className={classes.table}>
+								<TableBody>
+									<TableRow>
+										<TableCell className={classes.emptyTableCell}>
+											<h2>Error Getting Transaction Details</h2>
+										</TableCell>
+									</TableRow>
+								</TableBody>
+							</Table>
+						}
 
-				<div className={classes.block}>
-					<h3>Remedy Items</h3>
-					{!blockExpanded.remedy && (
-						<Badge value="3" externalStyles={classes.badge} />
-					)}
-					<div className={classes.wrapArrow}>
-						<Checkbox
-							id="span-remedy"
-							onHandleChange={() =>
-								setBlockExpanded((prevState) => ({
-									...prevState,
-									remedy: !prevState.remedy,
-								}))
-							}
-							checkboxIcon={<span className={classes.arrow} />}
-							checkedIcon={
-								<span className={[classes.arrow, classes.rotate].join(" ")} />
-							}
-						/>
-					</div>
-					{blockExpanded.remedy && (
-						<Table className={classes.table}>
-							<TableHead>
-								<TableRow>
-									<TableCell>Issue</TableCell>
-									<TableCell>Description</TableCell>
-									<TableCell>Count</TableCell>
-								</TableRow>
-							</TableHead>
-							<TableBody>
-								<TableRow>
-									<TableCell>0x05cf00ec</TableCell>
-									<TableCell>Metadata detected in Created</TableCell>
-									<TableCell>1</TableCell>
-								</TableRow>
-							</TableBody>
-						</Table>
-					)}
-				</div>
+						{!isError &&
+							<div>
+								{transactionDetails.status === FileDetailsStatus.Success &&
+									<TransactionDetails analysisReport={transactionDetails.analysisReport} />
+								}
+							</div>
+						}
+					</>
+				}
 
-				<div className={classes.block}>
-					<div className={classes.wrapArrow}>
-						<Checkbox
-							id="span-details"
-							onHandleChange={() =>
-								setBlockExpanded((prevState) => ({
-									...prevState,
-									policyDetails: !prevState.policyDetails,
-								}))
-							}
-							checkboxIcon={<span className={classes.arrow} />}
-							checkedIcon={
-								<span className={[classes.arrow, classes.rotate].join(" ")} />
-							}
-						/>
-					</div>
-					<h3>Content Management Policy Details</h3>
-					{!blockExpanded.policyDetails && false && (
-						<Badge value="3" externalStyles={classes.badge} />
-					)}
-					{blockExpanded.policyDetails && (
-						<Table className={classes.table}>
-							<TableHead>
-								<TableRow>
-									<TableCell>Issue</TableCell>
-									<TableCell>Description</TableCell>
-									<TableCell>Count</TableCell>
-								</TableRow>
-							</TableHead>
-							<TableBody>
-								<TableRow>
-									<TableCell>0x05cf00ec</TableCell>
-									<TableCell>Metadata detected in Created</TableCell>
-									<TableCell>1</TableCell>
-								</TableRow>
-							</TableBody>
-						</Table>
-					)}
-				</div>
 			</div>
 		</section>
 	);

@@ -14,4 +14,19 @@ export default class TransactionEventApi {
 
         return response.text();
     };
+
+    static getTransactionDetails = async (getTransactionDetailsUrl: string, transactionFilePath: string, headers?: { [header: string]: string }): Promise<string> => {
+        const url = `${getTransactionDetailsUrl}?filePath=${transactionFilePath}`;
+
+        const response = await fetch(url, {
+            method: "GET",
+            headers
+        });
+
+        if (!response.ok) {
+            throw response.statusText;
+        }
+
+        return response.text();
+    }
 }

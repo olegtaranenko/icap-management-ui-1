@@ -1,8 +1,8 @@
-import ITransactionEventService from "../../../common/services/ITransactionEventService";
-import TransactionEventApi from "../../../common/http/TransactionEventApi/TransactionEventApi";
 import { Logger } from "winston";
-import GetTransactionsRequest from "../../../common/models/TransactionEventService/GetTransactions/GetTransactionsRequest";
-import GetTransactionsResponse from "../../../common/models/TransactionEventService/GetTransactions/GetTransactionsResponse";
+import ITransactionEventService from "../../../common/services/ITransactionEventService";
+import { GetTransactionsRequest, GetTransactionsResponse } from "../../../common/models/TransactionEventService/GetTransactions";
+import { GetTransactionDetailsRequest, GetTransactionDetailsResponse } from "../../../common/models/TransactionEventService/GetTransactionDetails";
+import TransactionEventApi from "../../../common/http/TransactionEventApi/TransactionEventApi";
 
 class TransactionEventService implements ITransactionEventService {
     logger: Logger;
@@ -17,7 +17,7 @@ class TransactionEventService implements ITransactionEventService {
         try {
             this.logger.info("Retrieving Transactions from the TransactionEventService");
 
-            const transactionsResponse = await TransactionEventApi.getTransactions(request.url,  request.body);
+            const transactionsResponse = await TransactionEventApi.getTransactions(request.url, request.body);
             const responseJSON = JSON.parse(transactionsResponse);
             transactions = new GetTransactionsResponse(responseJSON.count, responseJSON.files);
 
@@ -31,6 +31,27 @@ class TransactionEventService implements ITransactionEventService {
 
         return transactions;
     };
+
+    getTransactionDetails = async (request: GetTransactionDetailsRequest) => {
+        let transactionDetails: GetTransactionDetailsResponse;
+
+        try {
+            this.logger.info(`Retrieving Transaction Details from the TransactionEventService - Directory: ${request.transactionFileDirectory}`);
+
+            const response = await TransactionEventApi.getTransactionDetails(request.url, request.transactionFileDirectory);
+            const responseJSON = JSON.parse(response);
+            transactionDetails = new GetTransactionDetailsResponse(responseJSON.status, responseJSON.analysisReport);
+
+            if (transactionDetails) {
+                this.logger.info(`Retrieved Transaction Details from file: ${request.transactionFileDirectory}`);
+            }
+        }
+        catch (error) {
+            this.logger.error(`Could not get Transaction Details from file: ${request.transactionFileDirectory}`);
+        }
+
+        return transactionDetails;
+    }
 }
 
 export default TransactionEventService;

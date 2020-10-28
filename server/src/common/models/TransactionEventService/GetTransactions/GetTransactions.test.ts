@@ -1,8 +1,7 @@
 import { Guid } from "guid-typescript";
 import { FileType } from "../../../../../frontend/src/enums/FileType";
-import { Risk } from "../../enums/Risk";
-import GetTransactionsRequest from "./GetTransactionsRequest";
-import GetTransactionsResponse from "./GetTransactionsResponse";
+import { Risk } from "../../../../../frontend/src/enums/Risk";
+import { GetTransactionsRequest, GetTransactionsResponse } from "./index";
 
 describe("GetTransactions", () => {
     describe("GetTransactionsRequest", () => {

@@ -1,11 +1,10 @@
 import { stub, SinonStub } from "sinon";
 import winston from "winston";
-import TransactionEventApi from "../../../common/http/TransactionEventApi/TransactionEventApi";
-import GetTransactionsRequest from "../../../common/models/TransactionEventService/GetTransactions/GetTransactionsRequest";
 import { FileType } from "../../../../frontend/src/enums/FileType";
-import { Risk } from "../../../common/models/enums/Risk";
+import { Risk } from "../../../../frontend/src/enums/Risk";
+import { GetTransactionsRequest, GetTransactionsResponse } from "../../../common/models/TransactionEventService/GetTransactions";
 import TransactionEventService from "./TransactionEventService";
-import GetTransactionsResponse from "../../../common/models/TransactionEventService/GetTransactions/GetTransactionsResponse";
+import TransactionEventApi from "../../../common/http/TransactionEventApi/TransactionEventApi";
 
 let getTransactionsStub: SinonStub;
 
