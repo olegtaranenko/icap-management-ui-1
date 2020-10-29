@@ -15,8 +15,8 @@ export interface SelectedFilterProps {
 const SelectedFilter = (props: SelectedFilterProps) => {
 	const clsFooter = [classes.footer];
 
-	if (props.filter === "Outcome") {
-		clsFooter.push(classes.outcome);
+	if (props.filter === "Risk") {
+		clsFooter.push(classes.risk);
 	}
 
 	return (

@@ -5,7 +5,7 @@ export interface GlobalStoreContextProps {
 	title: string,
 	userfiles: any[],
 	fileFilterList: any[],
-	outcomeFilterList: any[],
+	riskFilterList: any[],
 	requestHistoryTimeFilter: RequestHistoryTimeFilter,
 	selectedFilters: any[],
 	navExpanded: boolean

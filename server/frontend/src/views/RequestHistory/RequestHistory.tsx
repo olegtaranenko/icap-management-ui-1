@@ -58,11 +58,11 @@ const RequestHistory = () => {
 
 		const getRows = async () => {
 			const Risks = selectedFilters
-				.filter(f => f.filter === "Outcome")
-				.map(outcomeFilter => outcomeFilter.riskEnum);
+				.filter(f => f.filter === "Risk")
+				.map(riskFilter => riskFilter.riskEnum);
 
 			const FileTypes = selectedFilters
-				.filter(f => f.filter !== "Outcome")
+				.filter(f => f.filter !== "Risk")
 				.map(fileTypeFilter => fileTypeFilter.fileTypeEnum);
 
 			const requestBody: TFilter = {
@@ -137,9 +137,9 @@ const RequestHistory = () => {
 																		key={f.fileId.value}
 																		id={f.fileId.value}
 																		timestamp={f.timestamp}
-																		fileId={f.fileId.value}
+																		fileId={f.fileId}
 																		type={f.fileType}
-																		outcome={f.risk}
+																		risk={f.risk}
 																		onRowClickHandler={() => openInfoModal(f.fileId.value)} />
 																);
 															})}
@@ -147,7 +147,7 @@ const RequestHistory = () => {
 													}
 
 													{transactions.count === 0 &&
-														<TableRow>
+														<TableRow className={classes.emptyTableRow}>
 															<TableCell colSpan={4} className={classes.emptyTableCell}>
 																<h2>No Transaction Data Found</h2>
 															</TableCell>
@@ -156,7 +156,7 @@ const RequestHistory = () => {
 												</>}
 
 											{isError &&
-												<TableRow>
+												<TableRow className={classes.emptyTableRow}>
 													<TableCell colSpan={4} className={classes.emptyTableCell}>
 														<h2>Error Getting Transaction Data</h2>
 													</TableCell>
@@ -169,7 +169,7 @@ const RequestHistory = () => {
 						}
 					</div>
 					{openModal && (
-						<Modal onCloseHandler={closeInfoModal}>
+						<Modal onCloseHandler={closeInfoModal} externalStyles={classes.modal}>
 							<FileInfo fileData={selectedFile} />
 						</Modal>
 					)}

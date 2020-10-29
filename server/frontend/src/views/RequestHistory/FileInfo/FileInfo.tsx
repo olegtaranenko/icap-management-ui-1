@@ -52,24 +52,23 @@ const FileInfo = (props: FileInfoProps) => {
 
 		getDetails();
 
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [setIsLoading, setIsError, setTransactionDetails, props.fileData.directory]);
 
 	let background = null;
-	switch (Risk[props.fileData.risk]) {
-		case "Allowed by Policy":
+	switch (props.fileData.risk as Risk) {
+		case Risk["Allowed by Policy"]:
 			background = "#86C1CB";
 			break;
-		case "Blocked by Policy":
+		case Risk["Blocked by Policy"]:
 			background = "#DF9F81";
 			break;
-		case "Allowed by NCFS":
+		case Risk["Allowed by NCFS"]:
 			background = "#7a7aff";
 			break;
-		case "Blocked by NCFS":
+		case Risk["Blocked by NCFS"]:
 			background = "#ff8d8d";
 			break;
-		case "Safe":
+		case Risk.Safe:
 			background = "#91CAA8";
 			break;
 		default:
@@ -86,8 +85,8 @@ const FileInfo = (props: FileInfoProps) => {
 			</header>
 
 			<div className={classes.inner}>
-				<div className={classes.block}>
-					<h3>Request Info</h3>
+				<div className={classes.requestInfo}>
+					Request Info
 					<Table className={classes.table}>
 						<TableHead>
 							<TableRow>
@@ -127,7 +126,7 @@ const FileInfo = (props: FileInfoProps) => {
 						}
 
 						{!isError &&
-							<div>
+							<div className={classes.transactionDetailsContainer}>
 								{transactionDetails.status === FileDetailsStatus.Success &&
 									<TransactionDetails analysisReport={transactionDetails.analysisReport} />
 								}

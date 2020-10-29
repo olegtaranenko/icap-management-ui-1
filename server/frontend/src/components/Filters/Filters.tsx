@@ -22,7 +22,7 @@ export interface FiltersProps {
 
 const Filters = (props: FiltersProps) => {
 	// @ts-ignore
-	const { addFilterInput, fileFilter, outcomeFilter, selectedFilters, removeFilter, navExpanded, updateRequestHistoryTimeFilter, requestHistoryTimeFilter } = useContext(GlobalStoreContext);
+	const { addFilterInput, fileFilter, riskFilter, selectedFilters, removeFilter, navExpanded, updateRequestHistoryTimeFilter, requestHistoryTimeFilter } = useContext(GlobalStoreContext);
 
 	const [openFilterRow, setOpenFilterRow] = useState(false);
 	const [openFilter, setOpenFilter] = useState(null);
@@ -85,9 +85,9 @@ const Filters = (props: FiltersProps) => {
 			filterStyle = classes.popupFilterFileType;
 			break;
 
-		case "Outcomes":
-			selectedFilter = outcomeFilter;
-			filterStyle = classes.popupFilterOutcome;
+		case "Risk":
+			selectedFilter = riskFilter;
+			filterStyle = classes.popupFilterRisk;
 			break;
 		default:
 			selectedFilter = null;
@@ -119,19 +119,19 @@ const Filters = (props: FiltersProps) => {
 			},
 		},
 		{
-			name: "Outcomes",
+			name: "Risk",
 			onClickButtonHandler: () => {
 				setOpenFileId(false);
-				setOpenFilter("Outcomes");
+				setOpenFilter("Risk");
 			},
 		},
-		{
-			name: "File ID",
-			onClickButtonHandler: () => {
-				setOpenFilter(null);
-				setOpenFileId((prevState) => !prevState);
-			},
-		},
+		// {
+		// 	name: "File ID",
+		// 	onClickButtonHandler: () => {
+		// 		setOpenFilter(null);
+		// 		setOpenFileId((prevState) => !prevState);
+		// 	},
+		// },
 	];
 
 	useEffect(() => {

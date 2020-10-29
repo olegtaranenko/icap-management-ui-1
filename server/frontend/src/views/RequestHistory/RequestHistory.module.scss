@@ -1,5 +1,11 @@
+.modal {
+	width: 70%;
+	height: 70%;
+}
+
 .container {
 	max-height: 83rem;
+	padding-top: 1rem;
 }
 
 .wrapTable {
@@ -21,23 +27,24 @@
 
 .table {
 	color: #196480;
-	overflow-y: scroll;
-	height: 100%;
 
 	& th {
+		width: 25%;
 		height: 4rem;
 		font-size: 1.2rem;
-		padding: 0;
 
 		border: none;
 	}
 
 	& thead {
+		display: table;
+		width: 100%;
 		border-bottom: 1px solid #4592b0;
 	}
 
 	& thead th {
 		position: relative;
+		padding-bottom: 1.2rem;
 		color: #196480;
 
 		cursor: pointer;
@@ -52,7 +59,16 @@
 	}
 
 	& .tbody {
+		display: block;
+		max-height: 75rem;
 		border-top: 1px solid #4592b0;
+	}
+
+	& .emptyTableRow {
+		display: table !important;
+		width: 99%;
+		height: 4rem;
+		margin-left: 1rem;
 	}
 
 	& .emptyTableCell {

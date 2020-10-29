@@ -9,14 +9,14 @@ export interface FileRowProps {
 	timestamp: string,
 	fileId: {value: string},
 	type: number,
-	outcome: number,
+	risk: number,
 	onRowClickHandler: MouseEventHandler<HTMLTableRowElement>
 }
 
 const FileRow = (props: FileRowProps) => {
 
 	const formattedType = props.type as FileType;
-	const formattedOutcome = props.outcome as Risk;
+	const formattedRisk = props.risk as Risk;
 
 	return (
 		<TableRow className={classes.FileRow} id={props.id} onClick={props.onRowClickHandler}>
@@ -30,7 +30,7 @@ const FileRow = (props: FileRowProps) => {
 				{FileType[formattedType]}
 			</TableCell>
 			<TableCell component="th" scope="row" id={props.id}>
-				{Risk[formattedOutcome]}
+				{Risk[formattedRisk]}
 			</TableCell>
 		</TableRow>
 	);

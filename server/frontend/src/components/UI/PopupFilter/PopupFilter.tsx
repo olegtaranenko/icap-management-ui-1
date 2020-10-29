@@ -14,8 +14,8 @@ export interface PopupFilterProps {
 const PopupFilter = (props: PopupFilterProps) => {
 	const addedFilter = props.filters.map((filter: TransactionLogFilters) => {
 		let filterStyle = classes.fileType;
-		if (filter.filterName === "Outcome") {
-			filterStyle = classes.outcome;
+		if (filter.filterName === "Risk") {
+			filterStyle = classes.risk;
 		}
 		return (
 			<Filter

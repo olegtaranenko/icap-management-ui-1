@@ -7,7 +7,7 @@ import * as actionTypes from "../actionTypes";
 
 import userfiles from "../../data/userfiles.json";
 import fileFilter from "../../data/filters/RequestHistory/fileFilter.json";
-import outcomeFilter from "../../data/filters/RequestHistory/outcomeFilter.json";
+import riskFilter from "../../data/filters/RequestHistory/riskFilter.json";
 import requestHistoryTimeFilter from "../../data/filters/RequestHistory/requestHistoryTimeFilter";
 
 const userfileList = userfiles;
@@ -17,7 +17,7 @@ export const GlobalStoreState = ({ children }) => {
 		title: "Glasswall React App",
 		userfiles: userfileList,
 		fileFilter: fileFilter,
-		outcomeFilter: outcomeFilter,
+		riskFilter: riskFilter,
 		requestHistoryTimeFilter: requestHistoryTimeFilter,
 		isCurrentPolicy: true,
 		selectedFilters: [],
@@ -60,7 +60,7 @@ export const GlobalStoreState = ({ children }) => {
 				title: globalStoreState.title,
 				userfiles: globalStoreState.userfiles,
 				fileFilter: globalStoreState.fileFilter,
-				outcomeFilter: globalStoreState.outcomeFilter,
+				riskFilter: globalStoreState.riskFilter,
 				selectedFilters: globalStoreState.selectedFilters,
 				isCurrentPolicy: globalStoreState.isCurrentPolicy,
 				requestHistoryTimeFilter: globalStoreState.requestHistoryTimeFilter,

@@ -1,4 +1,5 @@
 .FileInfo {
+	height: 100%;
 	overflow: hidden;
 
 	& header {
@@ -9,6 +10,9 @@
 		min-height: 4rem;
 
 		padding: 1rem;
+		border-radius: 0.6rem;
+		border-bottom-left-radius: 0;
+		border-bottom-right-radius: 0;
 
 		color: #196480;
 		background: #e6e9ea;
@@ -18,11 +22,13 @@
 		}
 
 		& h2 {
+			font-size: 1.2rem;
 			margin: 0;
 			padding: 0;
 		}
 
 		& span {
+			max-height: 4rem;
 			padding: 0.5rem 1.5rem;
 			margin-right: 5rem;
 
@@ -32,18 +38,26 @@
 
 			border-radius: 15px;
 		}
+
 		& .buttonClose {
 			position: relative;
 		}
 	}
 
 	& .inner {
+		height: 90%;
+		overflow: auto;
 		position: relative;
-		padding: 3rem 1rem;
+		padding: 1rem 1rem;
 		display: flex;
 		flex-direction: column;
 
+		& .requestInfo {
+			min-height: 13rem;
+		}
+
 		& .block {
+			min-height: 4rem;
 			position: relative;
 
 			margin-bottom: 1.5rem;
@@ -57,7 +71,7 @@
 
 			& .badge {
 				position: absolute;
-				top: 1rem;
+				top: 0.4rem;
 				right: 1rem;
 				margin-right: 4rem;
 			}
@@ -67,6 +81,7 @@
 				padding: 0;
 				line-height: 2rem;
 			}
+
 			& .wrapArrow {
 				position: absolute;
 				top: 0rem;
@@ -83,7 +98,7 @@
 			& .arrow::before {
 				content: "";
 				position: absolute;
-				top: 0.5rem;
+				top: 0;
 				width: 2rem;
 				height: 2rem;
 
@@ -105,6 +120,7 @@
 	}
 
 	& .table {
+		margin-top: 1rem;
 		border-top: 1px solid #b6bfc9;
 
 		& thead th {
@@ -114,12 +130,14 @@
 
 			font-size: 1.2rem;
 			color: #196480;
-			border-bottom: 1px solid #54e0e8;
+			border-bottom: 1px solid #4592b0;
 		}
+
 		& tbody {
 			& td {
 				font-size: 1.2rem;
 			}
+
 			& td .noborder {
 				border-bottom: none;
 			}
