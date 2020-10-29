@@ -27,7 +27,8 @@ describe("GetTransactionDetails", () => {
 
                 try {
                     // Act
-                    const getTransactionsRequest = new GetTransactionDetailsRequest(
+                    // tslint:disable-next-line: no-unused-expression
+                    new GetTransactionDetailsRequest(
                         url,
                         transactionFileDirectory
                     );
@@ -46,7 +47,8 @@ describe("GetTransactionDetails", () => {
 
                 try {
                     // Act
-                    const getTransactionsRequest = new GetTransactionDetailsRequest(
+                    // tslint:disable-next-line: no-unused-expression
+                    new GetTransactionDetailsRequest(
                         url,
                         transactionFileDirectory
                     );

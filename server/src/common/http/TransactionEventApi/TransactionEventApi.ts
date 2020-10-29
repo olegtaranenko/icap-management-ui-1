@@ -1,7 +1,5 @@
 import fetch from "node-fetch";
 
-import analysisReport from "./analysisReportExample.json";
-
 export default class TransactionEventApi {
     static getTransactions = async (getTransactionsUrl: string, body: any, headers?: { [header: string]: string }): Promise<string> => {
         const response = await fetch(`${getTransactionsUrl}`, {
