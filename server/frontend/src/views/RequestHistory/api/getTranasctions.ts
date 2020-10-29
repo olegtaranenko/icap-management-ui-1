@@ -1,10 +1,10 @@
+import Routes from "../../../Routes";
 import { Filter } from "../../../../../src/common/models/TransactionEventService/GetTransactions/GetTransactionsRequest";
 
-const getTransactions = async (
-    getTransactionsUrl: string,
-    body: Filter
-): Promise<string> => {
-    const response = await fetch(getTransactionsUrl, {
+const requestHistoryRoutes = Routes.requestHistoryRoutes();
+
+export const getTransactions = async (body: Filter): Promise<string> => {
+    const response = await fetch(requestHistoryRoutes.getTransactionsRoute, {
         method: "POST",
         body: JSON.stringify({ Filter: body }),
         headers: {
@@ -19,5 +19,3 @@ const getTransactions = async (
 
     return response.text();
 };
-
-export default getTransactions;

@@ -1,6 +1,6 @@
 import { Guid } from "guid-typescript";
 import { FileType } from "../../../../../frontend/src/enums/FileType";
-import { Risk } from "../../enums/Risk";
+import { Risk } from "../../../../../frontend/src/enums/Risk";
 import ArgumentNullException from "../../errors/ArgumentNullException";
 
 export interface Filter {
@@ -12,7 +12,7 @@ export interface Filter {
     PolicyIds?: Guid[]
 }
 
-export default class GetTransactionsRequest {
+export class GetTransactionsRequest {
     url: string;
     body: { Filter: Filter };
     headers?: { [header: string]: string };

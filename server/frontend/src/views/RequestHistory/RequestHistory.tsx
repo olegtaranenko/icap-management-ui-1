@@ -1,18 +1,4 @@
 import React, { useState, useContext, useEffect } from "react";
-
-import { GlobalStoreContext } from "../../context/globalStore/globalStore-context";
-
-import Main from "../../hoc/Main/Main";
-import MainTitle from "../../hoc/MainTitle/MainTitle";
-//import FileInfo from "./FileInfo/FileInfo";
-import FileRow from "./FileRow/FileRow";
-import Filters from "../../components/Filters/Filters";
-import Modal from "../../components/UI/Modal/Modal";
-
-import { Filter as TFilter } from "../../../../src/common/models/TransactionEventService/GetTransactions/GetTransactionsRequest";
-import Routes from "../../Routes";
-import getTransactions from "./api/getTranasctions";
-
 import {
 	Table,
 	TableHead,
@@ -22,15 +8,24 @@ import {
 	TableContainer,
 } from "@material-ui/core";
 
-import classes from "./RequestHistory.module.scss";
+import { GlobalStoreContext } from "../../context/globalStore/globalStore-context";
 
-const requestHistoryRoutes = Routes.requestHistoryRoutes();
+import { Filter as TFilter } from "../../../../src/common/models/TransactionEventService/GetTransactions/GetTransactionsRequest";
+
+import { getTransactions } from "./api/index";
+import Main from "../../hoc/Main/Main";
+import MainTitle from "../../hoc/MainTitle/MainTitle";
+import FileInfo from "./FileInfo/FileInfo";
+import FileRow from "./FileRow/FileRow";
+import Filters from "../../components/Filters/Filters";
+import Modal from "../../components/UI/Modal/Modal";
+
+import classes from "./RequestHistory.module.scss";
 
 const RequestHistory = () => {
 	const [openModal, setOpenModal] = useState(false);
-	//const [selectedRowId, setSelectedRowId] = useState(null);
 	const [openPopup, setOpenPopup] = useState(false);
-
+	const [selectedFile, setSelectedFile] = useState(null);
 	const [transactions, setTransactions] = useState(null);
 	const [isError, setIsError] = useState(false);
 	const [isLoading, setIsLoading] = useState(true);
@@ -43,9 +38,14 @@ const RequestHistory = () => {
 		clsWrapTable.push(classes.notActive);
 	}
 
-	const openInfoModal = (id: string) => {
+	const openInfoModal = (fileId: {value: string}) => {
 		setOpenModal((prevState) => !prevState);
-		//setSelectedRowId(id);
+
+		const file = transactions.files.find(
+			(f: any) => f.fileId.value === fileId
+		);
+
+		setSelectedFile(file);
 	};
 
 	const closeInfoModal = () => {
@@ -54,14 +54,15 @@ const RequestHistory = () => {
 
 	useEffect(() => {
 		setIsLoading(true);
+		setIsError(false);
 
 		const getRows = async () => {
 			const Risks = selectedFilters
-				.filter(f => f.filter === "Outcome")
-				.map(outcomeFilter => outcomeFilter.riskEnum);
+				.filter(f => f.filter === "Risk")
+				.map(riskFilter => riskFilter.riskEnum);
 
 			const FileTypes = selectedFilters
-				.filter(f => f.filter !== "Outcome")
+				.filter(f => f.filter !== "Risk")
 				.map(fileTypeFilter => fileTypeFilter.fileTypeEnum);
 
 			const requestBody: TFilter = {
@@ -72,7 +73,8 @@ const RequestHistory = () => {
 			};
 
 			try {
-				const transactionResponse = await getTransactions(requestHistoryRoutes.getTransactionsRoute, requestBody);
+				const transactionResponse =
+					await getTransactions(requestBody);
 				setTransactions(JSON.parse(transactionResponse));
 			}
 			catch (error) {
@@ -87,8 +89,6 @@ const RequestHistory = () => {
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [selectedFilters, requestHistoryTimeFilter]);
-
-	//const fileInfo = transactions.find((it) => it.id === selectedRowId);
 
 	return (
 		<>
@@ -122,7 +122,7 @@ const RequestHistory = () => {
 												</TableCell>
 
 												<TableCell>
-													Outcome
+													Risk (Transaction)
 												</TableCell>
 											</TableRow>
 										</TableHead>
@@ -137,17 +137,17 @@ const RequestHistory = () => {
 																		key={f.fileId.value}
 																		id={f.fileId.value}
 																		timestamp={f.timestamp}
-																		fileId={f.fileId.value}
+																		fileId={f.fileId}
 																		type={f.fileType}
-																		outcome={f.risk}
-																		onRowClickHandler={(evt) => openInfoModal((evt.target as HTMLElement).id)} />
+																		risk={f.risk}
+																		onRowClickHandler={() => openInfoModal(f.fileId.value)} />
 																);
 															})}
 														</>
 													}
 
 													{transactions.count === 0 &&
-														<TableRow>
+														<TableRow className={classes.emptyTableRow}>
 															<TableCell colSpan={4} className={classes.emptyTableCell}>
 																<h2>No Transaction Data Found</h2>
 															</TableCell>
@@ -156,7 +156,7 @@ const RequestHistory = () => {
 												</>}
 
 											{isError &&
-												<TableRow>
+												<TableRow className={classes.emptyTableRow}>
 													<TableCell colSpan={4} className={classes.emptyTableCell}>
 														<h2>Error Getting Transaction Data</h2>
 													</TableCell>
@@ -169,8 +169,8 @@ const RequestHistory = () => {
 						}
 					</div>
 					{openModal && (
-						<Modal onCloseHandler={closeInfoModal}>
-							{/* <FileInfo data={fileInfo} /> */}
+						<Modal onCloseHandler={closeInfoModal} externalStyles={classes.modal}>
+							<FileInfo fileData={selectedFile} />
 						</Modal>
 					)}
 				</article>

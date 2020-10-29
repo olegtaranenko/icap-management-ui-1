@@ -4,7 +4,7 @@
     "timestamp": "29-07-2020 17:35",
     "fileId": "66666666 - 6666 - 6666 - 6666 - 66666666666",
     "type": "PNG",
-    "outcome": "Allowed by Policy",
+    "risk": "Allowed by Policy",
     "fileSize": "12mb"
   },
   {
@@ -12,7 +12,7 @@
     "timestamp": "29-07-2020 18:34",
     "fileId": "44444444 - 4444 - 4444 - 4444 - 44444444444",
     "type": "DOCX",
-    "outcome": "Blocked by Policy",
+    "risk": "Blocked by Policy",
     "fileSize": "8mb"
   },
   {
@@ -20,7 +20,7 @@
     "timestamp": "30-07-2020 12:34",
     "fileId": "88888888 - 8888 - 8888 - 8888 - 88888888888",
     "type": "PNG",
-    "outcome": "Allowed by NCFS",
+    "risk": "Allowed by NCFS",
     "fileSize": "14mb"
   },
   {
@@ -28,7 +28,7 @@
     "timestamp": "03-08-2020  12:03",
     "fileId": "11111111 - 1111 - 1111 - 1111 - 11111111111",
     "type": "DOCX",
-    "outcome": "Blocked by NCFS",
+    "risk": "Blocked by NCFS",
     "fileSize": "4mb"
   }
 ]

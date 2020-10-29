@@ -51,7 +51,7 @@ const Filter = (props: FilterProps) => {
 			component="fieldset"
 			className={[classes.Filter, props.externalStyles].join(" ")}>
 			<FormLabel component="legend">
-				{props.filter === "Outcome" ? "" : props.filter}
+				{props.filter === "Risk" ? "" : props.filter}
 			</FormLabel>
 			<FormGroup
 				className={classes.formGroup}
