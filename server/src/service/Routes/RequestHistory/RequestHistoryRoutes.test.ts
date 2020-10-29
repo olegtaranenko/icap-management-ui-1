@@ -6,6 +6,7 @@ import request from "supertest";
 import { Risk } from "../../../../frontend/src/enums/Risk";
 import { FileType } from "../../../../frontend/src/enums/FileType";
 import { GetTransactionsResponse } from "../../../common/models/TransactionEventService/GetTransactions";
+import { GetTransactionDetailsResponse } from "../../../common/models/TransactionEventService/GetTransactionDetails";
 import TestConfig from "../../TestConfig";
 import RequestHistoryRoutes from "./RequestHistoryRoutes";
 
