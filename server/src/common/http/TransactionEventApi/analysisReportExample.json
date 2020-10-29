@@ -650,7 +650,7 @@
                     "riskLevel": "Medium"
                   },
                   {
-                    "technicalDescription": "issuuuuueeeeee must be valid Page or Pages dictionaries.",
+                    "technicalDescription": "TEST must be valid Page or Pages dictionaries.",
                     "issueId": 12345,
                     "instanceCount": 3,
                     "riskLevel": "Medium"
@@ -736,7 +736,7 @@
                   "instanceCount": 33
                   },
                   {
-                    "technicalDescription": "pls work",
+                    "technicalDescription": "Test Technical Description",
                     "instanceCount": 22
                   }
                 ],

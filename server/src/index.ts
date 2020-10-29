@@ -47,9 +47,9 @@ app.get("*", (req, res) => {
     res.sendFile(path.join(`${workingDirectory}/frontend/build/index.html`));
 });
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
     logger.info(`env: ${process.env.NODE_ENV}`);
     logger.info(`Server is Running at http://localhost:${port}`);
 });
 
-module.exports.app = app;
+module.exports.server = server;
