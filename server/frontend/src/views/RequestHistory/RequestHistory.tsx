@@ -87,8 +87,7 @@ const RequestHistory = () => {
 
 		getRows();
 
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [selectedFilters, requestHistoryTimeFilter]);
+	}, [selectedFilters, requestHistoryTimeFilter, setIsError, setIsLoading]);
 
 	return (
 		<>
@@ -127,7 +126,7 @@ const RequestHistory = () => {
 											</TableRow>
 										</TableHead>
 										<TableBody className={classes.tbody}>
-											{!isError &&
+											{!isError && transactions &&
 												<>
 													{transactions.count > 0 &&
 														<>
@@ -168,7 +167,7 @@ const RequestHistory = () => {
 							</>
 						}
 					</div>
-					{openModal && (
+					{!isError && openModal && (
 						<Modal onCloseHandler={closeInfoModal} externalStyles={classes.modal}>
 							<FileInfo fileData={selectedFile} />
 						</Modal>
