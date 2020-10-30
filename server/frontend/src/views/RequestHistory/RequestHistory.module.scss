@@ -39,7 +39,6 @@
 	& thead {
 		display: table;
 		width: 100%;
-		border-bottom: 1px solid #4592b0;
 	}
 
 	& thead th {
@@ -60,8 +59,10 @@
 
 	& .tbody {
 		display: block;
-		max-height: 75rem;
+		overflow-y: auto;
+		max-height: 73rem;
 		border-top: 1px solid #4592b0;
+		border-bottom: 1px solid #4592b0;
 	}
 
 	& .emptyTableRow {
