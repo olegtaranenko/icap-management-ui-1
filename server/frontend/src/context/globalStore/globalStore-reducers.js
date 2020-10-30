@@ -70,16 +70,14 @@ const addFilterFromInput = (state, addedFilter) => {
 const removeFilterFromSelected = (state, removedFilter) => {
 	const updateCheckbox = [...state.fileFilter];
 
-	updateCheckbox.map((filter) => {
+	updateCheckbox.forEach((filter) => {
 		if (removedFilter.filter === filter.filterName) {
-			filter.checkboxList.map((checkbox) => {
+			filter.checkboxList.forEach((checkbox) => {
 				if (checkbox.id === removedFilter.id) {
 					checkbox.isChecked = false;
 				}
-				return null;
 			});
 		}
-		return null;
 	});
 
 	const updatedList = [...state.selectedFilters].filter(
