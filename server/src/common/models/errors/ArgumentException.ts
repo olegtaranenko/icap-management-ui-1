@@ -6,4 +6,4 @@ export default class ArgumentException extends Error {
         this.name = "ArgumentException";
         this.argument = argument;
     }
-};
+}
