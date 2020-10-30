@@ -7,7 +7,7 @@ export interface ButtonCloseProps {
 	onButtonClick: React.MouseEventHandler<HTMLButtonElement>,
 	externalStyles: string,
 	color?: string
-};
+}
 
 const ButtonClose = (props: ButtonCloseProps) => {
 	return (

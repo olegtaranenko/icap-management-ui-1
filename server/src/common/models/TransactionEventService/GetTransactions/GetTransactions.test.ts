@@ -38,7 +38,8 @@ describe("GetTransactions", () => {
 
                 try {
                     // Act
-                    const getTransactionsRequest = new GetTransactionsRequest(
+                    // tslint:disable-next-line: no-unused-expression
+                    new GetTransactionsRequest(
                         url,
                         filter
                     );
@@ -94,7 +95,8 @@ describe("GetTransactions", () => {
 
                 try {
                     // Act
-                    const getTransactionsResponse = new GetTransactionsResponse(
+                    // tslint:disable-next-line: no-unused-expression
+                    new GetTransactionsResponse(
                         count,
                         files
                     );
@@ -122,7 +124,8 @@ describe("GetTransactions", () => {
 
                 try {
                     // Act
-                    const getTransactionsResponse = new GetTransactionsResponse(
+                    // tslint:disable-next-line: no-unused-expression
+                    new GetTransactionsResponse(
                         count,
                         files
                     );
@@ -151,7 +154,8 @@ describe("GetTransactions", () => {
 
                 try {
                     // Act
-                    const getTransactionsResponse = new GetTransactionsResponse(
+                    // tslint:disable-next-line: no-unused-expression
+                    new GetTransactionsResponse(
                         count,
                         files
                     );
@@ -179,7 +183,8 @@ describe("GetTransactions", () => {
 
                 try {
                     // Act
-                    const getTransactionsResponse = new GetTransactionsResponse(
+                    // tslint:disable-next-line: no-unused-expression
+                    new GetTransactionsResponse(
                         count,
                         files
                     );
@@ -207,7 +212,8 @@ describe("GetTransactions", () => {
 
                 try {
                     // Act
-                    const getTransactionsResponse = new GetTransactionsResponse(
+                    // tslint:disable-next-line: no-unused-expression
+                    new GetTransactionsResponse(
                         count,
                         files
                     );
@@ -235,7 +241,8 @@ describe("GetTransactions", () => {
 
                 try {
                     // Act
-                    const getTransactionsResponse = new GetTransactionsResponse(
+                    // tslint:disable-next-line: no-unused-expression
+                    new GetTransactionsResponse(
                         count,
                         files
                     );
