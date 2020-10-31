@@ -104,7 +104,7 @@ const RequestHistory = () => {
 
 						{!isLoading &&
 							<>
-								<TableContainer>
+								<TableContainer className={classes.tableContainer}>
 									<Table className={classes.table}>
 										<TableHead>
 											<TableRow>
