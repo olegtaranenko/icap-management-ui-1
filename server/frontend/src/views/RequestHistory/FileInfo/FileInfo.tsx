@@ -16,7 +16,7 @@ import { getTransactionDetails } from "../api/index";
 import classes from "./FileInfo.module.scss";
 
 interface FileData {
-	timestamp: moment.Moment,
+	timestamp: string,
 	fileId: { value: string },
 	fileType: number,
 	risk: number,
