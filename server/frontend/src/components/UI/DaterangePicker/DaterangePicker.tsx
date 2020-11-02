@@ -24,12 +24,13 @@ const DaterangePicker = (props: DaterangePickerProps) => {
             <DateRangePicker
                 initialSettings={{
                     timePicker: true,
+                    timePicker24Hour: true,
                     maxSpan: { days: 1 },
                     maxDate: moment(),
                     startDate: props.initialRange.start.toDate(),
                     endDate: props.initialRange.end.toDate(),
                     locale: {
-                        format: "DD/MM/YYYY hh:mm A",
+                        format: "DD/MM/YYYY H:mm A",
                     },
                     ranges: {
                         "1 Hour": [
@@ -51,9 +52,9 @@ const DaterangePicker = (props: DaterangePickerProps) => {
                 <div id="reportrange" className={classes.reportrange}>
                     <span>
                         {
-                            props.initialRange.start.format("DD/MM/YYYY hh:mm A") +
+                            props.initialRange.start.format("DD/MM/YYYY H:mm A") +
                             " - " +
-                            props.initialRange.end.format("DD/MM/YYYY hh:mm A")
+                            props.initialRange.end.format("DD/MM/YYYY H:mm A")
                         }
                     </span>
                 </div>

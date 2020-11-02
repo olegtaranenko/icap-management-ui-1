@@ -8,9 +8,9 @@ const Config = () => {
     };
 
     const production: IConfig = {
-        transactionEventServiceBaseUrl: process.env.TRANSACTION_EVENT_SERVICE_BASE_URL,
-        getTransactionsPath: process.env.TRANSACTION_EVENT_SERVICE_GET_TRANSACTIONS_PATH,
-        getTransactionDetailsPath: process.env.TRANSACTION_EVENT_SERVICE_GET_TRANSACTION_DETAILS_PATH
+        transactionEventServiceBaseUrl: "https://transactioneventapifunction20201016103513.azurewebsites.net/api/v1",
+        getTransactionsPath: "/transactions",
+        getTransactionDetailsPath: "/transactions"
     };
 
     switch (process.env.NODE_ENV) {
