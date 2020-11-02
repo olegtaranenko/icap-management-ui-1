@@ -10,7 +10,7 @@ export interface DaterangePickerProps {
     initialRange: { start: moment.Moment, end: moment.Moment },
     onRangeChange: (start: moment.Moment, end: moment.Moment) => void,
     externalStyles: string,
-};
+}
 
 const DaterangePicker = (props: DaterangePickerProps) => {
 
