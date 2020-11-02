@@ -31,12 +31,15 @@
 		align-items: center;
 	}
 
-	& .header {
+	& .header {		
 		position: relative;
 		display: flex;
 		align-items: center;
+		justify-content: center;
 
 		& .head {
+			position: absolute;
+			left: 0;
 			display: block;
 		}
 

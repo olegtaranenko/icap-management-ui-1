@@ -6,6 +6,7 @@ import {
 	TableCell,
 	TableBody,
 } from "@material-ui/core";
+import moment from "moment";
 import TransactionDetails from "../TransactionDetails/TransactionDetails";
 import { FileDetailsStatus } from "../../../enums/FileDetailsStatus";
 import { FileType } from "../../../enums/FileType";
@@ -15,7 +16,7 @@ import { getTransactionDetails } from "../api/index";
 import classes from "./FileInfo.module.scss";
 
 interface FileData {
-	timestamp: Date,
+	timestamp: moment.Moment,
 	fileId: { value: string },
 	fileType: number,
 	risk: number,
@@ -40,6 +41,7 @@ const FileInfo = (props: FileInfoProps) => {
 			try {
 				const transactionDetailResponse =
 					await getTransactionDetails(props.fileData.directory);
+
 				setTransactionDetails(JSON.parse(transactionDetailResponse));
 			}
 			catch (error) {
@@ -98,7 +100,7 @@ const FileInfo = (props: FileInfoProps) => {
 						</TableHead>
 						<TableBody>
 							<TableRow className={classes.noborder}>
-								<TableCell>{props.fileData.timestamp}</TableCell>
+								<TableCell>{moment(props.fileData.timestamp).format("DD/MM/YYYY hh:mm A")}</TableCell>
 								<TableCell>{props.fileData.fileId.value}</TableCell>
 								<TableCell>{FileType[props.fileData.fileType]}</TableCell>
 								<TableCell>{Risk[props.fileData.risk]}</TableCell>
