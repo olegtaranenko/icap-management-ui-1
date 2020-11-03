@@ -1,11 +1,11 @@
-name: CD Prod
+name: CD QA
 env:
   REPOSITORY: glasswallsolutions
   IMAGE: icap-management-ui
-  TAG: main
+  TAG: qa
 on:
   push:
-    branches: [main]
+    branches: [qa]
 
 jobs:
   build-push-docker-image:

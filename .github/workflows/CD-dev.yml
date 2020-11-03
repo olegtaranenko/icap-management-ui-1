@@ -1,11 +1,11 @@
-name: CD Prod
+name: CD Dev
 env:
   REPOSITORY: glasswallsolutions
   IMAGE: icap-management-ui
-  TAG: main
+  TAG: dev
 on:
   push:
-    branches: [main]
+    branches: [develop]
 
 jobs:
   build-push-docker-image:
