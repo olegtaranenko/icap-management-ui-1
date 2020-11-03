@@ -22,73 +22,62 @@ const TransactionDetails = (props: TransactionDetailsProps) => {
         remedy: false,
         policyDetails: false,
     });
-    const [issueItems, setIssueItems] = useState([]);
-    const [remedyItems, setRemedyItems] = useState([]);
-    const [sanitisationItems, setSanitisationItems] = useState([]);
+
+    const [issueItems, setIssueItems] = useState({
+        itemCount: 0,
+        issues: []
+    });
+
+    const [remedyItems, setRemedyItems] = useState({
+        itemCount: 0,
+        remedies: []
+    });
+
+    const [sanitisationItems, setSanitisationItems] = useState({
+        itemCount: 0,
+        sanitisations: []
+    });
 
     const clsBlockExpandend = [classes.block];
 
     useEffect(() => {
         props.analysisReport.documentStatistics.contentGroups.contentGroup.forEach((content: any) => {
             if (content.issueItems.itemCount > 0) {
-                if (content.issueItems.issueItem.length > 1) {
-                    const reduce = content.issueItems.issueItem.map((i: any) => {
-                        return {
-                            issueItem: i,
-                            itemCount: 1
-                        }
-                    });
-
-                    setIssueItems((prev: any) => [...prev, ...reduce]);
-                }
-
-                else {
-                    setIssueItems((prev: any) => [...prev, content.issueItems]);
-                }
+                setIssueItems((prev: any) => {
+                    return {
+                        itemCount: prev.itemCount + content.issueItems.itemCount,
+                        issues: prev.issues.concat(content.issueItems.issueItem)
+                    };
+                });
             }
 
             if (content.remedyItems.itemCount > 0) {
-                if (content.remedyItems.remedyItem.length > 1) {
-                    const reduce = content.remedyItems.remedyItem.map((i: any) => {
-                        return {
-                            remedyItem: i,
-                            itemCount: 1
-                        }
-                    });
-
-                    setRemedyItems((prev: any) => [...prev, ...reduce]);
-                }
-
-                else {
-                    setRemedyItems((prev: any) => [...prev, content.remedyItems]);
-                }
+                setRemedyItems((prev: any) => {
+                    return {
+                        itemCount: prev.itemCount + content.remedyItems.itemCount,
+                        remedies: prev.remedies.concat(content.remedyItems.remedyItem)
+                    };
+                });
             }
 
             if (content.sanitisationItems.itemCount > 0) {
-                if (content.sanitisationItems.sanitisationItem.length > 1) {
-                    const reduce = content.sanitisationItems.sanitisationItem.map((i: any) => {
-                        return {
-                            sanitisationItem: i,
-                            itemCount: 1
-                        }
-                    });
-
-                    setSanitisationItems((prev: any) => [...prev, ...reduce]);
-                }
-                else {
-                    setSanitisationItems((prev: any) => [...prev, content.sanitisationItems]);
-                }
+                setSanitisationItems((prev: any) => {
+                    return {
+                        itemCount: prev.itemCount + content.sanitisationItems.itemCount,
+                        sanitisations: prev.sanitisations.concat(content.sanitisationItems.sanitisationItem)
+                    };
+                });
             }
         })
     }, [props]);
 
     return (
         <>
-            {issueItems.length > 0 &&
+            {issueItems.itemCount > 0 &&
                 <div className={clsBlockExpandend.join(" ")}>
                     Issue Items
                     {!blockExpanded.issue && (
-                        <Badge value={issueItems.length.toString()} externalStyles={classes.badge} />
+                        <Badge value={issueItems.itemCount.toString()} externalStyles={classes.badge} />
                     )}
                     <div className={classes.wrapArrow}>
                         <Checkbox
@@ -115,12 +104,12 @@ const TransactionDetails = (props: TransactionDetailsProps) => {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {issueItems.map(issue => {
+                                {issueItems.issues.map(issue => {
                                     return (
-                                        <TableRow key={issue.issueItem.issueId}>
-                                            <TableCell>{issue.issueItem.issueId}</TableCell>
-                                            <TableCell>{issue.issueItem.technicalDescription}</TableCell>
-                                            <TableCell>{issue.issueItem.instanceCount}</TableCell>
+                                        <TableRow key={issue.issueId}>
+                                            <TableCell>{issue.issueId}</TableCell>
+                                            <TableCell>{issue.technicalDescription}</TableCell>
+                                            <TableCell>{issue.instanceCount}</TableCell>
                                         </TableRow>
                                     );
                                 })}
@@ -130,11 +119,11 @@ const TransactionDetails = (props: TransactionDetailsProps) => {
                 </div>
             }
 
-            {remedyItems.length > 0 &&
+            {remedyItems.itemCount > 0 &&
                 <div className={classes.block}>
                     Remedy Items
                     {!blockExpanded.remedy && (
-                        <Badge value={remedyItems.length.toString()} externalStyles={classes.badge} />
+                        <Badge value={remedyItems.itemCount.toString()} externalStyles={classes.badge} />
                     )}
                     <div className={classes.wrapArrow}>
                         <Checkbox
@@ -160,11 +149,11 @@ const TransactionDetails = (props: TransactionDetailsProps) => {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {remedyItems.map((remedy: any) => {
+                                {remedyItems.remedies.map((remedy: any) => {
                                     return (
-                                        <TableRow key={remedy.remedyItem.technicalDescription}>
-                                            <TableCell>{remedy.remedyItem.technicalDescription}</TableCell>
-                                            <TableCell>{remedy.remedyItem.instanceCount}</TableCell>
+                                        <TableRow key={remedy.technicalDescription}>
+                                            <TableCell>{remedy.technicalDescription}</TableCell>
+                                            <TableCell>{remedy.instanceCount}</TableCell>
                                         </TableRow>
                                     );
                                 })}
@@ -174,11 +163,11 @@ const TransactionDetails = (props: TransactionDetailsProps) => {
                 </div>
             }
 
-            {sanitisationItems.length > 0 &&
+            {sanitisationItems.itemCount > 0 &&
                 <div className={classes.block}>
                     Sanitisation Items
                     {!blockExpanded.sanitisation && (
-                        <Badge value={sanitisationItems.length.toString()} externalStyles={classes.badge} />
+                        <Badge value={sanitisationItems.itemCount.toString()} externalStyles={classes.badge} />
                     )}
                     <div className={classes.wrapArrow}>
                         <Checkbox
@@ -205,12 +194,12 @@ const TransactionDetails = (props: TransactionDetailsProps) => {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {sanitisationItems.map((sanitisation: any) => {
+                                {sanitisationItems.sanitisations.map((sanitisation: any) => {
                                     return (
-                                        <TableRow key={sanitisation.sanitisationItem.sanitisationId}>
-                                            <TableCell>{sanitisation.sanitisationItem.sanitisationId}</TableCell>
-                                            <TableCell>{sanitisation.sanitisationItem.technicalDescription}</TableCell>
-                                            <TableCell>{sanitisation.sanitisationItem.instanceCount}</TableCell>
+                                        <TableRow key={sanitisation.sanitisationId}>
+                                            <TableCell>{sanitisation.sanitisationId}</TableCell>
+                                            <TableCell>{sanitisation.technicalDescription}</TableCell>
+                                            <TableCell>{sanitisation.instanceCount}</TableCell>
                                         </TableRow>
                                     );
                                 })}
