@@ -8,7 +8,7 @@ import Button from "../UI/Button/Button";
 import Popup, { PopupButton } from "../UI/Popup/Popup";
 import PopupFilter from "../UI/PopupFilter/PopupFilter";
 import SelectedFilter from "../UI/SelectedFilter/SelectedFilter";
-import DateAndTimePickers from "../UI/DateAndTimePickers/DateAndTimePickers";
+import DaterangePicker from "../UI/DaterangePicker/DaterangePicker";
 import Input from "../UI/Input/Input";
 import { RequestHistoryTimeFilter } from "../../data/filters/RequestHistory/requestHistoryTimeFilter";
 
@@ -32,8 +32,10 @@ const Filters = (props: FiltersProps) => {
 	const [isValid, setIsValid] = useState(false);
 	const [isTouched, setIsTouched] = useState(false);
 
-	const [startTimestampValue, setStartTimestampValue] = useState(requestHistoryTimeFilter.timestampRangeStart);
-	const [endTimestampValue, setEndTimestampValue] = useState(requestHistoryTimeFilter.timestampRangeEnd);
+	const [dateRangeFilter, setDateRangeFilter] = useState({
+		start: requestHistoryTimeFilter.timestampRangeStart,
+		end: requestHistoryTimeFilter.timestampRangeEnd
+	});
 
 	const clsList = [classes.filters];
 	const clsMoreFilters = [classes.moreFilters];
@@ -75,6 +77,10 @@ const Filters = (props: FiltersProps) => {
 			filter: "File ID",
 		});
 	};
+
+	const onRangeChange = (start: moment.Moment, end: moment.Moment) => {
+		setDateRangeFilter({start, end});
+	}
 
 	let selectedFilter = null;
 	let filterStyle = null;
@@ -136,14 +142,14 @@ const Filters = (props: FiltersProps) => {
 
 	useEffect(() => {
 		const newTimeFilter: RequestHistoryTimeFilter = {
-			timestampRangeStart: startTimestampValue,
-			timestampRangeEnd: endTimestampValue
+			timestampRangeStart: dateRangeFilter.start,
+			timestampRangeEnd: dateRangeFilter.end
 		};
 
 		updateRequestHistoryTimeFilter(newTimeFilter);
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [startTimestampValue, endTimestampValue])
+	}, [dateRangeFilter]);
 
 	return (
 		<section className={`${classes.Filters} ${navExpanded ? classes.expanded : ""}`}>
@@ -158,14 +164,12 @@ const Filters = (props: FiltersProps) => {
 					</button>
 					<span
 						onClick={openFilterRowHandler}
-						className={clsArrow.join(" ")}
-					/>
-					<DateAndTimePickers
-						externalStyles={classes.pickers}
-						initialStartTimestamp={startTimestampValue}
-						initialEndTimestamp={endTimestampValue}
-						onChangeStartTimestamp={setStartTimestampValue}
-						onChangeEndTimestamp={setEndTimestampValue} />
+						className={clsArrow.join(" ")} />
+
+					<DaterangePicker
+						initialRange={dateRangeFilter}
+						onRangeChange={onRangeChange}
+						externalStyles={classes.pickers} />
 				</div>
 				<div className={classes.footer}>
 					<div className={clsList.join(" ")}>

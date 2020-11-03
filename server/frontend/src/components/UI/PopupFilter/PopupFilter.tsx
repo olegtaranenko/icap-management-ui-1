@@ -29,7 +29,7 @@ const PopupFilter = (props: PopupFilterProps) => {
 		<section
 			className={[classes.PopupFilter, props.externalStyles].join(" ")}
 			onMouseEnter={props.openPopupHover}
-			//onMouseLeave={closePopupHover}
+			// onMouseLeave={closePopupHover}
 		>
 			<div className={classes.inner}>{addedFilter}</div>
 		</section>

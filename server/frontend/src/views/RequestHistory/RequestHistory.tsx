@@ -5,7 +5,6 @@ import {
 	TableRow,
 	TableCell,
 	TableBody,
-	TableContainer,
 } from "@material-ui/core";
 
 import { GlobalStoreContext } from "../../context/globalStore/globalStore-context";
@@ -38,7 +37,7 @@ const RequestHistory = () => {
 		clsWrapTable.push(classes.notActive);
 	}
 
-	const openInfoModal = (fileId: {value: string}) => {
+	const openInfoModal = (fileId: { value: string }) => {
 		setOpenModal((prevState) => !prevState);
 
 		const file = transactions.files.find(
@@ -66,8 +65,8 @@ const RequestHistory = () => {
 				.map(fileTypeFilter => fileTypeFilter.fileTypeEnum);
 
 			const requestBody: TFilter = {
-				TimestampRangeStart: requestHistoryTimeFilter.timestampRangeStart,
-				TimestampRangeEnd: requestHistoryTimeFilter.timestampRangeEnd,
+				TimestampRangeStart: requestHistoryTimeFilter.timestampRangeStart.toDate(),
+				TimestampRangeEnd: requestHistoryTimeFilter.timestampRangeEnd.toDate(),
 				Risks,
 				FileTypes
 			};
@@ -104,66 +103,64 @@ const RequestHistory = () => {
 
 						{!isLoading &&
 							<>
-								<TableContainer>
-									<Table className={classes.table}>
-										<TableHead>
-											<TableRow>
-												<TableCell>
-													Timestamp
+								<Table className={classes.table}>
+									<TableHead>
+										<TableRow>
+											<TableCell>
+												Timestamp
 												</TableCell>
 
-												<TableCell>
-													File ID
+											<TableCell>
+												File ID
 												</TableCell>
 
-												<TableCell>
-													File Type
+											<TableCell>
+												File Type
 												</TableCell>
 
-												<TableCell>
-													Risk (Transaction)
+											<TableCell>
+												Risk (Transaction)
+												</TableCell>
+										</TableRow>
+									</TableHead>
+									<TableBody className={classes.tbody}>
+										{!isError && transactions &&
+											<>
+												{transactions.count > 0 &&
+													<>
+														{transactions.files.map((f: any) => {
+															return (
+																<FileRow
+																	key={f.fileId.value}
+																	id={f.fileId.value}
+																	timestamp={f.timestamp}
+																	fileId={f.fileId}
+																	type={f.fileType}
+																	risk={f.risk}
+																	onRowClickHandler={() => openInfoModal(f.fileId.value)} />
+															);
+														})}
+													</>
+												}
+
+												{transactions.count === 0 &&
+													<TableRow className={classes.emptyTableRow}>
+														<TableCell colSpan={4} className={classes.emptyTableCell}>
+															<h2>No Transaction Data Found</h2>
+														</TableCell>
+													</TableRow>
+												}
+											</>}
+
+										{isError &&
+											<TableRow className={classes.emptyTableRow}>
+												<TableCell colSpan={4} className={classes.emptyTableCell}>
+													<h2>Error Getting Transaction Data</h2>
 												</TableCell>
 											</TableRow>
-										</TableHead>
-										<TableBody className={classes.tbody}>
-											{!isError && transactions &&
-												<>
-													{transactions.count > 0 &&
-														<>
-															{transactions.files.map((f: any) => {
-																return (
-																	<FileRow
-																		key={f.fileId.value}
-																		id={f.fileId.value}
-																		timestamp={f.timestamp}
-																		fileId={f.fileId}
-																		type={f.fileType}
-																		risk={f.risk}
-																		onRowClickHandler={() => openInfoModal(f.fileId.value)} />
-																);
-															})}
-														</>
-													}
-
-													{transactions.count === 0 &&
-														<TableRow className={classes.emptyTableRow}>
-															<TableCell colSpan={4} className={classes.emptyTableCell}>
-																<h2>No Transaction Data Found</h2>
-															</TableCell>
-														</TableRow>
-													}
-												</>}
-
-											{isError &&
-												<TableRow className={classes.emptyTableRow}>
-													<TableCell colSpan={4} className={classes.emptyTableCell}>
-														<h2>Error Getting Transaction Data</h2>
-													</TableCell>
-												</TableRow>
-											}
-										</TableBody>
-									</Table>
-								</TableContainer>
+										}
+									</TableBody>
+								</Table>
 							</>
 						}
 					</div>

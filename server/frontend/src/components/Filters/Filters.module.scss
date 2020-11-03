@@ -31,12 +31,15 @@
 		align-items: center;
 	}
 
-	& .header {
+	& .header {		
 		position: relative;
 		display: flex;
 		align-items: center;
+		justify-content: center;
 
 		& .head {
+			position: absolute;
+			left: 0;
 			display: block;
 		}
 
@@ -262,7 +265,7 @@
 				display: none;
 				font-size: 1rem;
 			}
-		}
+		}		
 
 		& .moreFilters {
 			display: none;
@@ -271,7 +274,16 @@
 }
 
 @media(min-width: 992px) and (max-width: 1800px) {
-	.Filters {		
+	.Filters {
+		& .popupFilterFileType {
+			top: -170px;
+			width: 80rem;
+
+			& fieldset {
+				margin-bottom: 0;
+			}
+		}
+		
 		&.expanded {
 			width: calc(100% - 20rem);
 			margin-left: 20rem;
