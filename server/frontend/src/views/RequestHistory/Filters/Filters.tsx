@@ -131,7 +131,7 @@ const Filters = (props: FiltersProps) => {
 				setOpenFilter("Risk");
 			},
 		},
-		// {
+		// { TODO: Uncomment when we can search File ID
 		// 	name: "File ID",
 		// 	onClickButtonHandler: () => {
 		// 		setOpenFilter(null);
