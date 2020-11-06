@@ -12,6 +12,8 @@ import Current from "./Current/Current";
 import History from "./History/History";
 import TabNav from "../../components/Tabs/TabNav/TabNav";
 import Tab from "../../components/Tabs/Tab/Tab";
+import Main from "../../hoc/Main/Main";
+import MainTitle from "../../hoc/MainTitle/MainTitle";
 
 const Policy = () => {
 	const {
@@ -38,34 +40,40 @@ const Policy = () => {
 	];
 
 	return (
-		<article className={classes.Policy}>
-			<TabNav
-				tabs={tabs}
-				isSelectedTab={selectedTab}
-				onSetActiveTabHandler={(tab) => setSelectedTab(tab)}
-			>
-				<Tab isSelected={selectedTab === "Current"}>
-					<Current
-						isPolicyChanged={isPolicyChanged}
-						email={email}
-						timestamp={timestamp}
-						id={id}
-						policy={policy}
-						currentPolicy={currentPolicy}
-						policyFlags={currentPolicy ? policyFlags : policy.policyFlagList}
-						changeToggle={changeToggle}
-						cancelChanges={cancelChanges}
-						saveChanges={saveChanges}
-					/>
-				</Tab>
-				<Tab isSelected={selectedTab === "History"}>
-					<History
-						setPrevPolicy={() => setCurrentPolicy(false)}
-						isCurrent={currentPolicy}
-					/>
-				</Tab>
-			</TabNav>
-		</article>
+		<>
+			<MainTitle />
+
+			<Main>
+				<article className={classes.Policy}>
+					<TabNav
+						tabs={tabs}
+						selectedTabName={selectedTab}
+						onSetActiveTabHandler={(tab) => setSelectedTab(tab)}
+					>
+						<Tab isSelected={selectedTab === "Current"}>
+							<Current
+								isPolicyChanged={isPolicyChanged}
+								email={email}
+								timestamp={timestamp}
+								id={id}
+								policy={policy}
+								currentPolicy={currentPolicy}
+								policyFlags={currentPolicy ? policyFlags : policy.policyFlagList}
+								changeToggle={changeToggle}
+								cancelChanges={cancelChanges}
+								saveChanges={saveChanges}
+							/>
+						</Tab>
+						<Tab isSelected={selectedTab === "History"}>
+							<History
+								setPrevPolicy={() => setCurrentPolicy(false)}
+								isCurrent={currentPolicy}
+							/>
+						</Tab>
+					</TabNav>
+				</article>
+			</Main>
+		</>
 	);
 };
 

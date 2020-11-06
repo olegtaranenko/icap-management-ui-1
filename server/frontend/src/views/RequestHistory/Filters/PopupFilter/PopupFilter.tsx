@@ -2,7 +2,7 @@ import React from "react";
 import classes from "./PopupFilter.module.scss";
 import Filter from "../../Filters/Filter/Filter";
 
-import { TransactionLogFilters } from "../../../types/TransactionLogFilter";
+import { TransactionLogFilters } from "../../../../types/TransactionLogFilter";
 
 export interface PopupFilterProps {
 	filters: TransactionLogFilters[],

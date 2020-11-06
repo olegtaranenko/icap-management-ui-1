@@ -1,4 +1,4 @@
-import { updateObject } from "../../shared/updateObject";
+import { updateObject } from "../../helpers/updateObject";
 
 import * as actionTypes from "../actionTypes";
 
