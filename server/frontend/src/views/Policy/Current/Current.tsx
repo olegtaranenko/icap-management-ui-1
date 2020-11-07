@@ -15,6 +15,18 @@ import CurrentRow from "./CurrentRow/CurrentRow";
 import RoutesForNonCompliantFiles from "../RoutesForNonCompliantFiles/RoutesForNonCompliantFiles";
 import PolicyForNonCompliantFiles from "../PolicyForNonCompliantFiles/PolicyForNonCompliantFiles";
 
+import {PolicyFlagList} from "../../../context/policy/models";
+
+export interface CurrentProps {
+	timestamp: string,
+	id: string,
+	email: string,
+	policyFlags: PolicyFlagList,
+	changeToggle: () => void,
+	currentPolicy: boolean,
+	policy: 
+}
+
 const Current = ({
 	timestamp,
 	id,
