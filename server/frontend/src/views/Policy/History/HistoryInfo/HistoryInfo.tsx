@@ -4,13 +4,18 @@ import classes from "./HistoryInfo.module.scss";
 
 import CurrentRow from "../../Current/CurrentRow/CurrentRow";
 import DomainField from "../../DomainField/DomainField";
+import { Policy } from "../../../../context/policy/models";
 
-const HistoryInfo = ({ prevPolicy }) => {
+export interface HistoryInfoProps {
+	previousPolicy: Policy[]
+}
+
+const HistoryInfo = (props: HistoryInfoProps) => {
 	const [userDomain, setUserDomain] = useState("glasswallsolutions.com");
 
-	const historyInfoModal = prevPolicy.map(({ timestamp, policyFlagList }) => {
+	const historyInfoModal = props.previousPolicy.map(({ timestamp, policyFlagList }) => {
 		return (
-			<div className={classes.policy} key={new Date()}>
+			<div className={classes.policy} key={new Date().toLocaleDateString()}>
 				<header className={classes.header}>
 					<h2>Policy - {timestamp}</h2>
 				</header>
@@ -62,7 +67,7 @@ const HistoryInfo = ({ prevPolicy }) => {
 						<DomainField
 							name={userDomain}
 							disabled
-							onChangeInputHandler={(evt) => setUserDomain(evt.target.value)}
+							onChangeInputHandler={(event: any) => setUserDomain(event.target.value)}
 						/>
 					</section>
 				</div>

@@ -11,24 +11,30 @@ import {
 
 import classes from "./History.module.scss";
 
-import previously from "../../../data/prevPolicy.json";
+import previousPolicy from "../../../data/prevPolicy.json";
 
 import HistoryRow from "./HistoryRow/HistoryRow";
 import Modal from "../../../components/UI/Modal/Modal";
 import HistoryInfo from "./HistoryInfo/HistoryInfo";
 import Backdrop from "../../../components/UI/Backdrop/Backdrop";
+import { Policy } from "../../../context/policy/models";
 
-const History = ({ setPrevPolicy, isCurrent }) => {
+export interface HistoryProps {
+	setPrevPolicy: () => void,
+	isCurrent: boolean
+}
+
+const History = (props: HistoryProps) => {
 	const [modalIsOpen, setModalIsOpen] = useState(false);
 
-	const rows = previously.map(({ id, timestamp, userEmail }) => {
+	const rows = previousPolicy.map(({ id, timestamp, userEmail }) => {
 		return (
 			<HistoryRow
 				key={id}
 				id={id}
-				isCurrent={isCurrent}
-				openModalPreviousPolicyHandler={() => setModalIsOpen(true)}
-				onActivePrevPolicyHandler={setPrevPolicy}
+				isCurrent={props.isCurrent}
+				openPreviousPolicyModalHandler={() => setModalIsOpen(true)}
+				activatePreviousPolicyHandler={props.setPrevPolicy}
 				timestamp={timestamp}
 				updatedBy={userEmail}
 			/>
@@ -62,7 +68,7 @@ const History = ({ setPrevPolicy, isCurrent }) => {
 				}}
 			>
 				<Modal onCloseHandler={() => setModalIsOpen(false)}>
-					<HistoryInfo prevPolicy={previously} />
+					<HistoryInfo previousPolicy={previousPolicy as Policy[]} />
 				</Modal>
 			</CSSTransition>
 			<CSSTransition

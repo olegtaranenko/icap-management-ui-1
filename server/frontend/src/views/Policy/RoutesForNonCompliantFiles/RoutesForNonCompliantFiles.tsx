@@ -4,7 +4,12 @@ import classes from "./RoutesForNonCompliantFiles.module.scss";
 
 import DomainField from "../DomainField/DomainField";
 
-const RoutesForNonCompliantFiles = ({ userDomain, changeInput }) => {
+export interface RoutesForNonCompliantFilesProps {
+	userDomain: string,
+	changeInput: (domain: string) => void
+}
+
+const RoutesForNonCompliantFiles = (props: RoutesForNonCompliantFilesProps) => {
 	return (
 		<div className={classes.RoutesForNonCompliantFiles}>
 			<section className={classes.routes}>
@@ -18,8 +23,8 @@ const RoutesForNonCompliantFiles = ({ userDomain, changeInput }) => {
 				</p>
 				<div className={classes.table}>
 					<DomainField
-						name={userDomain}
-						onChangeInputHandler={(evt) => changeInput(evt.target.value)}
+						name={props.userDomain}
+						onChangeInputHandler={(event: any) => props.changeInput(event.target.value)}
 					/>
 				</div>
 			</section>

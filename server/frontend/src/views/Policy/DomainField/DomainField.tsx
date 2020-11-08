@@ -14,7 +14,13 @@ import { ReactComponent as DeleteIcon } from "../../../assets/delete-icon-white.
 
 import Input from "../../../components/UI/Input/Input";
 
-const DomainField = ({ name, onChangeInputHandler, disabled }) => {
+export interface DomainFieldProps {
+	name: string,
+	onChangeInputHandler: (event: any) => void,
+	disabled?: boolean
+}
+
+const DomainField = (props: DomainFieldProps) => {
 	return (
 		<Table className={classes.table}>
 			<TableHead>
@@ -29,9 +35,10 @@ const DomainField = ({ name, onChangeInputHandler, disabled }) => {
 						<Input
 							testId="inputApiUrl"
 							type="text"
-							value={name}
-							onChange={onChangeInputHandler}
-							disabled={disabled}
+							value={props.name}
+							placeholder="API URL"
+							onChange={props.onChangeInputHandler}
+							disabled={props.disabled}
 						/>
 					</TableCell>
 					<TableCell>

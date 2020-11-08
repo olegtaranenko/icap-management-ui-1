@@ -3,18 +3,19 @@ import React from "react";
 import classes from "./Input.module.scss";
 
 export interface InputProps {
+	testId?: string,
 	label?: string,
-	type: string,
-	name: string,
-	value: string,
+	name?: string,
 	style?: React.CSSProperties,
-	externalStyles: string,
+	externalStyles?: string,
+	valid?: boolean,
+	touched?: boolean
+	type: string,
+	value: string,
 	onChange: React.ChangeEventHandler,
 	placeholder: string,
-	autofocus: boolean,
+	autofocus?: boolean,
 	disabled: boolean,
-	valid: boolean,
-	touched: boolean
 }
 
 const Input = (props: InputProps) => {
@@ -22,6 +23,7 @@ const Input = (props: InputProps) => {
 		<div className={[classes.Input, props.externalStyles].join(" ")}>
 			<label htmlFor={props.name}>{props.label}</label>
 			<input
+				data-test-id={props.testId}
 				style={props.style}
 				type={props.type}
 				name={props.name}

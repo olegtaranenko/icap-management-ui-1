@@ -15,30 +15,22 @@ import CurrentRow from "./CurrentRow/CurrentRow";
 import RoutesForNonCompliantFiles from "../RoutesForNonCompliantFiles/RoutesForNonCompliantFiles";
 import PolicyForNonCompliantFiles from "../PolicyForNonCompliantFiles/PolicyForNonCompliantFiles";
 
-import {PolicyFlagList} from "../../../context/policy/models";
+import { Policy, PolicyFlagList, PolicyToggle } from "../../../context/policy/models";
 
 export interface CurrentProps {
 	timestamp: string,
 	id: string,
 	email: string,
 	policyFlags: PolicyFlagList,
-	changeToggle: () => void,
+	changeToggle: (toggle: PolicyToggle) => void,
 	currentPolicy: boolean,
-	policy: 
+	policy: Policy,
+	isPolicyChanged: boolean,
+	cancelChanges: () => void,
+	saveChanges: () => void
 }
 
-const Current = ({
-	timestamp,
-	id,
-	email,
-	policyFlags,
-	changeToggle,
-	currentPolicy,
-	policy,
-	isPolicyChanged,
-	cancelChanges,
-	saveChanges,
-}) => {
+const Current = (props: CurrentProps) => {
 	const [userDomain, setUserDomain] = useState("glasswallsolutions.com");
 	return (
 		<div className={classes.Current}>
@@ -52,26 +44,28 @@ const Current = ({
 					</TableHead>
 					<TableBody className={classes.tbody}>
 						<TableRow>
-							<TableCell id={currentPolicy ? id : policy.id}>
-								{currentPolicy ? timestamp : policy.timestamp}
+							<TableCell id={props.currentPolicy ? props.id : props.policy.id}>
+								{props.currentPolicy ? props.timestamp : props.policy.timestamp}
 							</TableCell>
-							<TableCell id={currentPolicy ? id : policy.id}>
-								{currentPolicy ? email : policy.userEmail}
+							<TableCell id={props.currentPolicy ? props.id : props.policy.id}>
+								{props.currentPolicy ? props.email : props.policy.userEmail}
 							</TableCell>
 						</TableRow>
 					</TableBody>
 				</Table>
-				{isPolicyChanged && (
+				{props.isPolicyChanged && (
 					<div className={classes.buttons}>
 						<Button
 							externalStyles={classes.buttons}
-							onButtonClick={cancelChanges}
+							onButtonClick={props.cancelChanges}
+							buttonType="button"
 						>
 							Cancel Changes
 						</Button>
 						<Button
 							externalStyles={classes.buttons}
-							onButtonClick={saveChanges}
+							onButtonClick={props.saveChanges}
+							buttonType="button"
 						>
 							Save Changes
 						</Button>
@@ -86,8 +80,8 @@ const Current = ({
 						<CurrentRow
 							testId="currentPolicySectionWord"
 							block="word"
-							itemList={policyFlags.word}
-							onChangeHandler={changeToggle}
+							itemList={props.policyFlags.word}
+							onChangeHandler={props.changeToggle}
 						/>
 					</div>
 					<div className={classes.block}>
@@ -95,8 +89,8 @@ const Current = ({
 						<CurrentRow
 							testId="currentPolicySectionExcel"
 							block="excel"
-							itemList={policyFlags.excel}
-							onChangeHandler={changeToggle}
+							itemList={props.policyFlags.excel}
+							onChangeHandler={props.changeToggle}
 						/>
 					</div>
 					<div className={classes.block}>
@@ -104,8 +98,8 @@ const Current = ({
 						<CurrentRow
 							testId="currentPolicySectionPowerpoint"
 							block="powerpoint"
-							itemList={policyFlags.powerpoint}
-							onChangeHandler={changeToggle}
+							itemList={props.policyFlags.powerpoint}
+							onChangeHandler={props.changeToggle}
 						/>
 					</div>
 					<div className={classes.block}>
@@ -113,8 +107,8 @@ const Current = ({
 						<CurrentRow
 							testId="currentPolicySectionPdf"
 							block="pdf"
-							itemList={policyFlags.pdf}
-							onChangeHandler={changeToggle}
+							itemList={props.policyFlags.pdf}
+							onChangeHandler={props.changeToggle}
 						/>
 					</div>
 				</div>

@@ -14,6 +14,7 @@ import TabNav from "../../components/Tabs/TabNav/TabNav";
 import Tab from "../../components/Tabs/Tab/Tab";
 import Main from "../../hoc/Main/Main";
 import MainTitle from "../../hoc/MainTitle/MainTitle";
+import { Policy as PolicyType, PolicyFlagList } from "../../context/policy/models";
 
 const Policy = () => {
 	const {
@@ -56,9 +57,9 @@ const Policy = () => {
 								email={email}
 								timestamp={timestamp}
 								id={id}
-								policy={policy}
+								policy={policy as PolicyType}
 								currentPolicy={currentPolicy}
-								policyFlags={currentPolicy ? policyFlags : policy.policyFlagList}
+								policyFlags={currentPolicy ? policyFlags : policy.policyFlagList as PolicyFlagList}
 								changeToggle={changeToggle}
 								cancelChanges={cancelChanges}
 								saveChanges={saveChanges}
