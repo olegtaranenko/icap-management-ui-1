@@ -1,19 +1,18 @@
 import React, { useState, useContext, FormEvent, useEffect } from "react";
 
-import { GlobalStoreContext } from "../../context/globalStore/globalStore-context";
+import { GlobalStoreContext } from "../../../context/globalStore/globalStore-context";
 
-import checkValidity from "../../helpers/checkValidity";
+import checkValidity from "../../../helpers/checkValidity";
 
-import Button from "../UI/Button/Button";
-import Popup, { PopupButton } from "../UI/Popup/Popup";
-import PopupFilter from "../UI/PopupFilter/PopupFilter";
-import SelectedFilter from "../UI/SelectedFilter/SelectedFilter";
-import DaterangePicker from "../UI/DaterangePicker/DaterangePicker";
-import Input from "../UI/Input/Input";
-import { RequestHistoryTimeFilter } from "../../data/filters/RequestHistory/requestHistoryTimeFilter";
+import Popup, { PopupButton } from "../../../components/UI/Popup/Popup";
+import PopupFilter from "./PopupFilter/PopupFilter";
+import SelectedFilter from "../../../components/UI/SelectedFilter/SelectedFilter";
+import DaterangePicker from "../../../components/UI/DaterangePicker/DaterangePicker";
+import Input from "../../../components/UI/Input/Input";
+import Button from "../../../components/UI/Button/Button";
+import { RequestHistoryTimeFilter } from "../../../data/filters/RequestHistory/requestHistoryTimeFilter";
 
 import classes from "./Filters.module.scss";
-
 
 export interface FiltersProps {
 	popupIsOpen: boolean,
@@ -131,7 +130,7 @@ const Filters = (props: FiltersProps) => {
 				setOpenFilter("Risk");
 			},
 		},
-		// {
+		// { TODO: Uncomment when we can search File ID
 		// 	name: "File ID",
 		// 	onClickButtonHandler: () => {
 		// 		setOpenFilter(null);

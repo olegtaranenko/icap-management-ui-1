@@ -16,7 +16,7 @@ import Main from "../../hoc/Main/Main";
 import MainTitle from "../../hoc/MainTitle/MainTitle";
 import FileInfo from "./FileInfo/FileInfo";
 import FileRow from "./FileRow/FileRow";
-import Filters from "../../components/Filters/Filters";
+import Filters from "./Filters/Filters";
 import Modal from "../../components/UI/Modal/Modal";
 
 import classes from "./RequestHistory.module.scss";

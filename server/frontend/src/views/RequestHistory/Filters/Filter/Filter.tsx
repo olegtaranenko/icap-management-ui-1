@@ -1,12 +1,12 @@
 import React, { useContext } from "react";
 import { FormControl, FormLabel, FormGroup } from "@material-ui/core";
 
-import { GlobalStoreContext } from "../../../context/globalStore/globalStore-context";
+import { GlobalStoreContext } from "../../../../context/globalStore/globalStore-context";
+
+import { TransactionLogFilter } from "../../../../types/TransactionLogFilter";
+import Checkbox from "../../../../components/UI/Checkbox/Checkbox";
 
 import classes from "./Filter.module.scss";
-
-import Checkbox from "../../UI/Checkbox/Checkbox";
-import { TransactionLogFilter } from "../../../types/TransactionLogFilter";
 
 export interface FilterProps {
 	filter: string,
