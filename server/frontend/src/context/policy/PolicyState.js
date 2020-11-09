@@ -12,7 +12,7 @@ export const PolicyState = ({ children }) => {
 		id: policy.id,
 		username: policy.userEmail,
 		userEmail: policy.userEmail,
-		timestamp: new Date().toUTCString(),
+		timestamp: new Date().toLocaleString(),
 		policyFlagList: policy.policyFlagList,
 		isPolicyChanged: false,
 	};
