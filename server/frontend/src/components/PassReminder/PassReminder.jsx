@@ -55,9 +55,9 @@ const PassReminder = ({ onLoginHandler }) => {
 					/>*/}
 					<div className={classes.wrapButtons}>
 						<Link to={"/"}>
-							<Button onButtonClick={onLoginHandler}>Cancel</Button>
+							<Button data-test-id="buttonCancel" onButtonClick={onLoginHandler}>Cancel</Button>
 						</Link>
-						<Button buttonType={"submit"}>Send link</Button>
+						<Button data-test-id="buttonSendLink" buttonType={"submit"}>Send link</Button>
 					</div>
 				</form>
 			</div>

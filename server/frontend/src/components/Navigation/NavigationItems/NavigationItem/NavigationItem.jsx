@@ -4,6 +4,7 @@ import classes from "./NavigationItem.module.scss";
 import { NavLink, Link } from "react-router-dom";
 
 const NavigationItem = ({
+	testId,
 	path,
 	icon,
 	exact,
@@ -27,7 +28,7 @@ const NavigationItem = ({
 
 	if (notActive) {
 		link = (
-			<Link to={path} className={classes.notActive}>
+			<Link data-test-id={testId} to={path} className={classes.notActive}>
 				{children}
 			</Link>
 		);

@@ -24,10 +24,10 @@ const App = () => {
 
 	const routes = (
 		<Switch>
-			<Route path="/dashboard">
+			<Route path="/analytics">
 				<MainTitle />
 				<Main>
-					<div>Dashboard</div>
+					<div>Analytics</div>
 				</Main>
 			</Route>
 
