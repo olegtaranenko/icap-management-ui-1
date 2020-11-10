@@ -24,11 +24,12 @@ import ChangePassword from "../../ChangePassword/ChangePassword";
 
 const navLinks = [
 	{
-		link: "/dashboard",
-		name: "Dashboard",
+		link: "/analytics",
+		name: "Analytics",
 		icon: dashIcon,
 		id: "id-1",
 		exact: true,
+		testId: "navLinkAnalytics"
 	},
 	{
 		link: "/request-history",
@@ -36,20 +37,29 @@ const navLinks = [
 		icon: transactionIcon,
 		id: "id-2",
 		exact: true,
+		testId: "navLinkRequestHistory"
 	},
 	{
 		link: "/file-drop",
 		name: "File drop",
 		icon: releaseIcon,
 		id: "id-3",
+		testId: "navLinkFileDrop"
 	},
 	{
 		link: "/policy",
 		name: "Policy",
 		icon: policy,
 		id: "id-4",
+		testId: "navLinkPolicy"
 	},
-	{ link: "/users", name: "Users", icon: usersIcon, id: "id-6" },
+	{
+		link: "/users",
+		name: "Users",
+		icon: usersIcon,
+		id: "id-6",
+		testId: "navLinkUsers"
+	},
 ];
 
 const Toolbar = () => {
@@ -69,13 +79,15 @@ const Toolbar = () => {
 		cls.push(classes.expanded);
 	}
 
-	const accountLinks: Array<PopupButton> = [
+	const accountLinks: PopupButton[] = [
 		{
+			testId: "userLinksButtonLogout",
 			name: "Log out",
 			icon: logoutIcon,
 			onClickButtonHandler: () => logout(),
 		},
 		{
+			testId: "userLinksButtonChangePassword",
 			name: "Change password",
 			icon: changePassIcon,
 			onClickButtonHandler: () => openChangePass(),

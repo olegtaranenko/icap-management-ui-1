@@ -5,6 +5,7 @@ import Filter from "../../Filters/Filter/Filter";
 import { TransactionLogFilters } from "../../../../types/TransactionLogFilter";
 
 export interface PopupFilterProps {
+	testId: string,
 	filters: TransactionLogFilters[],
 	externalStyles: string,
 	openPopupHover: React.MouseEventHandler<HTMLDivElement>,
@@ -27,6 +28,7 @@ const PopupFilter = (props: PopupFilterProps) => {
 	});
 	return (
 		<section
+			data-test-id={props.testId}
 			className={[classes.PopupFilter, props.externalStyles].join(" ")}
 			onMouseEnter={props.openPopupHover}
 			// onMouseLeave={closePopupHover}
