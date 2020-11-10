@@ -12,6 +12,7 @@ export interface ButtonCloseProps {
 const ButtonClose = (props: ButtonCloseProps) => {
 	return (
 		<button
+			data-test-id="buttonClose"
 			type="button"
 			onClick={props.onButtonClick}
 			className={[classes.ButtonClose, props.externalStyles].join(" ")}>

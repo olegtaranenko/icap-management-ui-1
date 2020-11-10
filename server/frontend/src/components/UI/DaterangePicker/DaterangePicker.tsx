@@ -49,7 +49,7 @@ const DaterangePicker = (props: DaterangePickerProps) => {
                 }}
                 onCallback={handleCallback}
             >
-                <div id="reportrange" className={classes.reportrange}>
+                <div data-test-id="dateRangePicker" id="reportrange" className={classes.reportrange}>
                     <span>
                         {
                             props.initialRange.start.format("DD/MM/YYYY H:mm A") +
