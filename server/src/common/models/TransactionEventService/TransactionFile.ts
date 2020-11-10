@@ -1,6 +1,6 @@
 import { Guid } from "guid-typescript";
 import { FileType } from "../../../../frontend/src/enums/FileType";
-import { Risk } from "../enums/Risk";
+import { Risk } from "../../../../frontend/src/enums/Risk";
 
 export default class TransactionFile {
     timestamp: Date;

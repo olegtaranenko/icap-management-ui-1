@@ -17,12 +17,12 @@ import Toolbar from "./components/Navigation/Toolbar/Toolbar";
 import Login from "./components/Login/Login";
 import PassReminder from "./components/PassReminder/PassReminder";
 import RequestHistory from "./views/RequestHistory/RequestHistory";
-
+import Policy from "./views/Policy/Policy";
 
 const App = () => {
 	const { isAuth } = useContext(AuthContext);
 
-	let routes = (
+	const routes = (
 		<Switch>
 			<Route path="/dashboard">
 				<MainTitle />
@@ -33,12 +33,7 @@ const App = () => {
 
 			<Route path="/request-history" component={RequestHistory} />
 
-			<Route path="/policy">
-				<MainTitle />
-				<Main>
-					<div>Policy</div>
-				</Main>
-			</Route>
+			<Route path="/policy" component={Policy} />
 
 			<Route path="/users">
 				<MainTitle />

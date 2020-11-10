@@ -18,7 +18,7 @@ export interface CheckboxProps {
 const Checkbox = (props: CheckboxProps) => {
 	let checkbox = null;
 
-	if (props.filter === "Outcome") {
+	if (props.filter === "Risk") {
 		checkbox = (
 			<MuiCheckbox
 				id={props.id}
@@ -46,12 +46,12 @@ const Checkbox = (props: CheckboxProps) => {
 		<FormControlLabel
 			style={{ background: props.backgroundColor }}
 			className={
-				props.filter !== "Outcome"
+				props.filter !== "Risk"
 					? classes.Checkbox
-					: [classes.Checkbox, classes.outcome].join(" ")
+					: [classes.Checkbox, classes.risk].join(" ")
 			}
 			label={props.label}
-			labelPlacement={props.filter !== "Outcome" ? "start" : "end"}
+			labelPlacement={props.filter !== "Risk" ? "start" : "end"}
 			control={checkbox}
 		/>
 	);

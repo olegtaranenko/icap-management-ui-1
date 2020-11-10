@@ -1,8 +1,15 @@
+.modal {
+	width: 70%;
+	height: 70%;
+}
+
 .container {
-	max-height: 83rem;
+	height: 100%;
+	padding-top: 1rem;
 }
 
 .wrapTable {
+	height: 90%;
 	padding: 0 2.5rem;
 	transition: all 0.5s;
 
@@ -20,24 +27,26 @@
 }
 
 .table {
-	color: #196480;
-	overflow-y: scroll;
 	height: 100%;
+	color: #196480;
 
 	& th {
+		width: 25%;
 		height: 4rem;
 		font-size: 1.2rem;
-		padding: 0;
 
 		border: none;
 	}
 
 	& thead {
-		border-bottom: 1px solid #4592b0;
+		display: table;
+		width: 100%;
+		height: 6%;
 	}
 
 	& thead th {
 		position: relative;
+		padding-bottom: 1.2rem;
 		color: #196480;
 
 		cursor: pointer;
@@ -52,10 +61,29 @@
 	}
 
 	& .tbody {
+		height: 94%;
+		display: block;		
+		overflow-y: auto;
 		border-top: 1px solid #4592b0;
+		border-bottom: 1px solid #4592b0;
+	}
+
+	& .emptyTableRow {
+		display: table !important;
+		width: 99%;
+		height: 4rem;
+		margin-left: 1rem;
 	}
 
 	& .emptyTableCell {
 		text-align: center;
+	}
+}
+
+@media(min-width: 992px) and (max-width: 1800px) {
+	.table {
+		& th {
+			font-size: 1rem;
+		}
 	}
 }

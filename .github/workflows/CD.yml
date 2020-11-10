@@ -1,4 +1,4 @@
-name: CD Build
+name: CD Prod
 env:
   REPOSITORY: glasswallsolutions
   IMAGE: icap-management-ui

@@ -8,7 +8,7 @@ export interface ButtonProps {
 	externalStyles?: string,
 	buttonStyle?: React.CSSProperties,
 	children: React.ReactNode,
-	disabled: boolean
+	disabled?: boolean
 }
 
 const Button = (props: ButtonProps) => {

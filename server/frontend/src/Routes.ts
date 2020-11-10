@@ -9,7 +9,8 @@ const _returnRoute = (route: string) => {
 export default class Routes {
     static requestHistoryRoutes = () => {
         return {
-            getTransactionsRoute: _returnRoute("/request-history/transactions")
+            getTransactionsRoute: _returnRoute("/request-history/transactions"),
+            getTransactionDetailsRoute: _returnRoute("/request-history/transactionDetails")
         }
     }
 }
