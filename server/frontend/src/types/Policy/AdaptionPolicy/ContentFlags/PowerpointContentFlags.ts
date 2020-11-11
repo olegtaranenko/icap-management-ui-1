@@ -1,4 +1,4 @@
-import { ContentManagementFlagAction } from "../../../../enums/ContentManagementFlagAction";
+import { ContentManagementFlagAction } from "../../../../../../src/common/models/enums/ContentManagementFlagAction";
 
 export interface PowerpointContentFlags {
     EmbeddedFiles: ContentManagementFlagAction,

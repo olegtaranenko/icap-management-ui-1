@@ -8,10 +8,9 @@ import {
 } from "@material-ui/core";
 import moment from "moment";
 import TransactionDetails from "../TransactionDetails/TransactionDetails";
-import { FileDetailsStatus } from "../../../enums/FileDetailsStatus";
-import { FileType } from "../../../enums/FileType";
-import { Risk } from "../../../../../src/common/models/enums/Risk/Risk.ts";
-// import { Risk } from "../../../enums/Risk";
+import { FileDetailsStatus } from "../../../../../src/common/models/enums/FileDetailsStatus";
+import { FileType } from "../../../../../src/common/models/enums/FileType";
+import { Risk } from "../../../../../src/common/models/enums/Risk";
 import { getTransactionDetails } from "../api/index";
 
 import classes from "./FileInfo.module.scss";

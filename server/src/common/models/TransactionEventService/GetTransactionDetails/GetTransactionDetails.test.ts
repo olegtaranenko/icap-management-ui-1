@@ -1,4 +1,4 @@
-import { FileDetailsStatus } from "../../../../../frontend/src/enums/FileDetailsStatus";
+import { FileDetailsStatus } from "../../enums/FileDetailsStatus";
 import { GetTransactionDetailsRequest, GetTransactionDetailsResponse } from "./index";
 
 describe("GetTransactionDetails", () => {

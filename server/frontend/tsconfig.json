@@ -1,6 +1,6 @@
 {
   "include": [
-    "src/**/*"
+    "src/**/*", "../src/common/models/**/*"
   ],
   "exclude": [
     "node_modules",

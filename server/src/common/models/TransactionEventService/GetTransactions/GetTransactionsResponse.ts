@@ -1,6 +1,6 @@
 import { Guid } from "guid-typescript";
-import { FileType } from "../../../../../frontend/src/enums/FileType";
-import { Risk } from "../../../../../frontend/src/enums/Risk";
+import { FileType } from "../../enums/FileType";
+import { Risk } from "../../enums/Risk";
 import ArgumentException from "../../errors/ArgumentException";
 import ArgumentNullException from "../../errors/ArgumentNullException";
 import TransactionFile from "../TransactionFile";
