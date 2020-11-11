@@ -2,7 +2,7 @@ import { Express } from "express";
 import { Logger } from "winston";
 import { Guid } from "guid-typescript";
 import PolicyManagementService from "../../../business/services/PolicyManagementService/PolicyManagementService";
-import { GetPolicyRequest } from "../../../common/models/PolicyManagementService/GetPolicy";
+import { GetPolicyByIdRequest } from "../../../common/models/PolicyManagementService/GetPolicyById/GetPolicyByIdRequest";
 import IConfig from "../../../common/models/IConfig";
 
 class PolicyRoutes {
@@ -40,7 +40,7 @@ class PolicyRoutes {
             const requestUrl = this.policyManagementServiceBaseUrl + this.getPolicyPath;
 
             try {
-                const getPolicyRequest = new GetPolicyRequest(requestUrl, Guid.parse(req.params.policyId));
+                const getPolicyRequest = new GetPolicyByIdRequest(requestUrl, Guid.parse(req.params.policyId));
 
                 const policy = await this.policyManagementService.getPolicy(getPolicyRequest);
 
@@ -48,6 +48,21 @@ class PolicyRoutes {
             }
             catch (error) {
                 const message = "Error Retrieving Policy";
+                this.logger.error(message + error.stack);
+                res.status(500).json(message);
+            }
+        });
+
+        this.app.get("/policy/current", async (req, res) => {
+            const requestUrl = this.policyManagementServiceBaseUrl + this.getCurrentPolicyPath;
+
+            try {
+                const policy = await this.policyManagementService.getCurrentPolicy(requestUrl);
+
+                res.json(policy);
+            }
+            catch (error) {
+                const message = "Error Retrieving The Currently Published Policy";
                 this.logger.error(message + error.stack);
                 res.status(500).json(message);
             }

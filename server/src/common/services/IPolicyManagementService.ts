@@ -1,7 +1,9 @@
-import {Logger} from "winston";
-import { GetPolicyRequest } from "../models/PolicyManagementService/GetPolicy";
+import { Logger } from "winston";
+import { GetPolicyByIdRequest } from "../models/PolicyManagementService/GetPolicyById/GetPolicyByIdRequest";
+import { Policy } from "../../../frontend/src/types/Policy/Policy";
 
 export default interface IPolicyManagementService {
     logger: Logger,
-    getPolicy: (request: GetPolicyRequest) => Promise<any>
+    getPolicy: (request: GetPolicyByIdRequest) => Promise<Policy>,
+    getCurrentPolicy: (getCurrentPolicyUrl: string) => Promise<Policy>
 }

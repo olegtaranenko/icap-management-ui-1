@@ -1,7 +1,7 @@
 import { Guid } from "guid-typescript";
 import ArgumentNullException from "../../errors/ArgumentNullException";
 
-export class GetPolicyRequest {
+export class GetPolicyByIdRequest {
     url: string;
     policyId: Guid;
     headers?: { [header: string]: string };

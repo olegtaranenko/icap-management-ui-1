@@ -4,8 +4,8 @@ import { ExcelContentFlags } from "./ExcelContentFlags";
 import { PowerpointContentFlags } from "./PowerpointContentFlags";
 
 export interface ContentFlags {
-    PdfContentManagement: PdfContentFlags,
-    WordContentManagement: WordContentFlags,
-    ExcelContentManagement: ExcelContentFlags,
-    PowerPointContentManagement: PowerpointContentFlags
+    pdfContentManagement: PdfContentFlags,
+    wordContentManagement: WordContentFlags,
+    excelContentManagement: ExcelContentFlags,
+    powerPointContentManagement: PowerpointContentFlags
 }

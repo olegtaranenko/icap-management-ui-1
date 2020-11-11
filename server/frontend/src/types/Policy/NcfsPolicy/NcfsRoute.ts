@@ -1,5 +1,5 @@
 export interface NcfsRoute {
-    ApiUrl: string,
-    IsDeleted: boolean,
-    IsValidated: boolean
+    apiUrl: string,
+    isDeleted: boolean,
+    isValidated: boolean
 }

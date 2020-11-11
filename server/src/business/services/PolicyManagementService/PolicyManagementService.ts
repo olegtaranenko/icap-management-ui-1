@@ -1,6 +1,6 @@
 import { Logger } from "winston";
-import { GetPolicyResponse } from "../../../common/models/PolicyManagementService/GetPolicy";
-import { GetPolicyRequest } from "../../../common/models/PolicyManagementService/GetPolicy";
+import { Policy } from "../../../../frontend/src/types/Policy/Policy";
+import { GetPolicyByIdRequest } from "../../../common/models/PolicyManagementService/GetPolicyById/GetPolicyByIdRequest";
 import IPolicyManagementService from "../../../common/services/IPolicyManagementService";
 import PolicyManagementApi from "../../../common/http/PolicyManagementApi/PolicyManagementApi";
 
@@ -11,24 +11,15 @@ class PolicyManagementService implements IPolicyManagementService {
         this.logger = logger;
     }
 
-    getPolicy = async (request: GetPolicyRequest) => {
-        let policy: GetPolicyResponse;
+    getPolicy = async (request: GetPolicyByIdRequest) => {
+        let policy: Policy;
 
         try {
             this.logger.info(`Retrieving Policy from the PolicyManagementServie - PolicyId: ${request.policyId}`);
 
-            const response = await PolicyManagementApi.getPolicy(request.url, request.policyId);
+            const response = await PolicyManagementApi.getPolicyById(request.url, request.policyId);
             const responseJSON = JSON.parse(response);
-            policy = new GetPolicyResponse(
-                responseJSON.id,
-                responseJSON.policyType,
-                responseJSON.published,
-                responseJSON.lastEdited,
-                responseJSON.created,
-                responseJSON.updatedBy,
-                responseJSON.ncfsPolicy,
-                responseJSON.adaptationPolicy
-            );
+            policy = responseJSON as Policy;
 
             if (policy) {
                 this.logger.info(`Retrieved Policy - PolicyId: ${request.policyId}`);
@@ -36,6 +27,27 @@ class PolicyManagementService implements IPolicyManagementService {
         }
         catch (error) {
             this.logger.error(`Could not get Policy - PolicyId: ${request.policyId}`);
+        }
+
+        return policy;
+    }
+
+    getCurrentPolicy = async (getCurrentPolicyUrl: string) => {
+        let policy: Policy;
+
+        try {
+            this.logger.info("Retrieving Current Policy from the PolicyManagementService");
+
+            const response = await PolicyManagementApi.getPolicy(getCurrentPolicyUrl);
+            const responseJSON = JSON.parse(response);
+            policy = responseJSON as Policy;
+
+            if (policy) {
+                this.logger.info(`Retrieved Current Policy - PolicyId: ${policy.id}`);
+            }
+        }
+        catch (error) {
+            this.logger.error("Could not get Current Policy");
         }
 
         return policy;
