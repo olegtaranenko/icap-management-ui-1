@@ -1,5 +1,5 @@
 import { Logger } from "winston";
-import { Policy } from "../../../../frontend/src/types/Policy/Policy";
+import { Policy } from "../../../common/models/PolicyManagementService/Policy/Policy";
 import { GetPolicyByIdRequest } from "../../../common/models/PolicyManagementService/GetPolicyById/GetPolicyByIdRequest";
 import IPolicyManagementService from "../../../common/services/IPolicyManagementService";
 import PolicyManagementApi from "../../../common/http/PolicyManagementApi/PolicyManagementApi";

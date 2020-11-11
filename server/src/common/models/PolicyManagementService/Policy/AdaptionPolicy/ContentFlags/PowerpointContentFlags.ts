@@ -1,9 +1,8 @@
-import { ContentManagementFlagAction } from "../../../../../../src/common/models/enums/ContentManagementFlagAction";
+import { ContentManagementFlagAction } from "../../../../enums/ContentManagementFlagAction";
 
-export interface ExcelContentFlags {
-    DynamicDataExchange: ContentManagementFlagAction,
+export interface PowerpointContentFlags {
     EmbeddedFiles: ContentManagementFlagAction,
-    EmbeddedImages:ContentManagementFlagAction,
+    EmbeddedImages: ContentManagementFlagAction,
     ExternalHyperlinks: ContentManagementFlagAction,
     InternalHyperlinks: ContentManagementFlagAction,
     Macros: ContentManagementFlagAction,

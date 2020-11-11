@@ -1,6 +1,6 @@
 import Routes from "../../../Routes";
 
-const requestHistoryRoutes = Routes.requestHistoryRoutes();
+const requestHistoryRoutes = Routes.requestHistoryRoutes
 
 export const getTransactionDetails = async (transactionFilePath: string): Promise<string> => {
     const url = `${requestHistoryRoutes.getTransactionDetailsRoute}/${encodeURIComponent(transactionFilePath)}`;

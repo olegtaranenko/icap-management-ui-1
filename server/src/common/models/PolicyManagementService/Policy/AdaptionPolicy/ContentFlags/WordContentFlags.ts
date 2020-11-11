@@ -1,4 +1,4 @@
-import { ContentManagementFlagAction } from "../../../../../../src/common/models/enums/ContentManagementFlagAction";
+import { ContentManagementFlagAction } from "../../../../enums/ContentManagementFlagAction";
 
 export interface WordContentFlags {
     dynamicDataExchange: ContentManagementFlagAction,

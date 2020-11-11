@@ -1,4 +1,4 @@
-import { PolicyType } from "../../../../src/common/models/enums/PolicyType";
+import { PolicyType } from "../../enums/PolicyType";
 import { AdaptionPolicy } from "./AdaptionPolicy/AdaptionPolicy";
 import { NcfsPolicy } from "./NcfsPolicy/NcfsPolicy";
 
