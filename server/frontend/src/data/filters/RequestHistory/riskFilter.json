@@ -1,0 +1,53 @@
+[
+  {
+    "id": "risk",
+    "filterName": "Risk",
+    "checkboxList": [
+      {
+        "id": "risk-blocked-by-policy",
+        "name": "docType",
+        "format": "Blocked By Policy",
+        "titleColor": "#DF9F81",
+        "isChecked": false,
+        "type": "checkbox",
+        "riskEnum": "BlockedByPolicy"
+      },
+      {
+        "id": "risk-allowed-by-policy",
+        "name": "docType",
+        "format": "Allowed By Policy",
+        "titleColor": "#86C1CB",
+        "isChecked": false,
+        "type": "checkbox",
+        "riskEnum": "AllowedByPolicy"
+      },
+      {
+        "id": "risk-blocked-by-ncfs",
+        "name": "docType",
+        "format": "Blocked By NCFS",
+        "titleColor": "#ff8d8d",
+        "isChecked": false,
+        "type": "checkbox",
+        "riskEnum": "BlockedByNCFS"
+      },
+      {
+        "id": "risk-allowed-by-ncfs",
+        "name": "docType",
+        "format": "Allowed By NCFS",
+        "titleColor": "#7a7aff",
+        "isChecked": false,
+        "type": "checkbox",
+        "riskEnum": "AllowedByNCFS"
+      },
+      {
+        "id": "risk-safe",
+        "name": "docType",
+        "format": "Safe",
+        "titleColor": "#91CAA8",
+        "isChecked": false,
+        "type": "checkbox",
+        "riskEnum": "Safe"
+      }
+    ]
+  }
+]

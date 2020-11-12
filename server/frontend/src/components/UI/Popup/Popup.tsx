@@ -2,6 +2,7 @@ import React from "react";
 import classes from "./Popup.module.scss";
 
 export interface PopupButton {
+	testId?: string,
 	name: string,
 	icon?: string,
 	onClickButtonHandler: React.MouseEventHandler<HTMLButtonElement>
@@ -19,9 +20,10 @@ const Popup = (props: PopupProps) => {
 	let buttonList: JSX.Element[];
 
 	if (props.popupButtons) {
-		buttonList = props.popupButtons.map(({ name, icon, onClickButtonHandler }) => {
+		buttonList = props.popupButtons.map(({ testId, name, icon, onClickButtonHandler }) => {
 			return (
 				<button
+					data-test-id={testId}
 					key={name}
 					onClick={onClickButtonHandler}
 					style={{

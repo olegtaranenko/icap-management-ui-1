@@ -1,4 +1,5 @@
 export default interface IConfig {
     transactionEventServiceBaseUrl: string,
-    getTransactionsPath: string
+    getTransactionsPath: string,
+    getTransactionDetailsPath: string
 }

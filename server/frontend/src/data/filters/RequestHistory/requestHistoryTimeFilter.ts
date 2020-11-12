@@ -1,15 +1,16 @@
-const now = new Date();
-const then = new Date();
-then.setHours(then.getHours() + 24);
+import moment from "moment";
+
+const now = moment();
+const then = moment().subtract(1, "day");
 
 export interface RequestHistoryTimeFilter {
-    timestampRangeStart: Date,
-    timestampRangeEnd: Date
+    timestampRangeStart: moment.Moment,
+    timestampRangeEnd: moment.Moment
 }
 
 const requestHistoryTimeFilter : RequestHistoryTimeFilter = {
-    timestampRangeStart: now,
-    timestampRangeEnd: then,
+    timestampRangeStart: then,
+    timestampRangeEnd: now,
 }
 
 export default requestHistoryTimeFilter;

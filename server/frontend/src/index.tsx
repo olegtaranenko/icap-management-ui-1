@@ -8,19 +8,22 @@ import "./normalize.css";
 
 import { AuthState } from "./context/auth/AuthState";
 import { GlobalStoreState } from "./context/globalStore/GlobalStoreState";
+import { PolicyState } from "./context/policy/PolicyState";
 
 import * as serviceWorker from "./serviceWorker";
 
 ReactDOM.render(
-	<React.StrictMode>
+	// <React.StrictMode>
 		<GlobalStoreState>
 			<AuthState>
-				<ToastProvider>
-					<App />
-				</ToastProvider>
+				<PolicyState>
+					<ToastProvider>
+						<App />
+					</ToastProvider>
+				</PolicyState>
 			</AuthState>
-		</GlobalStoreState>
-	</React.StrictMode>,
+		</GlobalStoreState>,
+	// </React.StrictMode>,
 	document.getElementById("root")
 );
 

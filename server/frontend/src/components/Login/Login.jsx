@@ -28,6 +28,7 @@ const Login = () => {
 			<div className={classes.loginContainer}>
 				<form onSubmit={submitHandler}>
 					<Input
+						data-test-id="inputEmail"
 						type="email"
 						name="email"
 						placeholder="Email address"
@@ -40,6 +41,7 @@ const Login = () => {
 						}}
 					/>
 					<Input
+						data-test-id="inputPassword"
 						type="password"
 						name="password"
 						placeholder="Password"
@@ -55,10 +57,10 @@ const Login = () => {
 						By logging in your agree to the &nbsp;
 						<a href="/">terms of use</a>
 					</p>
-					<Button buttonType={"submit"}>Log In</Button>
+					<Button data-test-id="buttonLogin" buttonType={"submit"}>Log In</Button>
 				</form>
 				<p className={classes.rePassLink}>
-					<Link to={"/pass-reminder"}>Forgotten your password?</Link>
+					<Link data-test-id="linkForgottenPassword" to={"/pass-reminder"}>Forgotten your password?</Link>
 				</p>
 			</div>
 		</section>

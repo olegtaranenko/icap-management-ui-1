@@ -7,11 +7,12 @@ export interface ButtonCloseProps {
 	onButtonClick: React.MouseEventHandler<HTMLButtonElement>,
 	externalStyles: string,
 	color?: string
-};
+}
 
 const ButtonClose = (props: ButtonCloseProps) => {
 	return (
 		<button
+			data-test-id="buttonClose"
 			type="button"
 			onClick={props.onButtonClick}
 			className={[classes.ButtonClose, props.externalStyles].join(" ")}>

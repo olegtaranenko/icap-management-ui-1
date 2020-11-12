@@ -24,6 +24,7 @@ const UserLink = (props: UserLinkProps) => {
 			onMouseLeave={props.closePopup}
 		>
 			<div
+				data-test-id="userLink"
 				style={{
 					backgroundImage: `url(${AccountIcon})`,
 				}}

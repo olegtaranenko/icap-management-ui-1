@@ -1,8 +1,7 @@
 import { Guid } from "guid-typescript";
 import { FileType } from "../../../../../frontend/src/enums/FileType";
-import { Risk } from "../../enums/Risk";
-import GetTransactionsRequest from "./GetTransactionsRequest";
-import GetTransactionsResponse from "./GetTransactionsResponse";
+import { Risk } from "../../../../../frontend/src/enums/Risk";
+import { GetTransactionsRequest, GetTransactionsResponse } from "./index";
 
 describe("GetTransactions", () => {
     describe("GetTransactionsRequest", () => {
@@ -39,7 +38,8 @@ describe("GetTransactions", () => {
 
                 try {
                     // Act
-                    const getTransactionsRequest = new GetTransactionsRequest(
+                    // tslint:disable-next-line: no-unused-expression
+                    new GetTransactionsRequest(
                         url,
                         filter
                     );
@@ -95,7 +95,8 @@ describe("GetTransactions", () => {
 
                 try {
                     // Act
-                    const getTransactionsResponse = new GetTransactionsResponse(
+                    // tslint:disable-next-line: no-unused-expression
+                    new GetTransactionsResponse(
                         count,
                         files
                     );
@@ -123,7 +124,8 @@ describe("GetTransactions", () => {
 
                 try {
                     // Act
-                    const getTransactionsResponse = new GetTransactionsResponse(
+                    // tslint:disable-next-line: no-unused-expression
+                    new GetTransactionsResponse(
                         count,
                         files
                     );
@@ -152,7 +154,8 @@ describe("GetTransactions", () => {
 
                 try {
                     // Act
-                    const getTransactionsResponse = new GetTransactionsResponse(
+                    // tslint:disable-next-line: no-unused-expression
+                    new GetTransactionsResponse(
                         count,
                         files
                     );
@@ -180,7 +183,8 @@ describe("GetTransactions", () => {
 
                 try {
                     // Act
-                    const getTransactionsResponse = new GetTransactionsResponse(
+                    // tslint:disable-next-line: no-unused-expression
+                    new GetTransactionsResponse(
                         count,
                         files
                     );
@@ -208,7 +212,8 @@ describe("GetTransactions", () => {
 
                 try {
                     // Act
-                    const getTransactionsResponse = new GetTransactionsResponse(
+                    // tslint:disable-next-line: no-unused-expression
+                    new GetTransactionsResponse(
                         count,
                         files
                     );
@@ -236,7 +241,8 @@ describe("GetTransactions", () => {
 
                 try {
                     // Act
-                    const getTransactionsResponse = new GetTransactionsResponse(
+                    // tslint:disable-next-line: no-unused-expression
+                    new GetTransactionsResponse(
                         count,
                         files
                     );

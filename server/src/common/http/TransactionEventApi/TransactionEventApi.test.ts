@@ -82,4 +82,83 @@ describe("TransactionEventApi", () => {
             });
         });
     });
+
+    describe("getTransactionDetails", () => {
+        describe("response_status_not_OK", () => {
+            // Arrange
+            const url = "www.glasswall.com";
+            const transactionFilePath = "/test";
+            let error: any;
+
+            beforeEach(async () => {
+                fetchStubResult = {
+                    ok: false,
+                    statusText: "Error"
+                };
+
+                fetchStub = stub(fetch, "default").returns(fetchStubResult);
+
+                // Act
+                try {
+                    await TransactionEventApi.getTransactionDetails(url, transactionFilePath);
+                }
+                catch (err) {
+                    error = err;
+                }
+            });
+
+            afterEach(() => {
+                fetchStub.restore();
+            });
+
+            // Assert
+            it("responds_with_status_text", () => {
+                expect(error).not.toBe(undefined);
+                expect(error).toEqual("Error");
+            });
+
+            it("called_fetch_using_GET", () => {
+                expect(fetchStub.getCalls()).toHaveLength(1);
+                expect(fetchStub.getCall(0).args).toHaveLength(2);
+                expect(fetchStub.getCall(0).args[0]).toEqual(`${url}?filePath=${transactionFilePath}`);
+                expect(fetchStub.getCall(0).args[1].method).toEqual("GET");
+            });
+        });
+
+        describe("should_respond_with_response_json_if_OK", () => {
+            // Arrange
+            const url = "www.glasswall.com";
+            const transactionFilePath = "/test";
+            const expectedResponse = ["test"];
+            let result: string;
+
+            beforeEach(async () => {
+                fetchStubResult = {
+                    ok: true,
+                    text: () => expectedResponse
+                };
+
+                fetchStub = stub(fetch, "default").returns(fetchStubResult);
+                // Act
+                result = await TransactionEventApi.getTransactionDetails(url, transactionFilePath);
+            });
+
+            afterEach(() => {
+                fetchStub.restore();
+            });
+
+            // Assert
+            it("responds_with_expected_response", () => {
+                expect(result).not.toBe(undefined);
+                expect(result).toEqual(expectedResponse);
+            });
+
+            it("called_fetch_using_GET", () => {
+                expect(fetchStub.getCalls()).toHaveLength(1);
+                expect(fetchStub.getCall(0).args).toHaveLength(2);
+                expect(fetchStub.getCall(0).args[0]).toEqual(`${url}?filePath=${transactionFilePath}`);
+                expect(fetchStub.getCall(0).args[1].method).toEqual("GET");
+            });
+        });
+    });
 });
