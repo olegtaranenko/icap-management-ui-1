@@ -1,13 +1,11 @@
 import { createContext } from "react";
-import { PolicyToggle, PolicyFlagList } from "./models/index";
+import { Policy } from "../../../../src/common/models/PolicyManagementService/Policy/Policy";
 
 export interface PolicyContextProps {
-	id: string,
-	email: string,
-	policyFlags: PolicyFlagList,
-	timestamp: string,
+	currentPolicy: Policy,
+	draftPolicy?: Policy,
+	policyHistory: Policy[],
 	isPolicyChanged: boolean,
-	changeToggle: (toggle: PolicyToggle) => void,
 	cancelChanges: () => void,
 	saveChanges: () => void
 }

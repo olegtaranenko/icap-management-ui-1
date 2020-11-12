@@ -11,6 +11,19 @@ class PolicyManagementService implements IPolicyManagementService {
         this.logger = logger;
     }
 
+    createPolicyModel = (policyJSON: any): Policy => {
+        return new Policy(
+            policyJSON.id,
+            policyJSON.policyType,
+            policyJSON.published,
+            policyJSON.lastEdited,
+            policyJSON.created,
+            policyJSON.ncfsPolicy,
+            policyJSON.adaptionPolicy,
+            policyJSON.updatedBy
+        );
+    }
+
     getPolicy = async (request: GetPolicyByIdRequest) => {
         let policy: Policy;
 
@@ -19,7 +32,7 @@ class PolicyManagementService implements IPolicyManagementService {
 
             const response = await PolicyManagementApi.getPolicyById(request.url, request.policyId);
             const responseJSON = JSON.parse(response);
-            policy = responseJSON as Policy;
+            policy = this.createPolicyModel(responseJSON);
 
             if (policy) {
                 this.logger.info(`Retrieved Policy - PolicyId: ${request.policyId}`);
@@ -40,7 +53,7 @@ class PolicyManagementService implements IPolicyManagementService {
 
             const response = await PolicyManagementApi.getPolicy(getCurrentPolicyUrl);
             const responseJSON = JSON.parse(response);
-            policy = responseJSON as Policy;
+            policy = this.createPolicyModel(responseJSON);
 
             if (policy) {
                 this.logger.info(`Retrieved Current Policy - PolicyId: ${policy.id}`);

@@ -1,11 +1,11 @@
 import { ContentManagementFlagAction } from "../../../../enums/ContentManagementFlagAction";
 
 export interface PowerpointContentFlags {
-    EmbeddedFiles: ContentManagementFlagAction,
-    EmbeddedImages: ContentManagementFlagAction,
-    ExternalHyperlinks: ContentManagementFlagAction,
-    InternalHyperlinks: ContentManagementFlagAction,
-    Macros: ContentManagementFlagAction,
-    Metadata: ContentManagementFlagAction,
-    ReviewComments: ContentManagementFlagAction
+    embeddedFiles: ContentManagementFlagAction,
+    embeddedImages: ContentManagementFlagAction,
+    externalHyperlinks: ContentManagementFlagAction,
+    internalHyperlinks: ContentManagementFlagAction,
+    macros: ContentManagementFlagAction,
+    metadata: ContentManagementFlagAction,
+    reviewComments: ContentManagementFlagAction
 }

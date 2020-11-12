@@ -1,0 +1,23 @@
+h2 {
+    background: #ffffff;
+}
+
+.head {
+    border-bottom: 1px solid #b6bfc9;
+}
+.block {
+    background: #ffffff;
+    padding-top: 2rem;
+}
+
+.CurrentRow {
+	display: flex;
+	flex-wrap: wrap;
+
+	padding: 2rem 0;
+	background-color: #e6e9ea;
+
+	& h2 {
+		font-size: 1rem;
+	}
+}

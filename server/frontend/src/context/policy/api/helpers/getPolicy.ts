@@ -1,4 +1,6 @@
-export const getPolicy = async (baseUrl: string): Promise<string> => {
+import { Policy } from "../../../../../../src/common/models/PolicyManagementService/Policy/Policy";
+
+export const getPolicy = async (baseUrl: string): Promise<Policy> => {
     const response = await fetch(baseUrl, {
         method: "GET",
         headers: {
@@ -11,5 +13,5 @@ export const getPolicy = async (baseUrl: string): Promise<string> => {
         throw response.statusText;
     }
 
-    return response.text();
+    return response.json();
 }

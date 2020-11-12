@@ -1,46 +1,52 @@
-import React, { useReducer } from "react";
+import React, { useEffect, useReducer } from "react";
 
 import { PolicyContext } from "./policy-context";
 import { policyReducer } from "./policy-reducers";
 
-import * as actionTypes from "../actionTypes";
+import { getCurrentPolicy } from "./api";
 
-import policy from "../../data/currentPolicy.json";
+import * as actionTypes from "../actionTypes";
 
 export const PolicyState = ({ children }) => {
 	const initialState = {
-		id: policy.id,
-		username: policy.userEmail,
-		userEmail: policy.userEmail,
-		timestamp: new Date().toLocaleString(),
-		policyFlagList: policy.policyFlagList,
+		currentPolicy: null,
+		draftPolicy: null,
+		policyHistory: [],
 		isPolicyChanged: false,
 	};
 
 	const [policyState, dispatch] = useReducer(policyReducer, initialState);
 
-	const changeToggle = (toggle) => {
-		dispatch({ type: actionTypes.CHANGE_TOGGLE_POSITION, toggle });
+	const setCurrentPolicy = () => {
+		getCurrentPolicy()
+			.then(response =>
+				dispatch({ type: actionTypes.SET_CURRENT_POLICY, currentPolicy: response }));
+	};
+
+	const updateContentManagementFlag = (contentFlag) => {
+		dispatch({ type: actionTypes.UPDATE_CONTENT_MANAGEMENT_FLAG, contentFlag });
 	};
 
 	const saveChanges = () => {
-		dispatch({ type: actionTypes.SAVE_CHANGES_POLICY });
+		dispatch({ type: actionTypes.SAVE_POLICY_CHANGES });
 	};
 
 	const cancelChanges = () => {
-		dispatch({ type: actionTypes.CANCEL_CHANGES_POLICY });
+		dispatch({ type: actionTypes.CANCEL_POLICY_CHANGES });
 	};
+
+	useEffect(() => {
+		setCurrentPolicy();
+	}, [initialState.currentPolicy]);
 
 	return (
 		<PolicyContext.Provider
 			value={{
-				id: policyState.id,
-				user: policyState.username,
-				email: policyState.userEmail,
-				timestamp: policyState.timestamp,
-				policyFlags: policyState.policyFlagList,
+				currentPolicy: policyState.currentPolicy,
+				draftPolicy: policyState.draftPolicy,
+				policyHistory: policyState.policyHistory,
 				isPolicyChanged: policyState.isPolicyChanged,
-				changeToggle,
+				updateContentManagementFlag,
 				saveChanges,
 				cancelChanges,
 			}}

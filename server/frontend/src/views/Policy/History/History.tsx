@@ -17,7 +17,6 @@ import HistoryRow from "./HistoryRow/HistoryRow";
 import Modal from "../../../components/UI/Modal/Modal";
 import HistoryInfo from "./HistoryInfo/HistoryInfo";
 import Backdrop from "../../../components/UI/Backdrop/Backdrop";
-import { Policy } from "../../../context/policy/models";
 
 export interface HistoryProps {
 	setPrevPolicy: () => void,
@@ -67,9 +66,9 @@ const History = (props: HistoryProps) => {
 					exitActive: classes.closePopupExitActive,
 				}}
 			>
-				<Modal onCloseHandler={() => setModalIsOpen(false)}>
+				{/* <Modal onCloseHandler={() => setModalIsOpen(false)}>
 					<HistoryInfo previousPolicy={previousPolicy as Policy[]} />
-				</Modal>
+				</Modal> */}
 			</CSSTransition>
 			<CSSTransition
 				in={modalIsOpen}
