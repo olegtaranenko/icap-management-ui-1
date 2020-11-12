@@ -78,7 +78,7 @@ const Filters = (props: FiltersProps) => {
 	};
 
 	const onRangeChange = (start: moment.Moment, end: moment.Moment) => {
-		setDateRangeFilter({start, end});
+		setDateRangeFilter({ start, end });
 	}
 
 	let selectedFilter = null;
@@ -117,6 +117,7 @@ const Filters = (props: FiltersProps) => {
 
 	const filterList: PopupButton[] = [
 		{
+			testId: "buttonFilterFileTypes",
 			name: "File Types",
 			onClickButtonHandler: () => {
 				setOpenFileId(false);
@@ -124,6 +125,7 @@ const Filters = (props: FiltersProps) => {
 			},
 		},
 		{
+			testId: "buttonFilterRisk",
 			name: "Risk",
 			onClickButtonHandler: () => {
 				setOpenFileId(false);
@@ -131,6 +133,7 @@ const Filters = (props: FiltersProps) => {
 			},
 		},
 		// { TODO: Uncomment when we can search File ID
+		// testId: "buttonFilterFileId",
 		// 	name: "File ID",
 		// 	onClickButtonHandler: () => {
 		// 		setOpenFilter(null);
@@ -157,11 +160,13 @@ const Filters = (props: FiltersProps) => {
 					<h2 className={classes.head}>Filters</h2>
 
 					<button
+						data-test-id="buttonMoreFilters"
 						className={clsMoreFilters.join(" ")}
 						onClick={openFilterRowHandler}>
 						More Filters...
 					</button>
 					<span
+						data-test-id="moreFiltersArrow"
 						onClick={openFilterRowHandler}
 						className={clsArrow.join(" ")} />
 
@@ -179,6 +184,7 @@ const Filters = (props: FiltersProps) => {
 					{openFilterRow && (
 						<div>
 							<Button
+								testId="addFilterButton"
 								buttonType={"button"}
 								externalStyles={classes.addFilter}
 								onButtonClick={openPopupHandler}
@@ -198,6 +204,7 @@ const Filters = (props: FiltersProps) => {
 							closePopupHover={() => props.changeVisibilityPopup(false)}>
 							{openFilter && (
 								<PopupFilter
+									testId={`div${openFilter}Filter`}
 									filters={selectedFilter}
 									externalStyles={filterStyle}
 									openPopupHover={() => props.changeVisibilityPopup(true)}

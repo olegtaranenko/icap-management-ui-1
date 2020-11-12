@@ -2,6 +2,7 @@ import React from "react";
 import classes from "./Button.module.scss";
 
 export interface ButtonProps {
+	testId?: string,
 	onButtonClick: React.MouseEventHandler<HTMLButtonElement>,
 	buttonId?: string,
 	buttonType: 'submit' | 'reset' | 'button',
@@ -14,6 +15,7 @@ export interface ButtonProps {
 const Button = (props: ButtonProps) => {
 	return (
 		<button
+			data-test-id={props.testId}
 			onClick={props.onButtonClick}
 			className={[classes.button, props.externalStyles].join(" ")}
 			style={props.buttonStyle}
