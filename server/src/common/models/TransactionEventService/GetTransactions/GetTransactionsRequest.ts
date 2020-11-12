@@ -15,9 +15,8 @@ export interface Filter {
 export class GetTransactionsRequest {
     url: string;
     body: { Filter: Filter };
-    headers?: { [header: string]: string };
 
-    constructor(url: string, body: { Filter: Filter }, headers?: { [header: string]: string }) {
+    constructor(url: string, body: { Filter: Filter }) {
         if (!url) {
             throw new ArgumentNullException("url");
         }
@@ -28,6 +27,5 @@ export class GetTransactionsRequest {
 
         this.url = url;
         this.body = body;
-        this.headers = headers;
     }
 }
