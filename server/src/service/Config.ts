@@ -8,7 +8,7 @@ const Config = () => {
     };
 
     const production: IConfig = {
-        transactionEventServiceBaseUrl: "https://transactioneventapifunction20201016103513.azurewebsites.net/api/v1",
+        transactionEventServiceBaseUrl: "http://transactioneventapi.transaction-event-api.svc.cluster.local/api/v1",
         getTransactionsPath: "/transactions",
         getTransactionDetailsPath: "/transactions"
     };
