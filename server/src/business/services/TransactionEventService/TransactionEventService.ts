@@ -17,7 +17,7 @@ class TransactionEventService implements ITransactionEventService {
         try {
             this.logger.info("Retrieving Transactions from the TransactionEventService");
 
-            const transactionsResponse = await TransactionEventApi.getTransactions(request.url, request.body);
+            const transactionsResponse = await TransactionEventApi.getTransactions(request.url, request.body, { "Content-Type": "application/json" });
             const responseJSON = JSON.parse(transactionsResponse);
             transactions = new GetTransactionsResponse(responseJSON.count, responseJSON.files);
 
@@ -38,7 +38,7 @@ class TransactionEventService implements ITransactionEventService {
         try {
             this.logger.info(`Retrieving Transaction Details from the TransactionEventService - Directory: ${request.transactionFileDirectory}`);
 
-            const response = await TransactionEventApi.getTransactionDetails(request.url, request.transactionFileDirectory);
+            const response = await TransactionEventApi.getTransactionDetails(request.url, request.transactionFileDirectory, { "Content-Type": "application/json" });
             const responseJSON = JSON.parse(response);
             transactionDetails = new GetTransactionDetailsResponse(responseJSON.status, responseJSON.analysisReport);
 
