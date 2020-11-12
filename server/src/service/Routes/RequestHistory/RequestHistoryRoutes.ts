@@ -29,7 +29,7 @@ class RequestHistoryRoutes {
             const requestUrl = this.transactionEventServiceBaseUrl + this.getTransactionsPath;
 
             try {
-                const transactionRequest = new GetTransactionsRequest(requestUrl, req.body);
+                const transactionRequest = new GetTransactionsRequest(requestUrl, req.body, { "Content-Type": "application/json" });
 
                 const transactions = await this.transactionEventService.getTransactions(transactionRequest);
 
@@ -46,7 +46,7 @@ class RequestHistoryRoutes {
             const requestUrl = this.transactionEventServiceBaseUrl + this.getTransactionDetailsPath;
 
             try {
-                const transactionDetailsRequest = new GetTransactionDetailsRequest(requestUrl, req.params.transactionFilePath);
+                const transactionDetailsRequest = new GetTransactionDetailsRequest(requestUrl, req.params.transactionFilePath, { "Content-Type": "application/json" });
 
                 const transactionDetails = await this.transactionEventService.getTransactionDetails(transactionDetailsRequest);
 
