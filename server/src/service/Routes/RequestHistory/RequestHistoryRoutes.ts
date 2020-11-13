@@ -16,9 +16,9 @@ class RequestHistoryRoutes {
     logger: Logger;
 
     constructor(config: IConfig, app: Express, logger: Logger) {
-        this.transactionEventServiceBaseUrl = config.transactionEventServiceBaseUrl;
-        this.getTransactionsPath = config.getTransactionsPath;
-        this.getTransactionDetailsPath = config.getTransactionDetailsPath;
+        this.transactionEventServiceBaseUrl = config.requestHistory.transactionEventServiceBaseUrl;
+        this.getTransactionsPath = config.requestHistory.getTransactionsPath;
+        this.getTransactionDetailsPath = config.requestHistory.getTransactionDetailsPath;
         this.transactionEventService = new TransactionEventService(logger);
         this.app = app;
         this.logger = logger;
@@ -29,7 +29,7 @@ class RequestHistoryRoutes {
             const requestUrl = this.transactionEventServiceBaseUrl + this.getTransactionsPath;
 
             try {
-                const transactionRequest = new GetTransactionsRequest(requestUrl, req.body, { "Content-Type": "application/json" });
+                const transactionRequest = new GetTransactionsRequest(requestUrl, req.body);
 
                 const transactions = await this.transactionEventService.getTransactions(transactionRequest);
 
@@ -46,7 +46,7 @@ class RequestHistoryRoutes {
             const requestUrl = this.transactionEventServiceBaseUrl + this.getTransactionDetailsPath;
 
             try {
-                const transactionDetailsRequest = new GetTransactionDetailsRequest(requestUrl, req.params.transactionFilePath, { "Content-Type": "application/json" });
+                const transactionDetailsRequest = new GetTransactionDetailsRequest(requestUrl, req.params.transactionFilePath);
 
                 const transactionDetails = await this.transactionEventService.getTransactionDetails(transactionDetailsRequest);
 

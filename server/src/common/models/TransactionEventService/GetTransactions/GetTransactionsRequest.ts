@@ -1,6 +1,6 @@
 import { Guid } from "guid-typescript";
-import { FileType } from "../../../../../frontend/src/enums/FileType";
-import { Risk } from "../../../../../frontend/src/enums/Risk";
+import { FileType } from "../../enums/FileType";
+import { Risk } from "../../enums/Risk";
 import ArgumentNullException from "../../errors/ArgumentNullException";
 
 export interface Filter {
@@ -15,9 +15,8 @@ export interface Filter {
 export class GetTransactionsRequest {
     url: string;
     body: { Filter: Filter };
-    headers?: { [header: string]: string };
 
-    constructor(url: string, body: { Filter: Filter }, headers?: { [header: string]: string }) {
+    constructor(url: string, body: { Filter: Filter }) {
         if (!url) {
             throw new ArgumentNullException("url");
         }
@@ -28,6 +27,5 @@ export class GetTransactionsRequest {
 
         this.url = url;
         this.body = body;
-        this.headers = headers;
     }
 }

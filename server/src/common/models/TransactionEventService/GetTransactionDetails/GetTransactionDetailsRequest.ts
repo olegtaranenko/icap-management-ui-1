@@ -5,7 +5,7 @@ export class GetTransactionDetailsRequest {
     transactionFileDirectory: string;
     headers?: { [header: string]: string };
 
-    constructor(url: string, transactionFileDirectory: string, headers?: { [header: string]: string }) {
+    constructor(url: string, transactionFileDirectory: string) {
         if (!url) {
             throw new ArgumentNullException("url");
         }
@@ -16,8 +16,5 @@ export class GetTransactionDetailsRequest {
 
         this.url = url;
         this.transactionFileDirectory = transactionFileDirectory;
-        if (headers) {
-            this.headers = headers;
-        }
     }
 }

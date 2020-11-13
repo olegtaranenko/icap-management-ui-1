@@ -18,6 +18,7 @@ import FileInfo from "./FileInfo/FileInfo";
 import FileRow from "./FileRow/FileRow";
 import Filters from "./Filters/Filters";
 import Modal from "../../components/UI/Modal/Modal";
+import Backdrop from "../../components/UI/Backdrop/Backdrop";
 
 import classes from "./RequestHistory.module.scss";
 
@@ -165,9 +166,12 @@ const RequestHistory = () => {
 						}
 					</div>
 					{!isError && openModal && (
-						<Modal onCloseHandler={closeInfoModal} externalStyles={classes.modal}>
-							<FileInfo fileData={selectedFile} />
-						</Modal>
+						<>
+							<Modal onCloseHandler={closeInfoModal} externalStyles={classes.modal}>
+								<FileInfo fileData={selectedFile} />
+							</Modal>
+							<Backdrop onClickOutside={closeInfoModal} />
+						</>
 					)}
 				</article>
 			</Main>

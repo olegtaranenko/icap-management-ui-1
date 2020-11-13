@@ -1,0 +1,27 @@
+.head {
+	background: #ffffff;
+	border-bottom: 1px solid #b6bfc9;
+}
+
+.contentFlagsContainer {
+	height: calc(100% - 4rem);
+	overflow-y: auto;
+	padding-bottom: 4rem;
+}
+
+.block {
+	background: #ffffff;
+	padding-top: 2rem;
+}
+
+.CurrentRow {
+	display: flex;
+	flex-wrap: wrap;
+
+	padding: 2rem 0;
+	background-color: #e6e9ea;
+
+	& h2 {
+		font-size: 1rem;
+	}
+}

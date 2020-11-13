@@ -14,5 +14,5 @@ export interface TransactionLogFilter {
 export interface TransactionLogFilters {
     id: string,
     filterName: string,
-    checkboxList: Array<TransactionLogFilter>
+    checkboxList: TransactionLogFilter[]
 }

@@ -6,7 +6,8 @@ import classes from "./TabNav.module.scss";
 interface Tab {
 	icon: string,
 	name: string,
-	testId: string
+	testId: string,
+	disabled?: boolean
 }
 
 export interface TabNavProps {
@@ -48,6 +49,7 @@ const TabNav = (props: TabNavProps) => {
 						data-test-id={tab.testId}
 						className={clsButton.join(" ")}
 						onClick={() => props.onSetActiveTabHandler(tab.name)}
+						disabled={tab.disabled}
 					>
 						{icon ? <img src={icon} alt={tab.name} /> : null}
 						{tab.name}

@@ -16,13 +16,19 @@
 	transition: all 0.3s ease-in-out;
 
 	&.expanded {
-		margin-left: 26rem;
-		width: calc(100% - 26rem);
+		margin-left: 24rem;
+		width: calc(100% - 24rem);
+	}
+}
+
+@media(max-width: 1280px) {
+	.pageHeading {
+		display: none;
 	}
 }
 
 @media(min-width: 992px) and (max-width: 1800px) {
-	.pageHeading {		
+	.pageHeading {
 		&.expanded {
 			width: calc(100% - 20rem);
 			margin-left: 20rem;
