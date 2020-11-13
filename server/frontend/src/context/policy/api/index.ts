@@ -1,4 +1,4 @@
-import { getPolicy, getPolicyById } from "./helpers";
+import { getPolicy } from "./helpers";
 import Routes from "../../../Routes";
 import { Policy } from "../../../../../src/common/models/PolicyManagementService/Policy/Policy";
 

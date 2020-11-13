@@ -14,8 +14,6 @@ import classes from "./History.module.scss";
 import previousPolicy from "../../../data/prevPolicy.json";
 
 import HistoryRow from "./HistoryRow/HistoryRow";
-import Modal from "../../../components/UI/Modal/Modal";
-import HistoryInfo from "./HistoryInfo/HistoryInfo";
 import Backdrop from "../../../components/UI/Backdrop/Backdrop";
 
 export interface HistoryProps {

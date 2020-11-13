@@ -1,5 +1,4 @@
-import React, { useContext, useState } from "react";
-import Button from "../../../components/UI/Button/Button";
+import React, { useContext, useEffect, useState } from "react";
 
 import {
 	Table,
@@ -12,28 +11,10 @@ import {
 import { Policy } from "../../../../../src/common/models/PolicyManagementService/Policy/Policy";
 import { ContentFlags } from "../../../../../src/common/models/PolicyManagementService/Policy/AdaptionPolicy/ContentFlags/ContentFlags";
 import ContentManagementFlags from "../ContentManagementFlags/ContentManagementFlags";
-import RoutesForNonCompliantFiles from "../RoutesForNonCompliantFiles/RoutesForNonCompliantFiles";
-import PolicyForNonCompliantFiles from "../PolicyForNonCompliantFiles/PolicyForNonCompliantFiles";
+import { PolicyContext } from "../../../context/policy/policy-context";
+import Button from "../../../components/UI/Button/Button";
 
 import classes from "./CurrentPolicy.module.scss";
-
-
-
-
-import p from "../../../data/currentPolicy.json";
-
-
-
-import { PolicyType } from "../../../../../src/common/models/enums/PolicyType";
-import { NcfsPolicy } from "../../../../../src/common/models/PolicyManagementService/Policy/NcfsPolicy/NcfsPolicy";
-import { AdaptionPolicy } from "../../../../../src/common/models/PolicyManagementService/Policy/AdaptionPolicy/AdaptionPolicy";
-import { PolicyContext } from "../../../context/policy/policy-context";
-
-
-
-
-
-
 
 export interface CurrentPolicyProps {
 	isPolicyChanged: boolean,
@@ -47,172 +28,84 @@ const CurrentPolicy = (props: CurrentPolicyProps) => {
 		currentPolicy,
 	} = useContext(PolicyContext);
 
-	const pp: Policy = {
-		id: p.id,
-		policyType: p.policyType as PolicyType,
-		published: new Date(p.published),
-		lastEdited: new Date(p.lastEdited),
-		created: new Date(p.created),
-		updatedBy: p.updatedBy,
-		ncfsPolicy: p.ncfsPolicy as NcfsPolicy,
-		adaptionPolicy: p.adaptionPolicy as AdaptionPolicy
-	}
-
-	const [policy, setPolicy] = useState<Policy>(currentPolicy);
+	const [isLoading, setIsLoading] = useState(true);
 
 	const updateContentManagementFlags = (newContentFlags: ContentFlags) => {
-		setPolicy((prev: Policy) => {
-			return {
-				...prev,
-				adaptionPolicy: { ...prev.adaptionPolicy, contentManagementFlags: newContentFlags }
-			}
-		});
+		// setPolicy((prev: Policy) => {
+		// 	return {
+		// 		...prev,
+		// 		adaptionPolicy: { ...prev.adaptionPolicy, contentManagementFlags: newContentFlags }
+		// 	}
+		// });
 	}
 
+	useEffect(() => {
+		if (currentPolicy !== null) {
+			setIsLoading(false);
+		}
+	}, [currentPolicy]);
+
 	return (
-		<div className={classes.Current} id={policy.id}>
-			<div className={classes.header}>
-				<Table className={classes.table}>
-					<TableHead>
-						<TableRow>
-							<TableCell>Timestamp</TableCell>
-							<TableCell>Updated By</TableCell>
-						</TableRow>
-					</TableHead>
-					<TableBody className={classes.tbody}>
-						<TableRow>
-							<TableCell>
-								{policy.published.toLocaleTimeString()}
-							</TableCell>
-							<TableCell>
-								{policy.updatedBy}
-							</TableCell>
-						</TableRow>
-					</TableBody>
-				</Table>
+		<div className={classes.Current}>
+			{isLoading &&
+				<div>Loading...</div>
+			}
 
-				{props.isPolicyChanged && (
-					<div className={classes.buttons}>
-						<Button
-							externalStyles={classes.buttons}
-							onButtonClick={props.cancelChanges}
-							buttonType="button">Cancel Changes</Button>
+			{!isLoading &&
+				<>
+					<div className={classes.header}>
+						<div className={classes.tableContainer}>
+							<Table className={classes.table} id={currentPolicy.id}>
+								<TableHead>
+									<TableRow>
+										<TableCell>Timestamp</TableCell>
+										<TableCell>Updated By</TableCell>
+									</TableRow>
+								</TableHead>
+								<TableBody className={classes.tbody}>
+									<TableRow>
+										<TableCell>
+											{new Date(currentPolicy.published).toLocaleTimeString()}
+										</TableCell>
+										<TableCell>
+											{currentPolicy.updatedBy ? currentPolicy.updatedBy : "N/A"}
+										</TableCell>
+									</TableRow>
+								</TableBody>
+							</Table>
+						</div>
 
-						<Button
-							externalStyles={classes.buttons}
-							onButtonClick={props.saveChanges}
-							buttonType="button">Save Changes</Button>
+						{props.isPolicyChanged && (
+							<div className={classes.buttons}>
+								<Button
+									externalStyles={classes.buttons}
+									onButtonClick={props.cancelChanges}
+									buttonType="button">Cancel Changes</Button>
+
+								<Button
+									externalStyles={classes.buttons}
+									onButtonClick={props.saveChanges}
+									buttonType="button">Save Changes</Button>
+							</div>
+						)}
 					</div>
-				)}
-			</div>
 
-			<div className={classes.innerContent}>
-				<ContentManagementFlags
-					contentManagementFlags={policy.adaptionPolicy.contentManagementFlags}
-					updateContentFlags={updateContentManagementFlags} />
+					<div className={classes.innerContent}>
+						<ContentManagementFlags
+							contentManagementFlags={currentPolicy.adaptionPolicy.contentManagementFlags}
+							updateContentFlags={updateContentManagementFlags}
+							disabled={true} />
 
-				{/* <RoutesForNonCompliantFiles
+						{/* <RoutesForNonCompliantFiles
 					userDomain={userDomain}
 					changeInput={setUserDomain} />
 
-				<PolicyForNonCompliantFiles /> */}
-			</div>
+					<PolicyForNonCompliantFiles /> */}
+					</div>
+				</>
+			}
 		</div>
 	);
 }
 
 export default CurrentPolicy;
-
-// const Current = (props: CurrentProps) => {
-// 	const [userDomain, setUserDomain] = useState("glasswallsolutions.com");
-// 	return (
-// 		<div className={classes.Current}>
-// 			<div className={classes.header}>
-// 				<Table className={classes.table}>
-// 					<TableHead>
-// 						<TableRow>
-// 							<TableCell>Timestamp</TableCell>
-// 							<TableCell>Updated By</TableCell>
-// 						</TableRow>
-// 					</TableHead>
-// 					<TableBody className={classes.tbody}>
-// 						<TableRow>
-// 							<TableCell id={props.currentPolicy ? props.id : props.policy.id}>
-// 								{props.currentPolicy ? props.timestamp : props.policy.timestamp}
-// 							</TableCell>
-// 							<TableCell id={props.currentPolicy ? props.id : props.policy.id}>
-// 								{props.currentPolicy ? props.email : props.policy.userEmail}
-// 							</TableCell>
-// 						</TableRow>
-// 					</TableBody>
-// 				</Table>
-// 				{props.isPolicyChanged && (
-// 					<div className={classes.buttons}>
-// 						<Button
-// 							externalStyles={classes.buttons}
-// 							onButtonClick={props.cancelChanges}
-// 							buttonType="button"
-// 						>
-// 							Cancel Changes
-// 						</Button>
-// 						<Button
-// 							externalStyles={classes.buttons}
-// 							onButtonClick={props.saveChanges}
-// 							buttonType="button"
-// 						>
-// 							Save Changes
-// 						</Button>
-// 					</div>
-// 				)}
-// 			</div>
-// 			<div className={classes.innerContent}>
-// 				<h2 className={classes.head}>Content Flags</h2>
-// 				<div className={classes.togglesBlock}>
-// 					<div className={classes.block}>
-// 						<h2>Word</h2>
-// 						<CurrentRow
-// 							testId="currentPolicySectionWord"
-// 							block="word"
-// 							itemList={props.policyFlags.word}
-// 							onChangeHandler={props.changeToggle}
-// 						/>
-// 					</div>
-// 					<div className={classes.block}>
-// 						<h2>Excel</h2>
-// 						<CurrentRow
-// 							testId="currentPolicySectionExcel"
-// 							block="excel"
-// 							itemList={props.policyFlags.excel}
-// 							onChangeHandler={props.changeToggle}
-// 						/>
-// 					</div>
-// 					<div className={classes.block}>
-// 						<h2>Powerpoint</h2>
-// 						<CurrentRow
-// 							testId="currentPolicySectionPowerpoint"
-// 							block="powerpoint"
-// 							itemList={props.policyFlags.powerpoint}
-// 							onChangeHandler={props.changeToggle}
-// 						/>
-// 					</div>
-// 					<div className={classes.block}>
-// 						<h2>PDF</h2>
-// 						<CurrentRow
-// 							testId="currentPolicySectionPdf"
-// 							block="pdf"
-// 							itemList={props.policyFlags.pdf}
-// 							onChangeHandler={props.changeToggle}
-// 						/>
-// 					</div>
-// 				</div>
-// 				<RoutesForNonCompliantFiles
-// 					userDomain={userDomain}
-// 					changeInput={setUserDomain}
-// 				/>
-// 				<PolicyForNonCompliantFiles />
-// 			</div>
-// 		</div>
-// 	);
-// };
-
-// export default Current;

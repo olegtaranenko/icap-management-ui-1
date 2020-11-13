@@ -4,6 +4,7 @@ import { PolicyContext } from "../../context/policy/policy-context";
 
 import classes from "./Policy.module.scss";
 
+import draftPolicyIcon from "../../assets/svg/policy/draft-policy-icon.svg";
 import currentPolicyIcon from "../../assets/svg/policy/current-policy-icon.svg";
 import previousPolicyIcon from "../../assets/svg/policy/previous-policy-icon.svg";
 
@@ -15,12 +16,10 @@ import Main from "../../hoc/Main/Main";
 import MainTitle from "../../hoc/MainTitle/MainTitle";
 
 import { Policy as PolicyType } from "../../../../src/common/models/PolicyManagementService/Policy/Policy";
-
+import { PolicyState } from "../../context/policy/PolicyState";
 
 const Policy = () => {
 	const {
-		currentPolicy,
-		draftPolicy,
 		isPolicyChanged,
 		cancelChanges,
 		saveChanges,
@@ -29,8 +28,9 @@ const Policy = () => {
 	const [selectedTab, setSelectedTab] = useState("Current");
 
 	const tabs = [
+		{ testId: "buttonPolicyDraftTab", name: "Draft", icon: draftPolicyIcon },
 		{ testId: "buttonPolicyCurrentTab", name: "Current", icon: currentPolicyIcon },
-		{ testId: "buttonPolicyHistoryTab", name: "History", icon: previousPolicyIcon },
+		{ testId: "buttonPolicyHistoryTab", name: "History", icon: previousPolicyIcon }
 	];
 
 	const updatePolicy = (po: PolicyType) => {
@@ -39,7 +39,7 @@ const Policy = () => {
 	}
 
 	return (
-		<>
+		<PolicyState>
 			<MainTitle />
 
 			<Main>
@@ -47,26 +47,29 @@ const Policy = () => {
 					<TabNav
 						tabs={tabs}
 						selectedTabName={selectedTab}
-						onSetActiveTabHandler={(tab) => setSelectedTab(tab)}
-					>
+						onSetActiveTabHandler={(tab) => setSelectedTab(tab)}>
+
+						<Tab isSelected={selectedTab === "Draft"}>
+							<div>draft</div>
+						</Tab>
+
 						<Tab isSelected={selectedTab === "Current"}>
 							<CurrentPolicy
 								isPolicyChanged={isPolicyChanged}
 								updatePolicy={updatePolicy}
 								cancelChanges={cancelChanges}
-								saveChanges={saveChanges}
-							/>
+								saveChanges={saveChanges} />
 						</Tab>
+
 						<Tab isSelected={selectedTab === "History"}>
 							<History
-								setPrevPolicy={() => {return true}}
-								isCurrent={false}
-							/>
+								setPrevPolicy={() => { return true }}
+								isCurrent={false} />
 						</Tab>
 					</TabNav>
 				</article>
 			</Main>
-		</>
+		</PolicyState>
 	);
 };
 

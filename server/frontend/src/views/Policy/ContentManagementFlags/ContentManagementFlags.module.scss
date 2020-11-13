@@ -1,13 +1,20 @@
 h2 {
-    background: #ffffff;
+	background: #ffffff;
 }
 
 .head {
-    border-bottom: 1px solid #b6bfc9;
+	border-bottom: 1px solid #b6bfc9;
 }
+
+.contentFlagsContainer {
+	height: calc(100% - 4rem);
+	overflow-y: auto;
+	padding-bottom: 4rem;
+}
+
 .block {
-    background: #ffffff;
-    padding-top: 2rem;
+	background: #ffffff;
+	padding-top: 2rem;
 }
 
 .CurrentRow {

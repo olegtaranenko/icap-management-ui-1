@@ -38,46 +38,55 @@
 			&:first-child {
 				color: #6697a6;
 			}
+
 			&:last-child {
 				background: #4592b0;
 			}
 		}
 	}
 
-	.table {
-		width: 50rem;
-
+	.tableContainer {
+		width: 20%;
 		border: 1px solid #b6bfc9;
 		border-radius: 0.6rem;
 
-		th {
-			padding: 0.4rem;
-			padding-right: 5rem;
-			padding-left: 2rem;
+		.table {
+			width: 100%;
 
-			text-transform: uppercase;
-			font-size: 1.2rem;
-
-			border-bottom: none;
-			border-top-left-radius: 0.6rem;
-			border-top-right-radius: 0.6rem;
-		}
-
-		thead {
-			background: #ffffff;
-			border-bottom: 1px solid #4592b0;
-		}
-
-		tbody {
-			background: #edf0f1;
-			padding: 1rem;
-
-			td {
+			th {
+				padding: 0.5rem;
 				font-size: 1.2rem;
-				padding-top: 1rem;
-				background: #ffffff;
+				color: #196480;
+				
+				margin: 0;
+				line-height: 2rem;
+
+				text-transform: uppercase;
+				text-align: center;
+
 				border-bottom: none;
-				border-radius: 0.6rem;
+				border-top-left-radius: 0.6rem;
+				border-top-right-radius: 0.6rem;
+			}
+
+			thead {
+				background: #ffffff;
+				border-bottom: 1px solid #4592b0;
+			}
+
+			tbody {
+				background: #edf0f1;
+				padding: 1rem;
+
+				td {
+					font-size: 1.2rem;
+					text-align: center;
+					padding-top: 1rem;
+					padding-bottom: 0.5rem;
+					background: #ffffff;
+					border-bottom: none;
+					border-radius: 0.6rem;
+				}
 			}
 		}
 	}
@@ -90,9 +99,9 @@
 }
 
 .innerContent {
-	overflow-y: auto;
 	height: calc(100% - 9rem);
 
 	border: 1px solid #b6bfc9;
-	border-radius: 0.6rem;	
+	border-radius: 0.6rem;
+	overflow: hidden;
 }

@@ -22,14 +22,14 @@
 	}
 
 	&.expanded {
-		width: 26rem;
+		width: 24rem;
 	}
 }
 
 .popup {
 	bottom: 12rem;
 	left: 1.5rem;
-	width: 26rem !important;
+	width: 24rem !important;
 
 	&::after {
 		content: '';
