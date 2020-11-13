@@ -15,7 +15,7 @@ import PdfContentManagementFlags from "./PdfContentManagementFlags/PdfContentMan
 
 export interface ContentManagementFlagsProps {
     contentManagementFlags: ContentFlags,
-    updateContentFlags: (newContentFlags: ContentFlags) => void,
+    updateContentFlags?: (newContentFlags: ContentFlags) => void,
     disabled?: boolean
 }
 
@@ -60,14 +60,14 @@ const ContentManagementFlags = (props: ContentManagementFlagsProps) => {
     }
 
     useEffect(() => {
-        if (newContentFlags) {
+        if (newContentFlags && updateContentFlags) {
             updateContentFlags(newContentFlags);
         }
     }, [newContentFlags, updateContentFlags]);
 
     return (
         <>
-            <h2 className={classes.head}>Content Flags</h2>
+            <h2 className={classes.head}>Adaption Policy</h2>
             <div className={classes.contentFlagsContainer}>
                 <div className={classes.block}>
                     <h2>Word</h2>

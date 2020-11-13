@@ -9,7 +9,6 @@ import {
 } from "@material-ui/core";
 
 import { Policy } from "../../../../../src/common/models/PolicyManagementService/Policy/Policy";
-import { ContentFlags } from "../../../../../src/common/models/PolicyManagementService/Policy/AdaptionPolicy/ContentFlags/ContentFlags";
 import ContentManagementFlags from "../ContentManagementFlags/ContentManagementFlags";
 import { PolicyContext } from "../../../context/policy/policy-context";
 import Button from "../../../components/UI/Button/Button";
@@ -29,15 +28,6 @@ const CurrentPolicy = (props: CurrentPolicyProps) => {
 	} = useContext(PolicyContext);
 
 	const [isLoading, setIsLoading] = useState(true);
-
-	const updateContentManagementFlags = (newContentFlags: ContentFlags) => {
-		// setPolicy((prev: Policy) => {
-		// 	return {
-		// 		...prev,
-		// 		adaptionPolicy: { ...prev.adaptionPolicy, contentManagementFlags: newContentFlags }
-		// 	}
-		// });
-	}
 
 	useEffect(() => {
 		if (currentPolicy !== null) {
@@ -93,7 +83,6 @@ const CurrentPolicy = (props: CurrentPolicyProps) => {
 					<div className={classes.innerContent}>
 						<ContentManagementFlags
 							contentManagementFlags={currentPolicy.adaptionPolicy.contentManagementFlags}
-							updateContentFlags={updateContentManagementFlags}
 							disabled={true} />
 
 						{/* <RoutesForNonCompliantFiles
