@@ -1,6 +1,6 @@
 .Current {
 	height: 100%;
-	background: #edf0f1;
+	background: #dee3e4d6;
 
 	.togglesBlock {
 		background: #fff;
@@ -49,6 +49,7 @@
 		width: 20%;
 		border: 1px solid #b6bfc9;
 		border-radius: 0.6rem;
+		overflow: hidden;
 
 		.table {
 			width: 100%;
@@ -57,7 +58,7 @@
 				padding: 0.5rem;
 				font-size: 1.2rem;
 				color: #196480;
-				
+
 				margin: 0;
 				line-height: 2rem;
 
@@ -65,8 +66,6 @@
 				text-align: center;
 
 				border-bottom: none;
-				border-top-left-radius: 0.6rem;
-				border-top-right-radius: 0.6rem;
 			}
 
 			thead {
@@ -75,7 +74,7 @@
 			}
 
 			tbody {
-				background: #edf0f1;
+				background: #dee3e4d6;
 				padding: 1rem;
 
 				td {
@@ -85,7 +84,6 @@
 					padding-bottom: 0.5rem;
 					background: #ffffff;
 					border-bottom: none;
-					border-radius: 0.6rem;
 				}
 			}
 		}
