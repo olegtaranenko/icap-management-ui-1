@@ -11,30 +11,15 @@
 	overflow: hidden;
 }
 
-.head {
-	border-bottom: 1px solid #b6bfc9;
-}
-
-.info {
-	display: flex;
-	justify-content: space-between;
-	width: 97rem;
-
-	margin: 0 auto;
-
-	padding: 10rem 0;
-
-	div {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-	}
-}
 .wrapBlocksToggle {
 	padding: 1rem;
-}
 
-.blockToggleHead {
-	color: #163e3f;
-	padding-left: 1rem;
+	.toggleHead {
+		position: relative;
+		padding: 1rem;
+		font-size: 1.2rem;
+		color: #0c3450;
+		border: none;
+		text-transform: uppercase;
+	}
 }

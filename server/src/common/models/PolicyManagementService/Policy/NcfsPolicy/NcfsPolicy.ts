@@ -1,7 +1,5 @@
-import { NcfsOptions } from "./NcfsOptions";
-import { NcfsRoute } from "./NcfsRoute";
+import { NcfsDecision } from "../../../enums/NcfsDecision";
 
 export interface NcfsPolicy {
-    routes: NcfsRoute[],
-    options: NcfsOptions
+    ncfsDecision: NcfsDecision
 }

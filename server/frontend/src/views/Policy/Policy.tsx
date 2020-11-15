@@ -54,11 +54,7 @@ const Policy = () => {
 						</Tab>
 
 						<Tab isSelected={selectedTab === "Current"}>
-							<CurrentPolicy
-								isPolicyChanged={isPolicyChanged}
-								updatePolicy={updatePolicy}
-								cancelChanges={cancelChanges}
-								saveChanges={saveChanges} />
+							<CurrentPolicy />
 						</Tab>
 
 						<Tab isSelected={selectedTab === "History"}>

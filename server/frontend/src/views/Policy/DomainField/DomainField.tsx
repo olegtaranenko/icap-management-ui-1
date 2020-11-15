@@ -15,7 +15,7 @@ import { ReactComponent as DeleteIcon } from "../../../assets/delete-icon-white.
 import Input from "../../../components/UI/Input/Input";
 
 export interface DomainFieldProps {
-	name: string,
+	value: string,
 	onChangeInputHandler: (event: any) => void,
 	disabled?: boolean
 }
@@ -30,12 +30,12 @@ const DomainField = (props: DomainFieldProps) => {
 				</TableRow>
 			</TableHead>
 			<TableBody className={classes.tbody}>
-				<TableRow className={classes.domainRow}>
+				<TableRow className={`${classes.domainRow} ${props.disabled ? classes.disabled : ""}`}>
 					<TableCell>
 						<Input
 							testId="inputApiUrl"
 							type="text"
-							value={props.name}
+							value={props.value}
 							placeholder="API URL"
 							onChange={props.onChangeInputHandler}
 							disabled={props.disabled}
@@ -43,7 +43,9 @@ const DomainField = (props: DomainFieldProps) => {
 					</TableCell>
 					<TableCell>
 						<TickIcon stroke="#73AE6F" />
-						<DeleteIcon stroke="#D69598" />
+						{!props.disabled &&
+							<DeleteIcon stroke="#D69598" />
+						}
 					</TableCell>
 				</TableRow>
 			</TableBody>

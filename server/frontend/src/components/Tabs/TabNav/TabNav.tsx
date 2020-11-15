@@ -4,7 +4,7 @@ import { TransitionGroup, CSSTransition } from "react-transition-group";
 import classes from "./TabNav.module.scss";
 
 interface Tab {
-	icon: string,
+	icon?: string,
 	name: string,
 	testId: string,
 	disabled?: boolean

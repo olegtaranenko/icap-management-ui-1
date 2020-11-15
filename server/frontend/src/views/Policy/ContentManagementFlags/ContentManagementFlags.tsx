@@ -66,48 +66,45 @@ const ContentManagementFlags = (props: ContentManagementFlagsProps) => {
     }, [newContentFlags, updateContentFlags]);
 
     return (
-        <>
-            <h2 className={classes.head}>Adaption Policy</h2>
-            <div className={classes.contentFlagsContainer}>
-                <div className={classes.block}>
-                    <h2>Word</h2>
-                    <div data-test-id="currentPolicySectionWord" className={classes.CurrentRow}>
-                        <WordContentManagementFlags
-                            initialWordContentFlags={contentManagementFlags.wordContentManagement}
-                            updateWordContentFlags={updateWordContentFlags}
-                            allDisabled={props.disabled} />
-                    </div>
-                </div>
-                <div className={classes.block}>
-                    <h2>Excel</h2>
-                    <div data-test-id="currentPolicySectionExcel" className={classes.CurrentRow}>
-                        <ExcelContentManagementFlags
-                            initialExcelContentFlags={contentManagementFlags.excelContentManagement}
-                            updateExcelContentFlags={updateExcelContentFlags}
-                            allDisabled={props.disabled} />
-                    </div>
-                </div>
-                <div className={classes.block}>
-                    <h2>Powerpoint</h2>
-                    <div data-test-id="currentPolicySectionPowerpoint" className={classes.CurrentRow}>
-                        <PowerpointContentManagementFlags
-                            initialPowerpointContentFlags={contentManagementFlags.powerPointContentManagement}
-                            updatePowerpointContentFlags={updatePowerpointContentFlags}
-                            allDisabled={props.disabled} />
-                    </div>
-                </div>
-
-                <div className={classes.block}>
-                    <h2>PDF</h2>
-                    <div data-test-id="currentPolicySectionPdf" className={classes.CurrentRow}>
-                        <PdfContentManagementFlags
-                            initialPdfContentFlags={contentManagementFlags.pdfContentManagement}
-                            updatePdfContentFlags={updatePdfContentFlags}
-                            allDisabled={props.disabled} />
-                    </div>
+        <div className={classes.contentFlagsContainer}>
+            <div className={classes.block}>
+                <h2>Word</h2>
+                <div data-test-id="currentPolicySectionWord" className={classes.CurrentRow}>
+                    <WordContentManagementFlags
+                        initialWordContentFlags={contentManagementFlags.wordContentManagement}
+                        updateWordContentFlags={updateWordContentFlags}
+                        allDisabled={props.disabled} />
                 </div>
             </div>
-        </>
+            <div className={classes.block}>
+                <h2>Excel</h2>
+                <div data-test-id="currentPolicySectionExcel" className={classes.CurrentRow}>
+                    <ExcelContentManagementFlags
+                        initialExcelContentFlags={contentManagementFlags.excelContentManagement}
+                        updateExcelContentFlags={updateExcelContentFlags}
+                        allDisabled={props.disabled} />
+                </div>
+            </div>
+            <div className={classes.block}>
+                <h2>Powerpoint</h2>
+                <div data-test-id="currentPolicySectionPowerpoint" className={classes.CurrentRow}>
+                    <PowerpointContentManagementFlags
+                        initialPowerpointContentFlags={contentManagementFlags.powerPointContentManagement}
+                        updatePowerpointContentFlags={updatePowerpointContentFlags}
+                        allDisabled={props.disabled} />
+                </div>
+            </div>
+
+            <div className={classes.block}>
+                <h2>PDF</h2>
+                <div data-test-id="currentPolicySectionPdf" className={classes.CurrentRow}>
+                    <PdfContentManagementFlags
+                        initialPdfContentFlags={contentManagementFlags.pdfContentManagement}
+                        updatePdfContentFlags={updatePdfContentFlags}
+                        allDisabled={props.disabled} />
+                </div>
+            </div>
+        </div>
     );
 }
 

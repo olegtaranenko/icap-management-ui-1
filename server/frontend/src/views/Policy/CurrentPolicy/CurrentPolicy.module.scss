@@ -2,6 +2,12 @@
 	height: 100%;
 	background: #dee3e4d6;
 
+	.ncfsContainer {
+		height: calc(100% - 4rem);
+		overflow-y: auto;
+		padding-bottom: 4rem;
+	}
+
 	.togglesBlock {
 		background: #fff;
 		padding-bottom: 3rem;
@@ -97,9 +103,35 @@
 }
 
 .innerContent {
-	height: calc(100% - 9rem);
+	width: 100%;
+	height: calc(100% - 3rem);
 
 	border: 1px solid #b6bfc9;
 	border-radius: 0.6rem;
 	overflow: hidden;
+
+	.head {
+		background: #ffffff;
+		border-bottom: 1px solid #b6bfc9;
+	}
+
+	.info {
+		display: flex;
+		justify-content: space-between;
+		width: 97rem;
+
+		margin-left: 2rem;
+
+		padding: 2rem 0;
+
+		div {
+			display: flex;
+			flex-direction: column;
+		}
+	}
+}
+
+.Tab {
+	width: 100% !important;
+	height: 100% !important;
 }
