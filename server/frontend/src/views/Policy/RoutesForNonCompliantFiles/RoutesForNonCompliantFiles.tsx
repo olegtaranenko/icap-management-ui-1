@@ -1,9 +1,8 @@
-import React, { useContext } from "react";
+import React from "react";
 
 import classes from "./RoutesForNonCompliantFiles.module.scss";
 
 import DomainField from "../DomainField/DomainField";
-import { PolicyContext } from "../../../context/policy/policy-context";
 
 export interface RoutesForNonCompliantFilesProps {
 	ncfsRoutingUrl: string,
@@ -12,7 +11,6 @@ export interface RoutesForNonCompliantFilesProps {
 }
 
 const RoutesForNonCompliantFiles = (props: RoutesForNonCompliantFilesProps) => {
-	const { currentPolicy } = useContext(PolicyContext);
 
 	const handleChange = (newUrl: string) => {
 		if (props.changeInput) {

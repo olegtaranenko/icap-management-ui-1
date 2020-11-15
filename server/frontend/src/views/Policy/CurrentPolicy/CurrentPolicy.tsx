@@ -8,15 +8,15 @@ import {
 	TableBody,
 } from "@material-ui/core";
 
-import { Policy } from "../../../../../src/common/models/PolicyManagementService/Policy/Policy";
+import TabNav from "../../../components/Tabs/TabNav/TabNav";
+import Tab from "../../../components/Tabs/Tab/Tab";
 import ContentManagementFlags from "../ContentManagementFlags/ContentManagementFlags";
+import RoutesForNonCompliantFiles from "../RoutesForNonCompliantFiles/RoutesForNonCompliantFiles";
+import PolicyForNonCompliantFiles from "../PolicyForNonCompliantFiles/PolicyForNonCompliantFiles";
+
 import { PolicyContext } from "../../../context/policy/policy-context";
 
 import classes from "./CurrentPolicy.module.scss";
-import RoutesForNonCompliantFiles from "../RoutesForNonCompliantFiles/RoutesForNonCompliantFiles";
-import TabNav from "../../../components/Tabs/TabNav/TabNav";
-import Tab from "../../../components/Tabs/Tab/Tab";
-import PolicyForNonCompliantFiles from "../PolicyForNonCompliantFiles/PolicyForNonCompliantFiles";
 
 const CurrentPolicy = () => {
 	const {
@@ -45,7 +45,7 @@ const CurrentPolicy = () => {
 
 			{!isLoading &&
 				<>
-					{/* <div className={classes.header}>
+					<div className={classes.header}>
 						<div className={classes.tableContainer}>
 							<Table className={classes.table} id={currentPolicy.id}>
 								<TableHead>
@@ -66,7 +66,7 @@ const CurrentPolicy = () => {
 								</TableBody>
 							</Table>
 						</div>
-					</div> */}
+					</div>
 
 					<TabNav
 						tabs={tabs}
