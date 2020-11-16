@@ -7,7 +7,7 @@
         "id": "risk-blocked-by-policy",
         "name": "docType",
         "format": "Blocked By Policy",
-        "titleColor": "#DF9F81",
+        "titleColor": "#e6cd70",
         "isChecked": false,
         "type": "checkbox",
         "riskEnum": "BlockedByPolicy"
@@ -16,7 +16,7 @@
         "id": "risk-allowed-by-policy",
         "name": "docType",
         "format": "Allowed By Policy",
-        "titleColor": "#86C1CB",
+        "titleColor": "#86c2cc",
         "isChecked": false,
         "type": "checkbox",
         "riskEnum": "AllowedByPolicy"
@@ -25,7 +25,7 @@
         "id": "risk-blocked-by-ncfs",
         "name": "docType",
         "format": "Blocked By NCFS",
-        "titleColor": "#ff8d8d",
+        "titleColor": "#d47779",
         "isChecked": false,
         "type": "checkbox",
         "riskEnum": "BlockedByNCFS"
@@ -34,7 +34,7 @@
         "id": "risk-allowed-by-ncfs",
         "name": "docType",
         "format": "Allowed By NCFS",
-        "titleColor": "#7a7aff",
+        "titleColor": "#84b5d6",
         "isChecked": false,
         "type": "checkbox",
         "riskEnum": "AllowedByNCFS"
@@ -43,7 +43,7 @@
         "id": "risk-safe",
         "name": "docType",
         "format": "Safe",
-        "titleColor": "#91CAA8",
+        "titleColor": "#8fcba9",
         "isChecked": false,
         "type": "checkbox",
         "riskEnum": "Safe"

@@ -6,6 +6,7 @@ export interface PolicyContextProps {
 	draftPolicy?: Policy,
 	policyHistory: Policy[],
 	isPolicyChanged: boolean,
+	policyContextHasError: boolean,
 	cancelChanges: () => void,
 	saveChanges: () => void
 }

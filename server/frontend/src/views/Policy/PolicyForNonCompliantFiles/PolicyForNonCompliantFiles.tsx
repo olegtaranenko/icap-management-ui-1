@@ -1,38 +1,27 @@
 import React from "react";
+import { NcfsActions } from "../../../../../src/common/models/PolicyManagementService/Policy/NcfsPolicy/NcfsActions";
 
 import classes from "./PolicyForNonCompliantFiles.module.scss";
-import Toggles from "./Toggles/Toggles";
+import GlasswallBlockedFilesToggles from "./Toggles/GlasswallBlockedFilesToggles";
+import UnProcessableFileTypesToggles from "./Toggles/UnProcessableFileTypesToggles";
 
-const PolicyForNonCompliantFiles = () => {
+export interface PolicyForNonCompliantFilesProps {
+	ncfsActions: NcfsActions
+}
+
+const PolicyForNonCompliantFiles = (props: PolicyForNonCompliantFilesProps) => {
 	return (
 		<div className={classes.PolicyForNonCompliantFiles}>
-			<h2 className={classes.head}>Policy for non-compliant files</h2>
-			<section className={classes.info}>
-				<div>
-					<h3>
-						<strong>Un-Processable File Types</strong>{" "}
-					</h3>
-					<p>
-						When the filetype of the original file is identified as one that
-						the Glasswall SDK cannot rebuild.
-					</p>
-				</div>
-				<div>
-					<h3>
-						<strong>Glasswall Blocked Files</strong>
-					</h3>
-					<p>The original file cannot be rebuilt by the Glasswall SDK</p>
-				</div>
-			</section>
 			<section className={classes.wrapBlocksToggle}>
-				<h3 className={classes.blockToggleHead}>
-					<strong>Un-Processable File Types</strong>
-				</h3>
-				<Toggles nameBlock="Un-Processable-File-Types" />
-				<h3 className={classes.blockToggleHead}>
-					<strong>Glasswall Blocked Files</strong>
-				</h3>
-				<Toggles nameBlock="Glasswall-Blocked-Files" />
+				<label className={classes.toggleHead}>Un-Processable File Types</label>
+				<GlasswallBlockedFilesToggles
+					glasswallBlockedFilesAction={props.ncfsActions.glasswallBlockedFilesAction}
+					disabled />
+
+				<label className={classes.toggleHead}>Glasswall Blocked Files</label>
+				<UnProcessableFileTypesToggles
+					unprocessableFileTypeAction={props.ncfsActions.unprocessableFileTypeAction}
+					disabled />
 			</section>
 		</div>
 	);

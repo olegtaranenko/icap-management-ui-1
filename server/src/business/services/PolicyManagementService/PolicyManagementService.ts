@@ -65,6 +65,27 @@ class PolicyManagementService implements IPolicyManagementService {
 
         return policy;
     }
+
+    getDraftPolicy = async (getDraftPolicyUrl: string) => {
+        let policy: Policy;
+
+        try {
+            this.logger.info("Retrieving Draft Policy from the PolicyManagementService");
+
+            const response = await PolicyManagementApi.getPolicy(getDraftPolicyUrl);
+            const responseJSON = JSON.parse(response);
+            policy = this.createPolicyModel(responseJSON);
+
+            if (policy) {
+                this.logger.info(`Retrieved Draft Policy - PolicyId: ${policy.id}`);
+            }
+        }
+        catch(error) {
+            this.logger.error("Could not get Draft Policy");
+        }
+
+        return policy;
+    }
 }
 
 export default PolicyManagementService;
