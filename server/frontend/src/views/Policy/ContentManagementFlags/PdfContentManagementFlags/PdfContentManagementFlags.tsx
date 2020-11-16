@@ -1,27 +1,32 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import { ContentManagementFlagAction } from "../../../../../../src/common/models/enums/ContentManagementFlagAction";
 import { PdfContentFlags } from "../../../../../../src/common/models/PolicyManagementService/Policy/AdaptionPolicy/ContentFlags/PdfContentFlags";
 import RadioButton from "../../../../components/UI/RadioButton/RadioButton";
+import { PolicyContext } from "../../../../context/policy/policy-context";
 
 export interface PdfContentManagementFlagsProps {
     initialPdfContentFlags: PdfContentFlags,
-    updatePdfContentFlags: (newPdfContentFlags: PdfContentFlags) => void,
+    updatePdfContentFlags: (initialPdfContentFlags: PdfContentFlags) => void,
     allDisabled?: boolean
 }
 
 const PdfContentManagementFlags = (props: PdfContentManagementFlagsProps) => {
-    const [newPdfContentFlags, setNewPdfContentFlags] = useState<PdfContentFlags>(props.initialPdfContentFlags);
+    const { initialPdfContentFlags, updatePdfContentFlags } = props;
+
+    const {
+        currentPolicy
+    } = useContext(PolicyContext);
+    const currentPdfContentFlags = currentPolicy.adaptionPolicy.contentManagementFlags.pdfContentManagement;
 
     const updateContentFlagAction = (flagActionName: string) => {
-        setNewPdfContentFlags((prev) => {
-            const newContentAction = newPdfContentFlags[flagActionName as keyof PdfContentFlags]
-                === ContentManagementFlagAction.Disallow ?
-                ContentManagementFlagAction.Sanitise :
-                ContentManagementFlagAction.Disallow;
-            return {
-                ...prev,
-                [flagActionName]: newContentAction
-            }
+        const newContentAction = initialPdfContentFlags[flagActionName as keyof PdfContentFlags]
+            === ContentManagementFlagAction.Disallow ?
+            ContentManagementFlagAction.Sanitise :
+            ContentManagementFlagAction.Disallow;
+
+        updatePdfContentFlags({
+            ...initialPdfContentFlags,
+            [flagActionName]: newContentAction
         });
     }
 
@@ -29,64 +34,64 @@ const PdfContentManagementFlags = (props: PdfContentManagementFlagsProps) => {
         {
             id: "pdfAcroform",
             name: "Acroform",
-            position: newPdfContentFlags.acroform as number,
-            changed: newPdfContentFlags.acroform !== props.initialPdfContentFlags.acroform,
+            position: initialPdfContentFlags.acroform as number,
+            changed: initialPdfContentFlags.acroform !== currentPdfContentFlags.acroform,
             disabled: props.allDisabled,
             onChange: () => updateContentFlagAction("acroform")
         },
         {
             id: "pdfActionsAll",
             name: "ActionsAll",
-            position: newPdfContentFlags.actionsAll as number,
-            changed: newPdfContentFlags.actionsAll !== props.initialPdfContentFlags.actionsAll,
+            position: initialPdfContentFlags.actionsAll as number,
+            changed: initialPdfContentFlags.actionsAll !== currentPdfContentFlags.actionsAll,
             disabled: props.allDisabled,
             onChange: () => updateContentFlagAction("actionsAll")
         },
         {
             id: "pdfEmbeddedFiles",
             name: "Embedded Files",
-            position: newPdfContentFlags.embeddedFiles as number,
-            changed: newPdfContentFlags.embeddedFiles !== props.initialPdfContentFlags.embeddedFiles,
+            position: initialPdfContentFlags.embeddedFiles as number,
+            changed: initialPdfContentFlags.embeddedFiles !== currentPdfContentFlags.embeddedFiles,
             disabled: props.allDisabled,
             onChange: () => updateContentFlagAction("embeddedFiles")
         },
         {
             id: "pdfEmbeddedImages",
             name: "Embedded Images",
-            position: newPdfContentFlags.embeddedImages as number,
-            changed: newPdfContentFlags.embeddedImages !== props.initialPdfContentFlags.embeddedImages,
+            position: initialPdfContentFlags.embeddedImages as number,
+            changed: initialPdfContentFlags.embeddedImages !== currentPdfContentFlags.embeddedImages,
             disabled: props.allDisabled,
             onChange: () => updateContentFlagAction("embeddedImages")
         },
         {
             id: "pdfExternalHyperlinks",
             name: "External Hyperlinks",
-            position: newPdfContentFlags.externalHyperlinks as number,
-            changed: newPdfContentFlags.externalHyperlinks !== props.initialPdfContentFlags.externalHyperlinks,
+            position: initialPdfContentFlags.externalHyperlinks as number,
+            changed: initialPdfContentFlags.externalHyperlinks !== currentPdfContentFlags.externalHyperlinks,
             disabled: props.allDisabled,
             onChange: () => updateContentFlagAction("externalHyperlinks")
         },
         {
             id: "pdfInternalHyperlinks",
             name: "Internal Hyperlinks",
-            position: newPdfContentFlags.internalHyperlinks as number,
-            changed: newPdfContentFlags.internalHyperlinks !== props.initialPdfContentFlags.internalHyperlinks,
+            position: initialPdfContentFlags.internalHyperlinks as number,
+            changed: initialPdfContentFlags.internalHyperlinks !== currentPdfContentFlags.internalHyperlinks,
             disabled: props.allDisabled,
             onChange: () => updateContentFlagAction("internalHyperlinks")
         },
         {
             id: "pdfJavascript",
             name: "Javascript",
-            position: newPdfContentFlags.javascript as number,
-            changed: newPdfContentFlags.javascript !== props.initialPdfContentFlags.javascript,
+            position: initialPdfContentFlags.javascript as number,
+            changed: initialPdfContentFlags.javascript !== currentPdfContentFlags.javascript,
             disabled: props.allDisabled,
             onChange: () => updateContentFlagAction("javascript")
         },
         {
             id: "pdfMetadata",
             name: "Metadata",
-            position: newPdfContentFlags.metadata as number,
-            changed: newPdfContentFlags.metadata !== props.initialPdfContentFlags.metadata,
+            position: initialPdfContentFlags.metadata as number,
+            changed: initialPdfContentFlags.metadata !== currentPdfContentFlags.metadata,
             disabled: props.allDisabled,
             onChange: () => updateContentFlagAction("metadata")
         }

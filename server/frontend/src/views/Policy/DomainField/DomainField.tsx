@@ -9,14 +9,13 @@ import {
 } from "@material-ui/core";
 
 import classes from "./DomainField.module.scss";
-import { ReactComponent as TickIcon } from "../../../assets/tick-icon.svg";
-import { ReactComponent as DeleteIcon } from "../../../assets/delete-icon-white.svg";
 
 import Input from "../../../components/UI/Input/Input";
 
 export interface DomainFieldProps {
 	value: string,
 	onChangeInputHandler: (event: any) => void,
+	isChanged?: boolean,
 	disabled?: boolean
 }
 
@@ -26,7 +25,7 @@ const DomainField = (props: DomainFieldProps) => {
 			<TableHead>
 				<TableRow>
 					<TableCell>API URL</TableCell>
-					<TableCell>Validated</TableCell>
+					{/* <TableCell>Validated</TableCell> */}
 				</TableRow>
 			</TableHead>
 			<TableBody className={classes.tbody}>
@@ -37,16 +36,14 @@ const DomainField = (props: DomainFieldProps) => {
 							type="text"
 							value={props.value}
 							placeholder="API URL"
+							touched={props.isChanged}
 							onChange={props.onChangeInputHandler}
 							disabled={props.disabled}
 						/>
 					</TableCell>
-					<TableCell>
+					{/* <TableCell>
 						<TickIcon stroke="#73AE6F" />
-						{!props.disabled &&
-							<DeleteIcon stroke="#D69598" />
-						}
-					</TableCell>
+					</TableCell> */}
 				</TableRow>
 			</TableBody>
 		</Table>

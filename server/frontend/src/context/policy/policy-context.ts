@@ -4,6 +4,8 @@ import { Policy } from "../../../../src/common/models/PolicyManagementService/Po
 export interface PolicyContextProps {
 	currentPolicy: Policy,
 	draftPolicy?: Policy,
+	newDraftPolicy: Policy,
+	updateNewDraftPolicy: (newPolicy: Policy) => void,
 	policyHistory: Policy[],
 	isPolicyChanged: boolean,
 	policyContextHasError: boolean,

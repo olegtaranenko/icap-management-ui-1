@@ -116,15 +116,14 @@
 	}
 
 	.info {
-		display: flex;
 		justify-content: space-between;
-		width: 97rem;
 
 		margin-left: 2rem;
 
 		padding: 2rem 0;
 
 		div {
+			padding-top: 1rem;
 			display: flex;
 			flex-direction: column;
 		}

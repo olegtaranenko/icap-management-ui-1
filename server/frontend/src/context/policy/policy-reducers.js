@@ -1,3 +1,5 @@
+import equal from "deep-equal";
+
 import { updateObject } from "../../helpers/updateObject";
 
 import * as actionTypes from "../actionTypes";
@@ -14,28 +16,30 @@ const setCurrentPolicy = (state, currentPolicy) => {
 	});
 };
 
-const updateContentManagementFlag = (state, contentFlag) => {
+const setDraftPolicy = (state, draftPolicy) => {
+	return updateObject(state, {
+		draftPolicy: draftPolicy
+	});
+};
+
+const updateNewDraftPolicy = (state, newPolicy) => {
+	const isPolicyEqual = equal(state.draftPolicy, newPolicy);
 
 	return updateObject(state, {
-		isPolicyChanged: true,
+		newDraftPolicy: newPolicy,
+		isPolicyChanged: !isPolicyEqual,
 	});
 };
 
 const cancelChangesPolicy = (state) => {
 	return updateObject(state, {
-
-
+		newDraftPolicy: state.draftPolicy,
 		isPolicyChanged: false,
 	});
 };
 
 const saveChangesPolicy = (state) => {
-	for (let key in state.policyFlagList) {
-		state.policyFlagList[key].map((it) => {
-			it.touched = false;
-			return it.touched;
-		});
-	}
+	
 
 	return updateObject(state, {
 		isPolicyChanged: false,
@@ -48,8 +52,10 @@ export const policyReducer = (state, action) => {
 			return setpolicyContextHasError(state, action.error);
 		case actionTypes.SET_CURRENT_POLICY:
 			return setCurrentPolicy(state, action.currentPolicy);
-		case actionTypes.UPDATE_CONTENT_MANAGEMENT_FLAG:
-			return updateContentManagementFlag(state, action.contentFlag);
+		case actionTypes.SET_DRAFT_POLICY:
+			return setDraftPolicy(state, action.draftPolicy);
+		case actionTypes.UPDATE_NEW_DRAFT_POLICY:
+			return updateNewDraftPolicy(state, action.newPolicy);
 		case actionTypes.SAVE_POLICY_CHANGES:
 			return saveChangesPolicy(state);
 		case actionTypes.CANCEL_POLICY_CHANGES:

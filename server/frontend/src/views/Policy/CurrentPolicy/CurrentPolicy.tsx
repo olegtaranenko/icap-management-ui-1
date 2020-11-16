@@ -100,7 +100,7 @@ const CurrentPolicy = () => {
 													<p>
 														When the filetype of the original file is identified as one that
 														the Glasswall SDK cannot rebuild.
-											</p>
+													</p>
 												</div>
 												<div>
 													<h3>
@@ -113,7 +113,9 @@ const CurrentPolicy = () => {
 												ncfsRoutingUrl={currentPolicy.adaptionPolicy.ncfsRoute.ncfsRoutingUrl}
 												disabled />
 
-											<PolicyForNonCompliantFiles ncfsActions={currentPolicy.adaptionPolicy.ncfsActions} />
+											<PolicyForNonCompliantFiles
+												ncfsActions={currentPolicy.adaptionPolicy.ncfsActions}
+												disabled />
 										</div>
 									</Tab>
 								</div>

@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
+
+import { PolicyContext } from "../../../context/policy/policy-context";
+import DomainField from "../DomainField/DomainField";
 
 import classes from "./RoutesForNonCompliantFiles.module.scss";
-
-import DomainField from "../DomainField/DomainField";
 
 export interface RoutesForNonCompliantFilesProps {
 	ncfsRoutingUrl: string,
@@ -11,6 +12,11 @@ export interface RoutesForNonCompliantFilesProps {
 }
 
 const RoutesForNonCompliantFiles = (props: RoutesForNonCompliantFilesProps) => {
+
+	const {
+		currentPolicy
+	} = useContext(PolicyContext);
+	const currentPolicyRoutingUrl = currentPolicy.adaptionPolicy.ncfsRoute.ncfsRoutingUrl;
 
 	const handleChange = (newUrl: string) => {
 		if (props.changeInput) {
@@ -22,10 +28,14 @@ const RoutesForNonCompliantFiles = (props: RoutesForNonCompliantFilesProps) => {
 		<section className={classes.routes}>
 			<div className={classes.table}>
 				<DomainField
+					isChanged={currentPolicyRoutingUrl !== props.ncfsRoutingUrl}
 					value={props.ncfsRoutingUrl}
 					disabled={props.disabled}
-					onChangeInputHandler={(event: any) => handleChange(event.target.value)}
-				/>
+					onChangeInputHandler={(event: any) => handleChange(event.target.value)} />
+
+				{props.changeInput !== null &&
+					<p className={classes.currentApiUrl}>Current API Url: {currentPolicyRoutingUrl}</p>
+				}
 			</div>
 		</section>
 	);

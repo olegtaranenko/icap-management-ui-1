@@ -1,27 +1,32 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import { ContentManagementFlagAction } from "../../../../../../src/common/models/enums/ContentManagementFlagAction";
 import { ExcelContentFlags } from "../../../../../../src/common/models/PolicyManagementService/Policy/AdaptionPolicy/ContentFlags/ExcelContentFlags";
+import { PolicyContext } from "../../../../context/policy/policy-context";
 import RadioButton from "../../../../components/UI/RadioButton/RadioButton";
 
 export interface ExcelContentManagementFlagsProps {
     initialExcelContentFlags: ExcelContentFlags,
-    updateExcelContentFlags: (newExcelContentFlags: ExcelContentFlags) => void,
+    updateExcelContentFlags: (initialExcelContentFlags: ExcelContentFlags) => void,
     allDisabled?: boolean
 }
 
 const ExcelContentManagementFlags = (props: ExcelContentManagementFlagsProps) => {
-    const [newExcelContentFlags, setNewExcelContentFlags] = useState<ExcelContentFlags>(props.initialExcelContentFlags);
+    const {initialExcelContentFlags, updateExcelContentFlags} = props;
+
+    const {
+		currentPolicy
+    } = useContext(PolicyContext);
+    const currentExcelContentFlags = currentPolicy.adaptionPolicy.contentManagementFlags.excelContentManagement;
 
     const updateContentFlagAction = (flagActionName: string) => {
-        setNewExcelContentFlags((prev) => {
-            const newContentAction = newExcelContentFlags[flagActionName as keyof ExcelContentFlags]
+        const newContentAction = initialExcelContentFlags[flagActionName as keyof ExcelContentFlags]
                 === ContentManagementFlagAction.Disallow ?
                 ContentManagementFlagAction.Sanitise :
                 ContentManagementFlagAction.Disallow;
-            return {
-                ...prev,
-                [flagActionName]: newContentAction
-            }
+
+        updateExcelContentFlags({
+            ...initialExcelContentFlags,
+            [flagActionName]: newContentAction
         });
     }
 
@@ -29,64 +34,64 @@ const ExcelContentManagementFlags = (props: ExcelContentManagementFlagsProps) =>
         {
             id: "excelDynamicDataExchange",
             name: "Dynamic Data Exchange",
-            position: newExcelContentFlags.dynamicDataExchange as number,
-            changed: newExcelContentFlags.dynamicDataExchange !== props.initialExcelContentFlags.dynamicDataExchange,
+            position: initialExcelContentFlags.dynamicDataExchange as number,
+            changed: initialExcelContentFlags.dynamicDataExchange !== currentExcelContentFlags.dynamicDataExchange,
             disabled: props.allDisabled,
             onChange: () => updateContentFlagAction("dynamicDataExchange")
         },
         {
             id: "excelEmbeddedFiles",
             name: "Embedded Files",
-            position: newExcelContentFlags.embeddedFiles as number,
-            changed: newExcelContentFlags.embeddedFiles !== props.initialExcelContentFlags.embeddedFiles,
+            position: initialExcelContentFlags.embeddedFiles as number,
+            changed: initialExcelContentFlags.embeddedFiles !== currentExcelContentFlags.embeddedFiles,
             disabled: props.allDisabled,
             onChange: () => updateContentFlagAction("embeddedFiles")
         },
         {
             id: "excelEmbeddedImages",
             name: "Embedded Images",
-            position: newExcelContentFlags.embeddedImages as number,
-            changed: newExcelContentFlags.embeddedImages !== props.initialExcelContentFlags.embeddedImages,
+            position: initialExcelContentFlags.embeddedImages as number,
+            changed: initialExcelContentFlags.embeddedImages !== currentExcelContentFlags.embeddedImages,
             disabled: props.allDisabled,
             onChange: () => updateContentFlagAction("embeddedImages")
         },
         {
             id: "excelExternalHyperlinks",
             name: "External Hyperlinks",
-            position: newExcelContentFlags.externalHyperlinks as number,
-            changed: newExcelContentFlags.externalHyperlinks !== props.initialExcelContentFlags.externalHyperlinks,
+            position: initialExcelContentFlags.externalHyperlinks as number,
+            changed: initialExcelContentFlags.externalHyperlinks !== currentExcelContentFlags.externalHyperlinks,
             disabled: props.allDisabled,
             onChange: () => updateContentFlagAction("externalHyperlinks")
         },
         {
             id: "excelInternalHyperlinks",
             name: "Internal Hyperlinks",
-            position: newExcelContentFlags.internalHyperlinks as number,
-            changed: newExcelContentFlags.internalHyperlinks !== props.initialExcelContentFlags.internalHyperlinks,
+            position: initialExcelContentFlags.internalHyperlinks as number,
+            changed: initialExcelContentFlags.internalHyperlinks !== currentExcelContentFlags.internalHyperlinks,
             disabled: props.allDisabled,
             onChange: () => updateContentFlagAction("internalHyperlinks")
         },
         {
             id: "excelMacros",
             name: "Macros",
-            position: newExcelContentFlags.macros as number,
-            changed: newExcelContentFlags.macros !== props.initialExcelContentFlags.macros,
+            position: initialExcelContentFlags.macros as number,
+            changed: initialExcelContentFlags.macros !== currentExcelContentFlags.macros,
             disabled: props.allDisabled,
             onChange: () => updateContentFlagAction("macros")
         },
         {
             id: "excelMetadata",
             name: "Metadata",
-            position: newExcelContentFlags.metadata as number,
-            changed: newExcelContentFlags.metadata !== props.initialExcelContentFlags.metadata,
+            position: initialExcelContentFlags.metadata as number,
+            changed: initialExcelContentFlags.metadata !== currentExcelContentFlags.metadata,
             disabled: props.allDisabled,
             onChange: () => updateContentFlagAction("metadata")
         },
         {
             id: "excelReviewComments",
             name: "Review Comments",
-            position: newExcelContentFlags.reviewComments as number,
-            changed: newExcelContentFlags.reviewComments !== props.initialExcelContentFlags.reviewComments,
+            position: initialExcelContentFlags.reviewComments as number,
+            changed: initialExcelContentFlags.reviewComments !== currentExcelContentFlags.reviewComments,
             disabled: props.allDisabled,
             onChange: () => updateContentFlagAction("reviewComments")
         }
