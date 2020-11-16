@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from "react";
+import React, { useEffect, useReducer, useCallback } from "react";
 
 import { PolicyContext } from "./policy-context";
 import { policyReducer } from "./policy-reducers";
@@ -18,11 +18,11 @@ export const PolicyState = ({ children }) => {
 
 	const [policyState, dispatch] = useReducer(policyReducer, initialState);
 
-	const setpolicyContextHasError = (error) => {
+	const setpolicyContextHasError = useCallback((error) => {
 		dispatch({ type: actionTypes.SET_POLICY_CONTEXT_ERROR, error });
-	};
+	}, []);
 
-	const setCurrentPolicy = () => {
+	const setCurrentPolicy = useCallback(() => {
 		getCurrentPolicy()
 			.then(response =>
 				dispatch({ type: actionTypes.SET_CURRENT_POLICY, currentPolicy: response }))
@@ -30,7 +30,7 @@ export const PolicyState = ({ children }) => {
 				dispatch({ type: actionTypes.SET_CURRENT_POLICY, currentPolicy: error })
 				setpolicyContextHasError(error)
 			});
-	};
+	}, [setpolicyContextHasError]);
 
 	const updateContentManagementFlag = (contentFlag) => {
 		dispatch({ type: actionTypes.UPDATE_CONTENT_MANAGEMENT_FLAG, contentFlag });
