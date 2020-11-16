@@ -46,7 +46,7 @@ export const PolicyState = ({ children }) => {
 
 	useEffect(() => {
 		setCurrentPolicy();
-	}, [initialState.currentPolicy]);
+	}, [initialState.currentPolicy, setCurrentPolicy]);
 
 	return (
 		<PolicyContext.Provider
