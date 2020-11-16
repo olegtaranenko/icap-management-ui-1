@@ -4,9 +4,8 @@ import ArgumentNullException from "../../errors/ArgumentNullException";
 export class GetPolicyByIdRequest {
     url: string;
     policyId: Guid;
-    headers?: { [header: string]: string };
 
-    constructor(url: string, policyId: Guid, headers?: { [header: string]: string }) {
+    constructor(url: string, policyId: Guid) {
         if (!url) {
             throw new ArgumentNullException("url");
         }
@@ -17,8 +16,5 @@ export class GetPolicyByIdRequest {
 
         this.url = url;
         this.policyId = policyId;
-        if (headers) {
-            this.headers = headers;
-        }
     }
 }

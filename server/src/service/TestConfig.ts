@@ -8,15 +8,15 @@ const TestConfig = () => {
             getTransactionDetailsPath: "/transactions"
         },
         policy: {
-            policyManagementServiceBaseUrl: "",
-            getPolicyPath: "",
-            deletePolicyPath: "",
-            getDraftPolicyPath: "",
-            updateDraftPolicyPath: "",
-            getCurrentPolicyPath: "",
-            getPolicyHistoryPath: "",
-            publishPolicyPath: "",
-            distributePolicyPath: ""
+            policyManagementServiceBaseUrl: "www.glasswall.com",
+            getPolicyPath: "/test",
+            deletePolicyPath: "/test",
+            getDraftPolicyPath: "/test",
+            updateDraftPolicyPath: "/test",
+            getCurrentPolicyPath: "/test",
+            getPolicyHistoryPath: "/test",
+            publishPolicyPath: "/test",
+            distributePolicyPath: "/test"
         }
     }
 

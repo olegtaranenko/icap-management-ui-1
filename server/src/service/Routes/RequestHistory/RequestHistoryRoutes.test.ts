@@ -95,7 +95,7 @@ describe("RequestHistoryRoutes", () => {
                     .expect(200, done)
             });
 
-            it("responsds_with_correct_json", (done) => {
+            it("responds_with_correct_json", (done) => {
                 // Act
                 request(app)
                     .post("/request-history/transactions")
@@ -135,7 +135,7 @@ describe("RequestHistoryRoutes", () => {
                     .expect(200, done)
             });
 
-            it("response_with_correct_json", (done) => {
+            it("responds_with_correct_json", (done) => {
                 // Act
                 // Assert
                 request(app)
