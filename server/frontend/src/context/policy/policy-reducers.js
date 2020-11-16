@@ -2,6 +2,12 @@ import { updateObject } from "../../helpers/updateObject";
 
 import * as actionTypes from "../actionTypes";
 
+const setpolicyContextHasError = (state, error) => {
+	return updateObject(state, {
+		policyContextHasError: error
+	});
+};
+
 const setCurrentPolicy = (state, currentPolicy) => {
 	return updateObject(state, {
 		currentPolicy: currentPolicy
@@ -9,7 +15,7 @@ const setCurrentPolicy = (state, currentPolicy) => {
 };
 
 const updateContentManagementFlag = (state, contentFlag) => {
-	
+
 	return updateObject(state, {
 		isPolicyChanged: true,
 	});
@@ -17,7 +23,7 @@ const updateContentManagementFlag = (state, contentFlag) => {
 
 const cancelChangesPolicy = (state) => {
 	return updateObject(state, {
-		
+
 
 		isPolicyChanged: false,
 	});
@@ -38,6 +44,8 @@ const saveChangesPolicy = (state) => {
 
 export const policyReducer = (state, action) => {
 	switch (action.type) {
+		case actionTypes.SET_POLICY_CONTEXT_ERROR:
+			return setpolicyContextHasError(state, action.error);
 		case actionTypes.SET_CURRENT_POLICY:
 			return setCurrentPolicy(state, action.currentPolicy);
 		case actionTypes.UPDATE_CONTENT_MANAGEMENT_FLAG:

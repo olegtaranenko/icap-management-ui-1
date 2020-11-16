@@ -21,6 +21,7 @@ import classes from "./CurrentPolicy.module.scss";
 const CurrentPolicy = () => {
 	const {
 		currentPolicy,
+		policyContextHasError
 	} = useContext(PolicyContext);
 
 	const [isLoading, setIsLoading] = useState(true);
@@ -45,71 +46,80 @@ const CurrentPolicy = () => {
 
 			{!isLoading &&
 				<>
-					<div className={classes.header}>
-						<div className={classes.tableContainer}>
-							<Table className={classes.table} id={currentPolicy.id}>
-								<TableHead>
-									<TableRow>
-										<TableCell>Timestamp</TableCell>
-										<TableCell>Updated By</TableCell>
-									</TableRow>
-								</TableHead>
-								<TableBody className={classes.tbody}>
-									<TableRow>
-										<TableCell>
-											{new Date(currentPolicy.published).toLocaleTimeString()}
-										</TableCell>
-										<TableCell>
-											{currentPolicy.updatedBy ? currentPolicy.updatedBy : "N/A"}
-										</TableCell>
-									</TableRow>
-								</TableBody>
-							</Table>
-						</div>
-					</div>
+					{policyContextHasError &&
+						<div>Error getting Policy data.</div>
+					}
 
-					<TabNav
-						tabs={tabs}
-						selectedTabName={selectedTab}
-						onSetActiveTabHandler={(tab) => setSelectedTab(tab)}>
-
-						<div className={classes.innerContent}>
-							<Tab isSelected={selectedTab === "Adaption Policy"} externalStyles={classes.Tab}>
-								<h2 className={classes.head}>Content Management Flags</h2>
-								<ContentManagementFlags
-									contentManagementFlags={currentPolicy.adaptionPolicy.contentManagementFlags}
-									disabled />
-							</Tab>
-
-							<Tab isSelected={selectedTab === "NCFS Policy"} externalStyles={classes.Tab}>
-								<div className={classes.ncfsContainer}>
-									<h2 className={classes.head}>Config for non-compliant files</h2>
-									<section className={classes.info}>
-										<div>
-											<h3>
-												<strong>Un-Processable File Types</strong>{" "}
-											</h3>
-											<p>
-												When the filetype of the original file is identified as one that
-												the Glasswall SDK cannot rebuild.
-											</p>
-										</div>
-										<div>
-											<h3>
-												<strong>Glasswall Blocked Files</strong>
-											</h3>
-											<p>The original file cannot be rebuilt by the Glasswall SDK</p>
-										</div>
-									</section>
-									<RoutesForNonCompliantFiles
-										ncfsRoutingUrl={currentPolicy.adaptionPolicy.ncfsRoute.ncfsRoutingUrl}
-										disabled />
-
-									<PolicyForNonCompliantFiles ncfsActions={currentPolicy.adaptionPolicy.ncfsActions} />
+					{!policyContextHasError &&
+						<>
+							<div className={classes.header}>
+								<div className={classes.tableContainer}>
+									<Table className={classes.table} id={currentPolicy.id}>
+										<TableHead>
+											<TableRow>
+												<TableCell>Timestamp</TableCell>
+												<TableCell>Updated By</TableCell>
+											</TableRow>
+										</TableHead>
+										<TableBody className={classes.tbody}>
+											<TableRow>
+												<TableCell>
+													{new Date(currentPolicy.published).toLocaleTimeString()}
+												</TableCell>
+												<TableCell>
+													{currentPolicy.updatedBy ? currentPolicy.updatedBy : "N/A"}
+												</TableCell>
+											</TableRow>
+										</TableBody>
+									</Table>
 								</div>
-							</Tab>
-						</div>
-					</TabNav>
+							</div>
+
+
+							<TabNav
+								tabs={tabs}
+								selectedTabName={selectedTab}
+								onSetActiveTabHandler={(tab) => setSelectedTab(tab)}>
+
+								<div className={classes.innerContent}>
+									<Tab isSelected={selectedTab === "Adaption Policy"} externalStyles={classes.Tab}>
+										<h2 className={classes.head}>Content Management Flags</h2>
+										<ContentManagementFlags
+											contentManagementFlags={currentPolicy.adaptionPolicy.contentManagementFlags}
+											disabled />
+									</Tab>
+
+									<Tab isSelected={selectedTab === "NCFS Policy"} externalStyles={classes.Tab}>
+										<div className={classes.ncfsContainer}>
+											<h2 className={classes.head}>Config for non-compliant files</h2>
+											<section className={classes.info}>
+												<div>
+													<h3>
+														<strong>Un-Processable File Types</strong>{" "}
+													</h3>
+													<p>
+														When the filetype of the original file is identified as one that
+														the Glasswall SDK cannot rebuild.
+											</p>
+												</div>
+												<div>
+													<h3>
+														<strong>Glasswall Blocked Files</strong>
+													</h3>
+													<p>The original file cannot be rebuilt by the Glasswall SDK</p>
+												</div>
+											</section>
+											<RoutesForNonCompliantFiles
+												ncfsRoutingUrl={currentPolicy.adaptionPolicy.ncfsRoute.ncfsRoutingUrl}
+												disabled />
+
+											<PolicyForNonCompliantFiles ncfsActions={currentPolicy.adaptionPolicy.ncfsActions} />
+										</div>
+									</Tab>
+								</div>
+							</TabNav>
+						</>
+					}
 				</>
 			}
 		</div>

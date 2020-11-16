@@ -13,14 +13,23 @@ export const PolicyState = ({ children }) => {
 		draftPolicy: null,
 		policyHistory: [],
 		isPolicyChanged: false,
+		policyContextHasError: false
 	};
 
 	const [policyState, dispatch] = useReducer(policyReducer, initialState);
 
+	const setpolicyContextHasError = (error) => {
+		dispatch({ type: actionTypes.SET_POLICY_CONTEXT_ERROR, error });
+	};
+
 	const setCurrentPolicy = () => {
 		getCurrentPolicy()
 			.then(response =>
-				dispatch({ type: actionTypes.SET_CURRENT_POLICY, currentPolicy: response }));
+				dispatch({ type: actionTypes.SET_CURRENT_POLICY, currentPolicy: response }))
+			.catch((error) => {
+				dispatch({ type: actionTypes.SET_CURRENT_POLICY, currentPolicy: error })
+				setpolicyContextHasError(error)
+			});
 	};
 
 	const updateContentManagementFlag = (contentFlag) => {
@@ -46,6 +55,7 @@ export const PolicyState = ({ children }) => {
 				draftPolicy: policyState.draftPolicy,
 				policyHistory: policyState.policyHistory,
 				isPolicyChanged: policyState.isPolicyChanged,
+				policyContextHasError: policyState.policyContextHasError,
 				updateContentManagementFlag,
 				saveChanges,
 				cancelChanges,

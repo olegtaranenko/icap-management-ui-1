@@ -6,6 +6,15 @@ import { Guid } from "guid-typescript";
 let fetchStub: SinonStub;
 let fetchStubResult: any
 
+const expectFetch = (stubbedFetch: SinonStub,
+    expectedUrl: string,
+    method: "GET" | "POST") => {
+        expect(stubbedFetch.getCalls()).toHaveLength(1);
+        expect(stubbedFetch.getCall(0).args).toHaveLength(2);
+        expect(stubbedFetch.getCall(0).args[0]).toEqual(expectedUrl);
+        expect(stubbedFetch.getCall(0).args[1].method).toEqual(method);
+};
+
 describe("PolicyManagementApi", () => {
     describe("getPolicyById", () => {
         describe("response_status_not_ok", () => {
@@ -43,10 +52,7 @@ describe("PolicyManagementApi", () => {
             });
 
             it("called_fetch_using_GET", () => {
-                expect(fetchStub.getCalls()).toHaveLength(1);
-                expect(fetchStub.getCall(0).args).toHaveLength(2);
-                expect(fetchStub.getCall(0).args[0]).toEqual(expectedRequestUrl);
-                expect(fetchStub.getCall(0).args[1].method).toEqual("GET");
+                expectFetch(fetchStub, expectedRequestUrl, "GET");
             });
         });
 
@@ -81,10 +87,7 @@ describe("PolicyManagementApi", () => {
             });
 
             it("called_fetch_using_GET", () => {
-                expect(fetchStub.getCalls()).toHaveLength(1);
-                expect(fetchStub.getCall(0).args).toHaveLength(2);
-                expect(fetchStub.getCall(0).args[0]).toEqual(expectedRequestUrl);
-                expect(fetchStub.getCall(0).args[1].method).toEqual("GET");
+                expectFetch(fetchStub, expectedRequestUrl, "GET");
             });
         });
     });
@@ -123,10 +126,7 @@ describe("PolicyManagementApi", () => {
             });
 
             it("called_fetch_using_GET", () => {
-                expect(fetchStub.getCalls()).toHaveLength(1);
-                expect(fetchStub.getCall(0).args).toHaveLength(2);
-                expect(fetchStub.getCall(0).args[0]).toEqual(url);
-                expect(fetchStub.getCall(0).args[1].method).toEqual("GET");
+                expectFetch(fetchStub, url, "GET");
             });
         });
 
@@ -159,10 +159,7 @@ describe("PolicyManagementApi", () => {
             });
 
             it("called_fetch_using_GET", () => {
-                expect(fetchStub.getCalls()).toHaveLength(1);
-                expect(fetchStub.getCall(0).args).toHaveLength(2);
-                expect(fetchStub.getCall(0).args[0]).toEqual(url);
-                expect(fetchStub.getCall(0).args[1].method).toEqual("GET");
+                expectFetch(fetchStub, url, "GET");
             });
         });
     });
