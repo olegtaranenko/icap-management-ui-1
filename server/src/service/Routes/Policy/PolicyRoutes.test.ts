@@ -145,5 +145,48 @@ describe("PolicyRoutes", () => {
                     })
             });
         });
+
+        describe("/policy/draft", () => {
+            // Arrange
+            const expectedResponse = new Policy(
+                policyExample.id,
+                policyExample.policyType,
+                policyExample.published,
+                policyExample.lastEdited,
+                policyExample.created,
+                policyExample.ncfsPolicy,
+                policyExample.adaptionPolicy,
+                policyExample.updatedBy
+            );
+
+            beforeEach(() => {
+                policyManagementServiceStub =
+                    stub(policyRoutes.policyManagementService, "getDraftPolicy")
+                        .resolves(expectedResponse);
+            });
+
+            afterEach(() => {
+                policyManagementServiceStub.restore();
+            });
+
+            it("responds_with_200_OK", (done) => {
+                // Act
+                // Assert
+                request(app)
+                    .get("/policy/draft")
+                    .expect(200, done)
+            });
+
+            it("responds_with_correct_json", (done) => {
+                // Act
+                request(app)
+                    .get("/policy/draft")
+                    .expect(200, (error, result) => {
+                        // Assert
+                        expect(result.text).toEqual(JSON.stringify(expectedResponse));
+                        done();
+                    })
+            });
+        });
     });
 });

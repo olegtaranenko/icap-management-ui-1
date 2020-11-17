@@ -9,15 +9,44 @@ import PolicyManagementService from "./PolicyManagementService";
 
 import policyExample from "../../../common/http/PolicyManagementApi/policyExample.json";
 
+let getPolicyByIdStub: SinonStub;
 let getPolicyStub: SinonStub;
-let getCurrentPolicyStub: SinonStub;
+
+const setupGetPolicyTest = () => {
+    const responseString = policyExample;
+
+    beforeEach(() => {
+        getPolicyStub = stub(PolicyManagementApi, "getPolicy")
+            .resolves(JSON.stringify(responseString));
+    });
+
+    afterEach(() => {
+        getPolicyStub.restore();
+    });
+};
+
+const expectedResponse = new Policy(
+    policyExample.id,
+    policyExample.policyType,
+    policyExample.published,
+    policyExample.lastEdited,
+    policyExample.created,
+    policyExample.ncfsPolicy,
+    policyExample.adaptionPolicy,
+    policyExample.updatedBy
+);
+
+const logger = winston.createLogger({
+    transports: [
+        new winston.transports.Console({
+            format: winston.format.cli()
+        })
+    ]
+});
 
 describe("PolicyManagementService", () => {
     describe("constructor", () => {
         it("should_construct_with_valid_arguments", () => {
-            // Arrange
-            const logger = winston.createLogger();
-
             // Act
             const policyManagementService = new PolicyManagementService(logger);
 
@@ -27,34 +56,15 @@ describe("PolicyManagementService", () => {
     });
 
     describe("getPolicy", () => {
-        const logger = winston.createLogger({
-            transports: [
-                new winston.transports.Console({
-                    format: winston.format.cli()
-                })
-            ]
-        });
-
         const responseString = policyExample;
 
-        const expectedResponse = new Policy(
-            responseString.id,
-            responseString.policyType,
-            responseString.published,
-            responseString.lastEdited,
-            responseString.created,
-            responseString.ncfsPolicy,
-            responseString.adaptionPolicy,
-            responseString.updatedBy
-        );
-
         beforeEach(() => {
-            getPolicyStub = stub(PolicyManagementApi, "getPolicyById")
+            getPolicyByIdStub = stub(PolicyManagementApi, "getPolicyById")
                 .resolves(JSON.stringify(responseString));
         });
 
         afterEach(() => {
-            getPolicyStub.restore();
+            getPolicyByIdStub.restore();
         });
 
         it("returns_correct_response", async () => {
@@ -71,35 +81,7 @@ describe("PolicyManagementService", () => {
     });
 
     describe("getCurrentPolicy", () => {
-        const logger = winston.createLogger({
-            transports: [
-                new winston.transports.Console({
-                    format: winston.format.cli()
-                })
-            ]
-        });
-
-        const responseString = policyExample;
-
-        const expectedResponse = new Policy(
-            responseString.id,
-            responseString.policyType,
-            responseString.published,
-            responseString.lastEdited,
-            responseString.created,
-            responseString.ncfsPolicy,
-            responseString.adaptionPolicy,
-            responseString.updatedBy
-        );
-
-        beforeEach(() => {
-            getCurrentPolicyStub = stub(PolicyManagementApi, "getPolicy")
-                .resolves(JSON.stringify(responseString));
-        });
-
-        afterEach(() => {
-            getCurrentPolicyStub.restore();
-        });
+        setupGetPolicyTest();
 
         it("returns_correct_response", async () => {
             // Arrange
@@ -108,6 +90,22 @@ describe("PolicyManagementService", () => {
 
             // Act
             const result = await policyManagementService.getCurrentPolicy(getCurrentPolicyUrl);
+
+            // Assert
+            expect(result).toEqual(expectedResponse);
+        });
+    });
+
+    describe("getDraftPolicy", () => {
+        setupGetPolicyTest();
+
+        it("returns_correct_response", async () => {
+            // Arrange
+            const policyManagementService = new PolicyManagementService(logger);
+            const getDraftPolicyUrl = "www.glasswall.com";
+
+            // Act
+            const result = await policyManagementService.getDraftPolicy(getDraftPolicyUrl);
 
             // Assert
             expect(result).toEqual(expectedResponse);
