@@ -10,7 +10,7 @@ class PolicyRoutes {
     getPolicyPath: string;
     deletePolicyPath: string;
     getDraftPolicyPath: string;
-    updateDraftPolicyPath: string;
+    saveDraftPolicyPath: string;
     getCurrentPolicyPath: string;
     getPolicyHistoryPath: string;
     publishPolicyPath: string;
@@ -26,7 +26,7 @@ class PolicyRoutes {
         this.getPolicyPath = config.policy.getPolicyPath;
         this.deletePolicyPath = config.policy.deletePolicyPath;
         this.getDraftPolicyPath = config.policy.getDraftPolicyPath;
-        this.updateDraftPolicyPath = config.policy.updateDraftPolicyPath;
+        this.saveDraftPolicyPath = config.policy.saveDraftPolicyPath;
         this.getCurrentPolicyPath = config.policy.getCurrentPolicyPath;
         this.publishPolicyPath = config.policy.publishPolicyPath;
         this.distributePolicyPath = config.policy.distributePolicyPath;
@@ -84,10 +84,10 @@ class PolicyRoutes {
         });
 
         this.app.put("/policy/draft", async (req, res) => {
-            const requestUrl = this.policyManagementServiceBaseUrl + this.updateDraftPolicyPath;
+            const requestUrl = this.policyManagementServiceBaseUrl + this.saveDraftPolicyPath;
 
             try {
-                const response = await this.policyManagementService.updateDraftPolicy(requestUrl, req.body)
+                const response = await this.policyManagementService.saveDraftPolicy(requestUrl, req.body)
 
                 res.json(response);
             }

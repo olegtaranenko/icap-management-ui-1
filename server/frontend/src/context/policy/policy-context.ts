@@ -6,11 +6,11 @@ export interface PolicyContextProps {
 	draftPolicy?: Policy,
 	newDraftPolicy: Policy,
 	updateNewDraftPolicy: (newPolicy: Policy) => void,
+	saveDraftChanges: () => void,
 	policyHistory: Policy[],
 	isPolicyChanged: boolean,
 	policyContextHasError: boolean,
-	cancelChanges: () => void,
-	saveChanges: () => void
+	cancelChanges: () => void
 }
 
 export const PolicyContext = createContext<Partial<PolicyContextProps>>({});

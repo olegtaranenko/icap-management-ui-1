@@ -6,12 +6,12 @@ import ContentManagementFlags from "../ContentManagementFlags/ContentManagementF
 import RoutesForNonCompliantFiles from "../RoutesForNonCompliantFiles/RoutesForNonCompliantFiles";
 import PolicyForNonCompliantFiles from "../PolicyForNonCompliantFiles/PolicyForNonCompliantFiles";
 import { ContentFlags } from "../../../../../src/common/models/PolicyManagementService/Policy/AdaptionPolicy/ContentFlags/ContentFlags";
+import { NcfsActions } from "../../../../../src/common/models/PolicyManagementService/Policy/NcfsPolicy/NcfsActions";
 
 import { PolicyContext } from "../../../context/policy/policy-context";
 
 import classes from "./DraftPolicy.module.scss";
 import Button from "../../../components/UI/Button/Button";
-import { NcfsActions } from "../../../../../src/common/models/PolicyManagementService/Policy/NcfsPolicy/NcfsActions";
 
 const DraftPolicy = () => {
     const {
@@ -20,7 +20,7 @@ const DraftPolicy = () => {
         isPolicyChanged,
         policyContextHasError,
         updateNewDraftPolicy,
-        saveChanges,
+        saveDraftChanges,
         cancelChanges
     } = useContext(PolicyContext);
 
@@ -69,9 +69,14 @@ const DraftPolicy = () => {
         });
     }
 
+    const saveDraft = () => {
+        setIsLoading(true);
+        saveDraftChanges();
+    }
+
     useEffect(() => {
         if (newDraftPolicy !== null && currentPolicy !== null && isLoading) {
-            setIsLoading(false);
+            setTimeout(() => setIsLoading(false), 500);
         }
     }, [newDraftPolicy, currentPolicy, isLoading]);
 
@@ -84,7 +89,7 @@ const DraftPolicy = () => {
                     buttonType="button">Cancel Changes</Button>
                 <Button
                     externalStyles={classes.buttons}
-                    onButtonClick={saveChanges}
+                    onButtonClick={saveDraft}
                     buttonType="button">Save Changes</Button>
             </div>
         </div>

@@ -90,12 +90,12 @@ class PolicyManagementService implements IPolicyManagementService {
         return policy;
     }
 
-    updateDraftPolicy = async (updatePolicyUrl: string, draftPolicy: Policy) => {
+    saveDraftPolicy = async (updatePolicyUrl: string, draftPolicy: Policy) => {
         try {
             this.logger.info(
                 `Saving Draft Policy to the PolicyManagementService - PolicyId: ${draftPolicy.id}`);
 
-            await PolicyManagementApi.updateDraftPolicy(
+            await PolicyManagementApi.saveDraftPolicy(
                 updatePolicyUrl, draftPolicy, { "Content-Type": "application/json" });
 
             this.logger.info(

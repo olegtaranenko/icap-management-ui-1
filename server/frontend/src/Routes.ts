@@ -16,7 +16,7 @@ const Routes = {
         getPolicyByIdRoute: _returnRoute("/policy/getPolicy"),
         deletePolicyRoute: _returnRoute("/policy/deletePolicy"),
         getDraftPolicyRoute: _returnRoute("/policy/draft"),
-        updateDraftPolicyRoute: _returnRoute("/policy/updateDraftPolicy"),
+        saveDraftPolicyRoute: _returnRoute("/policy/draft"),
         getCurrentPolicyRoute: _returnRoute("/policy/current"),
         getPolicyHistory: _returnRoute("/policy/getPolicyHistory"),
         publishPolicyRoute: _returnRoute("/policy/publishPolicy"),

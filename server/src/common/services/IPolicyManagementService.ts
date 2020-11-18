@@ -7,5 +7,5 @@ export default interface IPolicyManagementService {
     getPolicy: (request: GetPolicyByIdRequest) => Promise<Policy>,
     getCurrentPolicy: (getCurrentPolicyUrl: string) => Promise<Policy>,
     getDraftPolicy: (getDraftPolicyUrl: string) => Promise<Policy>,
-    updateDraftPolicy: (updateDraftPolicyUrl: string, draftPolicy: Policy) => Promise<void>
+    saveDraftPolicy: (saveDraftPolicyUrl: string, draftPolicy: Policy) => Promise<void>
 }

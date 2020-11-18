@@ -31,8 +31,8 @@ export default class PolicyManagementApi {
         return response.text();
     }
 
-    static updateDraftPolicy = async(updateDraftPolicyUrl: string, draftPolicy: Policy, headers?: { [header: string]: string }): Promise<void> => {
-        const response = await fetch(updateDraftPolicyUrl, {
+    static saveDraftPolicy = async(saveDraftPolicyUrl: string, draftPolicy: Policy, headers?: { [header: string]: string }): Promise<void> => {
+        const response = await fetch(saveDraftPolicyUrl, {
             method: "PUT",
             body: JSON.stringify(draftPolicy),
             headers

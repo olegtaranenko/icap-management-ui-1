@@ -1,5 +1,4 @@
 import React, { useEffect, useReducer, useCallback } from "react";
-
 import { PolicyContext } from "./policy-context";
 import { policyReducer } from "./policy-reducers";
 
@@ -49,8 +48,8 @@ export const PolicyState = ({ children }) => {
 		dispatch({ type: actionTypes.UPDATE_NEW_DRAFT_POLICY, newPolicy: newPolicy });
 	};
 
-	const saveChanges = () => {
-		dispatch({ type: actionTypes.SAVE_POLICY_CHANGES });
+	const saveDraftChanges = () => {
+		dispatch({ type: actionTypes.SAVE_DRAFT_CHANGES });
 	};
 
 	const cancelChanges = () => {
@@ -68,11 +67,11 @@ export const PolicyState = ({ children }) => {
 				currentPolicy: policyState.currentPolicy,
 				draftPolicy: policyState.draftPolicy,
 				newDraftPolicy: policyState.newDraftPolicy,
-				updateNewDraftPolicy,
+				updateNewDraftPolicy,				
+				saveDraftChanges,
 				policyHistory: policyState.policyHistory,
 				isPolicyChanged: policyState.isPolicyChanged,
 				policyContextHasError: policyState.policyContextHasError,
-				saveChanges,
 				cancelChanges
 			}}
 		>

@@ -1,8 +1,8 @@
 import equal from "deep-equal";
-
 import { updateObject } from "../../helpers/updateObject";
-
 import * as actionTypes from "../actionTypes";
+
+import { saveDraftPolicy } from "./api";
 
 const setpolicyContextHasError = (state, error) => {
 	return updateObject(state, {
@@ -38,8 +38,14 @@ const cancelChangesPolicy = (state) => {
 	});
 };
 
-const saveChangesPolicy = (state) => {
-	
+const saveDraftChanges = (state) => {
+	saveDraftPolicy(state.newDraftPolicy)
+		.then(() => {
+			setDraftPolicy(state, state.newDraftPolicy);
+		})
+		.catch(error => {
+			setpolicyContextHasError(state, error);
+		});
 
 	return updateObject(state, {
 		isPolicyChanged: false,
@@ -56,8 +62,8 @@ export const policyReducer = (state, action) => {
 			return setDraftPolicy(state, action.draftPolicy);
 		case actionTypes.UPDATE_NEW_DRAFT_POLICY:
 			return updateNewDraftPolicy(state, action.newPolicy);
-		case actionTypes.SAVE_POLICY_CHANGES:
-			return saveChangesPolicy(state);
+		case actionTypes.SAVE_DRAFT_CHANGES:
+			return saveDraftChanges(state);
 		case actionTypes.CANCEL_POLICY_CHANGES:
 			return cancelChangesPolicy(state);
 		default:
