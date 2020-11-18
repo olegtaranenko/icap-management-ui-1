@@ -1,5 +1,6 @@
 import { Guid } from "guid-typescript";
 import fetch from "node-fetch";
+import { Policy } from "../../../common/models/PolicyManagementService/Policy/Policy";
 
 export default class PolicyManagementApi {
     static getPolicyById = async (getPolicyByIdUrl: string, policyId: Guid, headers?: { [header: string]: string }): Promise<string> => {
@@ -28,5 +29,17 @@ export default class PolicyManagementApi {
         }
 
         return response.text();
+    }
+
+    static updateDraftPolicy = async(updateDraftPolicyUrl: string, draftPolicy: Policy, headers?: { [header: string]: string }): Promise<void> => {
+        const response = await fetch(updateDraftPolicyUrl, {
+            method: "PUT",
+            body: JSON.stringify(draftPolicy),
+            headers
+        });
+
+        if (!response.ok) {
+            throw response.statusText;
+        }
     }
 }

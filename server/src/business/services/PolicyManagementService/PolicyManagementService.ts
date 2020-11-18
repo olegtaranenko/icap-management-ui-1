@@ -30,7 +30,8 @@ class PolicyManagementService implements IPolicyManagementService {
         try {
             this.logger.info(`Retrieving Policy from the PolicyManagementServie - PolicyId: ${request.policyId}`);
 
-            const response = await PolicyManagementApi.getPolicyById(request.url, request.policyId);
+            const response = await PolicyManagementApi.getPolicyById(
+                request.url, request.policyId, { "Content-Type": "application/json" });
             const responseJSON = JSON.parse(response);
             policy = this.createPolicyModel(responseJSON);
 
@@ -51,7 +52,8 @@ class PolicyManagementService implements IPolicyManagementService {
         try {
             this.logger.info("Retrieving Current Policy from the PolicyManagementService");
 
-            const response = await PolicyManagementApi.getPolicy(getCurrentPolicyUrl);
+            const response = await PolicyManagementApi.getPolicy(
+                getCurrentPolicyUrl, { "Content-Type": "application/json" });
             const responseJSON = JSON.parse(response);
             policy = this.createPolicyModel(responseJSON);
 
@@ -72,7 +74,8 @@ class PolicyManagementService implements IPolicyManagementService {
         try {
             this.logger.info("Retrieving Draft Policy from the PolicyManagementService");
 
-            const response = await PolicyManagementApi.getPolicy(getDraftPolicyUrl);
+            const response = await PolicyManagementApi.getPolicy(
+                getDraftPolicyUrl, { "Content-Type": "application/json" });
             const responseJSON = JSON.parse(response);
             policy = this.createPolicyModel(responseJSON);
 
@@ -80,11 +83,27 @@ class PolicyManagementService implements IPolicyManagementService {
                 this.logger.info(`Retrieved Draft Policy - PolicyId: ${policy.id}`);
             }
         }
-        catch(error) {
+        catch (error) {
             this.logger.error("Could not get Draft Policy");
         }
 
         return policy;
+    }
+
+    updateDraftPolicy = async (updatePolicyUrl: string, draftPolicy: Policy) => {
+        try {
+            this.logger.info(
+                `Saving Draft Policy to the PolicyManagementService - PolicyId: ${draftPolicy.id}`);
+
+            await PolicyManagementApi.updateDraftPolicy(
+                updatePolicyUrl, draftPolicy, { "Content-Type": "application/json" });
+
+            this.logger.info(
+                `Saved Draft Policy to the PolicyManagementService - PolicyId: ${draftPolicy.id}`)
+        }
+        catch (error) {
+            this.logger.error("Couldn't save Draft Policy");
+        }
     }
 }
 

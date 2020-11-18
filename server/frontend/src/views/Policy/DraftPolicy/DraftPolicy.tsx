@@ -104,8 +104,6 @@ const DraftPolicy = () => {
 
                     {!policyContextHasError &&
                         <>
-
-
                             <TabNav
                                 tabs={tabs}
                                 selectedTabName={selectedTab}

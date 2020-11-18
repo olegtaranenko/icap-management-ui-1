@@ -6,5 +6,6 @@ export default interface IPolicyManagementService {
     logger: Logger,
     getPolicy: (request: GetPolicyByIdRequest) => Promise<Policy>,
     getCurrentPolicy: (getCurrentPolicyUrl: string) => Promise<Policy>,
-    getDraftPolicy: (getDraftPolicyUrl: string) => Promise<Policy>
+    getDraftPolicy: (getDraftPolicyUrl: string) => Promise<Policy>,
+    updateDraftPolicy: (updateDraftPolicyUrl: string, draftPolicy: Policy) => Promise<void>
 }

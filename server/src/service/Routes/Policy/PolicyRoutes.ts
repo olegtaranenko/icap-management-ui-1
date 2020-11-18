@@ -77,7 +77,22 @@ class PolicyRoutes {
                 res.json(policy);
             }
             catch (error) {
-                const message = "Error Retrieving the Current Draft Policy";
+                const message = "Error Retrieving the Draft Policy";
+                this.logger.error(message + error.stack);
+                res.status(500).json(message);
+            }
+        });
+
+        this.app.put("/policy/draft", async (req, res) => {
+            const requestUrl = this.policyManagementServiceBaseUrl + this.updateDraftPolicyPath;
+
+            try {
+                const response = await this.policyManagementService.updateDraftPolicy(requestUrl, req.body)
+
+                res.json(response);
+            }
+            catch (error) {
+                const message = "Error Updating the Draft Policy";
                 this.logger.error(message + error.stack);
                 res.status(500).json(message);
             }
