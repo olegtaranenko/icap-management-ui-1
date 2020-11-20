@@ -14,7 +14,7 @@ export const getDraftPolicy = async (): Promise<Policy> => {
     return response as Policy;
 }
 
-export const saveDraftPolicy = async (policy: Policy): Promise<string> => {
+export const saveDraftPolicy = async (policy: Policy): Promise<void> => {
     const response = await fetch(Routes.policyRoutes.saveDraftPolicyRoute, {
         method: "PUT",
         headers: {
@@ -27,6 +27,4 @@ export const saveDraftPolicy = async (policy: Policy): Promise<string> => {
     if (!response.ok) {
         throw response.statusText;
     }
-
-    return response.text();
 }

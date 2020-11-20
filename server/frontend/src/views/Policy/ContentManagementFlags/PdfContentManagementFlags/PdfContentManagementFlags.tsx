@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { ContentManagementFlagAction } from "../../../../../../src/common/models/enums/ContentManagementFlagAction";
 import { PdfContentFlags } from "../../../../../../src/common/models/PolicyManagementService/Policy/AdaptionPolicy/ContentFlags/PdfContentFlags";
 import RadioButton from "../../../../components/UI/RadioButton/RadioButton";
-import { PolicyContext } from "../../../../context/policy/policy-context";
+import { PolicyContext } from "../../../../context/policy/PolicyContext";
 
 export interface PdfContentManagementFlagsProps {
     initialPdfContentFlags: PdfContentFlags,

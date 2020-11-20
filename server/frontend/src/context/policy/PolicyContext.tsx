@@ -1,16 +1,17 @@
 import { createContext } from "react";
 import { Policy } from "../../../../src/common/models/PolicyManagementService/Policy/Policy";
 
-export interface PolicyContextProps {
+export type TPolicyState = {
 	currentPolicy: Policy,
-	draftPolicy?: Policy,
+	draftPolicy: Policy,
 	newDraftPolicy: Policy,
-	updateNewDraftPolicy: (newPolicy: Policy) => void,
+	setNewDraftPolicy: (policy: Policy) => void,
 	saveDraftChanges: () => void,
+	cancelDraftChanges: () => void
 	policyHistory: Policy[],
 	isPolicyChanged: boolean,
-	policyContextHasError: boolean,
-	cancelChanges: () => void
+	status: "LOADING" | "ERROR" | "LOADED",
+	policyErrorMessage: ""
 }
 
-export const PolicyContext = createContext<Partial<PolicyContextProps>>({});
+export const PolicyContext = createContext<TPolicyState | null>(null);

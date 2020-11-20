@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 
-import { PolicyContext } from "../../../context/policy/policy-context";
+import { PolicyContext } from "../../../context/policy/PolicyContext";
 import DomainField from "../DomainField/DomainField";
 
 import classes from "./RoutesForNonCompliantFiles.module.scss";
@@ -33,7 +33,7 @@ const RoutesForNonCompliantFiles = (props: RoutesForNonCompliantFilesProps) => {
 					disabled={props.disabled}
 					onChangeInputHandler={(event: any) => handleChange(event.target.value)} />
 
-				{props.changeInput !== null &&
+				{!props.disabled &&
 					<p className={classes.currentApiUrl}>Current API Url: {currentPolicyRoutingUrl}</p>
 				}
 			</div>

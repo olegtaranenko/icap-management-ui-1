@@ -87,9 +87,9 @@ class PolicyRoutes {
             const requestUrl = this.policyManagementServiceBaseUrl + this.saveDraftPolicyPath;
 
             try {
-                const response = await this.policyManagementService.saveDraftPolicy(requestUrl, req.body)
+                await this.policyManagementService.saveDraftPolicy(requestUrl, req.body);
 
-                res.json(response);
+                res.sendStatus(200);
             }
             catch (error) {
                 const message = "Error Updating the Draft Policy";

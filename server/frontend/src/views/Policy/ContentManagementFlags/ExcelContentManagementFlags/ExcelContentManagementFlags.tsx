@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { ContentManagementFlagAction } from "../../../../../../src/common/models/enums/ContentManagementFlagAction";
 import { ExcelContentFlags } from "../../../../../../src/common/models/PolicyManagementService/Policy/AdaptionPolicy/ContentFlags/ExcelContentFlags";
-import { PolicyContext } from "../../../../context/policy/policy-context";
+import { PolicyContext } from "../../../../context/policy/PolicyContext";
 import RadioButton from "../../../../components/UI/RadioButton/RadioButton";
 
 export interface ExcelContentManagementFlagsProps {

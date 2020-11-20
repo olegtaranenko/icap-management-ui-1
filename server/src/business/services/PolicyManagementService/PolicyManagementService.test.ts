@@ -11,6 +11,7 @@ import policyExample from "../../../common/http/PolicyManagementApi/policyExampl
 
 let getPolicyByIdStub: SinonStub;
 let getPolicyStub: SinonStub;
+let saveDraftPolicyStub: SinonStub;
 
 const setupGetPolicyTest = () => {
     const responseString = policyExample;
@@ -111,4 +112,17 @@ describe("PolicyManagementService", () => {
             expect(result).toEqual(expectedResponse);
         });
     });
-})
+
+    describe("saveDraftPolicy", () => {
+        const responseString = "OK";
+
+        beforeEach(() => {
+            saveDraftPolicyStub = stub(PolicyManagementApi, "saveDraftPolicy")
+                .resolves();
+        });
+
+        afterEach(() => {
+            saveDraftPolicyStub.restore();
+        });
+    });
+});

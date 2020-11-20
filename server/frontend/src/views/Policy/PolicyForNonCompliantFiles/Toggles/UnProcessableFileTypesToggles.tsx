@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { NcfsOption } from "../../../../../../src/common/models/enums/NcfsOption";
-import { PolicyContext } from "../../../../context/policy/policy-context";
+import { PolicyContext } from "../../../../context/policy/PolicyContext";
 
 import classes from "./Toggles.module.scss";
 
