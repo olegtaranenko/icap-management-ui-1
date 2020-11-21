@@ -58,7 +58,7 @@ describe("PolicyRoutes", () => {
 
         policyRoutes.setup();
 
-        describe("policy/getPolicy", () => {
+        describe("get_policy/getPolicy", () => {
             // Arrange
             const policyId = Guid.create().toString();
 
@@ -103,7 +103,7 @@ describe("PolicyRoutes", () => {
             });
         });
 
-        describe("policy/current", () => {
+        describe("get_policy/current", () => {
             // Arrange
             const expectedResponse = new Policy(
                 policyExample.id,
@@ -146,7 +146,7 @@ describe("PolicyRoutes", () => {
             });
         });
 
-        describe("/policy/draft", () => {
+        describe("get_policy/draft", () => {
             // Arrange
             const expectedResponse = new Policy(
                 policyExample.id,
@@ -188,5 +188,9 @@ describe("PolicyRoutes", () => {
                     })
             });
         });
+
+        // TODO: Add test for save draft
+
+        // TODO: Add test for publish draft
     });
 });

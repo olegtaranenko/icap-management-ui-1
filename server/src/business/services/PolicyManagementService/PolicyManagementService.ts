@@ -3,6 +3,7 @@ import { Policy } from "../../../common/models/PolicyManagementService/Policy/Po
 import { GetPolicyByIdRequest } from "../../../common/models/PolicyManagementService/GetPolicyById/GetPolicyByIdRequest";
 import IPolicyManagementService from "../../../common/services/IPolicyManagementService";
 import PolicyManagementApi from "../../../common/http/PolicyManagementApi/PolicyManagementApi";
+import { Guid } from "guid-typescript";
 
 class PolicyManagementService implements IPolicyManagementService {
     logger: Logger;
@@ -103,6 +104,19 @@ class PolicyManagementService implements IPolicyManagementService {
         }
         catch (error) {
             this.logger.error("Couldn't save Draft Policy");
+        }
+    }
+
+    publishPolicy = async (publishPolicyUrl: string, policyId: Guid) => {
+        try {
+            this.logger.info(`Publishing Policy - PolicyId: ${policyId}`);
+
+            await PolicyManagementApi.publishPolicy(publishPolicyUrl, policyId, { "Content-Type": "application/json" });
+
+            this.logger.info(`Published Policy - PolicyId: ${policyId}`);
+        }
+        catch (error) {
+            this.logger.error(`Couldn't Publish Policy - PolicyId: ${policyId}`);
         }
     }
 }

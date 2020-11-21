@@ -24,10 +24,10 @@ const CurrentPolicy = () => {
 		status
 	} = useContext(PolicyContext);
 
-	const [selectedTab, setSelectedTab] = useState("Adaption Policy");
+	const [selectedTab, setSelectedTab] = useState("Adaptation Policy");
 
 	const tabs = [
-		{ testId: "buttonCurrentAdaptionPolicyTab", name: "Adaption Policy" },
+		{ testId: "buttonCurrentAdaptationPolicyTab", name: "Adaptation Policy" },
 		{ testId: "buttonCurrentNcfsPolicyTab", name: "NCFS Policy" },
 	];
 
@@ -71,7 +71,7 @@ const CurrentPolicy = () => {
 					onSetActiveTabHandler={(tab) => setSelectedTab(tab)}>
 
 					<div className={classes.innerContent}>
-						<Tab isSelected={selectedTab === "Adaption Policy"} externalStyles={classes.Tab}>
+						<Tab isSelected={selectedTab === "Adaptation Policy"} externalStyles={classes.Tab}>
 							<h2 className={classes.head}>Content Management Flags</h2>
 							{policyTimestampData}
 							<ContentManagementFlags

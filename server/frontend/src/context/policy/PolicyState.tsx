@@ -1,9 +1,10 @@
 import React, { useEffect, useReducer } from "react";
+import { Guid } from "guid-typescript";
 import { PolicyContext } from "./PolicyContext";
 import { policyReducer } from "./policy-reducers";
 import { Policy } from "../../../../src/common/models/PolicyManagementService/Policy/Policy";
 import * as actionTypes from "../actionTypes";
-import { getCurrentPolicy, getDraftPolicy, saveDraftPolicy } from "./api";
+import { getCurrentPolicy, getDraftPolicy, saveDraftPolicy, publishDraftPolicy } from "./api";
 
 interface InitialPolicyState {
 	currentPolicy: Policy,
@@ -37,7 +38,7 @@ export const PolicyState = (props: { children: React.ReactNode }) => {
 	}
 
 	const setIsPolicyChanged = (changed: boolean) => {
-		dispatch({type: actionTypes.SET_IS_POLICY_CHANGED, changed});
+		dispatch({ type: actionTypes.SET_IS_POLICY_CHANGED, changed });
 	}
 
 	const setCurrentPolicy = (policy: Policy) => {
@@ -60,10 +61,10 @@ export const PolicyState = (props: { children: React.ReactNode }) => {
 
 		(async (): Promise<void> => {
 			try {
-				status = "LOADED";
 				await saveDraftPolicy(policyState.newDraftPolicy);
 				setDraftPolicy(policyState.newDraftPolicy);
 				setIsPolicyChanged(false);
+				status = "LOADED";
 			}
 			catch (error) {
 				status = "ERROR";
@@ -79,8 +80,30 @@ export const PolicyState = (props: { children: React.ReactNode }) => {
 		dispatch({ type: actionTypes.CANCEL_DRAFT_CHANGES });
 	}
 
+	const publishPolicy = (policyId: Guid) => {
+		// let status: "LOADING" | "ERROR" | "LOADED" = "LOADING";
+		// setStatus(status);
+
+		// (async (): Promise<void> => {
+		// 	try {
+		// 		await publishDraftPolicy(policyId);
+		// 		status = "LOADED";
+		// 	}
+		// 	catch (error) {
+		// 		setPolicyError(error);
+		// 		status = "ERROR";
+		// 	}
+		// 	finally {
+		// 		setStatus(status);
+		// 	}
+		// })();
+
+		alert("publish from PolicyState " + policyId);
+	}
+
 	useEffect(() => {
-		setStatus("LOADING");
+		let status: "LOADING" | "ERROR" | "LOADED" = "LOADING";
+		setStatus(status);
 
 		(async (): Promise<void> => {
 			try {
@@ -91,11 +114,14 @@ export const PolicyState = (props: { children: React.ReactNode }) => {
 				setDraftPolicy(draftPolicy);
 				setNewDraftPolicy(draftPolicy);
 
-				setStatus("LOADED");
+				status = "LOADED";
 			}
 			catch (error) {
 				setPolicyError(error);
-				setStatus("ERROR");
+				status = "ERROR";
+			}
+			finally {
+				setStatus(status);
 			}
 		})();
 	}, []);
@@ -108,6 +134,7 @@ export const PolicyState = (props: { children: React.ReactNode }) => {
 			setNewDraftPolicy,
 			saveDraftChanges,
 			cancelDraftChanges,
+			publishPolicy,
 			policyHistory: policyState.policyHistory,
 			isPolicyChanged: policyState.isPolicyChanged,
 			status: policyState.status,

@@ -52,7 +52,7 @@ const GlasswallBlockedFilesToggles = (props: GlasswallBlockedFilesTogglesProps) 
 						{" "}
 						<strong>Block </strong>- The original file should be blocked. An
 						Error report should be constructed using the template included in
-						the Adaption Policy.
+						the Adaptation Policy.
 					</label>
 				</div>
 				<div className={classes.input}>

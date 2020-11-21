@@ -33,14 +33,19 @@
 			margin-right: 3rem;
 			font-size: 1.2rem;
 			height: 3rem;
+			line-height: initial;
+		}
 
-			&:first-child {
-				color: #6697a6;
-			}
+		& .cancelButton {
+			color: #6697a6;
+		}
 
-			&:last-child {
-				background: #4592b0;
-			}
+		& .saveButton {
+			background: #4592b0;
+		}
+
+		& .publishButton {
+			background: #4592b0;
 		}
 	}
 

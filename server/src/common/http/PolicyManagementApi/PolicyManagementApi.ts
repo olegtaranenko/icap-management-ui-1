@@ -42,4 +42,17 @@ export default class PolicyManagementApi {
             throw response.statusText;
         }
     }
+
+    static publishPolicy = async(publishPolicyUrl: string, policyId: Guid, headers?: { [header: string]: string }): Promise<void> => {
+        const url = `${publishPolicyUrl}?id=${policyId.toString()}`;
+
+        const response = await fetch(url, {
+            method: "PUT",
+            headers
+        });
+
+        if (!response.ok) {
+            throw response.statusText;
+        }
+    }
 }

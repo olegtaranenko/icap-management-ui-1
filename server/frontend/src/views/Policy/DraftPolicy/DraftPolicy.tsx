@@ -1,32 +1,35 @@
 import React, { useContext, useState } from "react";
-
+import equal from "deep-equal";
 import TabNav from "../../../components/Tabs/TabNav/TabNav";
 import Tab from "../../../components/Tabs/Tab/Tab";
 import ContentManagementFlags from "../ContentManagementFlags/ContentManagementFlags";
 import RoutesForNonCompliantFiles from "../RoutesForNonCompliantFiles/RoutesForNonCompliantFiles";
 import PolicyForNonCompliantFiles from "../PolicyForNonCompliantFiles/PolicyForNonCompliantFiles";
-import { ContentFlags } from "../../../../../src/common/models/PolicyManagementService/Policy/AdaptionPolicy/ContentFlags/ContentFlags";
+import { ContentFlags } from "../../../../../src/common/models/PolicyManagementService/Policy/AdaptationPolicy/ContentFlags/ContentFlags";
 import { NcfsActions } from "../../../../../src/common/models/PolicyManagementService/Policy/NcfsPolicy/NcfsActions";
 
 import { PolicyContext } from "../../../context/policy/PolicyContext";
 
 import classes from "./DraftPolicy.module.scss";
 import Button from "../../../components/UI/Button/Button";
+import { Guid } from "guid-typescript";
 
 const DraftPolicy = () => {
     const {
         isPolicyChanged,
         newDraftPolicy,
+        currentPolicy,
         status,
         setNewDraftPolicy,
         saveDraftChanges,
-        cancelDraftChanges
+        cancelDraftChanges,
+        publishPolicy
     } = useContext(PolicyContext);
 
-    const [selectedTab, setSelectedTab] = useState("Adaption Policy");
+    const [selectedTab, setSelectedTab] = useState("Adaptation Policy");
 
     const tabs = [
-        { testId: "buttonCurrentAdaptionPolicyTab", name: "Adaption Policy" },
+        { testId: "buttonCurrentAdaptationPolicyTab", name: "Adaptation Policy" },
         { testId: "buttonCurrentNcfsPolicyTab", name: "NCFS Policy" },
     ];
 
@@ -67,18 +70,45 @@ const DraftPolicy = () => {
         });
     };
 
+    const showPublishButton = () => {
+        const draft = {
+            adaptionPolicy: {
+                ...newDraftPolicy.adaptionPolicy,
+                ncfsRoute: newDraftPolicy.adaptionPolicy.ncfsRoute.ncfsRoutingUrl
+            },
+            ...newDraftPolicy.ncfsPolicy,
+        };
+
+        const current = {
+            adaptionPolicy: {
+                ...currentPolicy.adaptionPolicy,
+                ncfsRoute: currentPolicy.adaptionPolicy.ncfsRoute.ncfsRoutingUrl
+            },
+            ...currentPolicy.ncfsPolicy
+        };
+
+        return !isPolicyChanged && !equal(draft, current);
+    }
+
     const saveCancelButtons = (
-        <div className={classes.header}>
-            <div className={classes.buttons}>
-                <Button
-                    externalStyles={classes.buttons}
-                    onButtonClick={cancelDraftChanges}
-                    buttonType="button">Cancel Changes</Button>
-                <Button
-                    externalStyles={classes.buttons}
-                    onButtonClick={() => saveDraftChanges()}
-                    buttonType="button">Save Changes</Button>
-            </div>
+        <div className={classes.buttons}>
+            <Button
+                externalStyles={classes.cancelButton}
+                onButtonClick={() => cancelDraftChanges()}
+                buttonType="button">Cancel Changes</Button>
+            <Button
+                externalStyles={classes.saveButton}
+                onButtonClick={() => saveDraftChanges()}
+                buttonType="button">Save Changes</Button>
+        </div>
+    );
+
+    const publishButton = (
+        <div className={classes.buttons}>
+            <Button
+                externalStyles={classes.publishButton}
+                onButtonClick={() => publishPolicy(Guid.parse(newDraftPolicy.id))}
+                buttonType="button">Publish</Button>
         </div>
     );
 
@@ -99,11 +129,12 @@ const DraftPolicy = () => {
                     onSetActiveTabHandler={(tab) => setSelectedTab(tab)}>
 
                     <div className={classes.innerContent}>
-                        <Tab isSelected={selectedTab === "Adaption Policy"} externalStyles={classes.Tab}>
+                        <Tab isSelected={selectedTab === "Adaptation Policy"} externalStyles={classes.Tab}>
                             <h2 className={classes.head}>
                                 <div className={classes.header}>
                                     Content Management Flags
-                                                {isPolicyChanged && <>{saveCancelButtons}</>}
+                                    {isPolicyChanged && <>{saveCancelButtons}</>}
+                                    {showPublishButton() && publishButton}
                                 </div>
                             </h2>
                             <ContentManagementFlags
@@ -115,7 +146,8 @@ const DraftPolicy = () => {
                             <h2 className={classes.head}>
                                 <div className={classes.header}>
                                     Config for non-compliant files
-                                                {isPolicyChanged && <>{saveCancelButtons}</>}
+                                    {isPolicyChanged && <>{saveCancelButtons}</>}
+                                    {showPublishButton() && publishButton}
                                 </div>
                             </h2>
                             <div className={classes.ncfsContainer}>

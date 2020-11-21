@@ -14,13 +14,12 @@ const Routes = {
 
     policyRoutes: {
         getPolicyByIdRoute: _returnRoute("/policy/getPolicy"),
-        deletePolicyRoute: _returnRoute("/policy/deletePolicy"),
+        getCurrentPolicyRoute: _returnRoute("/policy/current"),
         getDraftPolicyRoute: _returnRoute("/policy/draft"),
         saveDraftPolicyRoute: _returnRoute("/policy/draft"),
-        getCurrentPolicyRoute: _returnRoute("/policy/current"),
-        getPolicyHistory: _returnRoute("/policy/getPolicyHistory"),
-        publishPolicyRoute: _returnRoute("/policy/publishPolicy"),
-        distributePolicyRoute: _returnRoute("/policy/distributePolicy")
+        publishPolicyRoute: _returnRoute("/policy/publish"),
+        deletePolicyRoute: _returnRoute("/policy/deletePolicy"),
+        getPolicyHistory: _returnRoute("/policy/history"),
     }
 }
 
