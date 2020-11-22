@@ -114,18 +114,18 @@ describe("PolicyManagementService", () => {
     });
 
     // TODO: Finish saveDraftPolicy test
-    describe("saveDraftPolicy", () => {
-        const responseString = "OK";
+    // describe("saveDraftPolicy", () => {
+    //     const responseString = "OK";
 
-        beforeEach(() => {
-            saveDraftPolicyStub = stub(PolicyManagementApi, "saveDraftPolicy")
-                .resolves();
-        });
+    //     beforeEach(() => {
+    //         saveDraftPolicyStub = stub(PolicyManagementApi, "saveDraftPolicy")
+    //             .resolves();
+    //     });
 
-        afterEach(() => {
-            saveDraftPolicyStub.restore();
-        });
-    });
+    //     afterEach(() => {
+    //         saveDraftPolicyStub.restore();
+    //     });
+    // });
 
     // TODO: Add test for publish draft
 });
