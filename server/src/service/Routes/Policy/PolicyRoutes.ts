@@ -117,6 +117,22 @@ class PolicyRoutes {
                 res.status(500).json(message);
             }
         });
+
+        // Delete Draft Policy
+        this.app.delete("/policy/draft/:policyId", async (req, res) => {
+            const requestUrl = this.policyManagementServiceBaseUrl + this.deletePolicyPath;
+
+            try {
+                await this.policyManagementService.deleteDraftPolicy(requestUrl, Guid.parse(req.params.policyId));
+
+                res.sendStatus(200);
+            }
+            catch (error) {
+                const message = `Error Deleting Policy - PolicyId: ${req.params.policyId}`;
+                this.logger.error(message + error.stack);
+                res.status(500).json(message);
+            }
+        });
     }
 }
 

@@ -119,6 +119,19 @@ class PolicyManagementService implements IPolicyManagementService {
             this.logger.error(`Couldn't Publish Policy - PolicyId: ${policyId}`);
         }
     }
+
+    deleteDraftPolicy = async (deleteDraftPolicyUrl: string, policyId: Guid) => {
+        try {
+            this.logger.info(`Deleting Policy - PolicyId: ${policyId}`);
+
+            await PolicyManagementApi.deleteDraftPolicy(deleteDraftPolicyUrl, policyId, { "Content-Type": "application/json" });
+
+            this.logger.info(`Deleted Policy - PolicyId: ${policyId}`);
+        }
+        catch (error) {
+            this.logger.error(`Couldn't Publish Policy - PolicyId: ${policyId}`);
+        }
+    }
 }
 
 export default PolicyManagementService;

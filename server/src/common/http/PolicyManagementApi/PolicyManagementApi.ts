@@ -55,4 +55,17 @@ export default class PolicyManagementApi {
             throw response.statusText;
         }
     }
+
+    static deleteDraftPolicy = async(deleteDraftPolicyUrl: string, policyId: Guid, headers?: { [header: string]: string }): Promise<void> => {
+        const url = `${deleteDraftPolicyUrl}?id=${policyId.toString()}`;
+
+        const response = await fetch(url, {
+            method: "DELETE",
+            headers
+        });
+
+        if (!response.ok) {
+            throw response.statusText;
+        }
+    }
 }
