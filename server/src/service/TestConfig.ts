@@ -12,7 +12,7 @@ const TestConfig = () => {
             getPolicyPath: "/test",
             deletePolicyPath: "/test",
             getDraftPolicyPath: "/test",
-            updateDraftPolicyPath: "/test",
+            saveDraftPolicyPath: "/test",
             getCurrentPolicyPath: "/test",
             getPolicyHistoryPath: "/test",
             publishPolicyPath: "/test",

@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
-import { ContentFlags } from "../../../../../src/common/models/PolicyManagementService/Policy/AdaptionPolicy/ContentFlags/ContentFlags";
-import { WordContentFlags } from "../../../../../src/common/models/PolicyManagementService/Policy/AdaptionPolicy/ContentFlags/WordContentFlags";
-import { ExcelContentFlags } from "../../../../../src/common/models/PolicyManagementService/Policy/AdaptionPolicy/ContentFlags/ExcelContentFlags";
-import { PowerpointContentFlags } from "../../../../../src/common/models/PolicyManagementService/Policy/AdaptionPolicy/ContentFlags/PowerpointContentFlags";
-import { PdfContentFlags } from "../../../../../src/common/models/PolicyManagementService/Policy/AdaptionPolicy/ContentFlags/PdfContentFlags";
+import { ContentFlags } from "../../../../../../src/common/models/PolicyManagementService/Policy/AdaptationPolicy/ContentFlags/ContentFlags";
+import { WordContentFlags } from "../../../../../../src/common/models/PolicyManagementService/Policy/AdaptationPolicy/ContentFlags/WordContentFlags";
+import { ExcelContentFlags } from "../../../../../../src/common/models/PolicyManagementService/Policy/AdaptationPolicy/ContentFlags/ExcelContentFlags";
+import { PowerpointContentFlags } from "../../../../../../src/common/models/PolicyManagementService/Policy/AdaptationPolicy/ContentFlags/PowerpointContentFlags";
+import { PdfContentFlags } from "../../../../../../src/common/models/PolicyManagementService/Policy/AdaptationPolicy/ContentFlags/PdfContentFlags";
 
 import WordContentManagementFlags from "./WordContentManagementFlags/WordContentManagementFlags";
+import ExcelContentManagementFlags from "./ExcelContentManagementFlags/ExcelContentManagementFlags";
 import PowerpointContentManagementFlags from "./PowerpointContentManagementFlags/PowerpointContentManagementFlags";
+import PdfContentManagementFlags from "./PdfContentManagementFlags/PdfContentManagementFlags";
 
 import classes from "./ContentManagementFlags.module.scss";
-import ExcelContentManagementFlags from "./ExcelContentManagementFlags/ExcelContentManagementFlags";
-import PdfContentManagementFlags from "./PdfContentManagementFlags/PdfContentManagementFlags";
 
 export interface ContentManagementFlagsProps {
     contentManagementFlags: ContentFlags,
@@ -21,49 +21,34 @@ export interface ContentManagementFlagsProps {
 
 const ContentManagementFlags = (props: ContentManagementFlagsProps) => {
     const { contentManagementFlags, updateContentFlags } = props;
-    const [newContentFlags, setNewContentFlags] = useState<ContentFlags>(null);
 
     const updateWordContentFlags = (newWordContentFlags: WordContentFlags) => {
-        setNewContentFlags((prev: ContentFlags) => {
-            return {
-                ...prev,
-                wordContentManagement: newWordContentFlags
-            }
+        updateContentFlags({
+            ...contentManagementFlags,
+            wordContentManagement: newWordContentFlags
         });
     }
 
     const updateExcelContentFlags = (newExcelContentFlags: ExcelContentFlags) => {
-        setNewContentFlags((prev: ContentFlags) => {
-            return {
-                ...prev,
-                excelContentManagement: newExcelContentFlags
-            }
+        updateContentFlags({
+            ...contentManagementFlags,
+            excelContentManagement: newExcelContentFlags
         });
     }
 
     const updatePowerpointContentFlags = (newPowerpointContentFlags: PowerpointContentFlags) => {
-        setNewContentFlags((prev: ContentFlags) => {
-            return {
-                ...prev,
-                powerPointContentManagement: newPowerpointContentFlags
-            }
+        updateContentFlags({
+            ...contentManagementFlags,
+            powerPointContentManagement: newPowerpointContentFlags
         });
     }
 
     const updatePdfContentFlags = (newPdfContentFlags: PdfContentFlags) => {
-        setNewContentFlags((prev: ContentFlags) => {
-            return {
-                ...prev,
-                pdfContentManagement: newPdfContentFlags
-            }
+        updateContentFlags({
+            ...contentManagementFlags,
+            pdfContentManagement: newPdfContentFlags
         });
     }
-
-    useEffect(() => {
-        if (newContentFlags && updateContentFlags) {
-            updateContentFlags(newContentFlags);
-        }
-    }, [newContentFlags, updateContentFlags]);
 
     return (
         <div className={classes.contentFlagsContainer}>

@@ -17,6 +17,37 @@
 	}
 }
 
+.tableContainer {
+	width: 100%;
+	overflow: hidden;
+	
+	& .table {
+		padding-left: 2rem;
+		border-top: 1px solid #b6bfc9;
+
+		& thead th {
+			position: relative;
+
+			padding: 0.7rem 2rem;
+
+			font-size: 1.2rem;
+			color: #196480;
+			border-bottom: 1px solid #4592b0;
+		}
+
+		& tbody {
+			& td {
+				font-size: 1.2rem;
+				padding: 0.7rem 2rem;
+			}
+
+			& td .noborder {
+				border-bottom: none;
+			}
+		}
+	}
+}
+
 .header {
 	position: relative;
 	display: flex;
@@ -25,10 +56,6 @@
 	margin-bottom: 2rem;
 
 	.buttons {
-		//position: absolute;
-		//top: 0;
-		//right: 0;
-
 		display: flex;
 		justify-content: center;
 		align-items: center;
@@ -47,50 +74,6 @@
 
 			&:last-child {
 				background: #4592b0;
-			}
-		}
-	}
-
-	.tableContainer {
-		width: 20%;
-		border: 1px solid #b6bfc9;
-		border-radius: 0.6rem;
-		overflow: hidden;
-
-		.table {
-			width: 100%;
-
-			th {
-				padding: 0.5rem;
-				font-size: 1.2rem;
-				color: #196480;
-
-				margin: 0;
-				line-height: 2rem;
-
-				text-transform: uppercase;
-				text-align: center;
-
-				border-bottom: none;
-			}
-
-			thead {
-				background: #ffffff;
-				border-bottom: 1px solid #4592b0;
-			}
-
-			tbody {
-				background: #dee3e4d6;
-				padding: 1rem;
-
-				td {
-					font-size: 1.2rem;
-					text-align: center;
-					padding-top: 1rem;
-					padding-bottom: 0.5rem;
-					background: #ffffff;
-					border-bottom: none;
-				}
 			}
 		}
 	}
@@ -116,15 +99,14 @@
 	}
 
 	.info {
-		display: flex;
 		justify-content: space-between;
-		width: 97rem;
 
 		margin-left: 2rem;
 
 		padding: 2rem 0;
 
 		div {
+			padding-top: 1rem;
 			display: flex;
 			flex-direction: column;
 		}

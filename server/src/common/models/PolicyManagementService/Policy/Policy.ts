@@ -1,5 +1,5 @@
 import { PolicyType } from "../../enums/PolicyType";
-import { AdaptionPolicy } from "./AdaptionPolicy/AdaptionPolicy";
+import { AdaptionPolicy } from "./AdaptationPolicy/AdaptionPolicy";
 import { NcfsPolicy } from "./NcfsPolicy/NcfsPolicy";
 
 export class Policy {

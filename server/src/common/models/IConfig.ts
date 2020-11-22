@@ -10,7 +10,7 @@ export default interface IConfig {
         getPolicyPath: string;
         deletePolicyPath: string;
         getDraftPolicyPath: string;
-        updateDraftPolicyPath: string;
+        saveDraftPolicyPath: string;
         getCurrentPolicyPath: string;
         getPolicyHistoryPath: string;
         publishPolicyPath: string;

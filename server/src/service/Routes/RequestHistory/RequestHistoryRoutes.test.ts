@@ -57,7 +57,7 @@ describe("RequestHistoryRoutes", () => {
 
         requestHistoryRoutes.setup();
 
-        describe("request-history/transactions", () => {
+        describe("post_request-history/transactions", () => {
             // Arrange
             const getTransactionsRequestString = {
                 Filter: {
@@ -111,7 +111,7 @@ describe("RequestHistoryRoutes", () => {
             });
         });
 
-        describe("/request-history/transactionDetails", () => {
+        describe("/get_request-history/transactionDetails", () => {
             // Arrange
             const transactionFilePath = "test";
 

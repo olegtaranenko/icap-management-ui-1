@@ -26,7 +26,10 @@ const logger = winston.createLogger({
         })],
 });
 
+logger.info("Starting Service: ICAP Management UI...");
+
 dotenv.config();
+logger.info("Loading Environment Variables with dotenv");
 
 const port = 8080;
 const workingDirectory = process.cwd();
@@ -37,8 +40,10 @@ app.use(express.static(`${workingDirectory}/frontend/build`));
 app.use(bodyParser.json());
 
 if (process.env.NODE_ENV === "development") {
-    const corsOptions = {origin: "http://localhost:3000"};
+    const reactDevServerEndpoint = "http://localhost:3000";
+    const corsOptions = { origin: reactDevServerEndpoint };
     app.use(cors(corsOptions));
+    logger.info(`CORS Config added for REACT dev server - cross-origin source: ${reactDevServerEndpoint}`);
 }
 
 setup(Config(), app, logger);
@@ -48,8 +53,17 @@ app.get("*", (req, res) => {
 });
 
 const server = app.listen(port, () => {
-    logger.info(`env: ${process.env.NODE_ENV}`);
-    logger.info(`Server is Running at http://localhost:${port}`);
+    logger.info("Started Service: ICAP Management UI");
+
+    if (process.env.NODE_ENV === "development") {
+        logger.info(`env: ${process.env.NODE_ENV}`);
+        logger.info(`Listening on http://localhost:${port}`);
+    }
+
+    if (process.env.NODE_ENV === "production") {
+        logger.info(`Logs: ${path.join(workingDirectory, "/error.log")} && ` +
+            `${path.join(workingDirectory, "/combined.log")}`);
+    }
 });
 
 module.exports.server = server;

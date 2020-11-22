@@ -3,11 +3,6 @@
 	display: flex;
 	flex-direction: column;
 
-	//margin: 1rem 2rem 2rem 2rem;
-
-	//border: 1px solid #b6bfc9;
-	//border-radius: 0.6rem;
-
 	overflow: hidden;
 
 	& p {
@@ -17,6 +12,10 @@
 
 	& .table {
 		padding: 1rem 1rem 4rem 1rem;
+
+		.currentApiUrl {
+			color: #4ab1b6;
+		}
 
 		& .th {
 			display: flex;

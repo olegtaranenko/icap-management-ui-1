@@ -10,7 +10,7 @@ class PolicyRoutes {
     getPolicyPath: string;
     deletePolicyPath: string;
     getDraftPolicyPath: string;
-    updateDraftPolicyPath: string;
+    saveDraftPolicyPath: string;
     getCurrentPolicyPath: string;
     getPolicyHistoryPath: string;
     publishPolicyPath: string;
@@ -26,7 +26,7 @@ class PolicyRoutes {
         this.getPolicyPath = config.policy.getPolicyPath;
         this.deletePolicyPath = config.policy.deletePolicyPath;
         this.getDraftPolicyPath = config.policy.getDraftPolicyPath;
-        this.updateDraftPolicyPath = config.policy.updateDraftPolicyPath;
+        this.saveDraftPolicyPath = config.policy.saveDraftPolicyPath;
         this.getCurrentPolicyPath = config.policy.getCurrentPolicyPath;
         this.publishPolicyPath = config.policy.publishPolicyPath;
         this.distributePolicyPath = config.policy.distributePolicyPath;
@@ -36,6 +36,7 @@ class PolicyRoutes {
     }
 
     setup = async () => {
+        // Get Policy
         this.app.get("/policy/getPolicy/:policyId", async (req, res) => {
             const requestUrl = this.policyManagementServiceBaseUrl + this.getPolicyPath;
 
@@ -53,6 +54,7 @@ class PolicyRoutes {
             }
         });
 
+        // Get Current Policy
         this.app.get("/policy/current", async (req, res) => {
             const requestUrl = this.policyManagementServiceBaseUrl + this.getCurrentPolicyPath;
 
@@ -68,6 +70,7 @@ class PolicyRoutes {
             }
         });
 
+        // Get Draft Policy
         this.app.get("/policy/draft", async (req, res) => {
             const requestUrl = this.policyManagementServiceBaseUrl + this.getDraftPolicyPath;
 
@@ -77,7 +80,55 @@ class PolicyRoutes {
                 res.json(policy);
             }
             catch (error) {
-                const message = "Error Retrieving the Current Draft Policy";
+                const message = "Error Retrieving the Draft Policy";
+                this.logger.error(message + error.stack);
+                res.status(500).json(message);
+            }
+        });
+
+        // Save Draft Policy
+        this.app.put("/policy/draft", async (req, res) => {
+            const requestUrl = this.policyManagementServiceBaseUrl + this.saveDraftPolicyPath;
+
+            try {
+                await this.policyManagementService.saveDraftPolicy(requestUrl, req.body);
+
+                res.sendStatus(200);
+            }
+            catch (error) {
+                const message = "Error Updating the Draft Policy";
+                this.logger.error(message + error.stack);
+                res.status(500).json(message);
+            }
+        });
+
+        // Publish Policy
+        this.app.put("/policy/publish/:policyId", async (req, res) => {
+            const requestUrl = this.policyManagementServiceBaseUrl + this.publishPolicyPath;
+
+            try {
+                await this.policyManagementService.publishPolicy(requestUrl, Guid.parse(req.params.policyId));
+
+                res.sendStatus(200);
+            }
+            catch (error) {
+                const message = `Error Publishing Policy - PolicyId: ${req.params.policyId}`;
+                this.logger.error(message + error.stack);
+                res.status(500).json(message);
+            }
+        });
+
+        // Delete Draft Policy
+        this.app.delete("/policy/draft/:policyId", async (req, res) => {
+            const requestUrl = this.policyManagementServiceBaseUrl + this.deletePolicyPath;
+
+            try {
+                await this.policyManagementService.deleteDraftPolicy(requestUrl, Guid.parse(req.params.policyId));
+
+                res.sendStatus(200);
+            }
+            catch (error) {
+                const message = `Error Deleting Policy - PolicyId: ${req.params.policyId}`;
                 this.logger.error(message + error.stack);
                 res.status(500).json(message);
             }
