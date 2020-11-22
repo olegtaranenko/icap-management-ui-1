@@ -11,7 +11,7 @@ import policyExample from "../../../common/http/PolicyManagementApi/policyExampl
 
 let getPolicyByIdStub: SinonStub;
 let getPolicyStub: SinonStub;
-let saveDraftPolicyStub: SinonStub;
+// let saveDraftPolicyStub: SinonStub;
 
 const setupGetPolicyTest = () => {
     const responseString = policyExample;
