@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 
 import { PolicyContext } from "../../../../context/policy/PolicyContext";
-import DomainField from "../DomainField/DomainField";
+import ApiUrl from "../ApiUrl/ApiUrl";
 
 import classes from "./RoutesForNonCompliantFiles.module.scss";
 
@@ -27,7 +27,7 @@ const RoutesForNonCompliantFiles = (props: RoutesForNonCompliantFilesProps) => {
 	return (
 		<section className={classes.routes}>
 			<div className={classes.table}>
-				<DomainField
+				<ApiUrl
 					isChanged={currentPolicyRoutingUrl !== props.ncfsRoutingUrl}
 					value={props.ncfsRoutingUrl}
 					disabled={props.disabled}

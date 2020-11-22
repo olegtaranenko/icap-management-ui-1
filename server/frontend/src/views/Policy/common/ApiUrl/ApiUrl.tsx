@@ -8,18 +8,18 @@ import {
 	TableBody,
 } from "@material-ui/core";
 
-import classes from "./DomainField.module.scss";
+import classes from "./ApiUrl.module.scss";
 
 import Input from "../../../../components/UI/Input/Input";
 
-export interface DomainFieldProps {
+export interface ApiUrlProps {
 	value: string,
 	onChangeInputHandler: (event: any) => void,
 	isChanged?: boolean,
 	disabled?: boolean
 }
 
-const DomainField = (props: DomainFieldProps) => {
+const ApiUrl = (props: ApiUrlProps) => {
 	return (
 		<Table className={classes.table}>
 			<TableHead>
@@ -50,4 +50,4 @@ const DomainField = (props: DomainFieldProps) => {
 	);
 };
 
-export default DomainField;
+export default ApiUrl;
