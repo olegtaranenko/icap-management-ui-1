@@ -2,17 +2,18 @@ import React, { useContext, useState } from "react";
 import equal from "deep-equal";
 import TabNav from "../../../components/Tabs/TabNav/TabNav";
 import Tab from "../../../components/Tabs/Tab/Tab";
-import ContentManagementFlags from "../ContentManagementFlags/ContentManagementFlags";
-import RoutesForNonCompliantFiles from "../RoutesForNonCompliantFiles/RoutesForNonCompliantFiles";
-import PolicyForNonCompliantFiles from "../PolicyForNonCompliantFiles/PolicyForNonCompliantFiles";
+import ContentManagementFlags from "../common/ContentManagementFlags/ContentManagementFlags";
+import RoutesForNonCompliantFiles from "../common/RoutesForNonCompliantFiles/RoutesForNonCompliantFiles";
+import PolicyForNonCompliantFiles from "../common/PolicyForNonCompliantFiles/PolicyForNonCompliantFiles";
 import { ContentFlags } from "../../../../../src/common/models/PolicyManagementService/Policy/AdaptationPolicy/ContentFlags/ContentFlags";
 import { NcfsActions } from "../../../../../src/common/models/PolicyManagementService/Policy/NcfsPolicy/NcfsActions";
-
 import { PolicyContext } from "../../../context/policy/PolicyContext";
+import Button from "../../../components/UI/Button/Button";
+import ConfirmPublishModal from "./ConfirmDraftPublishModal/ConfirmDraftPublishModal";
+import Modal from "../../../components/UI/Modal/Modal";
 
 import classes from "./DraftPolicy.module.scss";
-import Button from "../../../components/UI/Button/Button";
-import { Guid } from "guid-typescript";
+import Backdrop from "../../../components/UI/Backdrop/Backdrop";
 
 const DraftPolicy = () => {
     const {
@@ -23,10 +24,10 @@ const DraftPolicy = () => {
         setNewDraftPolicy,
         saveDraftChanges,
         cancelDraftChanges,
-        publishPolicy
     } = useContext(PolicyContext);
 
     const [selectedTab, setSelectedTab] = useState("Adaptation Policy");
+    const [showConfirmPublishModal, setShowConfirmPublishModal] = useState(false);
 
     const tabs = [
         { testId: "buttonCurrentAdaptationPolicyTab", name: "Adaptation Policy" },
@@ -107,7 +108,7 @@ const DraftPolicy = () => {
         <div className={classes.buttons}>
             <Button
                 externalStyles={classes.publishButton}
-                onButtonClick={() => publishPolicy(Guid.parse(newDraftPolicy.id))}
+                onButtonClick={() => setShowConfirmPublishModal(true)}
                 buttonType="button">Publish</Button>
         </div>
     );
@@ -123,62 +124,73 @@ const DraftPolicy = () => {
             }
 
             {status === "LOADED" &&
-                <TabNav
-                    tabs={tabs}
-                    selectedTabName={selectedTab}
-                    onSetActiveTabHandler={(tab) => setSelectedTab(tab)}>
+                <>
+                    <TabNav
+                        tabs={tabs}
+                        selectedTabName={selectedTab}
+                        onSetActiveTabHandler={(tab) => setSelectedTab(tab)}>
 
-                    <div className={classes.innerContent}>
-                        <Tab isSelected={selectedTab === "Adaptation Policy"} externalStyles={classes.Tab}>
-                            <h2 className={classes.head}>
-                                <div className={classes.header}>
-                                    Content Management Flags
+                        <div className={classes.innerContent}>
+                            <Tab isSelected={selectedTab === "Adaptation Policy"} externalStyles={classes.Tab}>
+                                <h2 className={classes.head}>
+                                    <div className={classes.header}>
+                                        Content Management Flags
                                     {isPolicyChanged && <>{saveCancelButtons}</>}
-                                    {showPublishButton() && publishButton}
-                                </div>
-                            </h2>
-                            <ContentManagementFlags
-                                contentManagementFlags={newDraftPolicy.adaptionPolicy.contentManagementFlags}
-                                updateContentFlags={updateContentManagementFlags} />
-                        </Tab>
+                                        {showPublishButton() && publishButton}
+                                    </div>
+                                </h2>
+                                <ContentManagementFlags
+                                    contentManagementFlags={newDraftPolicy.adaptionPolicy.contentManagementFlags}
+                                    updateContentFlags={updateContentManagementFlags} />
+                            </Tab>
 
-                        <Tab isSelected={selectedTab === "NCFS Policy"} externalStyles={classes.Tab}>
-                            <h2 className={classes.head}>
-                                <div className={classes.header}>
-                                    Config for non-compliant files
+                            <Tab isSelected={selectedTab === "NCFS Policy"} externalStyles={classes.Tab}>
+                                <h2 className={classes.head}>
+                                    <div className={classes.header}>
+                                        Config for non-compliant files
                                     {isPolicyChanged && <>{saveCancelButtons}</>}
-                                    {showPublishButton() && publishButton}
-                                </div>
-                            </h2>
-                            <div className={classes.ncfsContainer}>
-                                <section className={classes.info}>
-                                    <div>
-                                        <h3>
-                                            <strong>Un-Processable File Types</strong>{" "}
-                                        </h3>
-                                        <p>
-                                            When the filetype of the original file is identified as one that
-                                            the Glasswall SDK cannot rebuild.
+                                        {showPublishButton() && publishButton}
+                                    </div>
+                                </h2>
+                                <div className={classes.ncfsContainer}>
+                                    <section className={classes.info}>
+                                        <div>
+                                            <h3>
+                                                <strong>Un-Processable File Types</strong>{" "}
+                                            </h3>
+                                            <p>
+                                                When the filetype of the original file is identified as one that
+                                                the Glasswall SDK cannot rebuild.
 											</p>
-                                    </div>
-                                    <div>
-                                        <h3>
-                                            <strong>Glasswall Blocked Files</strong>
-                                        </h3>
-                                        <p>The original file cannot be rebuilt by the Glasswall SDK</p>
-                                    </div>
-                                </section>
-                                <RoutesForNonCompliantFiles
-                                    ncfsRoutingUrl={newDraftPolicy.adaptionPolicy.ncfsRoute.ncfsRoutingUrl}
-                                    changeInput={updateNcfsRoute} />
+                                        </div>
+                                        <div>
+                                            <h3>
+                                                <strong>Glasswall Blocked Files</strong>
+                                            </h3>
+                                            <p>The original file cannot be rebuilt by the Glasswall SDK</p>
+                                        </div>
+                                    </section>
+                                    <RoutesForNonCompliantFiles
+                                        ncfsRoutingUrl={newDraftPolicy.adaptionPolicy.ncfsRoute.ncfsRoutingUrl}
+                                        changeInput={updateNcfsRoute} />
 
-                                <PolicyForNonCompliantFiles
-                                    ncfsActions={newDraftPolicy.adaptionPolicy.ncfsActions}
-                                    updateNcfsActions={updateNcfsActions} />
-                            </div>
-                        </Tab>
-                    </div>
-                </TabNav>
+                                    <PolicyForNonCompliantFiles
+                                        ncfsActions={newDraftPolicy.adaptionPolicy.ncfsActions}
+                                        updateNcfsActions={updateNcfsActions} />
+                                </div>
+                            </Tab>
+                        </div>
+                    </TabNav>
+
+                    {showConfirmPublishModal &&
+                        <>
+                            <Modal onCloseHandler={() => setShowConfirmPublishModal(false)} externalStyles={classes.modal}>
+                                <ConfirmPublishModal onCancelHandler={() => setShowConfirmPublishModal(false)}/>
+                            </Modal>
+                            <Backdrop onClickOutside={() => setShowConfirmPublishModal(false)} />
+                        </>
+                    }
+                </>
             }
         </div>
     )

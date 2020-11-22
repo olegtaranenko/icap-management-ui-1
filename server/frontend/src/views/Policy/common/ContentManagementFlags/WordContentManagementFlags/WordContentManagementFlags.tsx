@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
-import { ContentManagementFlagAction } from "../../../../../../src/common/models/enums/ContentManagementFlagAction";
-import { WordContentFlags } from "../../../../../../src/common/models/PolicyManagementService/Policy/AdaptationPolicy/ContentFlags/WordContentFlags";
-import { PolicyContext } from "../../../../context/policy/PolicyContext";
-import RadioButton from "../../../../components/UI/RadioButton/RadioButton";
+import { ContentManagementFlagAction } from "../../../../../../../src/common/models/enums/ContentManagementFlagAction";
+import { WordContentFlags } from "../../../../../../../src/common/models/PolicyManagementService/Policy/AdaptationPolicy/ContentFlags/WordContentFlags";
+import { PolicyContext } from "../../../../../context/policy/PolicyContext";
+import RadioButton from "../../../../../components/UI/RadioButton/RadioButton";
 
 export interface WordContentManagementFlagsProps {
     initialWordContentFlags: WordContentFlags,

@@ -1,10 +1,10 @@
 import React from "react";
 
-import { ContentFlags } from "../../../../../src/common/models/PolicyManagementService/Policy/AdaptationPolicy/ContentFlags/ContentFlags";
-import { WordContentFlags } from "../../../../../src/common/models/PolicyManagementService/Policy/AdaptationPolicy/ContentFlags/WordContentFlags";
-import { ExcelContentFlags } from "../../../../../src/common/models/PolicyManagementService/Policy/AdaptationPolicy/ContentFlags/ExcelContentFlags";
-import { PowerpointContentFlags } from "../../../../../src/common/models/PolicyManagementService/Policy/AdaptationPolicy/ContentFlags/PowerpointContentFlags";
-import { PdfContentFlags } from "../../../../../src/common/models/PolicyManagementService/Policy/AdaptationPolicy/ContentFlags/PdfContentFlags";
+import { ContentFlags } from "../../../../../../src/common/models/PolicyManagementService/Policy/AdaptationPolicy/ContentFlags/ContentFlags";
+import { WordContentFlags } from "../../../../../../src/common/models/PolicyManagementService/Policy/AdaptationPolicy/ContentFlags/WordContentFlags";
+import { ExcelContentFlags } from "../../../../../../src/common/models/PolicyManagementService/Policy/AdaptationPolicy/ContentFlags/ExcelContentFlags";
+import { PowerpointContentFlags } from "../../../../../../src/common/models/PolicyManagementService/Policy/AdaptationPolicy/ContentFlags/PowerpointContentFlags";
+import { PdfContentFlags } from "../../../../../../src/common/models/PolicyManagementService/Policy/AdaptationPolicy/ContentFlags/PdfContentFlags";
 
 import WordContentManagementFlags from "./WordContentManagementFlags/WordContentManagementFlags";
 import ExcelContentManagementFlags from "./ExcelContentManagementFlags/ExcelContentManagementFlags";

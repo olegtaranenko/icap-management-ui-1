@@ -10,9 +10,9 @@ import {
 
 import TabNav from "../../../components/Tabs/TabNav/TabNav";
 import Tab from "../../../components/Tabs/Tab/Tab";
-import ContentManagementFlags from "../ContentManagementFlags/ContentManagementFlags";
-import RoutesForNonCompliantFiles from "../RoutesForNonCompliantFiles/RoutesForNonCompliantFiles";
-import PolicyForNonCompliantFiles from "../PolicyForNonCompliantFiles/PolicyForNonCompliantFiles";
+import ContentManagementFlags from "../common/ContentManagementFlags/ContentManagementFlags";
+import RoutesForNonCompliantFiles from "../common/RoutesForNonCompliantFiles/RoutesForNonCompliantFiles";
+import PolicyForNonCompliantFiles from "../common/PolicyForNonCompliantFiles/PolicyForNonCompliantFiles";
 
 import { PolicyContext } from "../../../context/policy/PolicyContext";
 

@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
-import { ContentManagementFlagAction } from "../../../../../../src/common/models/enums/ContentManagementFlagAction";
-import { PdfContentFlags } from "../../../../../../src/common/models/PolicyManagementService/Policy/AdaptationPolicy/ContentFlags/PdfContentFlags";
-import RadioButton from "../../../../components/UI/RadioButton/RadioButton";
-import { PolicyContext } from "../../../../context/policy/PolicyContext";
+import { ContentManagementFlagAction } from "../../../../../../../src/common/models/enums/ContentManagementFlagAction";
+import { PdfContentFlags } from "../../../../../../../src/common/models/PolicyManagementService/Policy/AdaptationPolicy/ContentFlags/PdfContentFlags";
+import RadioButton from "../../../../../components/UI/RadioButton/RadioButton";
+import { PolicyContext } from "../../../../../context/policy/PolicyContext";
 
 export interface PdfContentManagementFlagsProps {
     initialPdfContentFlags: PdfContentFlags,

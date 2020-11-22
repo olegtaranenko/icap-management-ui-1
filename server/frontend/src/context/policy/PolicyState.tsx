@@ -81,24 +81,30 @@ export const PolicyState = (props: { children: React.ReactNode }) => {
 	}
 
 	const publishPolicy = (policyId: Guid) => {
-		// let status: "LOADING" | "ERROR" | "LOADED" = "LOADING";
-		// setStatus(status);
+		let status: "LOADING" | "ERROR" | "LOADED" = "LOADING";
+		setStatus(status);
 
-		// (async (): Promise<void> => {
-		// 	try {
-		// 		await publishDraftPolicy(policyId);
-		// 		status = "LOADED";
-		// 	}
-		// 	catch (error) {
-		// 		setPolicyError(error);
-		// 		status = "ERROR";
-		// 	}
-		// 	finally {
-		// 		setStatus(status);
-		// 	}
-		// })();
+		(async (): Promise<void> => {
+			try {
+				await publishDraftPolicy(policyId);
 
-		alert("publish from PolicyState " + policyId);
+				const currentPolicy = await getCurrentPolicy();
+				setCurrentPolicy(currentPolicy);
+
+				const draftPolicy = await getDraftPolicy();
+				setDraftPolicy(draftPolicy);
+				setNewDraftPolicy(draftPolicy);
+
+				status = "LOADED";
+			}
+			catch (error) {
+				setPolicyError(error);
+				status = "ERROR";
+			}
+			finally {
+				setStatus(status);
+			}
+		})();
 	}
 
 	useEffect(() => {

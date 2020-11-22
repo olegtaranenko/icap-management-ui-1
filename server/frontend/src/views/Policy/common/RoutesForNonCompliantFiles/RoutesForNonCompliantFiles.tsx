@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 
-import { PolicyContext } from "../../../context/policy/PolicyContext";
+import { PolicyContext } from "../../../../context/policy/PolicyContext";
 import DomainField from "../DomainField/DomainField";
 
 import classes from "./RoutesForNonCompliantFiles.module.scss";

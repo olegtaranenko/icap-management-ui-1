@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import classes from "./HistoryInfo.module.scss";
 
-import DomainField from "../../DomainField/DomainField";
+import DomainField from "../../common/DomainField/DomainField";
 
 export interface HistoryInfoProps {
 	previousPolicy: string

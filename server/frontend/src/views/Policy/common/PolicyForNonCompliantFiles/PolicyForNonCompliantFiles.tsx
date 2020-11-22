@@ -1,6 +1,6 @@
 import React from "react";
-import { NcfsOption } from "../../../../../src/common/models/enums/NcfsOption";
-import { NcfsActions } from "../../../../../src/common/models/PolicyManagementService/Policy/NcfsPolicy/NcfsActions";
+import { NcfsOption } from "../../../../../../src/common/models/enums/NcfsOption";
+import { NcfsActions } from "../../../../../../src/common/models/PolicyManagementService/Policy/NcfsPolicy/NcfsActions";
 
 import classes from "./PolicyForNonCompliantFiles.module.scss";
 import GlasswallBlockedFilesToggles from "./Toggles/GlasswallBlockedFilesToggles";
