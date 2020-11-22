@@ -9,11 +9,12 @@ import { ContentFlags } from "../../../../../src/common/models/PolicyManagementS
 import { NcfsActions } from "../../../../../src/common/models/PolicyManagementService/Policy/NcfsPolicy/NcfsActions";
 import { PolicyContext } from "../../../context/policy/PolicyContext";
 import Button from "../../../components/UI/Button/Button";
-import ConfirmPublishModal from "./ConfirmDraftPublishModal/ConfirmDraftPublishModal";
 import Modal from "../../../components/UI/Modal/Modal";
+import Backdrop from "../../../components/UI/Backdrop/Backdrop";
+import ConfirmDraftPublishModal from "./ConfirmDraftPublishModal/ConfirmDraftPublishModal";
+import ConfirmDraftDeleteModal from "./ConfirmDraftDeleteModal/ConfirmDraftDeleteModal";
 
 import classes from "./DraftPolicy.module.scss";
-import Backdrop from "../../../components/UI/Backdrop/Backdrop";
 
 const DraftPolicy = () => {
     const {
@@ -27,12 +28,17 @@ const DraftPolicy = () => {
     } = useContext(PolicyContext);
 
     const [selectedTab, setSelectedTab] = useState("Adaptation Policy");
-    const [showConfirmPublishModal, setShowConfirmPublishModal] = useState(false);
+    const [showPublishModal, setShowPublishModal] = useState(false);
+    const [showDeleteModal, setshowDeleteModal] = useState(false);
 
     const tabs = [
         { testId: "buttonCurrentAdaptationPolicyTab", name: "Adaptation Policy" },
         { testId: "buttonCurrentNcfsPolicyTab", name: "NCFS Policy" },
     ];
+
+    const closePublishModal = () => setShowPublishModal(false);
+
+    const closeDeleteModal = () => setshowDeleteModal(false);
 
     const updateContentManagementFlags = (newContentFlags: ContentFlags) => {
         setNewDraftPolicy({
@@ -104,11 +110,15 @@ const DraftPolicy = () => {
         </div>
     );
 
-    const publishButton = (
+    const publishDeleteButtons = (
         <div className={classes.buttons}>
             <Button
+                externalStyles={classes.deleteButton}
+                onButtonClick={() => setshowDeleteModal(true)}
+                buttonType="button">Delete</Button>
+            <Button
                 externalStyles={classes.publishButton}
-                onButtonClick={() => setShowConfirmPublishModal(true)}
+                onButtonClick={() => setShowPublishModal(true)}
                 buttonType="button">Publish</Button>
         </div>
     );
@@ -136,7 +146,7 @@ const DraftPolicy = () => {
                                     <div className={classes.header}>
                                         Content Management Flags
                                     {isPolicyChanged && <>{saveCancelButtons}</>}
-                                        {showPublishButton() && publishButton}
+                                        {showPublishButton() && publishDeleteButtons}
                                     </div>
                                 </h2>
                                 <ContentManagementFlags
@@ -149,7 +159,7 @@ const DraftPolicy = () => {
                                     <div className={classes.header}>
                                         Config for non-compliant files
                                     {isPolicyChanged && <>{saveCancelButtons}</>}
-                                        {showPublishButton() && publishButton}
+                                        {showPublishButton() && publishDeleteButtons}
                                     </div>
                                 </h2>
                                 <div className={classes.ncfsContainer}>
@@ -182,17 +192,26 @@ const DraftPolicy = () => {
                         </div>
                     </TabNav>
 
-                    {showConfirmPublishModal &&
+                    {showPublishModal &&
                         <>
-                            <Modal onCloseHandler={() => setShowConfirmPublishModal(false)} externalStyles={classes.modal}>
-                                <ConfirmPublishModal onCancelHandler={() => setShowConfirmPublishModal(false)}/>
+                            <Modal onCloseHandler={closePublishModal} externalStyles={classes.modal}>
+                                <ConfirmDraftPublishModal onCancelHandler={closePublishModal} />
                             </Modal>
-                            <Backdrop onClickOutside={() => setShowConfirmPublishModal(false)} />
+                            <Backdrop onClickOutside={closePublishModal} />
+                        </>
+                    }
+
+                    {showDeleteModal &&
+                        <>
+                            <Modal onCloseHandler={closeDeleteModal} externalStyles={classes.modal}>
+                                <ConfirmDraftDeleteModal onCancelHandler={closeDeleteModal} />
+                            </Modal>
+                            <Backdrop onClickOutside={closeDeleteModal} />
                         </>
                     }
                 </>
             }
-        </div>
+        </div >
     )
 }
 

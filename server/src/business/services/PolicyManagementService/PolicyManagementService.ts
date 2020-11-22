@@ -129,7 +129,7 @@ class PolicyManagementService implements IPolicyManagementService {
             this.logger.info(`Deleted Policy - PolicyId: ${policyId}`);
         }
         catch (error) {
-            this.logger.error(`Couldn't Publish Policy - PolicyId: ${policyId}`);
+            this.logger.error(`Couldn't Delete Policy - PolicyId: ${policyId}`);
         }
     }
 }

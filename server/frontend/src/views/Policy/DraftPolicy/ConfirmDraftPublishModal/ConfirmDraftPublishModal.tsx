@@ -1,15 +1,15 @@
 import { Guid } from "guid-typescript";
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import Button from "../../../../components/UI/Button/Button";
 import { PolicyContext } from "../../../../context/policy/PolicyContext";
 
 import classes from "./ConfirmDraftPublishModal.module.scss";
 
-export interface ConfirmPublishModalProps {
+export interface ConfirmDraftPublishModalProps {
     onCancelHandler: () => void
 }
 
-const ConfirmPublishModal = (props: ConfirmPublishModalProps) => {
+const ConfirmDraftPublishModal = (props: ConfirmDraftPublishModalProps) => {
     const {
         draftPolicy,
         publishPolicy
@@ -19,20 +19,6 @@ const ConfirmPublishModal = (props: ConfirmPublishModalProps) => {
         publishPolicy(Guid.parse(draftPolicy.id))
         props.onCancelHandler();
     }
-
-    const handleEscape = (event: KeyboardEvent) => {
-        if (event.key === "Escape") {
-            props.onCancelHandler();
-        }
-    }
-
-    useEffect(() => {
-        window.addEventListener("keydown", handleEscape);
-
-        return () => {
-            window.removeEventListener("keydown", handleEscape);
-        }
-    });
 
     return (
         <div className={classes.modalContainer}>
@@ -60,4 +46,4 @@ const ConfirmPublishModal = (props: ConfirmPublishModalProps) => {
     );
 }
 
-export default ConfirmPublishModal;
+export default ConfirmDraftPublishModal;

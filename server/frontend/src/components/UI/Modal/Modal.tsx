@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import classes from "./Modal.module.scss";
 
@@ -11,6 +11,20 @@ export interface ModalProps {
 }
 
 const Modal = (props: ModalProps) => {
+	const handleEscape = (event: KeyboardEvent) => {
+		if (event.key === "Escape") {
+			props.onCloseHandler();
+		}
+	}
+
+	useEffect(() => {
+		window.addEventListener("keydown", handleEscape);
+
+		return () => {
+			window.removeEventListener("keydown", handleEscape);
+		}
+	});
+
 	return (
 		<section className={[classes.Modal, props.externalStyles].join(" ")}>
 			<ButtonClose

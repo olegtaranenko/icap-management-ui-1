@@ -4,7 +4,7 @@ import { PolicyContext } from "./PolicyContext";
 import { policyReducer } from "./policy-reducers";
 import { Policy } from "../../../../src/common/models/PolicyManagementService/Policy/Policy";
 import * as actionTypes from "../actionTypes";
-import { getCurrentPolicy, getDraftPolicy, saveDraftPolicy, publishDraftPolicy } from "./api";
+import { getCurrentPolicy, getDraftPolicy, saveDraftPolicy, publishPolicy as publish, deleteDraftPolicy as deleteDraft } from "./api";
 
 interface InitialPolicyState {
 	currentPolicy: Policy,
@@ -86,7 +86,34 @@ export const PolicyState = (props: { children: React.ReactNode }) => {
 
 		(async (): Promise<void> => {
 			try {
-				await publishDraftPolicy(policyId);
+				await publish(policyId);
+
+				const currentPolicy = await getCurrentPolicy();
+				setCurrentPolicy(currentPolicy);
+
+				const draftPolicy = await getDraftPolicy();
+				setDraftPolicy(draftPolicy);
+				setNewDraftPolicy(draftPolicy);
+
+				status = "LOADED";
+			}
+			catch (error) {
+				setPolicyError(error);
+				status = "ERROR";
+			}
+			finally {
+				setStatus(status);
+			}
+		})();
+	}
+
+	const deleteDraftPolicy = (policyId: Guid) => {
+		let status: "LOADING" | "ERROR" | "LOADED" = "LOADING";
+		setStatus(status);
+
+		(async (): Promise<void> => {
+			try {
+				await deleteDraft(policyId);
 
 				const currentPolicy = await getCurrentPolicy();
 				setCurrentPolicy(currentPolicy);
@@ -141,6 +168,7 @@ export const PolicyState = (props: { children: React.ReactNode }) => {
 			saveDraftChanges,
 			cancelDraftChanges,
 			publishPolicy,
+			deleteDraftPolicy,
 			policyHistory: policyState.policyHistory,
 			isPolicyChanged: policyState.isPolicyChanged,
 			status: policyState.status,

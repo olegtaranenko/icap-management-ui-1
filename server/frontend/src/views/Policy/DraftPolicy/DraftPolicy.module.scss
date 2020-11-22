@@ -47,6 +47,11 @@
 		& .publishButton {
 			background: #4592b0;
 		}
+
+		& .deleteButton {
+			color: #fd6d6d;
+			border: 1px solid #fd6d6d;
+		}
 	}
 
 	.tableContainer {

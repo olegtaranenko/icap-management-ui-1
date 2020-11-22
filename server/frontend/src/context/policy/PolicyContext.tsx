@@ -10,6 +10,7 @@ export type TPolicyState = {
 	saveDraftChanges: () => void,
 	cancelDraftChanges: () => void,
 	publishPolicy: (policyId: Guid) => void,
+	deleteDraftPolicy: (policyId: Guid) => void,
 	policyHistory: Policy[],
 	isPolicyChanged: boolean,
 	status: "LOADING" | "ERROR" | "LOADED",

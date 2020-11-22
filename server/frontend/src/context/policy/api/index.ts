@@ -30,11 +30,27 @@ export const saveDraftPolicy = async (policy: Policy): Promise<void> => {
     }
 }
 
-export const publishDraftPolicy = async (policyId: Guid): Promise<void> => {
+export const publishPolicy = async (policyId: Guid): Promise<void> => {
     const url = `${Routes.policyRoutes.publishPolicyRoute}/${policyId.toString()}`;
 
     const response = await fetch(url, {
         method: "PUT",
+        headers: {
+            "Accept": "*/*",
+            "Content-Type": "application/json"
+        },
+    });
+
+    if (!response.ok) {
+        throw response.statusText;
+    }
+}
+
+export const deleteDraftPolicy = async (policyId: Guid): Promise<void> => {
+    const url = `${Routes.policyRoutes.deletePolicyRoute}/${policyId.toString()}`;
+
+    const response = await fetch(url, {
+        method: "DELETE",
         headers: {
             "Accept": "*/*",
             "Content-Type": "application/json"
