@@ -90,4 +90,17 @@ export default class PolicyManagementApi {
             throw response.statusText;
         }
     }
+
+    static getPolicyHistory = async (getPolicyHistoryUrl: string, headers?: { [header: string]: string }): Promise<string> => {
+        const response = await fetch(getPolicyHistoryUrl, {
+            method: "GET",
+            headers
+        });
+
+        if (!response.ok) {
+            throw response.statusText;
+        }
+
+        return response.text();
+    };
 }
