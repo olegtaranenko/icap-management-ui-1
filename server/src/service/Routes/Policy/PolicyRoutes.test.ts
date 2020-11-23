@@ -233,9 +233,18 @@ describe("PolicyRoutes", () => {
 
         describe("put_/policy/publish", () => {
             // Arrange
-            const expectedRequestUrl =
+            const expectedPublishUrl =
                 config.policy.policyManagementServiceBaseUrl +
                 config.policy.publishPolicyPath;
+
+            const expectedDistributeAdaptationUrl =
+                config.policy.policyManagementServiceBaseUrl +
+                config.policy.distributeAdaptionPolicyPath;
+
+            const expectedDistributeNcfsUrl =
+                config.policy.policyManagementServiceBaseUrl +
+                config.policy.distributeNcfsPolicyPath
+
             const policyId = Guid.create();
 
             beforeEach(() => {
@@ -256,7 +265,7 @@ describe("PolicyRoutes", () => {
                     .expect(200, done)
             });
 
-            it("called_PolicyManagementService_publishDraftPolicy", (done) => {
+            it("called_PolicyManagementService_publishPolicy", (done) => {
                 // Arrange
                 const spy = spyOn(policyRoutes.policyManagementService, "publishPolicy");
 
@@ -266,7 +275,8 @@ describe("PolicyRoutes", () => {
                     .expect(200, () => {
                         // Assert
                         expect(spy).toHaveBeenCalled()
-                        expect(spy).toBeCalledWith(expectedRequestUrl, policyId);
+                        expect(spy).toBeCalledWith(
+                            expectedPublishUrl, expectedDistributeAdaptationUrl, expectedDistributeNcfsUrl, policyId);
                         done();
                     })
             })

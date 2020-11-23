@@ -153,20 +153,18 @@ describe("PolicyManagementService", () => {
     });
 
     describe("publishPolicy", () => {
-        let publishPolicyStub: SinonStub;
-
         const publishPolicyUrl = "www.glasswall.com";
+        const distributeAdaptationPolicyUrl = "www.glasswall.com/adaptation";
+        const distributeNcfsPolicyUrl = "www.glasswall.com/ncfs";
         const policyId = Guid.create();
         const expectedHeaders = { "Content-Type": "application/json" };
 
-        beforeEach(() => {
-            publishPolicyStub = stub(PolicyManagementApi, "publishPolicy")
-                .resolves();
-        });
-
-        afterEach(() => {
-            publishPolicyStub.restore();
-        });
+        stub(PolicyManagementApi, "publishPolicy")
+            .resolves();
+        stub(PolicyManagementApi, "distributeAdaptationPolicy")
+            .resolves();
+        stub(PolicyManagementApi, "distributeNcfsPolicy")
+            .resolves();
 
         it("called_PolicyManagementApi_publishPolicy", async () => {
             // Arrange
@@ -175,11 +173,39 @@ describe("PolicyManagementService", () => {
 
             // Act
             await policyManagementService.publishPolicy(
-                publishPolicyUrl, policyId);
+                publishPolicyUrl, distributeAdaptationPolicyUrl, distributeNcfsPolicyUrl, policyId);
 
             // Assert
             expect(spy).toHaveBeenCalled();
             expect(spy).toBeCalledWith(publishPolicyUrl, policyId, expectedHeaders);
+        });
+
+        it("called_PolicyManagementApi_distributeAdaptationPolicy", async () => {
+            // Arrange
+            const spy = spyOn(PolicyManagementApi, "distributeAdaptationPolicy");
+            const policyManagementService = new PolicyManagementService(logger);
+
+            // Act
+            await policyManagementService.publishPolicy(
+                publishPolicyUrl, distributeAdaptationPolicyUrl, distributeNcfsPolicyUrl, policyId);
+
+            // Assert
+            expect(spy).toHaveBeenCalled();
+            expect(spy).toBeCalledWith(distributeAdaptationPolicyUrl, expectedHeaders);
+        });
+
+        it("called_PolicyManagementApi_distributeNcfsPolicy", async () => {
+            // Arrange
+            const spy = spyOn(PolicyManagementApi, "distributeNcfsPolicy");
+            const policyManagementService = new PolicyManagementService(logger);
+
+            // Act
+            await policyManagementService.publishPolicy(
+                publishPolicyUrl, distributeAdaptationPolicyUrl, distributeNcfsPolicyUrl, policyId);
+
+            // Assert
+            expect(spy).toHaveBeenCalled();
+            expect(spy).toBeCalledWith(distributeNcfsPolicyUrl, expectedHeaders);
         });
     });
 

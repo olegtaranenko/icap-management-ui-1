@@ -121,6 +121,10 @@ describe("PolicyManagementApi", () => {
                 expect(error).not.toBe(undefined);
                 expect(error).toEqual("Error");
             });
+
+            it("called_fetch_using_GET", () => {
+                expectFetch(fetchStub, url, "GET");
+            })
         });
 
         describe("should_respond_with_response_json_if_OK", () => {
@@ -244,6 +248,84 @@ describe("PolicyManagementApi", () => {
 
             it("called_fetch_using_PUT", () => {
                 expectFetch(fetchStub, expectedRequestUrl, "PUT");
+            });
+        });
+    });
+
+    describe("distributeAdaptationPolicy", () => {
+        describe("response_status_not_OK", () => {
+            // Arrange
+            const url = "www.glasswall.com";
+            let error: any;
+
+            beforeEach(async () => {
+                fetchStubResult = {
+                    ok: false,
+                    statusText: "Error"
+                };
+
+                fetchStub = stub(fetch, "default").returns(fetchStubResult);
+
+                // Act
+                try {
+                    await PolicyManagementApi.distributeAdaptationPolicy(url);
+                }
+                catch (err) {
+                    error = err;
+                }
+            });
+
+            afterEach(() => {
+                fetchStub.restore();
+            });
+
+            // Assert
+            it("responds_with_status_text", () => {
+                expect(error).not.toBe(undefined);
+                expect(error).toEqual("Error");
+            });
+
+            it("called_fetch_using_PUT", () => {
+                expectFetch(fetchStub, url, "PUT");
+            });
+        });
+    });
+
+    describe("distributeNcfsPolicy", () => {
+        describe("response_status_not_OK", () => {
+            // Arrange
+            const url = "www.glasswall.com";
+            let error: any;
+
+            beforeEach(async () => {
+                fetchStubResult = {
+                    ok: false,
+                    statusText: "Error"
+                };
+
+                fetchStub = stub(fetch, "default").returns(fetchStubResult);
+
+                // Act
+                try {
+                    await PolicyManagementApi.distributeNcfsPolicy(url);
+                }
+                catch (err) {
+                    error = err;
+                }
+            });
+
+            afterEach(() => {
+                fetchStub.restore();
+            });
+
+            // Assert
+            it("responds_with_status_text", () => {
+                expect(error).not.toBe(undefined);
+                expect(error).toEqual("Error");
+            });
+
+            it("called_fetch_using_PUT", () => {
+                expectFetch(fetchStub, url, "PUT");
             });
         });
     });
