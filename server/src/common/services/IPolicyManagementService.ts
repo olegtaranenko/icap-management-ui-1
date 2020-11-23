@@ -9,6 +9,6 @@ export default interface IPolicyManagementService {
     getCurrentPolicy: (getCurrentPolicyUrl: string) => Promise<Policy>,
     getDraftPolicy: (getDraftPolicyUrl: string) => Promise<Policy>,
     saveDraftPolicy: (saveDraftPolicyUrl: string, draftPolicy: Policy) => Promise<void>,
-    publishPolicy: (publishPolicyUrl: string, policyId: Guid) => Promise<void>,
+    publishPolicy: (publishPolicyUrl: string, distributeAdaptationPolicyUrl: string, distributeNcfsPolicy: string, policyId: Guid) => Promise<void>,
     deleteDraftPolicy: (deleteDraftPolicyUrl: string, policyId: Guid) => Promise<void>
 }

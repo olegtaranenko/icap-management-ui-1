@@ -16,7 +16,8 @@ const TestConfig = () => {
             getCurrentPolicyPath: "/test",
             getPolicyHistoryPath: "/test",
             publishPolicyPath: "/test",
-            distributePolicyPath: "/test"
+            distributeAdaptionPolicyPath: "/test",
+            distributeNcfsPolicyPath: "/test"
         }
     }
 

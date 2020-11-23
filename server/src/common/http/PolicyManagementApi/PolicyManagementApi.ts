@@ -31,7 +31,7 @@ export default class PolicyManagementApi {
         return response.text();
     }
 
-    static saveDraftPolicy = async(saveDraftPolicyUrl: string, draftPolicy: Policy, headers?: { [header: string]: string }): Promise<void> => {
+    static saveDraftPolicy = async (saveDraftPolicyUrl: string, draftPolicy: Policy, headers?: { [header: string]: string }): Promise<void> => {
         const response = await fetch(saveDraftPolicyUrl, {
             method: "PUT",
             body: JSON.stringify(draftPolicy),
@@ -43,7 +43,7 @@ export default class PolicyManagementApi {
         }
     }
 
-    static publishPolicy = async(publishPolicyUrl: string, policyId: Guid, headers?: { [header: string]: string }): Promise<void> => {
+    static publishPolicy = async (publishPolicyUrl: string, policyId: Guid, headers?: { [header: string]: string }): Promise<void> => {
         const url = `${publishPolicyUrl}?id=${policyId.toString()}`;
 
         const response = await fetch(url, {
@@ -56,7 +56,29 @@ export default class PolicyManagementApi {
         }
     }
 
-    static deleteDraftPolicy = async(deleteDraftPolicyUrl: string, policyId: Guid, headers?: { [header: string]: string }): Promise<void> => {
+    static distributeAdaptationPolicy = async (distributeAdaptationPolicyUrl: string, headers?: { [header: string]: string }): Promise<void> => {
+        const response = await fetch(distributeAdaptationPolicyUrl, {
+            method: "PUT",
+            headers
+        });
+
+        if (!response.ok) {
+            throw response.statusText;
+        }
+    }
+
+    static distributeNcfsPolicy = async (distributeNcfsPolicyUrl: string, headers?: { [header: string]: string }): Promise<void> => {
+        const response = await fetch(distributeNcfsPolicyUrl, {
+            method: "PUT",
+            headers
+        });
+
+        if (!response.ok) {
+            throw response.statusText;
+        }
+    }
+
+    static deleteDraftPolicy = async (deleteDraftPolicyUrl: string, policyId: Guid, headers?: { [header: string]: string }): Promise<void> => {
         const url = `${deleteDraftPolicyUrl}?id=${policyId.toString()}`;
 
         const response = await fetch(url, {

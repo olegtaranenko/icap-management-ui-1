@@ -16,7 +16,8 @@ const Config = () => {
             getCurrentPolicyPath: "/policy/current",
             getPolicyHistoryPath: "/policy/history",
             publishPolicyPath: "/policy/publish",
-            distributePolicyPath: "/policy/distribute"
+            distributeAdaptionPolicyPath: "/policy/current/distribute-adaption",
+            distributeNcfsPolicyPath: "/policy/current/distribute-ncfs"
         }
     };
 
@@ -35,7 +36,8 @@ const Config = () => {
             getCurrentPolicyPath: "/policy/current",
             getPolicyHistoryPath: "/policy/history",
             publishPolicyPath: "/policy/publish",
-            distributePolicyPath: "/policy/distribute"
+            distributeAdaptionPolicyPath: "/policy/current/distribute-adaption",
+            distributeNcfsPolicyPath: "/policy/current/distribute-ncfs"
         }
     };
 

@@ -14,7 +14,8 @@ class PolicyRoutes {
     getCurrentPolicyPath: string;
     getPolicyHistoryPath: string;
     publishPolicyPath: string;
-    distributePolicyPath: string;
+    distributeAdaptationPolicyPath: string;
+    distributeNcfsPolicyPath: string;
 
     policyManagementService: PolicyManagementService;
 
@@ -29,7 +30,8 @@ class PolicyRoutes {
         this.saveDraftPolicyPath = config.policy.saveDraftPolicyPath;
         this.getCurrentPolicyPath = config.policy.getCurrentPolicyPath;
         this.publishPolicyPath = config.policy.publishPolicyPath;
-        this.distributePolicyPath = config.policy.distributePolicyPath;
+        this.distributeAdaptationPolicyPath = config.policy.distributeAdaptionPolicyPath;
+        this.distributeNcfsPolicyPath = config.policy.distributeNcfsPolicyPath;
         this.policyManagementService = new PolicyManagementService(logger);
         this.app = app;
         this.logger = logger;
@@ -104,10 +106,13 @@ class PolicyRoutes {
 
         // Publish Policy
         this.app.put("/policy/publish/:policyId", async (req, res) => {
-            const requestUrl = this.policyManagementServiceBaseUrl + this.publishPolicyPath;
+            const publishUrl = this.policyManagementServiceBaseUrl + this.publishPolicyPath;
+            const distributeAdaptationUrl = this.policyManagementServiceBaseUrl + this.distributeAdaptationPolicyPath;
+            const distributeNcfsUrl = this.policyManagementServiceBaseUrl + this.distributeNcfsPolicyPath;
 
             try {
-                await this.policyManagementService.publishPolicy(requestUrl, Guid.parse(req.params.policyId));
+                await this.policyManagementService.publishPolicy(
+                    publishUrl, distributeAdaptationUrl, distributeNcfsUrl, Guid.parse(req.params.policyId));
 
                 res.sendStatus(200);
             }
