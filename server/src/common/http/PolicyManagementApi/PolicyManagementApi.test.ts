@@ -4,7 +4,6 @@ import fetch = require("node-fetch");
 import { Guid } from "guid-typescript";
 import { Policy } from "../../../common/models/PolicyManagementService/Policy/Policy";
 import policyExample from "./policyExample.json";
-import { syncBuiltinESMExports } from "module";
 
 let fetchStub: SinonStub;
 let fetchStubResult: any
