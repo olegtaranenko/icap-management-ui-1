@@ -42,6 +42,7 @@ class PolicyManagementService implements IPolicyManagementService {
         }
         catch (error) {
             this.logger.error(`Could not get Policy - PolicyId: ${request.policyId}`);
+            throw error;
         }
 
         return policy;
@@ -64,6 +65,7 @@ class PolicyManagementService implements IPolicyManagementService {
         }
         catch (error) {
             this.logger.error("Could not get Current Policy");
+            throw error;
         }
 
         return policy;
@@ -86,6 +88,7 @@ class PolicyManagementService implements IPolicyManagementService {
         }
         catch (error) {
             this.logger.error("Could not get Draft Policy");
+            throw error;
         }
 
         return policy;
@@ -104,6 +107,7 @@ class PolicyManagementService implements IPolicyManagementService {
         }
         catch (error) {
             this.logger.error("Couldn't save Draft Policy");
+            throw error;
         }
     }
 
@@ -124,6 +128,7 @@ class PolicyManagementService implements IPolicyManagementService {
         }
         catch (error) {
             this.logger.error(`Couldn't Publish Policy - PolicyId: ${policyId}`);
+            throw error;
         }
     }
 
@@ -137,6 +142,7 @@ class PolicyManagementService implements IPolicyManagementService {
         }
         catch (error) {
             this.logger.error(`Couldn't Delete Policy - PolicyId: ${policyId}`);
+            throw error;
         }
     }
 }

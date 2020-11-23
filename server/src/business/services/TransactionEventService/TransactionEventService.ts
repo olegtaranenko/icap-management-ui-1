@@ -27,6 +27,7 @@ class TransactionEventService implements ITransactionEventService {
         }
         catch (error) {
             this.logger.error(`Could not get Transactions: ${error} ${error.stack !== undefined ? error.stack : ""}`);
+            throw error;
         }
 
         return transactions;
@@ -48,6 +49,7 @@ class TransactionEventService implements ITransactionEventService {
         }
         catch (error) {
             this.logger.error(`Could not get Transaction Details from file: ${request.transactionFileDirectory}`);
+            throw error;
         }
 
         return transactionDetails;
