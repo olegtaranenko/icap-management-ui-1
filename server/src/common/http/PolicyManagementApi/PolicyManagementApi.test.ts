@@ -121,6 +121,10 @@ describe("PolicyManagementApi", () => {
                 expect(error).not.toBe(undefined);
                 expect(error).toEqual("Error");
             });
+
+            it("called_fetch_using_GET", () => {
+                expectFetch(fetchStub, url, "GET");
+            })
         });
 
         describe("should_respond_with_response_json_if_OK", () => {

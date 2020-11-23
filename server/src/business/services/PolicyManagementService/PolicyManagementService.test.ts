@@ -153,21 +153,17 @@ describe("PolicyManagementService", () => {
     });
 
     describe("publishPolicy", () => {
-        let publishPolicyStub: SinonStub;
-        let distributeAdaptationPolicyStub: SinonStub;
-        let distributeNcfsPolicyStub: SinonStub;
-
         const publishPolicyUrl = "www.glasswall.com";
         const distributeAdaptationPolicyUrl = "www.glasswall.com/adaptation";
         const distributeNcfsPolicyUrl = "www.glasswall.com/ncfs";
         const policyId = Guid.create();
         const expectedHeaders = { "Content-Type": "application/json" };
 
-        publishPolicyStub = stub(PolicyManagementApi, "publishPolicy")
+        stub(PolicyManagementApi, "publishPolicy")
             .resolves();
-        distributeAdaptationPolicyStub = stub(PolicyManagementApi, "distributeAdaptationPolicy")
+        stub(PolicyManagementApi, "distributeAdaptationPolicy")
             .resolves();
-        distributeNcfsPolicyStub = stub(PolicyManagementApi, "distributeNcfsPolicy")
+        stub(PolicyManagementApi, "distributeNcfsPolicy")
             .resolves();
 
         it("called_PolicyManagementApi_publishPolicy", async () => {
