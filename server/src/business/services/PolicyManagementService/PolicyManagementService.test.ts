@@ -11,7 +11,6 @@ import policyExample from "../../../common/http/PolicyManagementApi/policyExampl
 
 let getPolicyByIdStub: SinonStub;
 let getPolicyStub: SinonStub;
-// let saveDraftPolicyStub: SinonStub;
 
 const setupGetPolicyTest = () => {
     const responseString = policyExample;
@@ -113,19 +112,105 @@ describe("PolicyManagementService", () => {
         });
     });
 
-    // TODO: Finish saveDraftPolicy test
-    // describe("saveDraftPolicy", () => {
-    //     const responseString = "OK";
+    describe("saveDraftPolicy", () => {
+        let saveDraftPolicyStub: SinonStub;
 
-    //     beforeEach(() => {
-    //         saveDraftPolicyStub = stub(PolicyManagementApi, "saveDraftPolicy")
-    //             .resolves();
-    //     });
+        const saveDraftPolicyUrl = "www.glasswall.com";
+        const draftPolicy = new Policy(
+            policyExample.id,
+            policyExample.policyType,
+            policyExample.published,
+            policyExample.lastEdited,
+            policyExample.created,
+            policyExample.ncfsPolicy,
+            policyExample.adaptionPolicy,
+            policyExample.updatedBy
+        );
+        const expectedHeaders = { "Content-Type": "application/json" };
 
-    //     afterEach(() => {
-    //         saveDraftPolicyStub.restore();
-    //     });
-    // });
+        beforeEach(() => {
+            saveDraftPolicyStub = stub(PolicyManagementApi, "saveDraftPolicy")
+                .resolves();
+        });
 
-    // TODO: Add test for publish draft
+        afterEach(() => {
+            saveDraftPolicyStub.restore();
+        });
+
+        it("called_PolicyManagementApi_saveDraftPolicy", async () => {
+            // Arrange
+            const spy = spyOn(PolicyManagementApi, "saveDraftPolicy");
+            const policyManagementService = new PolicyManagementService(logger);
+
+            // Act
+            await policyManagementService.saveDraftPolicy(
+                saveDraftPolicyUrl, draftPolicy);
+
+            // Assert
+            expect(spy).toHaveBeenCalled();
+            expect(spy).toBeCalledWith(saveDraftPolicyUrl, draftPolicy, expectedHeaders);
+        });
+    });
+
+    describe("publishPolicy", () => {
+        let publishPolicyStub: SinonStub;
+
+        const publishPolicyUrl = "www.glasswall.com";
+        const policyId = Guid.create();
+        const expectedHeaders = { "Content-Type": "application/json" };
+
+        beforeEach(() => {
+            publishPolicyStub = stub(PolicyManagementApi, "publishPolicy")
+                .resolves();
+        });
+
+        afterEach(() => {
+            publishPolicyStub.restore();
+        });
+
+        it("called_PolicyManagementApi_publishPolicy", async () => {
+            // Arrange
+            const spy = spyOn(PolicyManagementApi, "publishPolicy");
+            const policyManagementService = new PolicyManagementService(logger);
+
+            // Act
+            await policyManagementService.publishPolicy(
+                publishPolicyUrl, policyId);
+
+            // Assert
+            expect(spy).toHaveBeenCalled();
+            expect(spy).toBeCalledWith(publishPolicyUrl, policyId, expectedHeaders);
+        });
+    });
+
+    describe("deleteDraftPolicy", () => {
+        let deleteDraftPolicyStub: SinonStub;
+
+        const deleteDraftPolicyUrl = "www.glasswall.com";
+        const policyId = Guid.create();
+        const expectedHeaders = { "Content-Type": "application/json" };
+
+        beforeEach(() => {
+            deleteDraftPolicyStub = stub(PolicyManagementApi, "deleteDraftPolicy")
+                .resolves();
+        });
+
+        afterEach(() => {
+            deleteDraftPolicyStub.restore();
+        });
+
+        it("called_PolicyManagementApi_deleteDraftPolicy", async () => {
+            // Arrange
+            const spy = spyOn(PolicyManagementApi, "deleteDraftPolicy");
+            const policyManagementService = new PolicyManagementService(logger);
+
+            // Act
+            await policyManagementService.deleteDraftPolicy(
+                deleteDraftPolicyUrl, policyId);
+
+            // Assert
+            expect(spy).toHaveBeenCalled();
+            expect(spy).toBeCalledWith(deleteDraftPolicyUrl, policyId, expectedHeaders);
+        });
+    });
 });

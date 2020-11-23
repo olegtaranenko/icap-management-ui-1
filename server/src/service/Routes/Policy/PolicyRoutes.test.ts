@@ -189,8 +189,129 @@ describe("PolicyRoutes", () => {
             });
         });
 
-        // TODO: Add test for save draft
+        describe("put_/policy/draft", () => {
+            // Arrange
+            const expectedRequestUrl =
+                config.policy.policyManagementServiceBaseUrl +
+                config.policy.saveDraftPolicyPath;
 
-        // TODO: Add test for publish draft
+            beforeEach(() => {
+                policyManagementServiceStub = stub(
+                    policyRoutes.policyManagementService, "saveDraftPolicy")
+                    .resolves();
+            });
+
+            afterEach(() => {
+                policyManagementServiceStub.restore();
+            });
+
+            it("responds_with_200_OK", (done) => {
+                // Act
+                // Assert
+                request(app)
+                    .put("/policy/draft")
+                    .send(policyExample)
+                    .expect(200, done)
+            });
+
+            it("called_PolicyManagementService_saveDraftPolicy", (done) => {
+                // Arrange
+                const spy = spyOn(policyRoutes.policyManagementService, "saveDraftPolicy");
+
+                // Act
+                request(app)
+                    .put("/policy/draft")
+                    .send(policyExample)
+                    .expect(200, () => {
+                        // Assert
+                        expect(spy).toHaveBeenCalled();
+                        expect(spy).toBeCalledWith(expectedRequestUrl, policyExample);
+                        done();
+                    })
+            });
+        });
+
+        describe("put_/policy/publish", () => {
+            // Arrange
+            const expectedRequestUrl =
+                config.policy.policyManagementServiceBaseUrl +
+                config.policy.publishPolicyPath;
+            const policyId = Guid.create();
+
+            beforeEach(() => {
+                policyManagementServiceStub = stub(
+                    policyRoutes.policyManagementService, "publishPolicy")
+                    .resolves();
+            });
+
+            afterEach(() => {
+                policyManagementServiceStub.restore();
+            });
+
+            it("responds_with_200_OK", (done) => {
+                // Act
+                // Assert
+                request(app)
+                    .put("/policy/publish/" + policyId)
+                    .expect(200, done)
+            });
+
+            it("called_PolicyManagementService_publishDraftPolicy", (done) => {
+                // Arrange
+                const spy = spyOn(policyRoutes.policyManagementService, "publishPolicy");
+
+                // Act
+                request(app)
+                    .put("/policy/publish/" + policyId)
+                    .expect(200, () => {
+                        // Assert
+                        expect(spy).toHaveBeenCalled()
+                        expect(spy).toBeCalledWith(expectedRequestUrl, policyId);
+                        done();
+                    })
+            })
+        });
+
+        describe("delete_/policy/draft", () => {
+            // Arrange
+            const expectedRequestUrl =
+                config.policy.policyManagementServiceBaseUrl +
+                config.policy.deletePolicyPath;
+
+            const policyId = Guid.create();
+
+            beforeEach(() => {
+                policyManagementServiceStub = stub(
+                    policyRoutes.policyManagementService, "deleteDraftPolicy")
+                    .resolves();
+            });
+
+            afterEach(() => {
+                policyManagementServiceStub.restore();
+            });
+
+            it("responds_with_200_OK", (done) => {
+                // Act
+                // Assert
+                request(app)
+                    .delete("/policy/draft/" + policyId)
+                    .expect(200, done)
+            });
+
+            it("called_PolicyManagementService_deleteDraftPolicy", (done) => {
+                // Arrange
+                const spy = spyOn(policyRoutes.policyManagementService, "deleteDraftPolicy");
+
+                // Act
+                request(app)
+                    .delete("/policy/draft/" + policyId)
+                    .expect(200, () => {
+                        // Assert
+                        expect(spy).toHaveBeenCalled();
+                        expect(spy).toBeCalledWith(expectedRequestUrl, policyId);
+                        done();
+                    })
+            });
+        })
     });
 });
