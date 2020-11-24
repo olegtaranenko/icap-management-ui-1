@@ -1,9 +1,11 @@
 import { Logger } from "winston";
+import { Guid } from "guid-typescript";
 import { Policy } from "../../../common/models/PolicyManagementService/Policy/Policy";
 import { GetPolicyByIdRequest } from "../../../common/models/PolicyManagementService/GetPolicyById/GetPolicyByIdRequest";
+import { PolicyHistory } from "../../../common/models/PolicyManagementService/PolicyHistory/PolicyHistory";
+
 import IPolicyManagementService from "../../../common/services/IPolicyManagementService";
 import PolicyManagementApi from "../../../common/http/PolicyManagementApi/PolicyManagementApi";
-import { Guid } from "guid-typescript";
 
 class PolicyManagementService implements IPolicyManagementService {
     logger: Logger;
@@ -144,6 +146,26 @@ class PolicyManagementService implements IPolicyManagementService {
             this.logger.error(`Couldn't Delete Policy - PolicyId: ${policyId}`);
             throw error;
         }
+    }
+
+    getPolicyHistory = async (getPolicyHistoryUrl: string) => {
+        let policyHistory: PolicyHistory;
+
+        try {
+            this.logger.info(`Retrieving Policy History from the PolicyManagementService`);
+
+            const response = await PolicyManagementApi.getPolicyHistory(getPolicyHistoryUrl);
+            const responseJSON = JSON.parse(response);
+            policyHistory = responseJSON;
+
+            this.logger.info(`Retrieved Policy History from the PolicyManagementService`);
+        }
+        catch (error) {
+            this.logger.error(`Couldn't Retrieve Policy History`);
+            throw error;
+        }
+
+        return policyHistory;
     }
 }
 

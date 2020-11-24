@@ -12,7 +12,7 @@ export default class PolicyManagementApi {
         });
 
         if (!response.ok) {
-            throw response.statusText;
+            throw new Error(response.statusText);
         }
 
         return response.text();
@@ -25,7 +25,7 @@ export default class PolicyManagementApi {
         });
 
         if (!response.ok) {
-            throw response.statusText;
+            throw new Error(response.statusText);
         }
 
         return response.text();
@@ -39,7 +39,7 @@ export default class PolicyManagementApi {
         });
 
         if (!response.ok) {
-            throw response.statusText;
+            throw new Error(response.statusText);
         }
     }
 
@@ -52,7 +52,7 @@ export default class PolicyManagementApi {
         });
 
         if (!response.ok) {
-            throw response.statusText;
+            throw new Error(response.statusText);
         }
     }
 
@@ -63,7 +63,7 @@ export default class PolicyManagementApi {
         });
 
         if (!response.ok) {
-            throw response.statusText;
+            throw new Error(response.statusText);
         }
     }
 
@@ -74,7 +74,7 @@ export default class PolicyManagementApi {
         });
 
         if (!response.ok) {
-            throw response.statusText;
+            throw new Error(response.statusText);
         }
     }
 
@@ -87,7 +87,7 @@ export default class PolicyManagementApi {
         });
 
         if (!response.ok) {
-            throw response.statusText;
+            throw new Error(response.statusText);
         }
     }
 
@@ -98,7 +98,7 @@ export default class PolicyManagementApi {
         });
 
         if (!response.ok) {
-            throw response.statusText;
+            throw new Error(response.statusText);
         }
 
         return response.text();
