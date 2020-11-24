@@ -1,47 +1,32 @@
-import React, { useState, useContext } from "react";
-
-import { PolicyContext } from "../../context/policy/policy-context";
+import React, { useState } from "react";
 
 import classes from "./Policy.module.scss";
 
-import prevPolicy from "../../data/prevPolicy.json";
+import draftPolicyIcon from "../../assets/svg/policy/draft-policy-icon.svg";
 import currentPolicyIcon from "../../assets/svg/policy/current-policy-icon.svg";
 import previousPolicyIcon from "../../assets/svg/policy/previous-policy-icon.svg";
 
-import Current from "./Current/Current";
+import DraftPolicy from "./DraftPolicy/DraftPolicy";
+import CurrentPolicy from "./CurrentPolicy/CurrentPolicy";
 import History from "./History/History";
 import TabNav from "../../components/Tabs/TabNav/TabNav";
 import Tab from "../../components/Tabs/Tab/Tab";
 import Main from "../../hoc/Main/Main";
 import MainTitle from "../../hoc/MainTitle/MainTitle";
-import { Policy as PolicyType, PolicyFlagList } from "../../context/policy/models";
+
+import { PolicyState } from "../../context/policy/PolicyState";
 
 const Policy = () => {
-	const {
-		id,
-		email,
-		policyFlags,
-		timestamp,
-		isPolicyChanged,
-		changeToggle,
-		cancelChanges,
-		saveChanges,
-	} = useContext(PolicyContext);
-
-	const policy = prevPolicy.find(
-		(it) => it.id === "prev-Adam2-20092020165445"
-	);
-
-	const [currentPolicy, setCurrentPolicy] = useState(true);
-	const [selectedTab, setSelectedTab] = useState("Current");
+	const [selectedTab, setSelectedTab] = useState("Draft");
 
 	const tabs = [
+		{ testId: "buttonPolicyDraftTab", name: "Draft", icon: draftPolicyIcon },
 		{ testId: "buttonPolicyCurrentTab", name: "Current", icon: currentPolicyIcon },
-		{ testId: "buttonPolicyHistoryTab", name: "History", icon: previousPolicyIcon },
+		{ testId: "buttonPolicyHistoryTab", name: "History", icon: previousPolicyIcon, disabled: true }
 	];
 
 	return (
-		<>
+		<PolicyState>
 			<MainTitle />
 
 			<Main>
@@ -49,32 +34,25 @@ const Policy = () => {
 					<TabNav
 						tabs={tabs}
 						selectedTabName={selectedTab}
-						onSetActiveTabHandler={(tab) => setSelectedTab(tab)}
-					>
-						<Tab isSelected={selectedTab === "Current"}>
-							<Current
-								isPolicyChanged={isPolicyChanged}
-								email={email}
-								timestamp={timestamp}
-								id={id}
-								policy={policy as PolicyType}
-								currentPolicy={currentPolicy}
-								policyFlags={currentPolicy ? policyFlags : policy.policyFlagList as PolicyFlagList}
-								changeToggle={changeToggle}
-								cancelChanges={cancelChanges}
-								saveChanges={saveChanges}
-							/>
+						onSetActiveTabHandler={(tab) => setSelectedTab(tab)}>
+
+						<Tab isSelected={selectedTab === "Draft"}>
+							<DraftPolicy />
 						</Tab>
+
+						<Tab isSelected={selectedTab === "Current"}>
+							<CurrentPolicy />
+						</Tab>
+
 						<Tab isSelected={selectedTab === "History"}>
 							<History
-								setPrevPolicy={() => setCurrentPolicy(false)}
-								isCurrent={currentPolicy}
-							/>
+								setPrevPolicy={() => { return true }}
+								isCurrent={false} />
 						</Tab>
 					</TabNav>
 				</article>
 			</Main>
-		</>
+		</PolicyState>
 	);
 };
 

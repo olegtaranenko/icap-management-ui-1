@@ -1,4 +1,4 @@
-import { FileDetailsStatus } from "../../../../../frontend/src/enums/FileDetailsStatus";
+import { FileDetailsStatus } from "../../enums/FileDetailsStatus";
 
 export class GetTransactionDetailsResponse {
     status: FileDetailsStatus;

@@ -23,6 +23,7 @@ const Input = (props: InputProps) => {
 		<div className={[classes.Input, props.externalStyles].join(" ")}>
 			<label htmlFor={props.name}>{props.label}</label>
 			<input
+				className={props.touched ? classes.changed : ""}
 				data-test-id={props.testId}
 				style={props.style}
 				type={props.type}

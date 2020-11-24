@@ -1,171 +1,94 @@
 {
-  "id": "current-Adam2",
-  "username": "Adam2",
-  "userEmail": "ahewitt@glasswallsolutions.com",
-  "timestamp": "",
-  "policyFlagList": {
-    "word": [
+  "id": "1c47fecd-be3c-48c8-9e8d-ee4abc7eafef",
+  "policyType": 1,
+  "published": "2020-11-05T11:07:43.5606929+00:00",
+  "lastEdited": "2020-11-05T11:07:33.13078+00:00",
+  "created": "2020-11-05T11:07:28.7192828+00:00",
+  "updatedBy": null,
+  "adaptionPolicy": {
+    "contentManagementFlags": {
+      "pdfContentManagement": {
+        "acroform": 1,
+        "actionsAll": 1,
+        "embeddedFiles": 1,
+        "embeddedImages": 1,
+        "externalHyperlinks": 1,
+        "internalHyperlinks": 1,
+        "javascript": 1,
+        "metadata": 1
+      },
+      "wordContentManagement": {
+        "dynamicDataExchange": 2,
+        "embeddedFiles": 2,
+        "embeddedImages": 2,
+        "externalHyperlinks": 1,
+        "internalHyperlinks": 1,
+        "macros": 2,
+        "metadata": 2,
+        "reviewComments": 2
+      },
+      "excelContentManagement": {
+        "dynamicDataExchange": 2,
+        "embeddedFiles": 2,
+        "embeddedImages": 1,
+        "externalHyperlinks": 2,
+        "internalHyperlinks": 1,
+        "macros": 1,
+        "metadata": 2,
+        "reviewComments": 1
+      },
+      "powerPointContentManagement": {
+        "embeddedFiles": 1,
+        "embeddedImages": 2,
+        "externalHyperlinks": 1,
+        "internalHyperlinks": 1,
+        "macros": 2,
+        "metadata": 1,
+        "reviewComments": 1
+      }
+    }
+  },
+  "ncfsPolicy": {
+    "routes": [
       {
-        "id": "word-id-1",
-        "name": "Dynamic Data Exchange",
-        "pos": "disallow"
+        "apiUrl": "d5aecb7c-0bb6-456d-ba78-a54687889188",
+        "isDeleted": true,
+        "isValidated": true
       },
       {
-        "id": "word-id-2",
-        "name": "Embedded Files",
-        "pos": "disallow"
+        "apiUrl": "e1663ea0-3104-4d36-9d3e-369d03caacb8",
+        "isDeleted": false,
+        "isValidated": false
       },
       {
-        "id": "word-id-3",
-        "name": "Embedded Files",
-        "pos": "disallow"
+        "apiUrl": "9edd2afd-d78d-4e3b-89b0-83c78167e363",
+        "isDeleted": false,
+        "isValidated": false
       },
       {
-        "id": "word-id-4",
-        "name": "External Hyperlinks",
-        "pos": "sanitise"
+        "apiUrl": "3c5a7058-8284-4da6-abff-5d8fe1957220",
+        "isDeleted": true,
+        "isValidated": true
       },
       {
-        "id": "word-id-5",
-        "name": "Internal Hyperlinks",
-        "pos": "disallow"
+        "apiUrl": "c81ef043-bca2-44c8-b38c-a6cd8d73c1ef",
+        "isDeleted": false,
+        "isValidated": false
       },
       {
-        "id": "word-id-6",
-        "name": "Macros",
-        "pos": "disallow"
+        "apiUrl": "813ae4c8-6881-47c8-b792-515d49325b24",
+        "isDeleted": false,
+        "isValidated": false
       },
       {
-        "id": "word-id-7",
-        "name": "Metadata",
-        "pos": "sanitise"
-      },
-      {
-        "id": "word-id-8",
-        "name": "Review Comments",
-        "pos": "disallow"
+        "apiUrl": "57b04ee0-0b01-4f9f-b27f-974c5f111840",
+        "isDeleted": false,
+        "isValidated": false
       }
     ],
-    "excel": [
-      {
-        "id": "excel-id-1",
-        "name": "Dynamic Data Exchange",
-        "pos": "disallow"
-      },
-      {
-        "id": "excel-id-2",
-        "name": "Embedded Files",
-        "pos": "disallow"
-      },
-      {
-        "id": "excel-id-3",
-        "name": "Embedded Files",
-        "pos": "sanitise"
-      },
-      {
-        "id": "excel-id-4",
-        "name": "External Hyperlinks",
-        "pos": "sanitise"
-      },
-      {
-        "id": "excel-id-5",
-        "name": "Internal Hyperlinks",
-        "pos": "disallow"
-      },
-      {
-        "id": "excel-id-6",
-        "name": "Macros",
-        "pos": "sanitise"
-      },
-      {
-        "id": "excel-id-7",
-        "name": "Metadata",
-        "pos": "disallow"
-      },
-      {
-        "id": "excel-id-8",
-        "name": "Review Comments",
-        "pos": "disallow"
-      }
-    ],
-    "powerpoint": [
-      {
-        "id": "powerpoint-id-1",
-        "name": "Embedded Files",
-        "pos": "disallow"
-      },
-      {
-        "id": "powerpoint-id-2",
-        "name": "Embedded Images",
-        "pos": "disallow"
-      },
-      {
-        "id": "powerpoint-id-3",
-        "name": "External Hyperlinks",
-        "pos": "disallow"
-      },
-      {
-        "id": "powerpoint-id-4",
-        "name": "Internal Hyperlinks",
-        "pos": "sanitise"
-      },
-      {
-        "id": "powerpoint-id-5",
-        "name": "Macros",
-        "pos": "disallow"
-      },
-      {
-        "id": "powerpoint-id-6",
-        "name": "Metadata",
-        "pos": "sanitise"
-      },
-      {
-        "id": "powerpoint-id-7",
-        "name": "Review Comments",
-        "pos": "disallow"
-      }
-    ],
-    "pdf": [
-      {
-        "id": "pdf-id-1",
-        "name": "Acroform",
-        "pos": "sanitise"
-      },
-      {
-        "id": "pdf-id-2",
-        "name": "Actions All",
-        "pos": "disallow"
-      },
-      {
-        "id": "pdf-id-3",
-        "name": "Embedded Files",
-        "pos": "sanitise"
-      },
-      {
-        "id": "pdf-id-4",
-        "name": "Embedded Images",
-        "pos": "disallow"
-      },
-      {
-        "id": "pdf-id-5",
-        "name": "External Hyperlinks",
-        "pos": "disallow"
-      },
-      {
-        "id": "pdf-id-6",
-        "name": "Internal Hyperlinks",
-        "pos": "disallow"
-      },
-      {
-        "id": "pdf-id-7",
-        "name": "Javascript",
-        "pos": "disallow"
-      },
-      {
-        "id": "pdf-id-8",
-        "name": "Metadata",
-        "pos": "sanitise"
-      }
-    ]
+    "options": {
+      "unProcessableFileTypes": 3,
+      "glasswallBlockedFiles": 1
+    }
   }
 }

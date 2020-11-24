@@ -1,0 +1,119 @@
+.Current {
+	height: 100%;
+	background: #dee3e4d6;
+
+	.ncfsContainer {
+		height: calc(100% - 4rem);
+		overflow-y: auto;
+		padding-bottom: 4rem;
+	}
+
+	.togglesBlock {
+		background: #fff;
+		padding-bottom: 3rem;
+		//margin: 2rem 1rem 3rem 1rem;
+		border-bottom: 1px solid #b6bfc9;
+		//border-radius: 0.6rem;
+	}
+}
+
+.tableContainer {
+	width: 100%;
+	overflow: hidden;
+	
+	& .table {
+		padding-left: 2rem;
+		border-top: 1px solid #b6bfc9;
+
+		& thead th {
+			position: relative;
+
+			padding: 0.7rem 2rem;
+
+			font-size: 1.2rem;
+			color: #196480;
+			border-bottom: 1px solid #4592b0;
+		}
+
+		& tbody {
+			& td {
+				font-size: 1.2rem;
+				padding: 0.7rem 2rem;
+			}
+
+			& td .noborder {
+				border-bottom: none;
+			}
+		}
+	}
+}
+
+.header {
+	position: relative;
+	display: flex;
+	justify-content: space-between;
+
+	margin-bottom: 2rem;
+
+	.buttons {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		height: 4rem;
+
+		margin: 2rem 0;
+
+		button {
+			width: 15rem;
+			margin-right: 3rem;
+
+			&:first-child {
+				color: #6697a6;
+			}
+
+			&:last-child {
+				background: #4592b0;
+			}
+		}
+	}
+
+	p {
+		margin: 0;
+		line-height: 4rem;
+		text-transform: uppercase;
+	}
+}
+
+.innerContent {
+	width: 100%;
+	height: calc(100% - 3rem);
+
+	border: 1px solid #b6bfc9;
+	border-radius: 0.6rem;
+	overflow: hidden;
+
+	.head {
+		background: #ffffff;
+		border-bottom: 1px solid #b6bfc9;
+	}
+
+	.info {
+		justify-content: space-between;
+
+		margin-left: 2rem;
+
+		padding: 2rem 0;
+
+		div {
+			padding-top: 1rem;
+			display: flex;
+			flex-direction: column;
+		}
+	}
+}
+
+.Tab {
+	width: 100% !important;
+	height: 100% !important;
+}
