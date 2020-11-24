@@ -1,7 +1,7 @@
 import Routes from "../../../Routes";
 import { Filter } from "../../../../../src/common/models/TransactionEventService/GetTransactions/GetTransactionsRequest";
 
-const requestHistoryRoutes = Routes.requestHistoryRoutes();
+const requestHistoryRoutes = Routes.requestHistoryRoutes;
 
 export const getTransactions = async (body: Filter): Promise<string> => {
     const response = await fetch(requestHistoryRoutes.getTransactionsRoute, {

@@ -1,8 +1,8 @@
 import React, { MouseEventHandler } from "react";
 import classes from "./FileRow.module.scss";
 import { TableRow, TableCell } from "@material-ui/core";
-import { FileType } from "../../../enums/FileType";
-import { Risk } from "../../../enums/Risk";
+import { FileType } from "../../../../../src/common/models/enums/FileType";
+import { Risk } from "../../../../../src/common/models/enums/Risk";
 
 export interface FileRowProps {
 	id: string,

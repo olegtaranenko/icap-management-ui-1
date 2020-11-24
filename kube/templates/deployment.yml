@@ -14,8 +14,13 @@ spec:
     spec:
       containers:
         - name: icap-management-ui
-          image: glasswallsolutions/icap-management-ui:main-latest
+          image: {{ .Values.imagestore.icapmanagementui.repository }}:{{ .Values.imagestore.icapmanagementui.tag }}
           imagePullPolicy: IfNotPresent
+          env:
+            - name: TRANSACTION_EVENT_API_URL
+              value: {{ .Values.config.transactionEventApiUrl }}
+            - name: POLICY_MANAGEMENT_API_URL
+              value: {{ .Values.config.policyManagementApiUrl }}
           ports:
             - containerPort: {{ .Values.deployment.port }}
           resources:

@@ -1,6 +1,10 @@
 .Input {
 	width: 100%;
 
+	& .changed {
+		box-shadow: 3px 1px 14px 7px #4ab1b694;
+	}
+
 	& input {
 		position: relative;
 		width: 100%;
@@ -13,8 +17,6 @@
 
 		background-repeat: no-repeat;
 		background-position: 0 center;
-
-		//padding-left: 5rem;
 
 		&::placeholder {
 			text-transform: uppercase;

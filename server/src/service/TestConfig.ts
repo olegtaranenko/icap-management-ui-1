@@ -2,9 +2,23 @@ import IConfig from "../common/models/IConfig";
 
 const TestConfig = () => {
     const testConfig: IConfig = {
-        transactionEventServiceBaseUrl: "www.glasswall.com",
-        getTransactionsPath: "/transactions",
-        getTransactionDetailsPath: "/transactions"
+        requestHistory: {
+            transactionEventServiceBaseUrl: "www.glasswall.com",
+            getTransactionsPath: "/transactions",
+            getTransactionDetailsPath: "/transactions"
+        },
+        policy: {
+            policyManagementServiceBaseUrl: "www.glasswall.com",
+            getPolicyPath: "/test",
+            deletePolicyPath: "/test",
+            getDraftPolicyPath: "/test",
+            saveDraftPolicyPath: "/test",
+            getCurrentPolicyPath: "/test",
+            getPolicyHistoryPath: "/test",
+            publishPolicyPath: "/test",
+            distributeAdaptionPolicyPath: "/test",
+            distributeNcfsPolicyPath: "/test"
+        }
     }
 
     return testConfig;

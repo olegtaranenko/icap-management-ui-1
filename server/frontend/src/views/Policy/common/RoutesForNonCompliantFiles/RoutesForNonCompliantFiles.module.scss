@@ -1,0 +1,36 @@
+.routes {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+
+	overflow: hidden;
+
+	& p {
+		padding: 1rem 2rem;
+		max-width: 50%;
+	}
+
+	& .table {
+		padding: 1rem 1rem 4rem 1rem;
+
+		.currentApiUrl {
+			color: #4ab1b6;
+		}
+
+		& .th {
+			display: flex;
+			justify-content: space-between;
+			color: #196480;
+
+			p {
+				padding-left: 1rem;
+				width: 100%;
+			}
+
+			& p:last-child {
+				width: 14rem;
+				padding-left: 3rem;
+			}
+		}
+	}
+}

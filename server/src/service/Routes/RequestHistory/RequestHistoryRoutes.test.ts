@@ -3,8 +3,8 @@ import bodyParser from "body-parser";
 import winston from "winston";
 import { SinonStub, stub } from "sinon";
 import request from "supertest";
-import { Risk } from "../../../../frontend/src/enums/Risk";
-import { FileType } from "../../../../frontend/src/enums/FileType";
+import { Risk } from "../../../common/models/enums/Risk";
+import { FileType } from "../../../common/models/enums/FileType";
 import { GetTransactionsResponse } from "../../../common/models/TransactionEventService/GetTransactions";
 import { GetTransactionDetailsResponse } from "../../../common/models/TransactionEventService/GetTransactionDetails";
 import TestConfig from "../../TestConfig";
@@ -57,7 +57,7 @@ describe("RequestHistoryRoutes", () => {
 
         requestHistoryRoutes.setup();
 
-        describe("request-history/transactions", () => {
+        describe("post_request-history/transactions", () => {
             // Arrange
             const getTransactionsRequestString = {
                 Filter: {
@@ -95,7 +95,7 @@ describe("RequestHistoryRoutes", () => {
                     .expect(200, done)
             });
 
-            it("responsds_with_correct_json", (done) => {
+            it("responds_with_correct_json", (done) => {
                 // Act
                 request(app)
                     .post("/request-history/transactions")
@@ -111,7 +111,7 @@ describe("RequestHistoryRoutes", () => {
             });
         });
 
-        describe("/request-history/transactionDetails", () => {
+        describe("/get_request-history/transactionDetails", () => {
             // Arrange
             const transactionFilePath = "test";
 
@@ -135,7 +135,7 @@ describe("RequestHistoryRoutes", () => {
                     .expect(200, done)
             });
 
-            it("response_with_correct_json", (done) => {
+            it("responds_with_correct_json", (done) => {
                 // Act
                 // Assert
                 request(app)

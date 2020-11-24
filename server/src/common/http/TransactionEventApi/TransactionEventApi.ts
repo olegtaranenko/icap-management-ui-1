@@ -28,7 +28,5 @@ export default class TransactionEventApi {
         }
 
         return response.text();
-
-        // return new Promise<string>((resolve) => resolve(JSON.stringify(analysisReport))); // TODO: Remove once we have analysis reports in test data
     }
 }

@@ -1,7 +1,7 @@
 .Filters {
 	background: #e6e9ea;
-	width: calc(100% - 7rem);
-	margin-left: 7rem;
+	width: calc(100% - 9rem);
+	margin-left: 9rem;
 	margin-bottom: 2rem;
 	transition: all 0.3s ease-in-out;
 
@@ -23,7 +23,7 @@
 
 	.wrap {
 		padding: 1rem;
-		margin: 2rem 2rem 0 2rem;
+		margin: 0rem 2rem 0 0;
 		overflow: hidden;
 		background-color: rgba(255, 255, 255, 0.4);
 		border-radius: 2.2rem;
@@ -31,7 +31,7 @@
 		align-items: center;
 	}
 
-	& .header {		
+	& .header {
 		position: relative;
 		display: flex;
 		align-items: center;
@@ -265,7 +265,7 @@
 				display: none;
 				font-size: 1rem;
 			}
-		}		
+		}
 
 		& .moreFilters {
 			display: none;
@@ -275,6 +275,8 @@
 
 @media(min-width: 992px) and (max-width: 1800px) {
 	.Filters {
+		padding-top: 2rem;
+
 		& .popupFilterFileType {
 			top: -170px;
 			width: 80rem;
@@ -283,10 +285,10 @@
 				margin-bottom: 0;
 			}
 		}
-		
+
 		&.expanded {
-			width: calc(100% - 20rem);
-			margin-left: 20rem;
+			width: calc(100% - 22rem);
+			margin-left: 22rem;			
 		}
 	}
 }

@@ -1,7 +1,7 @@
 import { stub, SinonStub } from "sinon";
 import winston from "winston";
-import { FileType } from "../../../../frontend/src/enums/FileType";
-import { Risk } from "../../../../frontend/src/enums/Risk";
+import { FileType } from "../../../common/models/enums/FileType";
+import { Risk } from "../../../common/models/enums/Risk";
 import { GetTransactionsRequest, GetTransactionsResponse } from "../../../common/models/TransactionEventService/GetTransactions";
 import { GetTransactionDetailsRequest, GetTransactionDetailsResponse } from "../../../common/models/TransactionEventService/GetTransactionDetails";
 import TransactionEventService from "./TransactionEventService";
