@@ -23,12 +23,12 @@ const Config = () => {
 
     const production: IConfig = {
         requestHistory: {
-            transactionEventServiceBaseUrl: "http://transactioneventapi.transaction-event-api.svc.cluster.local/api/v1",
+            transactionEventServiceBaseUrl: process.env.TRANSACTION_EVENT_API_URL,
             getTransactionsPath: "/transactions",
             getTransactionDetailsPath: "/transactions"
         },
         policy: {
-            policyManagementServiceBaseUrl: "https://policymanagementapifunction20201016103513.azurewebsites.net/api/v1",
+            policyManagementServiceBaseUrl: process.env.POLICY_MANAGEMENT_API_URL,
             getPolicyPath: "/policy",
             deletePolicyPath: "/policy",
             getDraftPolicyPath: "/policy/draft",

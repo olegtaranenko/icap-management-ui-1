@@ -9,3 +9,6 @@ imagestore:
   icapmanagementui:
     repository: glasswallsolutions/icap-management-ui
     tag: dev-latest
+config:
+  transactionEventApiUrl: http://transactioneventapi.transaction-event-api.svc.cluster.local/api/v1
+  policyManagementApiUrl: http://policymanagementapi.policy-management-api.svc.cluster.local/api/v1
