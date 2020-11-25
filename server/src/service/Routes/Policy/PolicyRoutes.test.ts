@@ -1,13 +1,14 @@
 import express from "express";
 import bodyParser from "body-parser";
 import winston from "winston";
-import { SinonStub, stub } from "sinon";
 import request from "supertest";
+import { SinonStub, stub } from "sinon";
+import { Guid } from "guid-typescript";
+import { Policy } from "../../../common/models/PolicyManagementService/Policy/Policy";
+import { PolicyHistory } from "../../../common/models/PolicyManagementService/PolicyHistory/PolicyHistory";
 
 import TestConfig from "../../TestConfig";
 import PolicyRoutes from "./PolicyRoutes";
-import { Policy } from "../../../common/models/PolicyManagementService/Policy/Policy";
-import { Guid } from "guid-typescript";
 
 import policyExample from "../../../common/http/PolicyManagementApi/policyExample.json";
 
@@ -58,7 +59,7 @@ describe("PolicyRoutes", () => {
 
         policyRoutes.setup();
 
-        describe("get_policy/getPolicy", () => {
+        describe("get_/policy/getPolicy", () => {
             // Arrange
             const policyId = Guid.create().toString();
 
@@ -146,7 +147,7 @@ describe("PolicyRoutes", () => {
             });
         });
 
-        describe("get_policy/draft", () => {
+        describe("get_/policy/draft", () => {
             // Arrange
             const expectedResponse = new Policy(
                 policyExample.id,
@@ -322,6 +323,52 @@ describe("PolicyRoutes", () => {
                         done();
                     })
             });
-        })
+        });
+
+        describe("get_/policy/history", () => {
+            // Arrange
+            const expectedResponse = new PolicyHistory(
+                1,
+                [new Policy(
+                    policyExample.id,
+                    policyExample.policyType,
+                    policyExample.published,
+                    policyExample.lastEdited,
+                    policyExample.created,
+                    policyExample.ncfsPolicy,
+                    policyExample.adaptionPolicy,
+                    policyExample.updatedBy
+                )]
+            );
+
+            beforeEach(() => {
+                policyManagementServiceStub = stub(
+                    policyRoutes.policyManagementService, "getPolicyHistory")
+                    .resolves(expectedResponse);
+            });
+
+            afterEach(() => {
+                policyManagementServiceStub.restore();
+            });
+
+            it("responds_with_200_OK", (done) => {
+                // Act
+                // Assert
+                request(app)
+                    .get("/policy/history")
+                    .expect(200, done)
+            });
+
+            it("responds_with_correct_json", (done) => {
+                // Act
+                request(app)
+                    .get("/policy/history")
+                    .expect(200, (error, result) => {
+                        // Assert
+                        expect(result.text).toEqual(JSON.stringify(expectedResponse));
+                        done();
+                    })
+            });
+        });
     });
 });

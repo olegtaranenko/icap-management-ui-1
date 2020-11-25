@@ -3,9 +3,10 @@ import winston from "winston";
 import { Guid } from "guid-typescript";
 import { Policy } from "../../../common/models/PolicyManagementService/Policy/Policy";
 import { GetPolicyByIdRequest } from "../../../common/models/PolicyManagementService/GetPolicyById/GetPolicyByIdRequest";
-import PolicyManagementApi from "../../../common/http/PolicyManagementApi/PolicyManagementApi";
+import { PolicyHistory } from "../../../common/models/PolicyManagementService/PolicyHistory/PolicyHistory";
 
 import PolicyManagementService from "./PolicyManagementService";
+import PolicyManagementApi from "../../../common/http/PolicyManagementApi/PolicyManagementApi";
 
 import policyExample from "../../../common/http/PolicyManagementApi/policyExample.json";
 
@@ -25,7 +26,7 @@ const setupGetPolicyTest = () => {
     });
 };
 
-const expectedResponse = new Policy(
+const expectedGetPolicyResponse = new Policy(
     policyExample.id,
     policyExample.policyType,
     policyExample.published,
@@ -76,7 +77,7 @@ describe("PolicyManagementService", () => {
             const result = await policyManagementService.getPolicy(request);
 
             // Assert
-            expect(result).toEqual(expectedResponse);
+            expect(result).toEqual(expectedGetPolicyResponse);
         });
     });
 
@@ -92,7 +93,7 @@ describe("PolicyManagementService", () => {
             const result = await policyManagementService.getCurrentPolicy(getCurrentPolicyUrl);
 
             // Assert
-            expect(result).toEqual(expectedResponse);
+            expect(result).toEqual(expectedGetPolicyResponse);
         });
     });
 
@@ -108,7 +109,7 @@ describe("PolicyManagementService", () => {
             const result = await policyManagementService.getDraftPolicy(getDraftPolicyUrl);
 
             // Assert
-            expect(result).toEqual(expectedResponse);
+            expect(result).toEqual(expectedGetPolicyResponse);
         });
     });
 
@@ -237,6 +238,56 @@ describe("PolicyManagementService", () => {
             // Assert
             expect(spy).toHaveBeenCalled();
             expect(spy).toBeCalledWith(deleteDraftPolicyUrl, policyId, expectedHeaders);
+        });
+    });
+
+    describe("getPolicyHistory", () => {
+        let getPolicyHistoryStub: SinonStub;
+
+        const responseString = {
+            policiesCount: 1,
+            policies: [policyExample]
+        };
+
+        const expectedResponse = new PolicyHistory(
+            1,
+            [new Policy(
+                policyExample.id,
+                policyExample.policyType,
+                policyExample.published,
+                policyExample.lastEdited,
+                policyExample.created,
+                policyExample.ncfsPolicy,
+                policyExample.adaptionPolicy,
+                policyExample.updatedBy
+            )]
+        );
+
+        beforeEach(() => {
+            getPolicyHistoryStub = stub(PolicyManagementApi, "getPolicyHistory")
+                .resolves(JSON.stringify(responseString));
+        });
+
+        afterEach(() => {
+            getPolicyHistoryStub.restore();
+        });
+
+        it("returns_correct_response", async () => {
+            // Arrange
+            const policyManagementService = new PolicyManagementService(logger);
+
+            // Act
+            const result = await policyManagementService.getPolicyHistory("www.glasswall.com");
+
+            // Assert
+            expect(result.policiesCount)
+                .toEqual(expectedResponse.policiesCount);
+            expect(result.policies[0].id)
+                .toEqual(expectedResponse.policies[0].id);
+            expect(result.policies[0].adaptionPolicy)
+                .toEqual(expectedResponse.policies[0].adaptionPolicy);
+            expect(result.policies[0].ncfsPolicy)
+                .toEqual(expectedResponse.policies[0].ncfsPolicy);
         });
     });
 });

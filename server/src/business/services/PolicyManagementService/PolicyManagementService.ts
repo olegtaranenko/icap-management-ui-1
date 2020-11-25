@@ -156,7 +156,7 @@ class PolicyManagementService implements IPolicyManagementService {
 
             const response = await PolicyManagementApi.getPolicyHistory(getPolicyHistoryUrl);
             const responseJSON = JSON.parse(response);
-            policyHistory = responseJSON;
+            policyHistory = new PolicyHistory(responseJSON.policiesCount, responseJSON.policies);
 
             this.logger.info(`Retrieved Policy History from the PolicyManagementService`);
         }
