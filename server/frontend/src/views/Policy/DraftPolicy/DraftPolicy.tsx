@@ -81,7 +81,8 @@ const DraftPolicy = () => {
         const draft = {
             adaptionPolicy: {
                 ...newDraftPolicy.adaptionPolicy,
-                ncfsRoute: newDraftPolicy.adaptionPolicy.ncfsRoute.ncfsRoutingUrl
+                ncfsRoute: newDraftPolicy.adaptionPolicy.ncfsRoute ?
+                    newDraftPolicy.adaptionPolicy.ncfsRoute.ncfsRoutingUrl : null
             },
             ...newDraftPolicy.ncfsPolicy,
         };
@@ -89,7 +90,8 @@ const DraftPolicy = () => {
         const current = {
             adaptionPolicy: {
                 ...currentPolicy.adaptionPolicy,
-                ncfsRoute: currentPolicy.adaptionPolicy.ncfsRoute.ncfsRoutingUrl
+                ncfsRoute: currentPolicy.adaptionPolicy.ncfsRoute ?
+                    currentPolicy.adaptionPolicy.ncfsRoute.ncfsRoutingUrl : null
             },
             ...currentPolicy.ncfsPolicy
         };
@@ -181,7 +183,7 @@ const DraftPolicy = () => {
                                         </div>
                                     </section>
                                     <RoutesForNonCompliantFiles
-                                        ncfsRoutingUrl={newDraftPolicy.adaptionPolicy.ncfsRoute.ncfsRoutingUrl}
+                                        ncfsRoutingUrl={newDraftPolicy.adaptionPolicy.ncfsRoute ? newDraftPolicy.adaptionPolicy.ncfsRoute.ncfsRoutingUrl : ""}
                                         changeInput={updateNcfsRoute} />
 
                                     <PolicyForNonCompliantFiles
