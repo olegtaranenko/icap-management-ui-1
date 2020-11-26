@@ -4,16 +4,24 @@ import { PolicyContext } from "./PolicyContext";
 import { policyReducer } from "./policy-reducers";
 import { Policy } from "../../../../src/common/models/PolicyManagementService/Policy/Policy";
 import * as actionTypes from "../actionTypes";
-import { getCurrentPolicy, getDraftPolicy, saveDraftPolicy, publishPolicy as publish, deleteDraftPolicy as deleteDraft } from "./api";
+import {
+	getCurrentPolicy,
+	getDraftPolicy,
+	saveDraftPolicy,
+	publishPolicy as publish,
+	deleteDraftPolicy as deleteDraft,
+	getPolicyHistory
+} from "./api";
+import { PolicyHistory } from "../../../../src/common/models/PolicyManagementService/PolicyHistory/PolicyHistory";
 
 interface InitialPolicyState {
 	currentPolicy: Policy,
 	draftPolicy: Policy,
 	newDraftPolicy: Policy,
-	policyHistory: Policy[],
+	policyHistory: PolicyHistory,
 	isPolicyChanged: boolean,
 	status: "LOADING" | "ERROR" | "LOADED",
-	policyErrorMessage: ""
+	policyError: ""
 }
 
 export const PolicyState = (props: { children: React.ReactNode }) => {
@@ -21,10 +29,10 @@ export const PolicyState = (props: { children: React.ReactNode }) => {
 		currentPolicy: null,
 		draftPolicy: null,
 		newDraftPolicy: null,
-		policyHistory: [],
+		policyHistory: null,
 		isPolicyChanged: false,
 		status: "LOADING",
-		policyErrorMessage: ""
+		policyError: ""
 	}
 
 	const [policyState, dispatch] = useReducer(policyReducer, initialState);
@@ -47,6 +55,10 @@ export const PolicyState = (props: { children: React.ReactNode }) => {
 
 	const setDraftPolicy = (policy: Policy) => {
 		dispatch({ type: actionTypes.SET_DRAFT_POLICY, draftPolicy: policy });
+	}
+
+	const setPolicyHistory = (policyHistory: PolicyHistory) => {
+		dispatch({ type: actionTypes.SET_POLICY_HISTORY, policyHistory });
 	}
 
 
@@ -134,6 +146,27 @@ export const PolicyState = (props: { children: React.ReactNode }) => {
 		})();
 	}
 
+	const loadPolicyHistory = () => {
+		let status: "LOADING" | "ERROR" | "LOADED" = "LOADING";
+		setStatus(status);
+
+		(async (): Promise<void> => {
+			try {
+				const policyHistory = await getPolicyHistory();
+				setPolicyHistory(policyHistory);
+
+				status = "LOADED";
+			}
+			catch (error) {
+				setPolicyError(error);
+				status = "ERROR";
+			}
+			finally {
+				setStatus(status);
+			}
+		})();
+	}
+
 	useEffect(() => {
 		let status: "LOADING" | "ERROR" | "LOADED" = "LOADING";
 		setStatus(status);
@@ -169,10 +202,11 @@ export const PolicyState = (props: { children: React.ReactNode }) => {
 			cancelDraftChanges,
 			publishPolicy,
 			deleteDraftPolicy,
+			loadPolicyHistory,
 			policyHistory: policyState.policyHistory,
 			isPolicyChanged: policyState.isPolicyChanged,
 			status: policyState.status,
-			policyErrorMessage: policyState.policyErrorMessage
+			policyError: policyState.policyError
 		}}>
 			{ props.children}
 		</PolicyContext.Provider>
