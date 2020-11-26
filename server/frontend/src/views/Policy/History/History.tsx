@@ -12,32 +12,34 @@ import Backdrop from "../../../components/UI/Backdrop/Backdrop";
 import HistoryRow from "./HistoryRow/HistoryRow";
 import Modal from "../../../components/UI/Modal/Modal";
 import HistoryInfo from "./HistoryInfo/HistoryInfo";
+import ConfirmPublishModal from "./ConfirmPublishModal/ConfirmPublishModal";
 
 import { PolicyContext } from "../../../context/policy/PolicyContext";
 
 import classes from "./History.module.scss";
 import { PolicyType } from "../../../../../src/common/models/enums/PolicyType";
 
-// export interface HistoryProps {
-// 	setPrevPolicy: () => void,
-// 	isCurrent: boolean
-// }
-
 const History = () => {
 	const {
 		status,
-		currentPolicy,
 		policyHistory,
 		loadPolicyHistory
 	} = useContext(PolicyContext);
 
-	const [modalIsOpen, setModalIsOpen] = useState(false);
+	const [showPolicyModal, setShowPolicyModal] = useState(false);
 	const [selectedPolicy, setSelectedPolicy] = useState<Policy>(null);
+	const [showConfirmPublishModal, setShowConfirmPublishModal] = useState(false);
 
 	const openPolicyModal = (policyId: string) => {
 		setSelectedPolicy(
 			policyHistory.policies.find(policy => policy.id === policyId));
-		setModalIsOpen(true);
+		setShowPolicyModal(true);
+	};
+
+	const openConfirmPublishModal = (policyId: string) => {
+		setSelectedPolicy(
+			policyHistory.policies.find(policy => policy.id === policyId));
+		setShowConfirmPublishModal(true);
 	};
 
 	useEffect(() => {
@@ -76,7 +78,7 @@ const History = () => {
 												id={policy.id}
 												isCurrent={policy.policyType === PolicyType.Current}
 												openPreviousPolicyModalHandler={() => openPolicyModal(policy.id)}
-												activatePreviousPolicyHandler={() => alert("publish old policy")} // TODO: Update
+												activatePreviousPolicyHandler={() => openConfirmPublishModal(policy.id)}
 												timestamp={new Date(policy.created).toLocaleString()}
 												updatedBy={policy.updatedBy ? policy.updatedBy : "N/A"}
 											/>
@@ -86,8 +88,9 @@ const History = () => {
 							</Table>
 						</div>
 					</div>
+
 					<CSSTransition
-						in={modalIsOpen}
+						in={showPolicyModal}
 						timeout={300}
 						mountOnEnter
 						unmountOnExit
@@ -97,12 +100,31 @@ const History = () => {
 							exit: classes.closePopupExit,
 							exitActive: classes.closePopupExitActive,
 						}}>
-						<Modal onCloseHandler={() => setModalIsOpen(false)}>
+						<Modal onCloseHandler={() => setShowPolicyModal(false)}>
 							<HistoryInfo policy={selectedPolicy} />
 						</Modal>
 					</CSSTransition>
+
+					{selectedPolicy !== null &&
+						<CSSTransition
+							in={showConfirmPublishModal}
+							timeout={300}
+							mountOnEnter
+							unmountOnExit
+							classNames={{
+								enter: classes.openPopupEnter,
+								enterActive: classes.openPopupEnterActive,
+								exit: classes.closePopupExit,
+								exitActive: classes.closePopupExitActive,
+							}}>
+							<Modal onCloseHandler={() => setShowConfirmPublishModal(false)} externalStyles={classes.confirmPublishModal}>
+								<ConfirmPublishModal policyId={selectedPolicy.id} onCancelHandler={() => setShowConfirmPublishModal(false)} />
+							</Modal>
+						</CSSTransition>
+					}
+
 					<CSSTransition
-						in={modalIsOpen}
+						in={showPolicyModal || showConfirmPublishModal}
 						timeout={300}
 						mountOnEnter
 						unmountOnExit
@@ -113,7 +135,7 @@ const History = () => {
 							exitActive: classes.closeBackdropExitActive,
 						}}
 					>
-						<Backdrop onClickOutside={() => setModalIsOpen(false)} />
+						<Backdrop onClickOutside={() => setShowPolicyModal(false)} />
 					</CSSTransition>
 				</>
 			}

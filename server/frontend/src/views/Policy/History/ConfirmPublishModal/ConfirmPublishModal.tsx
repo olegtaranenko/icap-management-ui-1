@@ -3,31 +3,31 @@ import React, { useContext } from "react";
 import Button from "../../../../components/UI/Button/Button";
 import { PolicyContext } from "../../../../context/policy/PolicyContext";
 
-import classes from "./ConfirmDraftPublishModal.module.scss";
+import classes from "./ConfirmPublishModal.module.scss";
 
-export interface ConfirmDraftPublishModalProps {
+export interface ConfirmPublishModalProps {
+    policyId: string,
     onCancelHandler: () => void
 }
 
-const ConfirmDraftPublishModal = (props: ConfirmDraftPublishModalProps) => {
+const ConfirmPublishModal = (props: ConfirmPublishModalProps) => {
     const {
-        draftPolicy,
         publishPolicy
     } = useContext(PolicyContext);
 
     const publish = () => {
-        publishPolicy(Guid.parse(draftPolicy.id))
+        publishPolicy(Guid.parse(props.policyId));
         props.onCancelHandler();
     }
 
     return (
         <div className={classes.modalContainer}>
             <header className={classes.header}>
-                <h2>Publish Draft Policy - Are you sure?</h2>
+                <h2>Publish Policy - Are you sure?</h2>
             </header>
             <div className={classes.modalInnerContent}>
                 <div className={classes.confirmPublishModalInfo}>
-                    <p>After confirmation, the 'draft' policy will be published.
+                    <p>After confirmation, the selected policy will be published.
                         This becomes the new master policy, and will be applied to all future requests.</p>
                 </div>
 
@@ -46,4 +46,4 @@ const ConfirmDraftPublishModal = (props: ConfirmDraftPublishModalProps) => {
     );
 }
 
-export default ConfirmDraftPublishModal;
+export default ConfirmPublishModal;

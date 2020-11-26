@@ -57,13 +57,12 @@
                 line-height: initial;
             }
 
-            & .cancelDeleteButton {
+            & .cancelPublishButton {
                 color: #6697a6;
             }
 
-            & .confirmDeleteButton {
-                background: #fd6d6d;
-                border: 1px solid #fd6d6d;
+            & .confirmPublishButton {
+                background: #4592b0;
             }
         }
     }

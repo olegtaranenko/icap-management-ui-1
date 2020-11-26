@@ -71,12 +71,9 @@
 	}
 }
 
-@media(min-width: 992px) and (max-width: 1800px) {
-	.table {
-		& th {
-			font-size: 1rem;
-		}
-	}
+.confirmPublishModal {
+	width: 30vw;
+	height: auto;
 }
 
 .openPopupEnterActive {
@@ -114,5 +111,13 @@
 
 	to {
 		opacity: 0.7;
+	}
+}
+
+@media(min-width: 992px) and (max-width: 1800px) {
+	.table {
+		& th {
+			font-size: 1rem;
+		}
 	}
 }

@@ -34,8 +34,7 @@ const HistoryRow = (props: HistoryRowProps) => {
 			<TableCell component="th" scope="row" id={props.id}>
 				<Button
 					onButtonClick={props.activatePreviousPolicyHandler}
-					disabled={true}
-					// disabled={props.isCurrent} TODO: uncomment
+					disabled={props.isCurrent}
 					externalStyles="policyHistoryActivateButton"
 					buttonType="button">Activate</Button>
 			</TableCell>
