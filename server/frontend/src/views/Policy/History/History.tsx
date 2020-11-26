@@ -16,6 +16,7 @@ import HistoryInfo from "./HistoryInfo/HistoryInfo";
 import { PolicyContext } from "../../../context/policy/PolicyContext";
 
 import classes from "./History.module.scss";
+import { PolicyType } from "../../../../../src/common/models/enums/PolicyType";
 
 // export interface HistoryProps {
 // 	setPrevPolicy: () => void,
@@ -73,7 +74,7 @@ const History = () => {
 											<HistoryRow
 												key={policy.id}
 												id={policy.id}
-												isCurrent={policy.id === currentPolicy.id}
+												isCurrent={policy.policyType === PolicyType.Current}
 												openPreviousPolicyModalHandler={() => openPolicyModal(policy.id)}
 												activatePreviousPolicyHandler={() => alert("publish old policy")} // TODO: Update
 												timestamp={new Date(policy.created).toLocaleString()}
