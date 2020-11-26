@@ -102,7 +102,8 @@ const CurrentPolicy = () => {
 										</div>
 									</section>
 									<RoutesForNonCompliantFiles
-										ncfsRoutingUrl={currentPolicy.adaptionPolicy.ncfsRoute.ncfsRoutingUrl}
+										ncfsRoutingUrl={currentPolicy.adaptionPolicy.ncfsRoute ?
+											currentPolicy.adaptionPolicy.ncfsRoute.ncfsRoutingUrl : ""}
 										disabled />
 
 									<PolicyForNonCompliantFiles
