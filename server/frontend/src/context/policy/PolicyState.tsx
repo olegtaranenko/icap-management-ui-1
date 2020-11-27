@@ -153,7 +153,7 @@ export const PolicyState = (props: { children: React.ReactNode }) => {
 		(async (): Promise<void> => {
 			try {
 				const policyHistory = await getPolicyHistory();
-				policyHistory.policies = policyHistory.policies.sort((a: any, b: any) => {
+				policyHistory.policies.sort((a: any, b: any) => {
 					return Date.parse(b.created) - Date.parse(a.created);
 				});
 				setPolicyHistory(policyHistory);
