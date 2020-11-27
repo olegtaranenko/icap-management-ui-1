@@ -101,6 +101,7 @@ class PolicyManagementService implements IPolicyManagementService {
             this.logger.info(
                 `Saving Draft Policy to the PolicyManagementService - PolicyId: ${draftPolicy.id}`);
 
+            draftPolicy.updatedBy = "frontend.user@users.com";
             await PolicyManagementApi.saveDraftPolicy(
                 updatePolicyUrl, draftPolicy, { "Content-Type": "application/json" });
 

@@ -3,6 +3,7 @@ import { Guid } from "guid-typescript";
 import { PolicyContext } from "./PolicyContext";
 import { policyReducer } from "./policy-reducers";
 import { Policy } from "../../../../src/common/models/PolicyManagementService/Policy/Policy";
+import { PolicyHistory } from "../../../../src/common/models/PolicyManagementService/PolicyHistory/PolicyHistory";
 import * as actionTypes from "../actionTypes";
 import {
 	getCurrentPolicy,
@@ -12,7 +13,6 @@ import {
 	deleteDraftPolicy as deleteDraft,
 	getPolicyHistory
 } from "./api";
-import { PolicyHistory } from "../../../../src/common/models/PolicyManagementService/PolicyHistory/PolicyHistory";
 
 interface InitialPolicyState {
 	currentPolicy: Policy,
@@ -153,6 +153,9 @@ export const PolicyState = (props: { children: React.ReactNode }) => {
 		(async (): Promise<void> => {
 			try {
 				const policyHistory = await getPolicyHistory();
+				policyHistory.policies = policyHistory.policies.sort((a: any, b: any) => {
+					return Date.parse(b.created) - Date.parse(a.created);
+				});
 				setPolicyHistory(policyHistory);
 
 				status = "LOADED";
