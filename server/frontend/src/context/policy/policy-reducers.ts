@@ -3,6 +3,7 @@ import { updateObject } from "../../helpers/updateObject";
 import * as actionTypes from "../actionTypes";
 import { TPolicyState } from "./PolicyContext";
 import { Policy } from "../../../../src/common/models/PolicyManagementService/Policy/Policy";
+import { PolicyHistory } from "../../../../src/common/models/PolicyManagementService/PolicyHistory/PolicyHistory";
 
 const setIsPolicyChanged = (state: TPolicyState, changed: boolean) => {
 	return updateObject(state, {
@@ -33,6 +34,12 @@ const setDraftPolicy = (state: TPolicyState, policy: Policy) => {
 		draftPolicy: policy
 	});
 };
+
+const setPolicyHistory = (state: TPolicyState, history: PolicyHistory) => {
+	return updateObject(state, {
+		policyHistory: history
+	})
+}
 
 const setNewDraftPolicy = (state: TPolicyState, policy: Policy) => {
 	const isPolicyEqual = equal(state.draftPolicy, policy);
@@ -66,6 +73,8 @@ export const policyReducer = (state: TPolicyState, action: { [actionName: string
 			return setNewDraftPolicy(state, action.newPolicy);
 		case actionTypes.CANCEL_DRAFT_CHANGES:
 			return cancelDraftChanges(state);
+		case actionTypes.SET_POLICY_HISTORY:
+			return setPolicyHistory(state, action.policyHistory);
 		default:
 			return state;
 	}

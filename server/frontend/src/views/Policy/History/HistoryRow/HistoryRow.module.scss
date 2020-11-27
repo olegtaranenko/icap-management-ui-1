@@ -8,6 +8,10 @@
 	transition: background 0.2s ease-in-out;
 	border-bottom: 1px solid #b6bfc9;
 
+	&.current {
+		background: #51b7bc2e;
+	}
+
 	&:hover {
 		transition: background 0.2s ease-in-out;
 		background: #e6e9ea;

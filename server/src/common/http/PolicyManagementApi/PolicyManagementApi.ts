@@ -12,7 +12,7 @@ export default class PolicyManagementApi {
         });
 
         if (!response.ok) {
-            throw response.statusText;
+            throw new Error(response.statusText);
         }
 
         return response.text();
@@ -25,7 +25,7 @@ export default class PolicyManagementApi {
         });
 
         if (!response.ok) {
-            throw response.statusText;
+            throw new Error(response.statusText);
         }
 
         return response.text();
@@ -39,7 +39,7 @@ export default class PolicyManagementApi {
         });
 
         if (!response.ok) {
-            throw response.statusText;
+            throw new Error(response.statusText);
         }
     }
 
@@ -52,7 +52,7 @@ export default class PolicyManagementApi {
         });
 
         if (!response.ok) {
-            throw response.statusText;
+            throw new Error(response.statusText);
         }
     }
 
@@ -63,7 +63,7 @@ export default class PolicyManagementApi {
         });
 
         if (!response.ok) {
-            throw response.statusText;
+            throw new Error(response.statusText);
         }
     }
 
@@ -74,7 +74,7 @@ export default class PolicyManagementApi {
         });
 
         if (!response.ok) {
-            throw response.statusText;
+            throw new Error(response.statusText);
         }
     }
 
@@ -87,7 +87,20 @@ export default class PolicyManagementApi {
         });
 
         if (!response.ok) {
-            throw response.statusText;
+            throw new Error(response.statusText);
         }
     }
+
+    static getPolicyHistory = async (getPolicyHistoryUrl: string, headers?: { [header: string]: string }): Promise<string> => {
+        const response = await fetch(getPolicyHistoryUrl, {
+            method: "GET",
+            headers
+        });
+
+        if (!response.ok) {
+            throw new Error(response.statusText);
+        }
+
+        return response.text();
+    };
 }

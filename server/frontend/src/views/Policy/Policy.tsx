@@ -22,7 +22,7 @@ const Policy = () => {
 	const tabs = [
 		{ testId: "buttonPolicyDraftTab", name: "Draft", icon: draftPolicyIcon },
 		{ testId: "buttonPolicyCurrentTab", name: "Current", icon: currentPolicyIcon },
-		{ testId: "buttonPolicyHistoryTab", name: "History", icon: previousPolicyIcon, disabled: true }
+		{ testId: "buttonPolicyHistoryTab", name: "History", icon: previousPolicyIcon }
 	];
 
 	return (
@@ -45,9 +45,7 @@ const Policy = () => {
 						</Tab>
 
 						<Tab isSelected={selectedTab === "History"}>
-							<History
-								setPrevPolicy={() => { return true }}
-								isCurrent={false} />
+							<History />
 						</Tab>
 					</TabNav>
 				</article>

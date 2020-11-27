@@ -17,7 +17,7 @@ export interface HistoryRowProps {
 const HistoryRow = (props: HistoryRowProps) => {
 	return (
 		<TableRow
-			className={classes.HistoryRow}
+			className={classes.HistoryRow + props.isCurrent ? classes.current : ""}
 			id={props.id}>
 			<TableCell component="th" scope="row" id={props.id}>
 				{props.timestamp}
@@ -34,7 +34,7 @@ const HistoryRow = (props: HistoryRowProps) => {
 			<TableCell component="th" scope="row" id={props.id}>
 				<Button
 					onButtonClick={props.activatePreviousPolicyHandler}
-					disabled={!props.isCurrent}
+					disabled={props.isCurrent}
 					externalStyles="policyHistoryActivateButton"
 					buttonType="button">Activate</Button>
 			</TableCell>
