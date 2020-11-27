@@ -1,13 +1,6 @@
 .PolicyForNonCompliantFiles {
-	position: relative;
 	display: flex;
 	flex-direction: column;
-
-	//margin: 1rem 2rem 2rem 2rem;
-
-	//border: 1px solid #b6bfc9;
-	//border-radius: 0.6rem;
-
 	overflow: hidden;
 }
 
@@ -15,7 +8,6 @@
 	padding: 1rem;
 
 	.toggleHead {
-		position: relative;
 		padding: 1rem;
 		font-size: 1.2rem;
 		color: #0c3450;
