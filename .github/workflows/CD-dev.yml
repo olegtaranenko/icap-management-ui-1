@@ -2,7 +2,7 @@ name: CD Dev
 env:
   REPOSITORY: glasswallsolutions
   IMAGE: icap-management-ui
-  TAG: dev
+  TAG: develop
 on:
   push:
     branches: [develop]
