@@ -87,7 +87,7 @@ const RequestHistory = () => {
 
 		getRows();
 
-	}, [selectedFilters, requestHistoryTimeFilter, setIsError, setIsLoading]);
+	}, []);
 
 	return (
 		<>
