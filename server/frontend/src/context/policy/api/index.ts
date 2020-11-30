@@ -2,6 +2,7 @@ import { getPolicy } from "./helpers";
 import { Policy } from "../../../../../src/common/models/PolicyManagementService/Policy/Policy";
 import Routes from "../../../Routes";
 import { Guid } from "guid-typescript";
+import { PolicyHistory } from "../../../../../src/common/models/PolicyManagementService/PolicyHistory/PolicyHistory";
 
 export const getCurrentPolicy = async (): Promise<Policy> => {
     const response = await getPolicy(Routes.policyRoutes.getCurrentPolicyRoute);
@@ -60,4 +61,22 @@ export const deleteDraftPolicy = async (policyId: Guid): Promise<void> => {
     if (!response.ok) {
         throw response.statusText;
     }
+}
+
+export const getPolicyHistory = async (): Promise<PolicyHistory> => {
+    const url = Routes.policyRoutes.getPolicyHistory;
+
+    const response = await fetch(url, {
+        method: "GET",
+        headers: {
+            "Accept": "*/*",
+            "Content-Type": "application/json"
+        }
+    });
+
+    if (!response.ok) {
+        throw response.statusText;
+    }
+
+    return response.json();
 }

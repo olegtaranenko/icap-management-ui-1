@@ -43,7 +43,7 @@ const CurrentPolicy = () => {
 				<TableBody className={classes.tbody}>
 					<TableRow>
 						<TableCell>
-							{new Date(currentPolicy.published).toLocaleString()}
+							{new Date(currentPolicy.created).toLocaleString()}
 						</TableCell>
 						<TableCell>
 							{currentPolicy.updatedBy ? currentPolicy.updatedBy : "N/A"}

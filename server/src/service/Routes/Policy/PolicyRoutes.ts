@@ -1,9 +1,10 @@
 import { Express } from "express";
 import { Logger } from "winston";
 import { Guid } from "guid-typescript";
-import PolicyManagementService from "../../../business/services/PolicyManagementService/PolicyManagementService";
 import { GetPolicyByIdRequest } from "../../../common/models/PolicyManagementService/GetPolicyById/GetPolicyByIdRequest";
+
 import IConfig from "../../../common/models/IConfig";
+import PolicyManagementService from "../../../business/services/PolicyManagementService/PolicyManagementService";
 
 class PolicyRoutes {
     policyManagementServiceBaseUrl: string;
@@ -29,6 +30,7 @@ class PolicyRoutes {
         this.getDraftPolicyPath = config.policy.getDraftPolicyPath;
         this.saveDraftPolicyPath = config.policy.saveDraftPolicyPath;
         this.getCurrentPolicyPath = config.policy.getCurrentPolicyPath;
+        this.getPolicyHistoryPath = config.policy.getPolicyHistoryPath;
         this.publishPolicyPath = config.policy.publishPolicyPath;
         this.distributeAdaptationPolicyPath = config.policy.distributeAdaptionPolicyPath;
         this.distributeNcfsPolicyPath = config.policy.distributeNcfsPolicyPath;
@@ -134,6 +136,22 @@ class PolicyRoutes {
             }
             catch (error) {
                 const message = `Error Deleting Policy - PolicyId: ${req.params.policyId}`;
+                this.logger.error(message + error.stack);
+                res.status(500).json(message);
+            }
+        });
+
+        // Get Policy History
+        this.app.get("/policy/history", async (req, res) => {
+            const requestUrl = this.policyManagementServiceBaseUrl + this.getPolicyHistoryPath;
+
+            try {
+                const policyHistory = await this.policyManagementService.getPolicyHistory(requestUrl);
+
+                res.json(policyHistory);
+            }
+            catch (error) {
+                const message = "Error Retrieving Policy History";
                 this.logger.error(message + error.stack);
                 res.status(500).json(message);
             }

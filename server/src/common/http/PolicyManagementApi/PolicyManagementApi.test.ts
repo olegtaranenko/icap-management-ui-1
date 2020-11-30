@@ -24,6 +24,7 @@ describe("PolicyManagementApi", () => {
             const url = "www.glasswall.com";
             const policyId = Guid.create();
             let error: any;
+            const expectedError = new Error("Error");
 
             beforeEach(async () => {
                 fetchStubResult = {
@@ -49,7 +50,7 @@ describe("PolicyManagementApi", () => {
             // Assert
             it("response_with_status_text", () => {
                 expect(error).not.toBe(undefined);
-                expect(error).toEqual("Error");
+                expect(error).toEqual(expectedError);
             });
         });
 
@@ -94,6 +95,7 @@ describe("PolicyManagementApi", () => {
             // Arrange
             const url = "www.glasswall.com";
             let error: any;
+            const expectedError = new Error("Error");
 
             beforeEach(async () => {
                 fetchStubResult = {
@@ -119,7 +121,7 @@ describe("PolicyManagementApi", () => {
             // Assert
             it("responds_with_status_text", () => {
                 expect(error).not.toBe(undefined);
-                expect(error).toEqual("Error");
+                expect(error).toEqual(expectedError);
             });
 
             it("called_fetch_using_GET", () => {
@@ -166,6 +168,7 @@ describe("PolicyManagementApi", () => {
             // Arrange
             const url = "www.glasswall.com";
             let error: any;
+            const expectedError = new Error("Error");
 
             const draftPolicy = new Policy(
                 policyExample.id,
@@ -202,7 +205,7 @@ describe("PolicyManagementApi", () => {
             // Assert
             it("responds_with_status_text", () => {
                 expect(error).not.toBe(undefined);
-                expect(error).toEqual("Error");
+                expect(error).toEqual(expectedError);
             });
 
             it("called_fetch_using_PUT", () => {
@@ -218,6 +221,7 @@ describe("PolicyManagementApi", () => {
             const policyId = Guid.create();
             const expectedRequestUrl = `${url}?id=${policyId.toString()}`;
             let error: any;
+            const expectedError = new Error("Error");
 
             beforeEach(async () => {
                 fetchStubResult = {
@@ -243,7 +247,7 @@ describe("PolicyManagementApi", () => {
             // Assert
             it("responds_with_status_text", () => {
                 expect(error).not.toBe(undefined);
-                expect(error).toEqual("Error");
+                expect(error).toEqual(expectedError);
             });
 
             it("called_fetch_using_PUT", () => {
@@ -257,6 +261,7 @@ describe("PolicyManagementApi", () => {
             // Arrange
             const url = "www.glasswall.com";
             let error: any;
+            const expectedError = new Error("Error");
 
             beforeEach(async () => {
                 fetchStubResult = {
@@ -282,7 +287,7 @@ describe("PolicyManagementApi", () => {
             // Assert
             it("responds_with_status_text", () => {
                 expect(error).not.toBe(undefined);
-                expect(error).toEqual("Error");
+                expect(error).toEqual(expectedError);
             });
 
             it("called_fetch_using_PUT", () => {
@@ -296,6 +301,7 @@ describe("PolicyManagementApi", () => {
             // Arrange
             const url = "www.glasswall.com";
             let error: any;
+            const expectedError = new Error("Error");
 
             beforeEach(async () => {
                 fetchStubResult = {
@@ -321,7 +327,7 @@ describe("PolicyManagementApi", () => {
             // Assert
             it("responds_with_status_text", () => {
                 expect(error).not.toBe(undefined);
-                expect(error).toEqual("Error");
+                expect(error).toEqual(expectedError);
             });
 
             it("called_fetch_using_PUT", () => {
@@ -337,6 +343,7 @@ describe("PolicyManagementApi", () => {
             const policyId = Guid.create();
             const expectedRequestUrl = `${url}?id=${policyId.toString()}`;
             let error: any;
+            const expectedError = new Error("Error");
 
             beforeEach(async () => {
                 fetchStubResult = {
@@ -362,11 +369,51 @@ describe("PolicyManagementApi", () => {
             // Assert
             it("responds_with_status_text", () => {
                 expect(error).not.toBe(undefined);
-                expect(error).toEqual("Error");
+                expect(error).toEqual(expectedError);
             });
 
             it("called_fetch_using_DELETE", () => {
                 expectFetch(fetchStub, expectedRequestUrl, "DELETE");
+            });
+        });
+    });
+
+    describe("getPolicyHistory", () => {
+        describe("response_status_not_OK", () => {
+            // Arrange
+            const url = "www.glasswall.com";
+            let error: any;
+            const expectedError = new Error("Error");
+
+            beforeEach(async () => {
+                fetchStubResult = {
+                    ok: false,
+                    statusText: "Error"
+                };
+
+                fetchStub = stub(fetch, "default").returns(fetchStubResult);
+
+                // Act
+                try {
+                    await PolicyManagementApi.getPolicyHistory(url);
+                }
+                catch (err) {
+                    error = err;
+                }
+            });
+
+            afterEach(() => {
+                fetchStub.restore();
+            });
+
+            // Assert
+            it("responds_with_status_text", () => {
+                expect(error).not.toBe(undefined);
+                expect(error).toEqual(expectedError);
+            });
+
+            it("called_fetch_using_GET", () => {
+                expectFetch(fetchStub, url, "GET");
             });
         });
     });
