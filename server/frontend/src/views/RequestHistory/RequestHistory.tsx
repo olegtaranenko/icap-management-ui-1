@@ -86,7 +86,7 @@ const RequestHistory = () => {
 		}
 
 		getRows();
-		
+
 		// eslint-disable-next-line
 	}, []);
 
