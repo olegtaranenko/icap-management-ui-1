@@ -88,7 +88,7 @@ const RequestHistory = () => {
 		getRows();
 
 		// eslint-disable-next-line
-	}, []);
+	}, [selectedFilters, requestHistoryTimeFilter.timestampRangeStart, requestHistoryTimeFilter.timestampRangeEnd]);
 
 	return (
 		<>
