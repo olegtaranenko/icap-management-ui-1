@@ -3,6 +3,7 @@ import { RequestHistoryTimeFilter } from "../../data/filters/RequestHistory/requ
 
 export interface GlobalStoreContextProps {
 	title: string,
+	version: string,
 	userfiles: any[],
 	fileFilterList: any[],
 	riskFilterList: any[],

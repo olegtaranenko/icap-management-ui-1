@@ -1,6 +1,5 @@
 {
   "name": "icap-management-ui",
-  "version": "1.0.0",
   "description": "Repository for the Management UI in the Glasswall ICAP Program.",
   "homepage": "/",
   "author": "glasswallsolutions",

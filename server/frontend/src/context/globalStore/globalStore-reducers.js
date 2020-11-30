@@ -20,6 +20,12 @@ const _checkboxChange = (updateFilter, changeFilter) => {
 	});
 };
 
+const setVersion = (state, version) => {
+	return updateObject(state, {
+		version: version
+	});
+};
+
 const addFilterFromCheckboxes = (state, addedFilter) => {
 	let updatedList = [...state.selectedFilters];
 
@@ -103,6 +109,8 @@ const toggleNavExpanded = (state) => {
 
 export const globalStoreReducer = (state, action) => {
 	switch (action.type) {
+		case actionTypes.SET_VERSION:
+			return setVersion(state, action.version);
 		case actionTypes.CHANGE_PAGE_TITLE:
 			return changePageTitle(state, action.title);
 		case actionTypes.ADD_FILTER_FROM_CHECKBOXES:
