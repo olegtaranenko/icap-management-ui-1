@@ -5,11 +5,13 @@ import {
 	TableRow,
 	TableCell,
 	TableBody,
+	TableSortLabel,
 } from "@material-ui/core";
 
 import { GlobalStoreContext } from "../../context/globalStore/globalStore-context";
 
 import { Filter as TFilter } from "../../../../src/common/models/TransactionEventService/GetTransactions/GetTransactionsRequest";
+import TransactionFile from "../../../../src/common/models/TransactionEventService/TransactionFile";
 
 import { getTransactions } from "./api/index";
 import Main from "../../hoc/Main/Main";
@@ -27,6 +29,7 @@ const RequestHistory = () => {
 	const [openPopup, setOpenPopup] = useState(false);
 	const [selectedFile, setSelectedFile] = useState(null);
 	const [transactions, setTransactions] = useState(null);
+	const [timestampFilterDirection, setTimestampFilterDirection] = useState<"asc" | "desc">("desc");
 	const [isError, setIsError] = useState(false);
 	const [isLoading, setIsLoading] = useState(true);
 
@@ -52,6 +55,42 @@ const RequestHistory = () => {
 		setOpenModal(false);
 	};
 
+	const sortTransactionsDescending = (files: TransactionFile[]) => {
+		return files.sort((a: TransactionFile, b: TransactionFile) => {
+			return Date.parse(`${b.timestamp}`) - Date.parse(`${a.timestamp}`);
+		});
+	};
+
+	const sortTransactionsAscending = (files: TransactionFile[]) => {
+		return files.sort((a: TransactionFile, b: TransactionFile) => {
+			return Date.parse(`${a.timestamp}`) - Date.parse(`${b.timestamp}`);
+		});
+	};
+
+	const handleTimestampTableFilter = () => {
+		const direction = timestampFilterDirection;
+
+		if (direction === "asc") {
+			setTransactions((prev: any) => {
+				return {
+					count: prev.count,
+					files: sortTransactionsDescending(prev.files)
+				};
+			});
+			setTimestampFilterDirection("desc");
+		}
+
+		if (direction === "desc") {
+			setTransactions((prev: any) => {
+				return {
+					count: prev.count,
+					files: sortTransactionsAscending(prev.files)
+				};
+			});
+			setTimestampFilterDirection("asc");
+		}
+	};
+
 	useEffect(() => {
 		setIsLoading(true);
 		setIsError(false);
@@ -73,9 +112,23 @@ const RequestHistory = () => {
 			};
 
 			try {
-				const transactionResponse =
-					await getTransactions(requestBody);
-				setTransactions(JSON.parse(transactionResponse));
+				const transactionResponse = await getTransactions(requestBody);
+				const responseJSON = JSON.parse(transactionResponse);
+				let files: TransactionFile[];
+
+				if (timestampFilterDirection === "desc") {
+					files = sortTransactionsDescending(responseJSON.files);
+				}
+
+				if (timestampFilterDirection === "asc") {
+					files = sortTransactionsAscending(responseJSON.files);
+				}
+
+				setTransactions({
+					count: responseJSON.count,
+					files
+				});
+				// setTransactions(JSON.parse(transactionResponse));
 			}
 			catch (error) {
 				setIsError(true);
@@ -109,8 +162,13 @@ const RequestHistory = () => {
 									<TableHead>
 										<TableRow>
 											<TableCell>
-												Timestamp
-												</TableCell>
+												<TableSortLabel
+													direction={timestampFilterDirection}
+													active={true}
+													onClick={() => handleTimestampTableFilter()}>
+													Timestamp
+												</TableSortLabel>
+											</TableCell>
 
 											<TableCell>
 												File ID
