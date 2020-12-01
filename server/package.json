@@ -1,5 +1,6 @@
 {
   "main": "dist/index.js",
+  "version": "1.0.0",
   "scripts": {
     "prebuild": "tslint -c tslint.json -p tsconfig.json --fix",
     "build": "tsc",

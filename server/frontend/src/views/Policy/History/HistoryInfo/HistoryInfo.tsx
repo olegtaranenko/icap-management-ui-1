@@ -69,7 +69,7 @@ const HistoryInfo = (props: HistoryInfoProps) => {
 							<h2 className={classes.head}>Config for non-compliant files</h2>
 							<div className={classes.ncfsContainer}>
 								<RoutesForNonCompliantFiles
-									ncfsRoutingUrl={props.policy.adaptionPolicy.ncfsRoute.ncfsRoutingUrl}
+									ncfsRoutingUrl={props.policy.adaptionPolicy.ncfsRoute ? props.policy.adaptionPolicy.ncfsRoute.ncfsRoutingUrl : ""}
 									disabled />
 
 								<PolicyForNonCompliantFiles
