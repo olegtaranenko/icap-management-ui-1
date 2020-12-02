@@ -16,7 +16,7 @@ export type TPolicyState = {
 	policyHistory: PolicyHistory,
 	isPolicyChanged: boolean,
 	status: "LOADING" | "ERROR" | "LOADED",
-	policyError: ""
+	policyError: "",
 }
 
 export const PolicyContext = createContext<TPolicyState | null>(null);

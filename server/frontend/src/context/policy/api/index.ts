@@ -5,16 +5,14 @@ import Routes from "../../../Routes";
 import { Guid } from "guid-typescript";
 import { PolicyHistory } from "../../../../../src/common/models/PolicyManagementService/PolicyHistory/PolicyHistory";
 
-let cancel: CancelToken;
-
-export const getCurrentPolicy = async (): Promise<Policy> => {
-    const response = await getPolicy(Routes.policyRoutes.getCurrentPolicyRoute);
+export const getCurrentPolicy = async (cancellationToken: CancelToken): Promise<Policy> => {
+    const response = await getPolicy(Routes.policyRoutes.getCurrentPolicyRoute, cancellationToken);
 
     return response;
 }
 
-export const getDraftPolicy = async (): Promise<Policy> => {
-    const response = await getPolicy(Routes.policyRoutes.getDraftPolicyRoute);
+export const getDraftPolicy = async (cancellationToken: CancelToken): Promise<Policy> => {
+    const response = await getPolicy(Routes.policyRoutes.getDraftPolicyRoute, cancellationToken);
 
     return response;
 }

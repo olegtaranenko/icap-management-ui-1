@@ -1,4 +1,5 @@
 import React, { useEffect, useReducer } from "react";
+import axios from "axios";
 import { Guid } from "guid-typescript";
 import { PolicyContext } from "./PolicyContext";
 import { policyReducer } from "./policy-reducers";
@@ -21,10 +22,13 @@ interface InitialPolicyState {
 	policyHistory: PolicyHistory,
 	isPolicyChanged: boolean,
 	status: "LOADING" | "ERROR" | "LOADED",
-	policyError: ""
+	policyError: "",
 }
 
 export const PolicyState = (props: { children: React.ReactNode }) => {
+	const CancelToken = axios.CancelToken;
+	const cancellationTokenSource = CancelToken.source();
+
 	const initialState: InitialPolicyState = {
 		currentPolicy: null,
 		draftPolicy: null,
@@ -32,7 +36,7 @@ export const PolicyState = (props: { children: React.ReactNode }) => {
 		policyHistory: null,
 		isPolicyChanged: false,
 		status: "LOADING",
-		policyError: ""
+		policyError: "",
 	}
 
 	const [policyState, dispatch] = useReducer(policyReducer, initialState);
@@ -100,10 +104,10 @@ export const PolicyState = (props: { children: React.ReactNode }) => {
 			try {
 				await publish(policyId);
 
-				const currentPolicy = await getCurrentPolicy();
+				const currentPolicy = await getCurrentPolicy(cancellationTokenSource.token);
 				setCurrentPolicy(currentPolicy);
 
-				const draftPolicy = await getDraftPolicy();
+				const draftPolicy = await getDraftPolicy(cancellationTokenSource.token);
 				setDraftPolicy(draftPolicy);
 				setNewDraftPolicy(draftPolicy);
 
@@ -127,10 +131,10 @@ export const PolicyState = (props: { children: React.ReactNode }) => {
 			try {
 				await deleteDraft(policyId);
 
-				const currentPolicy = await getCurrentPolicy();
+				const currentPolicy = await getCurrentPolicy(cancellationTokenSource.token);
 				setCurrentPolicy(currentPolicy);
 
-				const draftPolicy = await getDraftPolicy();
+				const draftPolicy = await getDraftPolicy(cancellationTokenSource.token);
 				setDraftPolicy(draftPolicy);
 				setNewDraftPolicy(draftPolicy);
 
@@ -176,10 +180,10 @@ export const PolicyState = (props: { children: React.ReactNode }) => {
 
 		(async (): Promise<void> => {
 			try {
-				const currentPolicy = await getCurrentPolicy();
+				const currentPolicy = await getCurrentPolicy(cancellationTokenSource.token);
 				setCurrentPolicy(currentPolicy);
 
-				const draftPolicy = await getDraftPolicy();
+				const draftPolicy = await getDraftPolicy(cancellationTokenSource.token);
 				setDraftPolicy(draftPolicy);
 				setNewDraftPolicy(draftPolicy);
 
@@ -193,6 +197,12 @@ export const PolicyState = (props: { children: React.ReactNode }) => {
 				setStatus(status);
 			}
 		})();
+
+		return () => {
+			if (policyState.status === "LOADING") {
+				cancellationTokenSource.cancel();
+			}
+		}
 	}, []);
 
 	return (
@@ -209,7 +219,7 @@ export const PolicyState = (props: { children: React.ReactNode }) => {
 			policyHistory: policyState.policyHistory,
 			isPolicyChanged: policyState.isPolicyChanged,
 			status: policyState.status,
-			policyError: policyState.policyError
+			policyError: policyState.policyError,
 		}}>
 			{ props.children}
 		</PolicyContext.Provider>

@@ -1,17 +1,27 @@
+import axios, { CancelToken } from "axios";
 import { Policy } from "../../../../../../src/common/models/PolicyManagementService/Policy/Policy";
 
-export const getPolicy = async (baseUrl: string): Promise<Policy> => {
-    const response = await fetch(baseUrl, {
+export const getPolicy = async (baseUrl: string, cancellationToken: CancelToken): Promise<Policy> => {
+    const response = await axios(baseUrl, {
         method: "GET",
         headers: {
             "Accept": "*/*",
             "Content-Type": "application/json"
-        }
-    });
+        },
+        cancelToken: cancellationToken
+    })
 
-    if (!response.ok) {
+    // const response = await fetch(baseUrl, {
+    //     method: "GET",
+    //     headers: {
+    //         "Accept": "*/*",
+    //         "Content-Type": "application/json"
+    //     }
+    // });
+
+    if (response.statusText !== "OK") {
         throw response.statusText;
     }
 
-    return response.json();
+    return response.data;
 }
