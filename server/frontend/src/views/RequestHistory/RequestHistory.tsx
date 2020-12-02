@@ -95,7 +95,7 @@ const RequestHistory = () => {
 		setIsLoading(true);
 		setIsError(false);
 
-		const getRows = async () => {
+		(async () => {
 			const Risks = selectedFilters
 				.filter(f => f.filter === "Risk")
 				.map(riskFilter => riskFilter.riskEnum);
@@ -136,9 +136,7 @@ const RequestHistory = () => {
 			finally {
 				setIsLoading(false);
 			}
-		}
-
-		getRows();
+		})();
 
 		// eslint-disable-next-line
 	}, [selectedFilters, requestHistoryTimeFilter.timestampRangeStart, requestHistoryTimeFilter.timestampRangeEnd]);
