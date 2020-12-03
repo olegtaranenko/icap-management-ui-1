@@ -221,7 +221,7 @@ export const PolicyState = (props: { children: React.ReactNode }) => {
 			policyHistory: policyState.policyHistory,
 			isPolicyChanged: policyState.isPolicyChanged,
 			status: policyState.status,
-			policyError: policyState.policyError,
+			policyError: policyState.policyError
 		}}>
 			{ props.children}
 		</PolicyContext.Provider>
