@@ -22,7 +22,7 @@ interface InitialPolicyState {
 	policyHistory: PolicyHistory,
 	isPolicyChanged: boolean,
 	status: "LOADING" | "ERROR" | "LOADED",
-	policyError: "",
+	policyError: ""
 }
 
 export const PolicyState = (props: { children: React.ReactNode }) => {
@@ -36,7 +36,7 @@ export const PolicyState = (props: { children: React.ReactNode }) => {
 		policyHistory: null,
 		isPolicyChanged: false,
 		status: "LOADING",
-		policyError: "",
+		policyError: ""
 	}
 
 	const [policyState, dispatch] = useReducer(policyReducer, initialState);
