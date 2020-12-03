@@ -54,7 +54,7 @@ const FileInfo = (props: FileInfoProps) => {
 			}
 		})();
 
-	}, [setIsLoading, setIsError, setTransactionDetails, props.fileData.directory]);
+	}, [setIsLoading, setIsError, setTransactionDetails, props.fileData.directory, props.cancellationToken]);
 
 	let background = null;
 	switch (props.fileData.risk as Risk) {
