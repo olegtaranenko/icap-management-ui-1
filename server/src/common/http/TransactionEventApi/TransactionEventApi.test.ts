@@ -20,6 +20,7 @@ describe("TransactionEventApi", () => {
             // Arrange
             const url = "www.glasswall.com";
             let error: any;
+            const expectedError = new Error("Error");
 
             beforeEach(async () => {
                 fetchStubResult = {
@@ -45,7 +46,7 @@ describe("TransactionEventApi", () => {
             // Assert
             it("responds_with_status_text", () => {
                 expect(error).not.toBe(undefined);
-                expect(error).toEqual("Error");
+                expect(error).toEqual(expectedError);
             });
 
             it("called_fetch_using_POST", () => {
@@ -92,6 +93,7 @@ describe("TransactionEventApi", () => {
             const url = "www.glasswall.com";
             const transactionFilePath = "/test";
             let error: any;
+            const expectedError = new Error("Error");
 
             beforeEach(async () => {
                 fetchStubResult = {
@@ -117,7 +119,7 @@ describe("TransactionEventApi", () => {
             // Assert
             it("responds_with_status_text", () => {
                 expect(error).not.toBe(undefined);
-                expect(error).toEqual("Error");
+                expect(error).toEqual(expectedError);
             });
 
             it("called_fetch_using_GET", () => {
