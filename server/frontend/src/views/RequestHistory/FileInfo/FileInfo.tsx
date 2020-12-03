@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { CancelToken } from "axios";
 import {
 	Table,
 	TableHead,
@@ -25,7 +26,8 @@ interface FileData {
 }
 
 export interface FileInfoProps {
-	fileData: FileData
+	fileData: FileData,
+	cancellationToken: CancelToken
 }
 
 const FileInfo = (props: FileInfoProps) => {
@@ -37,12 +39,12 @@ const FileInfo = (props: FileInfoProps) => {
 		setIsLoading(true);
 		setIsError(false);
 
-		const getDetails = async () => {
+		(async () => {
 			try {
 				const transactionDetailResponse =
-					await getTransactionDetails(props.fileData.directory);
+					await getTransactionDetails(props.fileData.directory, props.cancellationToken);
 
-				setTransactionDetails(JSON.parse(transactionDetailResponse));
+				setTransactionDetails(transactionDetailResponse);
 			}
 			catch (error) {
 				setIsError(true);
@@ -50,9 +52,7 @@ const FileInfo = (props: FileInfoProps) => {
 			finally {
 				setIsLoading(false);
 			}
-		}
-
-		getDetails();
+		})();
 
 	}, [setIsLoading, setIsError, setTransactionDetails, props.fileData.directory]);
 

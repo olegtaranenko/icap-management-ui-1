@@ -77,7 +77,7 @@ export const PolicyState = (props: { children: React.ReactNode }) => {
 
 		(async (): Promise<void> => {
 			try {
-				await saveDraftPolicy(policyState.newDraftPolicy);
+				await saveDraftPolicy(policyState.newDraftPolicy, cancellationTokenSource.token);
 				setDraftPolicy(policyState.newDraftPolicy);
 				setIsPolicyChanged(false);
 				status = "LOADED";
@@ -102,7 +102,7 @@ export const PolicyState = (props: { children: React.ReactNode }) => {
 
 		(async (): Promise<void> => {
 			try {
-				await publish(policyId);
+				await publish(policyId, cancellationTokenSource.token);
 
 				const currentPolicy = await getCurrentPolicy(cancellationTokenSource.token);
 				setCurrentPolicy(currentPolicy);
@@ -129,7 +129,7 @@ export const PolicyState = (props: { children: React.ReactNode }) => {
 
 		(async (): Promise<void> => {
 			try {
-				await deleteDraft(policyId);
+				await deleteDraft(policyId, cancellationTokenSource.token);
 
 				const currentPolicy = await getCurrentPolicy(cancellationTokenSource.token);
 				setCurrentPolicy(currentPolicy);
@@ -156,7 +156,7 @@ export const PolicyState = (props: { children: React.ReactNode }) => {
 
 		(async (): Promise<void> => {
 			try {
-				const policyHistory = await getPolicyHistory();
+				const policyHistory = await getPolicyHistory(cancellationTokenSource.token);
 				policyHistory.policies.sort((a: any, b: any) => {
 					return Date.parse(b.created) - Date.parse(a.created);
 				});
@@ -203,6 +203,8 @@ export const PolicyState = (props: { children: React.ReactNode }) => {
 				cancellationTokenSource.cancel();
 			}
 		}
+
+		// eslint-disable-next-line
 	}, []);
 
 	return (

@@ -9,15 +9,7 @@ export const getPolicy = async (baseUrl: string, cancellationToken: CancelToken)
             "Content-Type": "application/json"
         },
         cancelToken: cancellationToken
-    })
-
-    // const response = await fetch(baseUrl, {
-    //     method: "GET",
-    //     headers: {
-    //         "Accept": "*/*",
-    //         "Content-Type": "application/json"
-    //     }
-    // });
+    });
 
     if (response.statusText !== "OK") {
         throw response.statusText;

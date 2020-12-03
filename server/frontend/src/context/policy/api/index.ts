@@ -17,67 +17,71 @@ export const getDraftPolicy = async (cancellationToken: CancelToken): Promise<Po
     return response;
 }
 
-export const saveDraftPolicy = async (policy: Policy): Promise<void> => {
-    const response = await fetch(Routes.policyRoutes.saveDraftPolicyRoute, {
+export const saveDraftPolicy = async (policy: Policy, cancellationToken: CancelToken): Promise<void> => {
+    const response = await axios(Routes.policyRoutes.saveDraftPolicyRoute, {
         method: "PUT",
         headers: {
             "Accept": "*/*",
             "Content-Type": "application/json"
         },
-        body: JSON.stringify(policy)
+        data: JSON.stringify(policy),
+        cancelToken: cancellationToken
     });
 
-    if (!response.ok) {
+    if (response.statusText !== "OK") {
         throw response.statusText;
     }
 }
 
-export const publishPolicy = async (policyId: Guid): Promise<void> => {
+export const publishPolicy = async (policyId: Guid, cancellationToken: CancelToken): Promise<void> => {
     const url = `${Routes.policyRoutes.publishPolicyRoute}/${policyId.toString()}`;
 
-    const response = await fetch(url, {
+    const response = await axios(url, {
         method: "PUT",
         headers: {
             "Accept": "*/*",
             "Content-Type": "application/json"
         },
+        cancelToken: cancellationToken
     });
 
-    if (!response.ok) {
+    if (response.statusText !== "OK") {
         throw response.statusText;
     }
 }
 
-export const deleteDraftPolicy = async (policyId: Guid): Promise<void> => {
+export const deleteDraftPolicy = async (policyId: Guid, cancellationToken: CancelToken): Promise<void> => {
     const url = `${Routes.policyRoutes.deletePolicyRoute}/${policyId.toString()}`;
 
-    const response = await fetch(url, {
+    const response = await axios(url, {
         method: "DELETE",
         headers: {
             "Accept": "*/*",
             "Content-Type": "application/json"
         },
+        cancelToken: cancellationToken
     });
 
-    if (!response.ok) {
+    if (response.statusText !== "OK") {
         throw response.statusText;
     }
 }
 
-export const getPolicyHistory = async (): Promise<PolicyHistory> => {
+export const getPolicyHistory = async (cancellationToken: CancelToken): Promise<PolicyHistory> => {
     const url = Routes.policyRoutes.getPolicyHistory;
 
-    const response = await fetch(url, {
+    const response = await axios(url, {
         method: "GET",
         headers: {
             "Accept": "*/*",
             "Content-Type": "application/json"
-        }
+        },
+        cancelToken: cancellationToken
     });
 
-    if (!response.ok) {
+    if (response.statusText !== "OK") {
         throw response.statusText;
     }
 
-    return response.json();
+    return response.data;
 }

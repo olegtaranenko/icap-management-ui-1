@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
+import axios from "axios";
 import {
 	Table,
 	TableHead,
@@ -25,6 +26,9 @@ import Backdrop from "../../components/UI/Backdrop/Backdrop";
 import classes from "./RequestHistory.module.scss";
 
 const RequestHistory = () => {
+	const CancelToken = axios.CancelToken;
+	const cancellationTokenSource = CancelToken.source();
+
 	const [openModal, setOpenModal] = useState(false);
 	const [openPopup, setOpenPopup] = useState(false);
 	const [selectedFile, setSelectedFile] = useState(null);
@@ -112,20 +116,19 @@ const RequestHistory = () => {
 			};
 
 			try {
-				const transactionResponse = await getTransactions(requestBody);
-				const responseJSON = JSON.parse(transactionResponse);
+				const transactionsResponse = await getTransactions(requestBody, cancellationTokenSource.token);
 				let files: TransactionFile[];
 
 				if (timestampFilterDirection === "desc") {
-					files = sortTransactionsDescending(responseJSON.files);
+					files = sortTransactionsDescending(transactionsResponse.files);
 				}
 
 				if (timestampFilterDirection === "asc") {
-					files = sortTransactionsAscending(responseJSON.files);
+					files = sortTransactionsAscending(transactionsResponse.files);
 				}
 
 				setTransactions({
-					count: responseJSON.count,
+					count: transactionsResponse.count,
 					files
 				});
 				// setTransactions(JSON.parse(transactionResponse));
@@ -137,6 +140,10 @@ const RequestHistory = () => {
 				setIsLoading(false);
 			}
 		})();
+
+		return () => {
+			cancellationTokenSource.cancel();
+		}
 
 		// eslint-disable-next-line
 	}, [selectedFilters, requestHistoryTimeFilter.timestampRangeStart, requestHistoryTimeFilter.timestampRangeEnd]);
@@ -225,7 +232,9 @@ const RequestHistory = () => {
 					{!isError && openModal && (
 						<>
 							<Modal onCloseHandler={closeInfoModal} externalStyles={classes.modal}>
-								<FileInfo fileData={selectedFile} />
+								<FileInfo
+									fileData={selectedFile}
+									cancellationToken={cancellationTokenSource.token} />
 							</Modal>
 							<Backdrop onClickOutside={closeInfoModal} />
 						</>
