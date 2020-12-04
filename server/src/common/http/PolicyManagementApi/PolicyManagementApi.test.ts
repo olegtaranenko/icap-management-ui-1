@@ -4,6 +4,7 @@ import fetch = require("node-fetch");
 import { Guid } from "guid-typescript";
 import { Policy } from "../../../common/models/PolicyManagementService/Policy/Policy";
 import policyExample from "./policyExample.json";
+import axios, { CancelToken } from "axios";
 
 let fetchStub: SinonStub;
 let fetchStubResult: any
@@ -94,10 +95,14 @@ describe("PolicyManagementApi", () => {
         describe("response_status_not_OK", () => {
             // Arrange
             const url = "www.glasswall.com";
+            let cancellationToken: CancelToken;
             let error: any;
             const expectedError = new Error("Error");
 
             beforeEach(async () => {
+                const cancellationTokenSource = axios.CancelToken.source();
+                cancellationToken = cancellationTokenSource.token;
+
                 fetchStubResult = {
                     ok: false,
                     statusText: "Error"
@@ -107,7 +112,7 @@ describe("PolicyManagementApi", () => {
 
                 // Act
                 try {
-                    await PolicyManagementApi.getPolicy(url);
+                    await PolicyManagementApi.getPolicy(url, cancellationToken);
                 }
                 catch (err) {
                     error = err;
@@ -133,9 +138,13 @@ describe("PolicyManagementApi", () => {
             // Arrange
             const url = "www.glasswall.com";
             const expectedResponse = { test: "test" };
-            let result: string;
+            let cancellationToken: CancelToken;
+            let result: Policy;
 
             beforeEach(async () => {
+                const cancellationTokenSource = axios.CancelToken.source();
+                cancellationToken = cancellationTokenSource.token;
+
                 fetchStubResult = {
                     ok: true,
                     text: () => { return { test: "test" } }
@@ -144,7 +153,7 @@ describe("PolicyManagementApi", () => {
                 fetchStub = stub(fetch, "default").returns(fetchStubResult);
 
                 // Act
-                result = await PolicyManagementApi.getPolicy(url);
+                result = await PolicyManagementApi.getPolicy(url, cancellationToken);
             });
 
             afterEach(() => {
@@ -382,10 +391,14 @@ describe("PolicyManagementApi", () => {
         describe("response_status_not_OK", () => {
             // Arrange
             const url = "www.glasswall.com";
+            let cancellationToken: CancelToken;
             let error: any;
             const expectedError = new Error("Error");
 
             beforeEach(async () => {
+                const cancellationTokenSource = axios.CancelToken.source();
+                cancellationToken = cancellationTokenSource.token;
+
                 fetchStubResult = {
                     ok: false,
                     statusText: "Error"
@@ -395,7 +408,7 @@ describe("PolicyManagementApi", () => {
 
                 // Act
                 try {
-                    await PolicyManagementApi.getPolicyHistory(url);
+                    await PolicyManagementApi.getPolicyHistory(url, cancellationToken);
                 }
                 catch (err) {
                     error = err;

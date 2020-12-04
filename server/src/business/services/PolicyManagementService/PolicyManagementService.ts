@@ -6,6 +6,7 @@ import { PolicyHistory } from "../../../common/models/PolicyManagementService/Po
 
 import IPolicyManagementService from "../../../common/services/IPolicyManagementService";
 import PolicyManagementApi from "../../../common/http/PolicyManagementApi/PolicyManagementApi";
+import { CancelToken } from "axios";
 
 class PolicyManagementService implements IPolicyManagementService {
     logger: Logger;
@@ -43,53 +44,51 @@ class PolicyManagementService implements IPolicyManagementService {
             }
         }
         catch (error) {
-            this.logger.error(`Could not get Policy - PolicyId: ${request.policyId}`);
+            this.logger.error(`Could not get Policy: ${error}`);
             throw error;
         }
 
         return policy;
     }
 
-    getCurrentPolicy = async (getCurrentPolicyUrl: string) => {
+    getCurrentPolicy = async (getCurrentPolicyUrl: string, cancellationToken: CancelToken) => {
         let policy: Policy;
 
         try {
             this.logger.info("Retrieving Current Policy from the PolicyManagementService");
 
             const response = await PolicyManagementApi.getPolicy(
-                getCurrentPolicyUrl, { "Content-Type": "application/json" });
-            const responseJSON = JSON.parse(response);
-            policy = this.createPolicyModel(responseJSON);
+                getCurrentPolicyUrl, cancellationToken, { "Content-Type": "application/json" });
+            policy = this.createPolicyModel(response);
 
             if (policy) {
                 this.logger.info(`Retrieved Current Policy - PolicyId: ${policy.id}`);
             }
         }
         catch (error) {
-            this.logger.error("Could not get Current Policy");
+            this.logger.error(`Could not get Current Policy: ${error}`);
             throw error;
         }
 
         return policy;
     }
 
-    getDraftPolicy = async (getDraftPolicyUrl: string) => {
+    getDraftPolicy = async (getDraftPolicyUrl: string, cancellationToken: CancelToken) => {
         let policy: Policy;
 
         try {
             this.logger.info("Retrieving Draft Policy from the PolicyManagementService");
 
             const response = await PolicyManagementApi.getPolicy(
-                getDraftPolicyUrl, { "Content-Type": "application/json" });
-            const responseJSON = JSON.parse(response);
-            policy = this.createPolicyModel(responseJSON);
+                getDraftPolicyUrl, cancellationToken, { "Content-Type": "application/json" });
+            policy = this.createPolicyModel(response);
 
             if (policy) {
                 this.logger.info(`Retrieved Draft Policy - PolicyId: ${policy.id}`);
             }
         }
         catch (error) {
-            this.logger.error("Could not get Draft Policy");
+            this.logger.error(`Could not get Draft Policy: ${error}`);
             throw error;
         }
 
@@ -149,20 +148,19 @@ class PolicyManagementService implements IPolicyManagementService {
         }
     }
 
-    getPolicyHistory = async (getPolicyHistoryUrl: string) => {
+    getPolicyHistory = async (getPolicyHistoryUrl: string, cancellationToken: CancelToken) => {
         let policyHistory: PolicyHistory;
 
         try {
             this.logger.info(`Retrieving Policy History from the PolicyManagementService`);
 
-            const response = await PolicyManagementApi.getPolicyHistory(getPolicyHistoryUrl);
-            const responseJSON = JSON.parse(response);
-            policyHistory = new PolicyHistory(responseJSON.policiesCount, responseJSON.policies);
+            const response = await PolicyManagementApi.getPolicyHistory(getPolicyHistoryUrl, cancellationToken);
+            policyHistory = new PolicyHistory(response.policiesCount, response.policies);
 
             this.logger.info(`Retrieved Policy History from the PolicyManagementService`);
         }
         catch (error) {
-            this.logger.error(`Couldn't Retrieve Policy History`);
+            this.logger.error(`Couldn't Retrieve Policy History: ${error}`);
             throw error;
         }
 

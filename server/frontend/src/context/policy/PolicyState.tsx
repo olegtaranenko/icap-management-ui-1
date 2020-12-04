@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer } from "react";
-import axios from "axios";
+import axios, { CancelToken } from "axios";
 import { Guid } from "guid-typescript";
 import { PolicyContext } from "./PolicyContext";
 import { policyReducer } from "./policy-reducers";
@@ -26,8 +26,7 @@ interface InitialPolicyState {
 }
 
 export const PolicyState = (props: { children: React.ReactNode }) => {
-	const CancelToken = axios.CancelToken;
-	const cancellationTokenSource = CancelToken.source();
+	const cancellationTokenSource = axios.CancelToken.source();
 
 	const initialState: InitialPolicyState = {
 		currentPolicy: null,
@@ -150,13 +149,13 @@ export const PolicyState = (props: { children: React.ReactNode }) => {
 		})();
 	}
 
-	const loadPolicyHistory = () => {
+	const loadPolicyHistory = (cancellationToken: CancelToken) => {
 		let status: "LOADING" | "ERROR" | "LOADED" = "LOADING";
 		setStatus(status);
 
 		(async (): Promise<void> => {
 			try {
-				const policyHistory = await getPolicyHistory(cancellationTokenSource.token);
+				const policyHistory = await getPolicyHistory(cancellationToken);
 				policyHistory.policies.sort((a: any, b: any) => {
 					return Date.parse(b.created) - Date.parse(a.created);
 				});
@@ -165,6 +164,11 @@ export const PolicyState = (props: { children: React.ReactNode }) => {
 				status = "LOADED";
 			}
 			catch (error) {
+				if (axios.isCancel(error)) {
+					status = "LOADED";
+					return;
+				}
+
 				setPolicyError(error);
 				status = "ERROR";
 			}

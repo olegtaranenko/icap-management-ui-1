@@ -1,6 +1,8 @@
-import { Guid } from "guid-typescript";
+import axios, { CancelToken } from "axios";
 import fetch from "node-fetch";
+import { Guid } from "guid-typescript";
 import { Policy } from "../../../common/models/PolicyManagementService/Policy/Policy";
+import { PolicyHistory } from "../../../common/models/PolicyManagementService/PolicyHistory/PolicyHistory";
 
 export default class PolicyManagementApi {
     static getPolicyById = async (getPolicyByIdUrl: string, policyId: Guid, headers?: { [header: string]: string }): Promise<string> => {
@@ -18,17 +20,21 @@ export default class PolicyManagementApi {
         return response.text();
     }
 
-    static getPolicy = async (getPolicyUrl: string, headers?: { [header: string]: string }): Promise<string> => {
-        const response = await fetch(getPolicyUrl, {
-            method: "GET",
-            headers
+    static getPolicy = async (
+        getPolicyUrl: string,
+        cancellationToken: CancelToken,
+        headers?: { [header: string]: string }): Promise<Policy> => {
+
+        const response = await axios.get(getPolicyUrl, {
+            headers,
+            cancelToken: cancellationToken
         });
 
-        if (!response.ok) {
+        if (response.statusText !== "OK") {
             throw new Error(response.statusText);
         }
 
-        return response.text();
+        return response.data;
     }
 
     static saveDraftPolicy = async (saveDraftPolicyUrl: string, draftPolicy: Policy, headers?: { [header: string]: string }): Promise<void> => {
@@ -91,16 +97,20 @@ export default class PolicyManagementApi {
         }
     }
 
-    static getPolicyHistory = async (getPolicyHistoryUrl: string, headers?: { [header: string]: string }): Promise<string> => {
-        const response = await fetch(getPolicyHistoryUrl, {
-            method: "GET",
-            headers
+    static getPolicyHistory = async (
+        getPolicyHistoryUrl: string,
+        cancellationToken: CancelToken,
+        headers?: { [header: string]: string }
+    ): Promise<PolicyHistory> => {
+        const response = await axios.get(getPolicyHistoryUrl, {
+            headers,
+            cancelToken: cancellationToken
         });
 
-        if (!response.ok) {
+        if (response.statusText !== "OK") {
             throw new Error(response.statusText);
         }
 
-        return response.text();
+        return response.data;
     };
 }
