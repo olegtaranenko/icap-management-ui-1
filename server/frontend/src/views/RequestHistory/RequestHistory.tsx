@@ -233,8 +233,7 @@ const RequestHistory = () => {
 						<>
 							<Modal onCloseHandler={closeInfoModal} externalStyles={classes.modal}>
 								<FileInfo
-									fileData={selectedFile}
-									cancellationToken={cancellationTokenSource.token} />
+									fileData={selectedFile} />
 							</Modal>
 							<Backdrop onClickOutside={closeInfoModal} />
 						</>
