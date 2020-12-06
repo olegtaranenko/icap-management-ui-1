@@ -14,7 +14,7 @@ const expectAxiosPost = (stubbedAxios: SinonStub, expectedUrl: string, data: any
     expect(stubbedAxios.getCall(0).args[1]).toEqual(data);
 };
 
-const expectAxiosGet = (stubbedAxios: SinonStub, expectedUrl: string, data: any) => {
+const expectAxiosGet = (stubbedAxios: SinonStub, expectedUrl: string) => {
     expect(stubbedAxios.getCalls()).toHaveLength(1);
     expect(stubbedAxios.getCall(0).args).toHaveLength(2);
     expect(stubbedAxios.getCall(0).args[0]).toEqual(expectedUrl);
@@ -59,7 +59,7 @@ describe("TransactionEventApi", () => {
                 expect(error).toEqual(expectedError);
             });
 
-            it("called_fetch_using_POST", () => {
+            it("called_axios_using_POST", () => {
                 expectAxiosPost(axiosStub, url, JSON.stringify({}));
             });
         });
@@ -140,8 +140,9 @@ describe("TransactionEventApi", () => {
                 expect(error).toEqual(expectedError);
             });
 
-            it("called_fetch_using_GET", () => {
-                expectAxiosGet(axiosStub, `${url}?filePath=${transactionFilePath}`, ["test"]);
+            it("called_axios_using_GET", () => {
+                expectAxiosGet(
+                    axiosStub, `${url}?filePath=${transactionFilePath}`);
             });
         });
 
@@ -180,7 +181,7 @@ describe("TransactionEventApi", () => {
             });
 
             it("called_fetch_using_GET", () => {
-                expectAxiosGet(axiosStub, expectedRequestUrl, ["test"]);
+                expectAxiosGet(axiosStub, expectedRequestUrl);
             });
         });
     });

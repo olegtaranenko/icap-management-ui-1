@@ -9,6 +9,22 @@ import axios, { CancelToken } from "axios";
 let fetchStub: SinonStub;
 let fetchStubResult: any
 
+let axiosStub: SinonStub;
+let axiosStubResult: any;
+
+const expectAxiosPost = (stubbedAxios: SinonStub, expectedUrl: string, data: any) => {
+    expect(stubbedAxios.getCalls()).toHaveLength(1);
+    expect(stubbedAxios.getCall(0).args).toHaveLength(3);
+    expect(stubbedAxios.getCall(0).args[0]).toEqual(expectedUrl);
+    expect(stubbedAxios.getCall(0).args[1]).toEqual(data);
+};
+
+const expectAxiosGet = (stubbedAxios: SinonStub, expectedUrl: string) => {
+    expect(stubbedAxios.getCalls()).toHaveLength(1);
+    expect(stubbedAxios.getCall(0).args).toHaveLength(2);
+    expect(stubbedAxios.getCall(0).args[0]).toEqual(expectedUrl);
+};
+
 const expectFetch = (stubbedFetch: SinonStub,
     expectedUrl: string,
     method: "GET" | "POST" | "PUT" | "DELETE") => {
@@ -103,12 +119,12 @@ describe("PolicyManagementApi", () => {
                 const cancellationTokenSource = axios.CancelToken.source();
                 cancellationToken = cancellationTokenSource.token;
 
-                fetchStubResult = {
-                    ok: false,
+                axiosStubResult = {
+                    status: 500,
                     statusText: "Error"
                 };
 
-                fetchStub = stub(fetch, "default").returns(fetchStubResult);
+                axiosStub = stub(axios, "get").returns(axiosStubResult);
 
                 // Act
                 try {
@@ -120,7 +136,7 @@ describe("PolicyManagementApi", () => {
             });
 
             afterEach(() => {
-                fetchStub.restore();
+                axiosStub.restore();
             });
 
             // Assert
@@ -129,9 +145,10 @@ describe("PolicyManagementApi", () => {
                 expect(error).toEqual(expectedError);
             });
 
-            it("called_fetch_using_GET", () => {
-                expectFetch(fetchStub, url, "GET");
-            })
+            it("called_axios_using_GET", () => {
+                expectAxiosGet(
+                    axiosStub, url);
+            });
         });
 
         describe("should_respond_with_response_json_if_OK", () => {
@@ -145,19 +162,19 @@ describe("PolicyManagementApi", () => {
                 const cancellationTokenSource = axios.CancelToken.source();
                 cancellationToken = cancellationTokenSource.token;
 
-                fetchStubResult = {
-                    ok: true,
-                    text: () => { return { test: "test" } }
+                axiosStubResult = {
+                    statusText: "OK",
+                    data: { test: "test" }
                 };
 
-                fetchStub = stub(fetch, "default").returns(fetchStubResult);
+                axiosStub = stub(axios, "get").returns(axiosStubResult);
 
                 // Act
                 result = await PolicyManagementApi.getPolicy(url, cancellationToken);
             });
 
             afterEach(() => {
-                fetchStub.restore();
+                axiosStub.restore();
             });
 
             // Assert
@@ -166,8 +183,8 @@ describe("PolicyManagementApi", () => {
                 expect(result).toEqual(expectedResponse);
             });
 
-            it("called_fetch_using_GET", () => {
-                expectFetch(fetchStub, url, "GET");
+            it("called_axios_using_GET", () => {
+                expectAxiosGet(axiosStub, url);
             });
         });
     });
