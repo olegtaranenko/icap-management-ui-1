@@ -1,10 +1,17 @@
-import { Express } from "express";
+import { Express, Request } from "express";
 import { Logger } from "winston";
+import axios, { CancelTokenSource } from "axios";
 import { Guid } from "guid-typescript";
 import { GetPolicyByIdRequest } from "../../../common/models/PolicyManagementService/GetPolicyById/GetPolicyByIdRequest";
 
 import IConfig from "../../../common/models/IConfig";
 import PolicyManagementService from "../../../business/services/PolicyManagementService/PolicyManagementService";
+
+const _handleCancellation = (req: Request, cancellationTokenSource: CancelTokenSource) => {
+    req.connection.on("close", () => {
+        cancellationTokenSource.cancel("Request Cancelled by the Client");
+    });
+}
 
 class PolicyRoutes {
     policyManagementServiceBaseUrl: string;
@@ -44,17 +51,22 @@ class PolicyRoutes {
         this.app.get("/policy/getPolicy/:policyId", async (req, res) => {
             const requestUrl = this.policyManagementServiceBaseUrl + this.getPolicyPath;
 
+            const cancellationTokenSource = axios.CancelToken.source();
+            _handleCancellation(req, cancellationTokenSource);
+
             try {
                 const getPolicyRequest = new GetPolicyByIdRequest(requestUrl, Guid.parse(req.params.policyId));
 
-                const policy = await this.policyManagementService.getPolicy(getPolicyRequest);
+                const policy = await this.policyManagementService.getPolicy(getPolicyRequest, cancellationTokenSource.token);
 
                 res.json(policy);
             }
             catch (error) {
-                const message = "Error Retrieving Policy";
-                this.logger.error(message + error.stack);
-                res.status(500).json(message);
+                if (error.stack) {
+                    const message = "Error Retrieving Policy";
+                    this.logger.error(message + error.stack);
+                    res.status(500).json(message);
+                }
             }
         });
 
@@ -62,15 +74,20 @@ class PolicyRoutes {
         this.app.get("/policy/current", async (req, res) => {
             const requestUrl = this.policyManagementServiceBaseUrl + this.getCurrentPolicyPath;
 
+            const cancellationTokenSource = axios.CancelToken.source();
+            _handleCancellation(req, cancellationTokenSource);
+
             try {
-                const policy = await this.policyManagementService.getCurrentPolicy(requestUrl);
+                const policy = await this.policyManagementService.getCurrentPolicy(requestUrl, cancellationTokenSource.token);
 
                 res.json(policy);
             }
             catch (error) {
-                const message = "Error Retrieving The Currently Published Policy";
-                this.logger.error(message + error.stack);
-                res.status(500).json(message);
+                if (error.stack) {
+                    const message = "Error Retrieving The Currently Published Policy";
+                    this.logger.error(message + error.stack);
+                    res.status(500).json(message);
+                }
             }
         });
 
@@ -78,15 +95,20 @@ class PolicyRoutes {
         this.app.get("/policy/draft", async (req, res) => {
             const requestUrl = this.policyManagementServiceBaseUrl + this.getDraftPolicyPath;
 
+            const cancellationTokenSource = axios.CancelToken.source();
+            _handleCancellation(req, cancellationTokenSource);
+
             try {
-                const policy = await this.policyManagementService.getDraftPolicy(requestUrl);
+                const policy = await this.policyManagementService.getDraftPolicy(requestUrl, cancellationTokenSource.token);
 
                 res.json(policy);
             }
             catch (error) {
-                const message = "Error Retrieving the Draft Policy";
-                this.logger.error(message + error.stack);
-                res.status(500).json(message);
+                if (error.stack) {
+                    const message = "Error Retrieving the Draft Policy";
+                    this.logger.error(message + error.stack);
+                    res.status(500).json(message);
+                }
             }
         });
 
@@ -94,15 +116,20 @@ class PolicyRoutes {
         this.app.put("/policy/draft", async (req, res) => {
             const requestUrl = this.policyManagementServiceBaseUrl + this.saveDraftPolicyPath;
 
+            const cancellationTokenSource = axios.CancelToken.source();
+            _handleCancellation(req, cancellationTokenSource);
+
             try {
-                await this.policyManagementService.saveDraftPolicy(requestUrl, req.body);
+                await this.policyManagementService.saveDraftPolicy(requestUrl, req.body, cancellationTokenSource.token);
 
                 res.sendStatus(200);
             }
             catch (error) {
-                const message = "Error Updating the Draft Policy";
-                this.logger.error(message + error.stack);
-                res.status(500).json(message);
+                if (error.stack) {
+                    const message = "Error Updating the Draft Policy";
+                    this.logger.error(message + error.stack);
+                    res.status(500).json(message);
+                }
             }
         });
 
@@ -129,15 +156,21 @@ class PolicyRoutes {
         this.app.delete("/policy/draft/:policyId", async (req, res) => {
             const requestUrl = this.policyManagementServiceBaseUrl + this.deletePolicyPath;
 
+            const cancellationTokenSource = axios.CancelToken.source();
+            _handleCancellation(req, cancellationTokenSource);
+
             try {
-                await this.policyManagementService.deleteDraftPolicy(requestUrl, Guid.parse(req.params.policyId));
+                await this.policyManagementService.deleteDraftPolicy(
+                    requestUrl, Guid.parse(req.params.policyId), cancellationTokenSource.token);
 
                 res.sendStatus(200);
             }
             catch (error) {
-                const message = `Error Deleting Policy - PolicyId: ${req.params.policyId}`;
-                this.logger.error(message + error.stack);
-                res.status(500).json(message);
+                if (error.stack) {
+                    const message = `Error Deleting Policy - PolicyId: ${req.params.policyId}`;
+                    this.logger.error(message + error.stack);
+                    res.status(500).json(message);
+                }
             }
         });
 
@@ -145,15 +178,20 @@ class PolicyRoutes {
         this.app.get("/policy/history", async (req, res) => {
             const requestUrl = this.policyManagementServiceBaseUrl + this.getPolicyHistoryPath;
 
+            const cancellationTokenSource = axios.CancelToken.source();
+            _handleCancellation(req, cancellationTokenSource);
+
             try {
-                const policyHistory = await this.policyManagementService.getPolicyHistory(requestUrl);
+                const policyHistory = await this.policyManagementService.getPolicyHistory(requestUrl, cancellationTokenSource.token);
 
                 res.json(policyHistory);
             }
             catch (error) {
-                const message = "Error Retrieving Policy History";
-                this.logger.error(message + error.stack);
-                res.status(500).json(message);
+                if (error.stack) {
+                    const message = "Error Retrieving Policy History";
+                    this.logger.error(message + error.stack);
+                    res.status(500).json(message);
+                }
             }
         });
     }

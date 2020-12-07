@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
+import axios from "axios";
 import { CSSTransition } from "react-transition-group";
 import {
 	Table,
@@ -20,6 +21,9 @@ import classes from "./History.module.scss";
 import { PolicyType } from "../../../../../src/common/models/enums/PolicyType";
 
 const History = () => {
+	const CancelToken = axios.CancelToken;
+	const cancellationTokenSource = CancelToken.source();
+
 	const {
 		status,
 		policyHistory,
@@ -43,7 +47,11 @@ const History = () => {
 	};
 
 	useEffect(() => {
-		loadPolicyHistory();
+		loadPolicyHistory(cancellationTokenSource.token);
+
+		return () => {
+			cancellationTokenSource.cancel();
+		}
 		// eslint-disable-next-line
 	}, []);
 
