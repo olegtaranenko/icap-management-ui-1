@@ -264,11 +264,6 @@ describe("PolicyManagementService", () => {
     describe("getPolicyHistory", () => {
         let getPolicyHistoryStub: SinonStub;
 
-        const responseString = {
-            policiesCount: 1,
-            policies: [policyExample]
-        };
-
         const policyHistory = new PolicyHistory(
             1,
             [new Policy(
