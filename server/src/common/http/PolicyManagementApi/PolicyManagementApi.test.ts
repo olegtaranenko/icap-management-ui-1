@@ -1,42 +1,67 @@
 import PolicyManagementApi from "./PolicyManagementApi";
 import { stub, SinonStub } from "sinon";
-import fetch = require("node-fetch");
+import axios, { CancelToken } from "axios";
 import { Guid } from "guid-typescript";
 import { Policy } from "../../../common/models/PolicyManagementService/Policy/Policy";
+import { PolicyHistory } from "../../../common/models/PolicyManagementService/PolicyHistory/PolicyHistory";
+
 import policyExample from "./policyExample.json";
 
-let fetchStub: SinonStub;
-let fetchStubResult: any
+let axiosStub: SinonStub;
+let axiosStubResult: any;
 
-const expectFetch = (stubbedFetch: SinonStub,
-    expectedUrl: string,
-    method: "GET" | "POST" | "PUT" | "DELETE") => {
-    expect(stubbedFetch.getCalls()).toHaveLength(1);
-    expect(stubbedFetch.getCall(0).args).toHaveLength(2);
-    expect(stubbedFetch.getCall(0).args[0]).toEqual(expectedUrl);
-    expect(stubbedFetch.getCall(0).args[1].method).toEqual(method);
+const url = "www.glasswall.com";
+let cancellationToken: CancelToken;
+
+const setUpCancellationToken = () => {
+    const cancellationTokenSource = axios.CancelToken.source();
+    cancellationToken = cancellationTokenSource.token;
+};
+
+const setAxiosStubResultWithError = () => {
+    axiosStubResult = {
+        status: 500,
+        statusText: "Error"
+    };
+};
+
+const expectAxios = (stubbedAxios: SinonStub, expectedUrl: string) => {
+    expect(stubbedAxios.getCalls()).toHaveLength(1);
+    expect(stubbedAxios.getCall(0).args).toHaveLength(2);
+    expect(stubbedAxios.getCall(0).args[0]).toEqual(expectedUrl);
+};
+
+const expectAxiosPut = (stubbedAxios: SinonStub, expectedUrl: string, data?: any) => {
+    expect(stubbedAxios.getCalls()).toHaveLength(1);
+    expect(stubbedAxios.getCall(0).args[0]).toEqual(expectedUrl);
+
+    if (data) {
+        expect(stubbedAxios.getCall(0).args).toHaveLength(3);
+        expect(stubbedAxios.getCall(0).args[1]).toEqual(data);
+    }
+
+    if (!data) {
+        expect(stubbedAxios.getCall(0).args).toHaveLength(2);
+    }
 };
 
 describe("PolicyManagementApi", () => {
     describe("getPolicyById", () => {
         describe("response_status_not_ok", () => {
             // Arrange
-            const url = "www.glasswall.com";
             const policyId = Guid.create();
             let error: any;
             const expectedError = new Error("Error");
 
             beforeEach(async () => {
-                fetchStubResult = {
-                    ok: false,
-                    statusText: "Error"
-                };
+                setUpCancellationToken();
+                setAxiosStubResultWithError();
 
-                fetchStub = stub(fetch, "default").returns(fetchStubResult);
+                axiosStub = stub(axios, "get").returns(axiosStubResult);
 
                 // Act
                 try {
-                    await PolicyManagementApi.getPolicyById(url, policyId);
+                    await PolicyManagementApi.getPolicyById(url, policyId, cancellationToken);
                 }
                 catch (err) {
                     error = err;
@@ -44,7 +69,7 @@ describe("PolicyManagementApi", () => {
             });
 
             afterEach(() => {
-                fetchStub.restore();
+                axiosStub.restore();
             });
 
             // Assert
@@ -56,26 +81,28 @@ describe("PolicyManagementApi", () => {
 
         describe("should_respond_with_response_json_if_OK", () => {
             // Arrange
-            const url = "www.glasswall.com";
             const policyId = Guid.create();
             const expectedRequestUrl = `${url}?id=${policyId.toString()}`;
             const expectedResponse = { test: "test" };
             let result: string;
 
             beforeEach(async () => {
-                fetchStubResult = {
-                    ok: true,
-                    text: () => { return { test: "test" } }
+                const cancellationTokenSource = axios.CancelToken.source();
+                cancellationToken = cancellationTokenSource.token;
+
+                axiosStubResult = {
+                    statusText: "OK",
+                    data: { test: "test" }
                 };
 
-                fetchStub = stub(fetch, "default").returns(fetchStubResult);
+                axiosStub = stub(axios, "get").returns(axiosStubResult);
 
                 // Act
-                result = await PolicyManagementApi.getPolicyById(url, policyId);
+                result = await PolicyManagementApi.getPolicyById(url, policyId, cancellationToken);
             });
 
             afterEach(() => {
-                fetchStub.restore();
+                axiosStub.restore();
             });
 
             // Assert
@@ -84,8 +111,8 @@ describe("PolicyManagementApi", () => {
                 expect(result).toEqual(expectedResponse);
             });
 
-            it("called_fetch_using_GET", () => {
-                expectFetch(fetchStub, expectedRequestUrl, "GET");
+            it("called_axios_using_GET", () => {
+                expectAxios(axiosStub, expectedRequestUrl);
             });
         });
     });
@@ -93,21 +120,18 @@ describe("PolicyManagementApi", () => {
     describe("getPolicy", () => {
         describe("response_status_not_OK", () => {
             // Arrange
-            const url = "www.glasswall.com";
             let error: any;
             const expectedError = new Error("Error");
 
             beforeEach(async () => {
-                fetchStubResult = {
-                    ok: false,
-                    statusText: "Error"
-                };
+                setUpCancellationToken();
+                setAxiosStubResultWithError();
 
-                fetchStub = stub(fetch, "default").returns(fetchStubResult);
+                axiosStub = stub(axios, "get").returns(axiosStubResult);
 
                 // Act
                 try {
-                    await PolicyManagementApi.getPolicy(url);
+                    await PolicyManagementApi.getPolicy(url, cancellationToken);
                 }
                 catch (err) {
                     error = err;
@@ -115,7 +139,7 @@ describe("PolicyManagementApi", () => {
             });
 
             afterEach(() => {
-                fetchStub.restore();
+                axiosStub.restore();
             });
 
             // Assert
@@ -123,32 +147,30 @@ describe("PolicyManagementApi", () => {
                 expect(error).not.toBe(undefined);
                 expect(error).toEqual(expectedError);
             });
-
-            it("called_fetch_using_GET", () => {
-                expectFetch(fetchStub, url, "GET");
-            })
         });
 
         describe("should_respond_with_response_json_if_OK", () => {
             // Arrange
-            const url = "www.glasswall.com";
-            const expectedResponse = { test: "test" };
-            let result: string;
+            const expectedResponse = { testResult: "test" };
+            let result: Policy;
 
             beforeEach(async () => {
-                fetchStubResult = {
-                    ok: true,
-                    text: () => { return { test: "test" } }
+                const cancellationTokenSource = axios.CancelToken.source();
+                cancellationToken = cancellationTokenSource.token;
+
+                axiosStubResult = {
+                    statusText: "OK",
+                    data: { testResult: "test" }
                 };
 
-                fetchStub = stub(fetch, "default").returns(fetchStubResult);
+                axiosStub = stub(axios, "get").returns(axiosStubResult);
 
                 // Act
-                result = await PolicyManagementApi.getPolicy(url);
+                result = await PolicyManagementApi.getPolicy(url, cancellationToken);
             });
 
             afterEach(() => {
-                fetchStub.restore();
+                axiosStub.restore();
             });
 
             // Assert
@@ -157,8 +179,8 @@ describe("PolicyManagementApi", () => {
                 expect(result).toEqual(expectedResponse);
             });
 
-            it("called_fetch_using_GET", () => {
-                expectFetch(fetchStub, url, "GET");
+            it("called_axios_using_GET", () => {
+                expectAxios(axiosStub, url);
             });
         });
     });
@@ -166,7 +188,6 @@ describe("PolicyManagementApi", () => {
     describe("saveDraftPolicy", () => {
         describe("response_status_not_OK", () => {
             // Arrange
-            const url = "www.glasswall.com";
             let error: any;
             const expectedError = new Error("Error");
 
@@ -182,16 +203,14 @@ describe("PolicyManagementApi", () => {
             );
 
             beforeEach(async () => {
-                fetchStubResult = {
-                    ok: false,
-                    statusText: "Error"
-                };
+                setUpCancellationToken();
+                setAxiosStubResultWithError();
 
-                fetchStub = stub(fetch, "default").returns(fetchStubResult);
+                axiosStub = stub(axios, "put").returns(axiosStubResult);
 
                 // Act
                 try {
-                    await PolicyManagementApi.saveDraftPolicy(url, draftPolicy);
+                    await PolicyManagementApi.saveDraftPolicy(url, draftPolicy, cancellationToken);
                 }
                 catch (err) {
                     error = err;
@@ -199,7 +218,7 @@ describe("PolicyManagementApi", () => {
             });
 
             afterEach(() => {
-                fetchStub.restore();
+                axiosStub.restore();
             });
 
             // Assert
@@ -209,7 +228,7 @@ describe("PolicyManagementApi", () => {
             });
 
             it("called_fetch_using_PUT", () => {
-                expectFetch(fetchStub, url, "PUT");
+                expectAxiosPut(axiosStub, url, JSON.stringify(draftPolicy));
             });
         });
     });
@@ -217,19 +236,15 @@ describe("PolicyManagementApi", () => {
     describe("publishPolicy", () => {
         describe("response_status_not_OK", () => {
             // Arrange
-            const url = "www.glasswall.com";
             const policyId = Guid.create();
             const expectedRequestUrl = `${url}?id=${policyId.toString()}`;
             let error: any;
             const expectedError = new Error("Error");
 
             beforeEach(async () => {
-                fetchStubResult = {
-                    ok: false,
-                    statusText: "Error"
-                };
+                setAxiosStubResultWithError();
 
-                fetchStub = stub(fetch, "default").returns(fetchStubResult);
+                axiosStub = stub(axios, "put").returns(axiosStubResult);
 
                 // Act
                 try {
@@ -241,7 +256,7 @@ describe("PolicyManagementApi", () => {
             });
 
             afterEach(() => {
-                fetchStub.restore();
+                axiosStub.restore();
             });
 
             // Assert
@@ -250,8 +265,8 @@ describe("PolicyManagementApi", () => {
                 expect(error).toEqual(expectedError);
             });
 
-            it("called_fetch_using_PUT", () => {
-                expectFetch(fetchStub, expectedRequestUrl, "PUT");
+            it("called_axios_using_PUT", () => {
+                expectAxiosPut(axiosStub, expectedRequestUrl);
             });
         });
     });
@@ -259,17 +274,13 @@ describe("PolicyManagementApi", () => {
     describe("distributeAdaptationPolicy", () => {
         describe("response_status_not_OK", () => {
             // Arrange
-            const url = "www.glasswall.com";
             let error: any;
             const expectedError = new Error("Error");
 
             beforeEach(async () => {
-                fetchStubResult = {
-                    ok: false,
-                    statusText: "Error"
-                };
+                setAxiosStubResultWithError();
 
-                fetchStub = stub(fetch, "default").returns(fetchStubResult);
+                axiosStub = stub(axios, "put").returns(axiosStubResult);
 
                 // Act
                 try {
@@ -281,7 +292,7 @@ describe("PolicyManagementApi", () => {
             });
 
             afterEach(() => {
-                fetchStub.restore();
+                axiosStub.restore();
             });
 
             // Assert
@@ -290,8 +301,8 @@ describe("PolicyManagementApi", () => {
                 expect(error).toEqual(expectedError);
             });
 
-            it("called_fetch_using_PUT", () => {
-                expectFetch(fetchStub, url, "PUT");
+            it("called_axios_using_PUT", () => {
+                expectAxiosPut(axiosStub, url);
             });
         });
     });
@@ -299,17 +310,13 @@ describe("PolicyManagementApi", () => {
     describe("distributeNcfsPolicy", () => {
         describe("response_status_not_OK", () => {
             // Arrange
-            const url = "www.glasswall.com";
             let error: any;
             const expectedError = new Error("Error");
 
             beforeEach(async () => {
-                fetchStubResult = {
-                    ok: false,
-                    statusText: "Error"
-                };
+                setAxiosStubResultWithError();
 
-                fetchStub = stub(fetch, "default").returns(fetchStubResult);
+                axiosStub = stub(axios, "put").returns(axiosStubResult);
 
                 // Act
                 try {
@@ -321,7 +328,7 @@ describe("PolicyManagementApi", () => {
             });
 
             afterEach(() => {
-                fetchStub.restore();
+                axiosStub.restore();
             });
 
             // Assert
@@ -330,8 +337,8 @@ describe("PolicyManagementApi", () => {
                 expect(error).toEqual(expectedError);
             });
 
-            it("called_fetch_using_PUT", () => {
-                expectFetch(fetchStub, url, "PUT");
+            it("called_axios_using_PUT", () => {
+                expectAxiosPut(axiosStub, url);
             });
         });
     });
@@ -339,23 +346,20 @@ describe("PolicyManagementApi", () => {
     describe("deleteDraftPolicy", () => {
         describe("response_status_not_OK", () => {
             // Arrange
-            const url = "www.glasswall.com";
             const policyId = Guid.create();
             const expectedRequestUrl = `${url}?id=${policyId.toString()}`;
             let error: any;
             const expectedError = new Error("Error");
 
             beforeEach(async () => {
-                fetchStubResult = {
-                    ok: false,
-                    statusText: "Error"
-                };
+                setUpCancellationToken();
+                setAxiosStubResultWithError();
 
-                fetchStub = stub(fetch, "default").returns(fetchStubResult);
+                axiosStub = stub(axios, "delete").returns(axiosStubResult);
 
                 // Act
                 try {
-                    await PolicyManagementApi.deleteDraftPolicy(url, policyId);
+                    await PolicyManagementApi.deleteDraftPolicy(url, policyId, cancellationToken);
                 }
                 catch (err) {
                     error = err;
@@ -363,7 +367,7 @@ describe("PolicyManagementApi", () => {
             });
 
             afterEach(() => {
-                fetchStub.restore();
+                axiosStub.restore();
             });
 
             // Assert
@@ -372,30 +376,27 @@ describe("PolicyManagementApi", () => {
                 expect(error).toEqual(expectedError);
             });
 
-            it("called_fetch_using_DELETE", () => {
-                expectFetch(fetchStub, expectedRequestUrl, "DELETE");
+            it("called_axios_using_DELETE", () => {
+                expectAxios(axiosStub, expectedRequestUrl);
             });
         });
     });
 
-    describe("getPolicyHistory", () => {
+    describe("_getPolicyHistory", () => {
         describe("response_status_not_OK", () => {
             // Arrange
-            const url = "www.glasswall.com";
             let error: any;
             const expectedError = new Error("Error");
 
             beforeEach(async () => {
-                fetchStubResult = {
-                    ok: false,
-                    statusText: "Error"
-                };
+                setUpCancellationToken();
+                setAxiosStubResultWithError();
 
-                fetchStub = stub(fetch, "default").returns(fetchStubResult);
+                axiosStub = stub(axios, "get").returns(axiosStubResult);
 
                 // Act
                 try {
-                    await PolicyManagementApi.getPolicyHistory(url);
+                    await PolicyManagementApi.getPolicyHistory(url, cancellationToken);
                 }
                 catch (err) {
                     error = err;
@@ -403,7 +404,7 @@ describe("PolicyManagementApi", () => {
             });
 
             afterEach(() => {
-                fetchStub.restore();
+                axiosStub.restore();
             });
 
             // Assert
@@ -411,9 +412,40 @@ describe("PolicyManagementApi", () => {
                 expect(error).not.toBe(undefined);
                 expect(error).toEqual(expectedError);
             });
+        });
 
-            it("called_fetch_using_GET", () => {
-                expectFetch(fetchStub, url, "GET");
+        describe("should_respond_with_response_json_if_OK", () => {
+            // Arrange
+            const expectedResponse = ["test"];
+            let result: PolicyHistory;
+
+            beforeEach(async () => {
+                const cancellationTokenSource = axios.CancelToken.source();
+                cancellationToken = cancellationTokenSource.token;
+
+                axiosStubResult = {
+                    statusText: "OK",
+                    data: ["test"]
+                };
+
+                axiosStub = stub(axios, "get").returns(axiosStubResult);
+
+                // Act
+                result = await PolicyManagementApi.getPolicyHistory(url, cancellationToken);
+            });
+
+            afterEach(() => {
+                axiosStub.restore();
+            });
+
+            // Assert
+            it("responds_with_expected_response", () => {
+                expect(result).not.toBe(undefined);
+                expect(result).toEqual(expectedResponse);
+            });
+
+            it("called_axios_using_GET", () => {
+                expectAxios(axiosStub, url);
             });
         });
     });
