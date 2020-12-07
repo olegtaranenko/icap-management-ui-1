@@ -7,11 +7,11 @@ import { PolicyHistory } from "../models/PolicyManagementService/PolicyHistory/P
 
 export default interface IPolicyManagementService {
     logger: Logger,
-    getPolicy: (request: GetPolicyByIdRequest) => Promise<Policy>,
+    getPolicy: (request: GetPolicyByIdRequest, cancellationToken: CancelToken) => Promise<Policy>,
     getCurrentPolicy: (getCurrentPolicyUrl: string, cancellationToken: CancelToken) => Promise<Policy>,
     getDraftPolicy: (getDraftPolicyUrl: string, cancellationToken: CancelToken) => Promise<Policy>,
-    saveDraftPolicy: (saveDraftPolicyUrl: string, draftPolicy: Policy) => Promise<void>,
+    saveDraftPolicy: (saveDraftPolicyUrl: string, draftPolicy: Policy, cancellationToken: CancelToken) => Promise<void>,
     publishPolicy: (publishPolicyUrl: string, distributeAdaptationPolicyUrl: string, distributeNcfsPolicy: string, policyId: Guid) => Promise<void>,
-    deleteDraftPolicy: (deleteDraftPolicyUrl: string, policyId: Guid) => Promise<void>,
+    deleteDraftPolicy: (deleteDraftPolicyUrl: string, policyId: Guid, cancellationToken: CancelToken) => Promise<void>,
     getPolicyHistory: (getPolicyHistoryUrl: string, cancellationToken: CancelToken) => Promise<PolicyHistory>
 }

@@ -74,6 +74,9 @@ describe("PolicyManagementService", () => {
         const responseString = policyExample;
 
         beforeEach(() => {
+            const cancellationTokenSource = axios.CancelToken.source();
+            cancellationToken = cancellationTokenSource.token;
+
             getPolicyByIdStub = stub(PolicyManagementApi, "getPolicyById")
                 .resolves(JSON.stringify(responseString));
         });
@@ -88,7 +91,7 @@ describe("PolicyManagementService", () => {
             const request = new GetPolicyByIdRequest("www.glasswall.com", Guid.create());
 
             // Act
-            const result = await policyManagementService.getPolicy(request);
+            const result = await policyManagementService.getPolicy(request, cancellationToken);
 
             // Assert
             expect(result).toEqual(expectedGetPolicyResponse);
@@ -144,6 +147,9 @@ describe("PolicyManagementService", () => {
         const expectedHeaders = { "Content-Type": "application/json" };
 
         beforeEach(() => {
+            const cancellationTokenSource = axios.CancelToken.source();
+            cancellationToken = cancellationTokenSource.token;
+
             saveDraftPolicyStub = stub(PolicyManagementApi, "saveDraftPolicy")
                 .resolves();
         });
@@ -159,11 +165,11 @@ describe("PolicyManagementService", () => {
 
             // Act
             await policyManagementService.saveDraftPolicy(
-                saveDraftPolicyUrl, draftPolicy);
+                saveDraftPolicyUrl, draftPolicy, cancellationToken);
 
             // Assert
             expect(spy).toHaveBeenCalled();
-            expect(spy).toBeCalledWith(saveDraftPolicyUrl, draftPolicy, expectedHeaders);
+            expect(spy).toBeCalledWith(saveDraftPolicyUrl, draftPolicy, cancellationToken, expectedHeaders);
         });
     });
 
@@ -247,11 +253,11 @@ describe("PolicyManagementService", () => {
 
             // Act
             await policyManagementService.deleteDraftPolicy(
-                deleteDraftPolicyUrl, policyId);
+                deleteDraftPolicyUrl, policyId, cancellationToken);
 
             // Assert
             expect(spy).toHaveBeenCalled();
-            expect(spy).toBeCalledWith(deleteDraftPolicyUrl, policyId, expectedHeaders);
+            expect(spy).toBeCalledWith(deleteDraftPolicyUrl, policyId, cancellationToken, expectedHeaders);
         });
     });
 

@@ -1,4 +1,3 @@
-import fetch from "node-fetch";
 import axios, { CancelToken } from "axios";
 import { FileType } from "../../../common/models/enums/FileType";
 import { Risk } from "../../../common/models/enums/Risk";

@@ -1,6 +1,5 @@
 import { stub, SinonStub } from "sinon";
 import axios, { CancelToken } from "axios";
-import fetch = require("node-fetch");
 
 import TransactionEventApi, { File } from "./TransactionEventApi";
 
@@ -57,10 +56,6 @@ describe("TransactionEventApi", () => {
             it("responds_with_status_text", () => {
                 expect(error).not.toBe(undefined);
                 expect(error).toEqual(expectedError);
-            });
-
-            it("called_axios_using_POST", () => {
-                expectAxiosPost(axiosStub, url, JSON.stringify({}));
             });
         });
 
@@ -138,11 +133,6 @@ describe("TransactionEventApi", () => {
             it("responds_with_status_text", () => {
                 expect(error).not.toBe(undefined);
                 expect(error).toEqual(expectedError);
-            });
-
-            it("called_axios_using_GET", () => {
-                expectAxiosGet(
-                    axiosStub, `${url}?filePath=${transactionFilePath}`);
             });
         });
 

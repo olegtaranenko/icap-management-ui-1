@@ -28,14 +28,14 @@ class PolicyManagementService implements IPolicyManagementService {
         );
     }
 
-    getPolicy = async (request: GetPolicyByIdRequest) => {
+    getPolicy = async (request: GetPolicyByIdRequest, cancellationToken: CancelToken) => {
         let policy: Policy;
 
         try {
             this.logger.info(`Retrieving Policy from the PolicyManagementServie - PolicyId: ${request.policyId}`);
 
             const response = await PolicyManagementApi.getPolicyById(
-                request.url, request.policyId, { "Content-Type": "application/json" });
+                request.url, request.policyId, cancellationToken, { "Content-Type": "application/json" });
             const responseJSON = JSON.parse(response);
             policy = this.createPolicyModel(responseJSON);
 
@@ -95,20 +95,20 @@ class PolicyManagementService implements IPolicyManagementService {
         return policy;
     }
 
-    saveDraftPolicy = async (updatePolicyUrl: string, draftPolicy: Policy) => {
+    saveDraftPolicy = async (updatePolicyUrl: string, draftPolicy: Policy, cancellationToken: CancelToken) => {
         try {
             this.logger.info(
                 `Saving Draft Policy to the PolicyManagementService - PolicyId: ${draftPolicy.id}`);
 
             draftPolicy.updatedBy = "frontend.user@users.com";
             await PolicyManagementApi.saveDraftPolicy(
-                updatePolicyUrl, draftPolicy, { "Content-Type": "application/json" });
+                updatePolicyUrl, draftPolicy, cancellationToken, { "Content-Type": "application/json" });
 
             this.logger.info(
                 `Saved Draft Policy to the PolicyManagementService - PolicyId: ${draftPolicy.id}`)
         }
         catch (error) {
-            this.logger.error("Couldn't save Draft Policy");
+            this.logger.error(`Couldn't save Draft Policy: ${error}`);
             throw error;
         }
     }
@@ -134,16 +134,17 @@ class PolicyManagementService implements IPolicyManagementService {
         }
     }
 
-    deleteDraftPolicy = async (deleteDraftPolicyUrl: string, policyId: Guid) => {
+    deleteDraftPolicy = async (deleteDraftPolicyUrl: string, policyId: Guid, cancellationToken: CancelToken) => {
         try {
             this.logger.info(`Deleting Policy - PolicyId: ${policyId}`);
 
-            await PolicyManagementApi.deleteDraftPolicy(deleteDraftPolicyUrl, policyId, { "Content-Type": "application/json" });
+            await PolicyManagementApi.deleteDraftPolicy(
+                deleteDraftPolicyUrl, policyId, cancellationToken, { "Content-Type": "application/json" });
 
             this.logger.info(`Deleted Policy - PolicyId: ${policyId}`);
         }
         catch (error) {
-            this.logger.error(`Couldn't Delete Policy - PolicyId: ${policyId}`);
+            this.logger.error(`Couldn't Delete Policy: ${error}`);
             throw error;
         }
     }
