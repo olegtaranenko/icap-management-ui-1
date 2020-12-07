@@ -10,6 +10,9 @@ import policyExample from "./policyExample.json";
 let axiosStub: SinonStub;
 let axiosStubResult: any;
 
+const url = "www.glasswall.com";
+let cancellationToken: CancelToken;
+
 const expectAxiosPut = (stubbedAxios: SinonStub, expectedUrl: string, data?: any) => {
     expect(stubbedAxios.getCalls()).toHaveLength(1);
     expect(stubbedAxios.getCall(0).args[0]).toEqual(expectedUrl);
@@ -34,9 +37,7 @@ describe("PolicyManagementApi", () => {
     describe("getPolicyById", () => {
         describe("response_status_not_ok", () => {
             // Arrange
-            const url = "www.glasswall.com";
             const policyId = Guid.create();
-            let cancellationToken: CancelToken;
             let error: any;
             const expectedError = new Error("Error");
 
@@ -73,11 +74,9 @@ describe("PolicyManagementApi", () => {
 
         describe("should_respond_with_response_json_if_OK", () => {
             // Arrange
-            const url = "www.glasswall.com";
             const policyId = Guid.create();
             const expectedRequestUrl = `${url}?id=${policyId.toString()}`;
             const expectedResponse = { test: "test" };
-            let cancellationToken: CancelToken;
             let result: string;
 
             beforeEach(async () => {
@@ -114,8 +113,6 @@ describe("PolicyManagementApi", () => {
     describe("getPolicy", () => {
         describe("response_status_not_OK", () => {
             // Arrange
-            const url = "www.glasswall.com";
-            let cancellationToken: CancelToken;
             let error: any;
             const expectedError = new Error("Error");
 
@@ -152,9 +149,7 @@ describe("PolicyManagementApi", () => {
 
         describe("should_respond_with_response_json_if_OK", () => {
             // Arrange
-            const url = "www.glasswall.com";
             const expectedResponse = { test: "test" };
-            let cancellationToken: CancelToken;
             let result: Policy;
 
             beforeEach(async () => {
@@ -191,8 +186,6 @@ describe("PolicyManagementApi", () => {
     describe("saveDraftPolicy", () => {
         describe("response_status_not_OK", () => {
             // Arrange
-            const url = "www.glasswall.com";
-            let cancellationToken: CancelToken;
             let error: any;
             const expectedError = new Error("Error");
 
@@ -246,7 +239,6 @@ describe("PolicyManagementApi", () => {
     describe("publishPolicy", () => {
         describe("response_status_not_OK", () => {
             // Arrange
-            const url = "www.glasswall.com";
             const policyId = Guid.create();
             const expectedRequestUrl = `${url}?id=${policyId.toString()}`;
             let error: any;
@@ -288,7 +280,6 @@ describe("PolicyManagementApi", () => {
     describe("distributeAdaptationPolicy", () => {
         describe("response_status_not_OK", () => {
             // Arrange
-            const url = "www.glasswall.com";
             let error: any;
             const expectedError = new Error("Error");
 
@@ -328,7 +319,6 @@ describe("PolicyManagementApi", () => {
     describe("distributeNcfsPolicy", () => {
         describe("response_status_not_OK", () => {
             // Arrange
-            const url = "www.glasswall.com";
             let error: any;
             const expectedError = new Error("Error");
 
@@ -368,10 +358,8 @@ describe("PolicyManagementApi", () => {
     describe("deleteDraftPolicy", () => {
         describe("response_status_not_OK", () => {
             // Arrange
-            const url = "www.glasswall.com";
             const policyId = Guid.create();
             const expectedRequestUrl = `${url}?id=${policyId.toString()}`;
-            let cancellationToken: CancelToken;
             let error: any;
             const expectedError = new Error("Error");
 
@@ -414,8 +402,6 @@ describe("PolicyManagementApi", () => {
     describe("_getPolicyHistory", () => {
         describe("response_status_not_OK", () => {
             // Arrange
-            const url = "www.glasswall.com";
-            let cancellationToken: CancelToken;
             let error: any;
             const expectedError = new Error("Error");
 
@@ -452,9 +438,7 @@ describe("PolicyManagementApi", () => {
 
         describe("should_respond_with_response_json_if_OK", () => {
             // Arrange
-            const url = "www.glasswall.com";
             const expectedResponse = ["test"];
-            let cancellationToken: CancelToken;
             let result: PolicyHistory;
 
             beforeEach(async () => {
