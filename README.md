@@ -57,13 +57,14 @@ This command builds the Docker image from the Dockerfile, [docker build](https:/
   
 #### Run the Docker Container
 ```
-docker run -p 4000:8080 -d glasswallsolutions/icap-management-ui:version
+docker run -p 4000:8080 -d glasswallsolutions/icap-management-ui:version -e TRANSACTION_EVENT_API_URL="<url>" POLICY_MANAGEMENT_API_URL="<url>"
 ```
   
 <b>Note:</b> This will run the server in production-mode.  
 This command runs the Docker container using the Docker image that was just built, [docker run](https://docs.docker.com/engine/reference/run/).  
 The <b>-p</b> flag maps the exposed port 8080 to port 4000.  
-  The <b>-d</b> flag runs the container in detached mode, which runs in the background.
+The <b>-d</b> flag runs the container in detached mode, which runs in the background.  
+The <b>-e</b> flag will pass any string values as environment variables to the image.
 
 <hr/>
 
