@@ -13,6 +13,24 @@ let axiosStubResult: any;
 const url = "www.glasswall.com";
 let cancellationToken: CancelToken;
 
+const setUpCancellationToken = () => {
+    const cancellationTokenSource = axios.CancelToken.source();
+    cancellationToken = cancellationTokenSource.token;
+};
+
+const setAxiosStubResultWithError = () => {
+    axiosStubResult = {
+        status: 500,
+        statusText: "Error"
+    };
+};
+
+const expectAxios = (stubbedAxios: SinonStub, expectedUrl: string) => {
+    expect(stubbedAxios.getCalls()).toHaveLength(1);
+    expect(stubbedAxios.getCall(0).args).toHaveLength(2);
+    expect(stubbedAxios.getCall(0).args[0]).toEqual(expectedUrl);
+};
+
 const expectAxiosPut = (stubbedAxios: SinonStub, expectedUrl: string, data?: any) => {
     expect(stubbedAxios.getCalls()).toHaveLength(1);
     expect(stubbedAxios.getCall(0).args[0]).toEqual(expectedUrl);
@@ -27,12 +45,6 @@ const expectAxiosPut = (stubbedAxios: SinonStub, expectedUrl: string, data?: any
     }
 };
 
-const expectAxios = (stubbedAxios: SinonStub, expectedUrl: string) => {
-    expect(stubbedAxios.getCalls()).toHaveLength(1);
-    expect(stubbedAxios.getCall(0).args).toHaveLength(2);
-    expect(stubbedAxios.getCall(0).args[0]).toEqual(expectedUrl);
-};
-
 describe("PolicyManagementApi", () => {
     describe("getPolicyById", () => {
         describe("response_status_not_ok", () => {
@@ -42,13 +54,8 @@ describe("PolicyManagementApi", () => {
             const expectedError = new Error("Error");
 
             beforeEach(async () => {
-                const cancellationTokenSource = axios.CancelToken.source();
-                cancellationToken = cancellationTokenSource.token;
-
-                axiosStubResult = {
-                    status: 500,
-                    statusText: "Error"
-                };
+                setUpCancellationToken();
+                setAxiosStubResultWithError();
 
                 axiosStub = stub(axios, "get").returns(axiosStubResult);
 
@@ -117,13 +124,8 @@ describe("PolicyManagementApi", () => {
             const expectedError = new Error("Error");
 
             beforeEach(async () => {
-                const cancellationTokenSource = axios.CancelToken.source();
-                cancellationToken = cancellationTokenSource.token;
-
-                axiosStubResult = {
-                    status: 500,
-                    statusText: "Error"
-                };
+                setUpCancellationToken();
+                setAxiosStubResultWithError();
 
                 axiosStub = stub(axios, "get").returns(axiosStubResult);
 
@@ -149,7 +151,7 @@ describe("PolicyManagementApi", () => {
 
         describe("should_respond_with_response_json_if_OK", () => {
             // Arrange
-            const expectedResponse = { test: "test" };
+            const expectedResponse = { testResult: "test" };
             let result: Policy;
 
             beforeEach(async () => {
@@ -158,7 +160,7 @@ describe("PolicyManagementApi", () => {
 
                 axiosStubResult = {
                     statusText: "OK",
-                    data: { test: "test" }
+                    data: { testResult: "test" }
                 };
 
                 axiosStub = stub(axios, "get").returns(axiosStubResult);
@@ -201,13 +203,8 @@ describe("PolicyManagementApi", () => {
             );
 
             beforeEach(async () => {
-                const cancellationTokenSource = axios.CancelToken.source();
-                cancellationToken = cancellationTokenSource.token;
-
-                axiosStubResult = {
-                    status: 500,
-                    statusText: "Error"
-                };
+                setUpCancellationToken();
+                setAxiosStubResultWithError();
 
                 axiosStub = stub(axios, "put").returns(axiosStubResult);
 
@@ -245,10 +242,7 @@ describe("PolicyManagementApi", () => {
             const expectedError = new Error("Error");
 
             beforeEach(async () => {
-                axiosStubResult = {
-                    status: 500,
-                    statusText: "Error"
-                };
+                setAxiosStubResultWithError();
 
                 axiosStub = stub(axios, "put").returns(axiosStubResult);
 
@@ -284,10 +278,7 @@ describe("PolicyManagementApi", () => {
             const expectedError = new Error("Error");
 
             beforeEach(async () => {
-                axiosStubResult = {
-                    status: 500,
-                    statusText: "Error"
-                };
+                setAxiosStubResultWithError();
 
                 axiosStub = stub(axios, "put").returns(axiosStubResult);
 
@@ -323,10 +314,7 @@ describe("PolicyManagementApi", () => {
             const expectedError = new Error("Error");
 
             beforeEach(async () => {
-                axiosStubResult = {
-                    status: 500,
-                    statusText: "Error"
-                };
+                setAxiosStubResultWithError();
 
                 axiosStub = stub(axios, "put").returns(axiosStubResult);
 
@@ -364,13 +352,8 @@ describe("PolicyManagementApi", () => {
             const expectedError = new Error("Error");
 
             beforeEach(async () => {
-                const cancellationTokenSource = axios.CancelToken.source();
-                cancellationToken = cancellationTokenSource.token;
-
-                axiosStubResult = {
-                    status: 500,
-                    statusText: "Error"
-                };
+                setUpCancellationToken();
+                setAxiosStubResultWithError();
 
                 axiosStub = stub(axios, "delete").returns(axiosStubResult);
 
@@ -406,13 +389,8 @@ describe("PolicyManagementApi", () => {
             const expectedError = new Error("Error");
 
             beforeEach(async () => {
-                const cancellationTokenSource = axios.CancelToken.source();
-                cancellationToken = cancellationTokenSource.token;
-
-                axiosStubResult = {
-                    status: 500,
-                    statusText: "Error"
-                };
+                setUpCancellationToken();
+                setAxiosStubResultWithError();
 
                 axiosStub = stub(axios, "get").returns(axiosStubResult);
 
