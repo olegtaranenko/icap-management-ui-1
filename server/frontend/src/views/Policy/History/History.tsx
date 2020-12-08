@@ -47,7 +47,9 @@ const History = () => {
 	};
 
 	useEffect(() => {
-		loadPolicyHistory(cancellationTokenSource.token);
+		if (status !== "ERROR") {
+			loadPolicyHistory(cancellationTokenSource.token);
+		}
 
 		return () => {
 			cancellationTokenSource.cancel();

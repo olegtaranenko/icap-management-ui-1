@@ -33,24 +33,26 @@ const CurrentPolicy = () => {
 
 	const policyTimestampData = (
 		<div className={classes.tableContainer}>
-			<Table className={classes.table} id={currentPolicy.id}>
-				<TableHead>
-					<TableRow>
-						<TableCell>Timestamp</TableCell>
-						<TableCell>Updated By</TableCell>
-					</TableRow>
-				</TableHead>
-				<TableBody className={classes.tbody}>
-					<TableRow>
-						<TableCell>
-							{new Date(currentPolicy.created).toLocaleString()}
-						</TableCell>
-						<TableCell>
-							{currentPolicy.updatedBy ? currentPolicy.updatedBy : "N/A"}
-						</TableCell>
-					</TableRow>
-				</TableBody>
-			</Table>
+			{status === "LOADED" &&
+				<Table className={classes.table} id={currentPolicy.id}>
+					<TableHead>
+						<TableRow>
+							<TableCell>Timestamp</TableCell>
+							<TableCell>Updated By</TableCell>
+						</TableRow>
+					</TableHead>
+					<TableBody className={classes.tbody}>
+						<TableRow>
+							<TableCell>
+								{new Date(currentPolicy.created).toLocaleString()}
+							</TableCell>
+							<TableCell>
+								{currentPolicy.updatedBy ? currentPolicy.updatedBy : "N/A"}
+							</TableCell>
+						</TableRow>
+					</TableBody>
+				</Table>
+			}
 		</div>
 	);
 
