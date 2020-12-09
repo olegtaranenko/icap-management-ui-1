@@ -152,7 +152,7 @@ const RequestHistory = () => {
 		<>
 			<MainTitle />
 
-			<Filters popupIsOpen={openPopup} changeVisibilityPopup={setOpenPopup} />
+			<Filters popupIsOpen={openPopup} changeVisibilityPopup={setOpenPopup} disabled={isLoading} />
 
 			<Main externalStyles={classes.main}>
 				<article className={classes.container}>
@@ -185,7 +185,7 @@ const RequestHistory = () => {
 
 											<TableCell>
 												Risk (Transaction)
-												</TableCell>
+											</TableCell>
 										</TableRow>
 									</TableHead>
 									<TableBody className={classes.tbody}>
