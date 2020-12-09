@@ -23,9 +23,9 @@ export class Policy {
         updatedBy?: string) {
         this.id = id;
         this.policyType = policyType;
-        this.published = new Date(published);
-        this.lastEdited = new Date(lastEdited);
-        this.created = new Date(created);
+        this.published = published ? new Date(published) : null;
+        this.lastEdited = lastEdited ? new Date(lastEdited) : null;
+        this.created = created ? new Date(created) : null;
         this.updatedBy = updatedBy;
         this.ncfsPolicy = ncfsPolicy;
         this.adaptionPolicy = adaptionPolicy;

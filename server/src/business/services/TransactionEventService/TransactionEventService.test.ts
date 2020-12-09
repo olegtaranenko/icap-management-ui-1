@@ -6,6 +6,7 @@ import { GetTransactionsRequest, GetTransactionsResponse } from "../../../common
 import { GetTransactionDetailsRequest, GetTransactionDetailsResponse } from "../../../common/models/TransactionEventService/GetTransactionDetails";
 import TransactionEventService from "./TransactionEventService";
 import TransactionEventApi from "../../../common/http/TransactionEventApi/TransactionEventApi";
+import axios, { CancelToken } from "axios";
 
 let getTransactionsStub: SinonStub;
 let getTransactionDetailsStub: SinonStub;
@@ -33,6 +34,8 @@ describe("TransactionEventService", () => {
             ]
         });
 
+        let cancellationToken: CancelToken;
+
         const responseString = {
             count: 1,
             files: [
@@ -51,8 +54,11 @@ describe("TransactionEventService", () => {
             responseString.count, responseString.files);
 
         beforeEach(() => {
+            const cancellationTokenSource = axios.CancelToken.source();
+            cancellationToken = cancellationTokenSource.token;
+
             getTransactionsStub = stub(TransactionEventApi, "getTransactions")
-                .resolves(JSON.stringify(responseString));
+                .resolves(responseString);
         });
 
         afterEach(() => {
@@ -71,7 +77,7 @@ describe("TransactionEventService", () => {
                 });
 
             // Act
-            const result = await transactionEventService.getTransactions(request);
+            const result = await transactionEventService.getTransactions(request, cancellationToken);
 
             // Assert
             expect(result).toEqual(expectedResponse);
@@ -87,6 +93,8 @@ describe("TransactionEventService", () => {
             ]
         });
 
+        let cancellationToken: CancelToken;
+
         const responseString = {
             status: 0,
             analysisReport: "test"
@@ -96,8 +104,11 @@ describe("TransactionEventService", () => {
             responseString.status, responseString.analysisReport)
 
         beforeEach(() => {
+            const cancellationTokenSource = axios.CancelToken.source();
+            cancellationToken = cancellationTokenSource.token;
+
             getTransactionDetailsStub = stub(TransactionEventApi, "getTransactionDetails")
-                .resolves(JSON.stringify(responseString));
+                .resolves(responseString);
         });
 
         afterEach(() => {
@@ -113,7 +124,7 @@ describe("TransactionEventService", () => {
             );
 
             // Act
-            const result = await transactionEventService.getTransactionDetails(request);
+            const result = await transactionEventService.getTransactionDetails(request, cancellationToken);
 
             // Assert
             expect(result).toEqual(expectedResponse);

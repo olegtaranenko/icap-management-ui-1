@@ -1,81 +1,85 @@
+import { Table, TableHead, TableRow, TableCell, TableBody } from "@material-ui/core";
 import React, { useState } from "react";
+import { Policy } from "../../../../../../src/common/models/PolicyManagementService/Policy/Policy";
+import Tab from "../../../../components/Tabs/Tab/Tab";
+import TabNav from "../../../../components/Tabs/TabNav/TabNav";
+import ContentManagementFlags from "../../common/ContentManagementFlags/ContentManagementFlags";
+import PolicyForNonCompliantFiles from "../../common/PolicyForNonCompliantFiles/PolicyForNonCompliantFiles";
+import RoutesForNonCompliantFiles from "../../common/RoutesForNonCompliantFiles/RoutesForNonCompliantFiles";
 
 import classes from "./HistoryInfo.module.scss";
 
-import DomainField from "../../common/ApiUrl/ApiUrl";
-
 export interface HistoryInfoProps {
-	previousPolicy: string
+	policy: Policy
 }
 
 const HistoryInfo = (props: HistoryInfoProps) => {
-	const [userDomain, setUserDomain] = useState("glasswallsolutions.com");
 
-	// const historyInfoModal = props.previousPolicy.map(({ timestamp, policyFlagList }) => {
-	// 	return (
-	// 		<div className={classes.policy} key={new Date().toLocaleDateString()}>
-	// 			<header className={classes.header}>
-	// 				<h2>Policy - {timestamp}</h2>
-	// 			</header>
-	// 			<div className={classes.innerContent}>
-	// 				<section className={classes.flags}>
-	// 					<h3>Content Flags</h3>
-	// 					<div className={classes.rowList}>
-	// 						{/* <section>
-	// 							<h2>Word</h2>
-	// 							<CurrentRow
-	// 								block="word"
-	// 								itemList={policyFlagList.word}
-	// 								disabled
-	// 							/>
-	// 						</section>
-	// 						<section>
-	// 							<h2>Excel</h2>
-	// 							<CurrentRow
-	// 								block="excel"
-	// 								itemList={policyFlagList.excel}
-	// 								disabled
-	// 							/>
-	// 						</section>
-	// 						<section>
-	// 							<h2>Powerpoint</h2>
-	// 							<CurrentRow
-	// 								block="powerpoint"
-	// 								itemList={policyFlagList.powerpoint}
-	// 								disabled
-	// 							/>
-	// 						</section>
-	// 						<section>
-	// 							<h2>PDF</h2>
-	// 							<CurrentRow
-	// 								block="pdf"
-	// 								itemList={policyFlagList.pdf}
-	// 								disabled
-	// 							/>
-	// 						</section> */}
-	// 					</div>
-	// 				</section>
-	// 				<section className={classes.routes}>
-	// 					<h3>Routes for non-compliant files</h3>
-	// 					<p>
-	// 						We will route that do not comply with the current for passage
-	// 						onto separate file systems.Specified file systems and routing
-	// 						mechanism(s) will be determined at the
-	// 					</p>
-	// 					<DomainField
-	// 						name={userDomain}
-	// 						disabled
-	// 						onChangeInputHandler={(event: any) => setUserDomain(event.target.value)}
-	// 					/>
-	// 				</section>
-	// 			</div>
-	// 		</div>
-	// 	);
-	// });
+	const tabs = [
+		{ testId: "buttonCurrentAdaptationPolicyTab", name: "Adaptation Policy" },
+		{ testId: "buttonCurrentNcfsPolicyTab", name: "NCFS Policy" },
+	];
+
+	const [selectedTab, setSelectedTab] = useState("Adaptation Policy");
+
+	const policyTimestampData = (
+		<div className={classes.tableContainer}>
+			<Table className={classes.table} id={props.policy.id}>
+				<TableHead>
+					<TableRow>
+						<TableCell>Timestamp</TableCell>
+						<TableCell>Updated By</TableCell>
+					</TableRow>
+				</TableHead>
+				<TableBody className={classes.tbody}>
+					<TableRow>
+						<TableCell>
+							{new Date(props.policy.created).toLocaleString()}
+						</TableCell>
+						<TableCell>
+							{props.policy.updatedBy ? props.policy.updatedBy : "N/A"}
+						</TableCell>
+					</TableRow>
+				</TableBody>
+			</Table>
+		</div>
+	);
 
 	return (
 		<section className={classes.HistoryInfo}>
-			{/* {historyInfoModal} */}test
+			<header className={classes.header}>
+				<h2>Policy: {props.policy.id}</h2>
+			</header>
+			{policyTimestampData}
+			<TabNav
+				tabs={tabs}
+				selectedTabName={selectedTab}
+				onSetActiveTabHandler={(tab) => setSelectedTab(tab)}>
+
+				<div className={classes.innerContent}>
+					<Tab isSelected={selectedTab === "Adaptation Policy"} externalStyles={classes.Tab}>
+						<h2 className={classes.head}>Content Management Flags</h2>
+						<ContentManagementFlags
+							contentManagementFlags={props.policy.adaptionPolicy.contentManagementFlags}
+							disabled />
+					</Tab>
+
+					<Tab isSelected={selectedTab === "NCFS Policy"} externalStyles={classes.Tab}>
+						<>
+							<h2 className={classes.head}>Config for non-compliant files</h2>
+							<div className={classes.ncfsContainer}>
+								<RoutesForNonCompliantFiles
+									ncfsRoutingUrl={props.policy.adaptionPolicy.ncfsRoute ? props.policy.adaptionPolicy.ncfsRoute.ncfsRoutingUrl : ""}
+									disabled />
+
+								<PolicyForNonCompliantFiles
+									ncfsActions={props.policy.adaptionPolicy.ncfsActions}
+									disabled />
+							</div>
+						</>
+					</Tab>
+				</div>
+			</TabNav>
 		</section>
 	);
 };

@@ -72,7 +72,7 @@ const Toolbar = () => {
 	} = useContext(AuthContext);
 
 	// @ts-ignore
-	const { navExpanded, toggleNavExpanded } = useContext(GlobalStoreContext);
+	const { version, navExpanded, toggleNavExpanded } = useContext(GlobalStoreContext);
 
 	const cls = [classes.Toolbar];
 	if (navExpanded) {
@@ -106,6 +106,9 @@ const Toolbar = () => {
 					closePopup={() => setIsOpen(false)}
 				/>
 				<ExpandButton expanded={navExpanded} clickHandler={toggleNavExpanded} />
+				{version !== "" &&
+					<span>v{version}</span>
+				}
 			</section>
 			{isOpen && (
 				<Popup

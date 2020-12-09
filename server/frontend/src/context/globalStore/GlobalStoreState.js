@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import React, { useEffect, useReducer } from "react";
 
 import { GlobalStoreContext } from "./globalStore-context";
 import { globalStoreReducer } from "./globalStore-reducers";
@@ -9,12 +9,14 @@ import userfiles from "../../data/userfiles.json";
 import fileFilter from "../../data/filters/RequestHistory/fileFilter.json";
 import riskFilter from "../../data/filters/RequestHistory/riskFilter.json";
 import requestHistoryTimeFilter from "../../data/filters/RequestHistory/requestHistoryTimeFilter";
+import { getVersion } from "./api";
 
 const userfileList = userfiles;
 
 export const GlobalStoreState = ({ children }) => {
 	const initialState = {
 		title: "Glasswall ICAP",
+		version: "",
 		userfiles: userfileList,
 		fileFilter: fileFilter,
 		riskFilter: riskFilter,
@@ -28,6 +30,10 @@ export const GlobalStoreState = ({ children }) => {
 		globalStoreReducer,
 		initialState
 	);
+
+	const setVersion = (serverVersion) => {
+		dispatch({ type: actionTypes.SET_VERSION, version: serverVersion });
+	};
 
 	const changePageTitleHandler = (pageTitle) => {
 		dispatch({ type: actionTypes.CHANGE_PAGE_TITLE, title: pageTitle });
@@ -46,18 +52,31 @@ export const GlobalStoreState = ({ children }) => {
 	};
 
 	const updateRequestHistoryTimeFilter = (timeDateFilter) => {
-		dispatch({type: actionTypes.UPDATE_REQUEST_HISTORY_TIME_FILTER, timeDateFilter});
+		dispatch({ type: actionTypes.UPDATE_REQUEST_HISTORY_TIME_FILTER, timeDateFilter });
 	};
 
 	const toggleNavExpanded = () => {
 		dispatch({ type: actionTypes.TOGGLE_NAV_EXPANDED });
 	}
 
+	useEffect(() => {
+		(async () => {
+			try {
+				const version = await getVersion();
+				setVersion(version);
+			}
+			catch (error) {
+				console.error(error);
+			}
+		})();
+	}, []);
+
 	return (
 		<GlobalStoreContext.Provider
 			value={{
 				state: globalStoreState,
 				title: globalStoreState.title,
+				version: globalStoreState.version,
 				userfiles: globalStoreState.userfiles,
 				fileFilter: globalStoreState.fileFilter,
 				riskFilter: globalStoreState.riskFilter,

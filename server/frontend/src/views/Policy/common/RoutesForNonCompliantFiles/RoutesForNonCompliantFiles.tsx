@@ -16,7 +16,7 @@ const RoutesForNonCompliantFiles = (props: RoutesForNonCompliantFilesProps) => {
 	const {
 		currentPolicy
 	} = useContext(PolicyContext);
-	const currentPolicyRoutingUrl = currentPolicy.adaptionPolicy.ncfsRoute.ncfsRoutingUrl;
+	const currentPolicyRoutingUrl = currentPolicy.adaptionPolicy.ncfsRoute ? currentPolicy.adaptionPolicy.ncfsRoute.ncfsRoutingUrl : "";
 
 	const handleChange = (newUrl: string) => {
 		if (props.changeInput) {

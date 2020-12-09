@@ -22,9 +22,9 @@ const ConfirmDraftDeleteModal = (props: ConfirmDraftDeleteModalProps) => {
 
     return (
         <div className={classes.modalContainer}>
-            <div className={classes.header}>
+            <header className={classes.header}>
                 <h2>Delete Draft Policy - Are you sure?</h2>
-            </div>
+            </header>
             <div className={classes.modalInnerContent}>
                 <div className={classes.confirmDeleteModalInfo}>
                     <p>After confirmation, the 'draft' policy will be deleted and a new one

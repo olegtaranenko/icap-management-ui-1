@@ -1,15 +1,18 @@
 import React, { useState, useContext, useEffect } from "react";
+import axios from "axios";
 import {
 	Table,
 	TableHead,
 	TableRow,
 	TableCell,
 	TableBody,
+	TableSortLabel,
 } from "@material-ui/core";
 
 import { GlobalStoreContext } from "../../context/globalStore/globalStore-context";
 
 import { Filter as TFilter } from "../../../../src/common/models/TransactionEventService/GetTransactions/GetTransactionsRequest";
+import TransactionFile from "../../../../src/common/models/TransactionEventService/TransactionFile";
 
 import { getTransactions } from "./api/index";
 import Main from "../../hoc/Main/Main";
@@ -23,10 +26,14 @@ import Backdrop from "../../components/UI/Backdrop/Backdrop";
 import classes from "./RequestHistory.module.scss";
 
 const RequestHistory = () => {
+	const CancelToken = axios.CancelToken;
+	const cancellationTokenSource = CancelToken.source();
+
 	const [openModal, setOpenModal] = useState(false);
 	const [openPopup, setOpenPopup] = useState(false);
 	const [selectedFile, setSelectedFile] = useState(null);
 	const [transactions, setTransactions] = useState(null);
+	const [timestampFilterDirection, setTimestampFilterDirection] = useState<"asc" | "desc">("desc");
 	const [isError, setIsError] = useState(false);
 	const [isLoading, setIsLoading] = useState(true);
 
@@ -52,11 +59,47 @@ const RequestHistory = () => {
 		setOpenModal(false);
 	};
 
+	const sortTransactionsDescending = (files: TransactionFile[]) => {
+		return files.sort((a: TransactionFile, b: TransactionFile) => {
+			return Date.parse(`${b.timestamp}`) - Date.parse(`${a.timestamp}`);
+		});
+	};
+
+	const sortTransactionsAscending = (files: TransactionFile[]) => {
+		return files.sort((a: TransactionFile, b: TransactionFile) => {
+			return Date.parse(`${a.timestamp}`) - Date.parse(`${b.timestamp}`);
+		});
+	};
+
+	const handleTimestampTableFilter = () => {
+		const direction = timestampFilterDirection;
+
+		if (direction === "asc") {
+			setTransactions((prev: any) => {
+				return {
+					count: prev.count,
+					files: sortTransactionsDescending(prev.files)
+				};
+			});
+			setTimestampFilterDirection("desc");
+		}
+
+		if (direction === "desc") {
+			setTransactions((prev: any) => {
+				return {
+					count: prev.count,
+					files: sortTransactionsAscending(prev.files)
+				};
+			});
+			setTimestampFilterDirection("asc");
+		}
+	};
+
 	useEffect(() => {
 		setIsLoading(true);
 		setIsError(false);
 
-		const getRows = async () => {
+		(async () => {
 			const Risks = selectedFilters
 				.filter(f => f.filter === "Risk")
 				.map(riskFilter => riskFilter.riskEnum);
@@ -73,9 +116,22 @@ const RequestHistory = () => {
 			};
 
 			try {
-				const transactionResponse =
-					await getTransactions(requestBody);
-				setTransactions(JSON.parse(transactionResponse));
+				const transactionsResponse = await getTransactions(requestBody, cancellationTokenSource.token);
+				let files: TransactionFile[];
+
+				if (timestampFilterDirection === "desc") {
+					files = sortTransactionsDescending(transactionsResponse.files);
+				}
+
+				if (timestampFilterDirection === "asc") {
+					files = sortTransactionsAscending(transactionsResponse.files);
+				}
+
+				setTransactions({
+					count: transactionsResponse.count,
+					files
+				});
+				// setTransactions(JSON.parse(transactionResponse));
 			}
 			catch (error) {
 				setIsError(true);
@@ -83,11 +139,14 @@ const RequestHistory = () => {
 			finally {
 				setIsLoading(false);
 			}
+		})();
+
+		return () => {
+			cancellationTokenSource.cancel();
 		}
 
-		getRows();
-
-	}, [selectedFilters, requestHistoryTimeFilter, setIsError, setIsLoading]);
+		// eslint-disable-next-line
+	}, [selectedFilters, requestHistoryTimeFilter.timestampRangeStart, requestHistoryTimeFilter.timestampRangeEnd]);
 
 	return (
 		<>
@@ -108,8 +167,13 @@ const RequestHistory = () => {
 									<TableHead>
 										<TableRow>
 											<TableCell>
-												Timestamp
-												</TableCell>
+												<TableSortLabel
+													direction={timestampFilterDirection}
+													active={true}
+													onClick={() => handleTimestampTableFilter()}>
+													Timestamp
+												</TableSortLabel>
+											</TableCell>
 
 											<TableCell>
 												File ID
@@ -168,7 +232,8 @@ const RequestHistory = () => {
 					{!isError && openModal && (
 						<>
 							<Modal onCloseHandler={closeInfoModal} externalStyles={classes.modal}>
-								<FileInfo fileData={selectedFile} />
+								<FileInfo
+									fileData={selectedFile} />
 							</Modal>
 							<Backdrop onClickOutside={closeInfoModal} />
 						</>

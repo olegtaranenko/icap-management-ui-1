@@ -7,6 +7,10 @@ const _returnRoute = (route: string) => {
 }
 
 const Routes = {
+    root: {
+        versionRoute: _returnRoute("/version")
+    },
+
     requestHistoryRoutes: {
         getTransactionsRoute: _returnRoute("/request-history/transactions"),
         getTransactionDetailsRoute: _returnRoute("/request-history/transactionDetails")

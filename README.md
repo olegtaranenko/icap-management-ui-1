@@ -1,6 +1,8 @@
 # icap-management-ui
 ![CI](https://github.com/filetrust/icap-management-ui/workflows/CI/badge.svg)
-![CD Build](https://github.com/filetrust/icap-management-ui/workflows/CD%20Build/badge.svg)
+![CD Dev](https://github.com/filetrust/icap-management-ui/workflows/CD%20Dev/badge.svg)
+![CD QA](https://github.com/filetrust/icap-management-ui/workflows/CD%20QA/badge.svg)
+![CD Prod](https://github.com/filetrust/icap-management-ui/workflows/CD%20Prod/badge.svg)
   
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=filetrust_icap-management-ui&metric=bugs)](https://sonarcloud.io/dashboard?id=filetrust_icap-management-ui)
 [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=filetrust_icap-management-ui&metric=code_smells)](https://sonarcloud.io/dashboard?id=filetrust_icap-management-ui)
@@ -55,13 +57,14 @@ This command builds the Docker image from the Dockerfile, [docker build](https:/
   
 #### Run the Docker Container
 ```
-docker run -p 4000:8080 -d glasswallsolutions/icap-management-ui:version
+docker run -p 4000:8080 -d glasswallsolutions/icap-management-ui:version -e TRANSACTION_EVENT_API_URL="<url>" POLICY_MANAGEMENT_API_URL="<url>"
 ```
   
 <b>Note:</b> This will run the server in production-mode.  
 This command runs the Docker container using the Docker image that was just built, [docker run](https://docs.docker.com/engine/reference/run/).  
 The <b>-p</b> flag maps the exposed port 8080 to port 4000.  
-  The <b>-d</b> flag runs the container in detached mode, which runs in the background.
+The <b>-d</b> flag runs the container in detached mode, which runs in the background.  
+The <b>-e</b> flag will pass any string values as environment variables to the image.
 
 <hr/>
 

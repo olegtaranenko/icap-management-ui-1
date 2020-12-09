@@ -1,7 +1,7 @@
 import moment from "moment";
 
 const now = moment();
-const then = moment().subtract(1, "day");
+const then = moment().subtract(1, "hour");
 
 export interface RequestHistoryTimeFilter {
     timestampRangeStart: moment.Moment,
