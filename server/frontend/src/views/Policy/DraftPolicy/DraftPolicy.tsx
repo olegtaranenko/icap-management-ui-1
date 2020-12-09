@@ -13,6 +13,7 @@ import Modal from "../../../components/UI/Modal/Modal";
 import Backdrop from "../../../components/UI/Backdrop/Backdrop";
 import ConfirmDraftPublishModal from "./ConfirmDraftPublishModal/ConfirmDraftPublishModal";
 import ConfirmDraftDeleteModal from "./ConfirmDraftDeleteModal/ConfirmDraftDeleteModal";
+import UnsavedChangesPrompt from "../common/UnsavedChangesPrompt/UnsavedChangesPrompt";
 
 import classes from "./DraftPolicy.module.scss";
 
@@ -137,6 +138,10 @@ const DraftPolicy = () => {
 
             {status === "LOADED" &&
                 <>
+                    <UnsavedChangesPrompt
+                        when={isPolicyChanged}
+                        message="You have unsaved changes, are you sure you want to leave the page?" />
+
                     <TabNav
                         tabs={tabs}
                         selectedTabName={selectedTab}
