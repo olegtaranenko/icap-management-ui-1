@@ -26,31 +26,33 @@ const Policy = () => {
 	];
 
 	return (
-		<PolicyState>
-			<MainTitle />
+		<div className={classes.container}>
+			<PolicyState>
+				<MainTitle />
 
-			<Main>
-				<article className={classes.Policy}>
-					<TabNav
-						tabs={tabs}
-						selectedTabName={selectedTab}
-						onSetActiveTabHandler={(tab) => setSelectedTab(tab)}>
+				<Main>
+					<article className={classes.Policy}>
+						<TabNav
+							tabs={tabs}
+							selectedTabName={selectedTab}
+							onSetActiveTabHandler={(tab) => setSelectedTab(tab)}>
 
-						<Tab isSelected={selectedTab === "Draft"}>
-							<DraftPolicy />
-						</Tab>
+							<Tab isSelected={selectedTab === "Draft"}>
+								<DraftPolicy />
+							</Tab>
 
-						<Tab isSelected={selectedTab === "Current"}>
-							<CurrentPolicy />
-						</Tab>
+							<Tab isSelected={selectedTab === "Current"}>
+								<CurrentPolicy />
+							</Tab>
 
-						<Tab isSelected={selectedTab === "History"}>
-							<History />
-						</Tab>
-					</TabNav>
-				</article>
-			</Main>
-		</PolicyState>
+							<Tab isSelected={selectedTab === "History"}>
+								<History />
+							</Tab>
+						</TabNav>
+					</article>
+				</Main>
+			</PolicyState>
+		</div>
 	);
 };
 

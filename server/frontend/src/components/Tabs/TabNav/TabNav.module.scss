@@ -64,16 +64,8 @@
 
 		width: 100%;
 		//height: calc(100% - 8rem);
-		height: calc(100% - 3rem);
+		height: calc(100% - 3rem);	
 	}
-}
-
-.tabEnter.tabEnterActive {
-	background-color: red;
-}
-
-.tabExit.tabExitActive {
-	background-color: rgb(0, 255, 85);
 }
 
 @keyframes change {

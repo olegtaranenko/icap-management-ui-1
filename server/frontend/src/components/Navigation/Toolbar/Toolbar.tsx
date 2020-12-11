@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import { CSSTransition } from "react-transition-group";
 
 import classes from "./Toolbar.module.scss";
 
@@ -29,7 +30,8 @@ const navLinks = [
 		icon: dashIcon,
 		id: "id-1",
 		exact: true,
-		testId: "navLinkAnalytics"
+		testId: "navLinkAnalytics",
+		disabled: true
 	},
 	{
 		link: "/request-history",
@@ -37,30 +39,39 @@ const navLinks = [
 		icon: transactionIcon,
 		id: "id-2",
 		exact: true,
-		testId: "navLinkRequestHistory"
+		testId: "navLinkRequestHistory",
+		disabled: false
 	},
 	{
 		link: "/file-drop",
 		name: "File drop",
 		icon: releaseIcon,
 		id: "id-3",
-		testId: "navLinkFileDrop"
+		testId: "navLinkFileDrop",
+		disabled: true
 	},
 	{
 		link: "/policy",
 		name: "Policy",
 		icon: policy,
 		id: "id-4",
-		testId: "navLinkPolicy"
+		testId: "navLinkPolicy",
+		disabled: false
 	},
 	{
 		link: "/users",
 		name: "Users",
 		icon: usersIcon,
 		id: "id-6",
-		testId: "navLinkUsers"
+		testId: "navLinkUsers",
+		disabled: true
 	},
 ];
+
+export interface ToolbarProps {
+	expanded: boolean,
+	navExpandedHandler: () => void
+}
 
 const Toolbar = () => {
 	const [isOpen, setIsOpen] = useState(false);
@@ -98,7 +109,7 @@ const Toolbar = () => {
 		<>
 			<section className={cls.join(" ")}>
 				<GlasswallLogo className={classes.logo} />
-				<NavigationItems expanded={navExpanded} items={navLinks} />
+				<NavigationItems expanded={navExpanded} items={navLinks} externalStyles={classes.linkList}/>
 				<UserLink
 					username={"usertest@glasswallsolutions.com"}
 					expanded={navExpanded}
@@ -110,15 +121,25 @@ const Toolbar = () => {
 					<span>v{version}</span>
 				}
 			</section>
-			{isOpen && (
+
+			<CSSTransition
+				in={isOpen}
+				timeout={300}
+				mountOnEnter
+				unmountOnExit
+				classNames={{
+					enterActive: classes.openPopupEnterActive,
+					exitActive: classes.closePopupExitActive,
+				}}
+			>
 				<Popup
 					popupButtons={accountLinks}
 					externalStyles={classes.popup}
 					openPopupHover={() => setIsOpen(true)}
-					closePopupHover={() => setIsOpen(false)}
-				/>
-			)}
-			{isChangePass && <ChangePassword closeModal={closeChangePass} />}
+					closePopupHover={() => setIsOpen(false)} />
+			</CSSTransition>
+
+			<ChangePassword closeModal={closeChangePass} isOpenModal={isChangePass} />
 		</>
 	);
 };

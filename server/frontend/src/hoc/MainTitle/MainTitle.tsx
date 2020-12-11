@@ -8,6 +8,7 @@ const MainTitle = () => {
 
     return (
         <h1
+            id="heading"
             className={`${styles.pageHeading} ${navExpanded ? styles.expanded : ""}`}>
             {title}
         </h1>

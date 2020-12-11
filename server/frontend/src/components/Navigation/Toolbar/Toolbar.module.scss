@@ -19,6 +19,12 @@
 		width: 100%;
 		height: 8rem;
 		margin: 3rem 0;
+		animation: logo 500ms 300ms ease forwards;
+	}
+
+	.linkList {
+		opacity: 0;
+		animation: links 300ms 300ms ease-out forwards;
 	}
 
 	span {
@@ -62,6 +68,51 @@
 		padding-left: 5rem;
 	}
 }
+
+.openPopupEnterActive {
+	animation: popup 300ms ease-out forwards;
+}
+
+.closePopupExitActive {
+	animation: popup 300ms ease-out alternate-reverse forwards;
+}
+
+@keyframes logo {
+	from {
+		opacity: 0;
+		transform: translateY(-3rem);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes links {
+	from {
+		opacity: 0;
+		transform: translateY(3rem);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes popup {
+	from {
+		bottom: 11rem;
+		opacity: 0;
+	}
+
+	to {
+		bottom: 12rem;
+		opacity: 1;
+	}
+}
+
 
 @media(min-width: 992px) and (max-width: 1800px) {
 	.Toolbar {

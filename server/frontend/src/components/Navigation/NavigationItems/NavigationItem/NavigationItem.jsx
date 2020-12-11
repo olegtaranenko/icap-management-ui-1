@@ -1,23 +1,34 @@
 import React from "react";
 
 import classes from "./NavigationItem.module.scss";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const NavigationItem = ({
 	testId,
 	path,
 	icon,
 	exact,
+	disabled,
 	clicked,
-	notActive,
 	children,
 }) => {
+
+	const clickHandler = (event) => {
+		if (disabled) {
+			event.preventDefault();
+		}
+
+		if (!disabled) {
+			clicked();
+		}
+	}
+
 	let link = (
 		<NavLink
 			to={path}
 			activeClassName={classes.active}
 			exact={exact}
-			onClick={clicked}
+			onClick={clickHandler}
 			style={{
 				backgroundImage: `url(${icon})`,
 			}}
@@ -26,15 +37,7 @@ const NavigationItem = ({
 		</NavLink>
 	);
 
-	if (notActive) {
-		link = (
-			<Link data-test-id={testId} to={path} className={classes.notActive}>
-				{children}
-			</Link>
-		);
-	}
-
-	return <li className={classes.NavigationItem}>{link}</li>;
+	return <li data-test-id={testId} className={classes.NavigationItem}>{link}</li>;
 };
 
 export default NavigationItem;

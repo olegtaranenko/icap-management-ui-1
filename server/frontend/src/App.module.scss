@@ -4,14 +4,154 @@ body {
 }
 
 .app {
-	position: relative;
+	position: absolute;
 	height: 100%;
+	width: 100%;
 	min-height: 100vh;
 	overflow: hidden;
+
+	.mainContainer {
+		position: absolute;
+		height: 100%;
+		width: 100%;
+		transition: all 0.3s ease-in-out;
+		opacity: 0;
+		animation: fadein 500ms 300ms linear forwards;
+	}
+
+	div.mainContainer>div:first-child {
+		height: 100%;
+	}
 }
 
-.mainContainer {
-	position: relative;
-	height: 100%;
-	transition: all 0.3s ease-in-out;
+
+.fadeEnterActive {
+	h1[id="heading"] {
+		animation: headEn 800ms linear;
+	}
+
+	section[id="filters"] {
+		animation: mainEn 800ms linear;
+	}
+
+	div[id="wrapMain"] {
+		animation: mainEn 800ms linear;
+	}
+}
+
+.fadeExitActive {
+	h1[id="heading"] {
+		animation: headEn alternate-reverse 800ms linear forwards;
+	}
+
+	section[id="filters"] {
+		animation: mainEx 800ms linear forwards;
+	}
+
+	div[id="wrapMain"] {
+		animation: mainEx 800ms linear forwards;
+	}
+}
+
+.authEnterActive {
+	animation: none !important;
+
+	section {
+		animation: auth 500ms linear alternate-reverse !important;
+	}
+
+	div {
+		animation: logo 500ms linear alternate-reverse !important;
+	}
+}
+
+.authExitActive {
+	animation: fadein 250ms alternate-reverse !important;
+
+	section {
+		animation: auth 500ms linear !important;
+	}
+
+	div {
+		animation: logo 500ms linear !important;
+	}
+}
+
+@keyframes headEn {
+	0% {
+		opacity: 0;
+		transform: translateY(-8rem);
+	}
+
+	50% {
+		opacity: 0;
+	}
+
+	100% {
+		opacity: 1;
+	}
+}
+
+@keyframes mainEn {
+	0% {
+		opacity: 0;
+		transform: translateY(4rem);
+	}
+
+	50% {
+		opacity: 0;
+	}
+
+	100% {
+		opacity: 1;
+	}
+}
+
+@keyframes mainEx {
+	0% {
+		opacity: 1;
+		transform: translateY(-4rem);
+	}
+
+	50% {
+		opacity: 0;
+	}
+
+	100% {
+		opacity: 0;
+	}
+}
+
+@keyframes auth {
+	from {
+		opacity: 1;
+		transform: translateY(50%);
+	}
+
+	to {
+		transform: translateY(100%);
+		opacity: 1;
+	}
+}
+
+@keyframes logo {
+	from {
+		opacity: 1;
+		transform: translateY(15%);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateY(80%);
+	}
+}
+
+@keyframes fadein {
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
+	}
 }

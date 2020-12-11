@@ -5,10 +5,10 @@ import classes from "./NavigationItems.module.scss";
 import NavigationItem from "./NavigationItem/NavigationItem";
 import { GlobalStoreContext } from "../../../context/globalStore/globalStore-context";
 
-const NavigationItems = ({ expanded, items }) => {
+const NavigationItems = ({ expanded, items, externalStyles }) => {
 	const { changePageTitleHandler } = useContext(GlobalStoreContext);
 
-	const cls = [classes.NavigationItems];
+	const cls = [classes.NavigationItems, externalStyles];
 	if (expanded) {
 		cls.push(classes.menuExpanded);
 	}
@@ -21,6 +21,7 @@ const NavigationItems = ({ expanded, items }) => {
 				icon={it.icon}
 				exact={it.exact}
 				notActive={it.notActive}
+				disabled={it.disabled}
 				clicked={() => {
 					changePageTitleHandler(it.name);
 				}}

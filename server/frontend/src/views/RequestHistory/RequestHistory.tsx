@@ -149,86 +149,84 @@ const RequestHistory = () => {
 	}, [selectedFilters, requestHistoryTimeFilter.timestampRangeStart, requestHistoryTimeFilter.timestampRangeEnd]);
 
 	return (
-		<>
+		<div className={classes.container}>
 			<MainTitle />
 
 			<Filters popupIsOpen={openPopup} changeVisibilityPopup={setOpenPopup} disabled={isLoading} />
 
 			<Main externalStyles={classes.main}>
 				<article className={classes.container}>
-					<div className={clsWrapTable.join(" ")}>
-						{isLoading &&
-							<div>Loading...</div>
-						}
+					{isLoading &&
+						<div>Loading...</div>
+					}
 
-						{!isLoading &&
-							<>
-								<Table className={classes.table}>
-									<TableHead>
-										<TableRow>
-											<TableCell>
-												<TableSortLabel
-													direction={timestampFilterDirection}
-													active={true}
-													onClick={() => handleTimestampTableFilter()}>
-													Timestamp
+					{!isLoading &&
+						<>
+							<Table className={classes.table}>
+								<TableHead>
+									<TableRow>
+										<TableCell>
+											<TableSortLabel
+												direction={timestampFilterDirection}
+												active={true}
+												onClick={() => handleTimestampTableFilter()}>
+												Timestamp
 												</TableSortLabel>
+										</TableCell>
+
+										<TableCell>
+											File ID
+												</TableCell>
+
+										<TableCell>
+											File Type
+												</TableCell>
+
+										<TableCell>
+											Risk (Transaction)
 											</TableCell>
+									</TableRow>
+								</TableHead>
+								<TableBody className={classes.tbody}>
+									{!isError && transactions &&
+										<>
+											{transactions.count > 0 &&
+												<>
+													{transactions.files.map((f: any) => {
+														return (
+															<FileRow
+																key={f.fileId.value}
+																id={f.fileId.value}
+																timestamp={f.timestamp}
+																fileId={f.fileId}
+																type={f.fileType}
+																risk={f.risk}
+																onRowClickHandler={() => openInfoModal(f.fileId.value)} />
+														);
+													})}
+												</>
+											}
 
-											<TableCell>
-												File ID
-												</TableCell>
+											{transactions.count === 0 &&
+												<TableRow className={classes.emptyTableRow}>
+													<TableCell colSpan={4} className={classes.emptyTableCell}>
+														<h2>No Transaction Data Found</h2>
+													</TableCell>
+												</TableRow>
+											}
+										</>}
 
-											<TableCell>
-												File Type
-												</TableCell>
-
-											<TableCell>
-												Risk (Transaction)
+									{isError &&
+										<TableRow className={classes.emptyTableRow}>
+											<TableCell colSpan={4} className={classes.emptyTableCell}>
+												<h2>Error Getting Transaction Data</h2>
 											</TableCell>
 										</TableRow>
-									</TableHead>
-									<TableBody className={classes.tbody}>
-										{!isError && transactions &&
-											<>
-												{transactions.count > 0 &&
-													<>
-														{transactions.files.map((f: any) => {
-															return (
-																<FileRow
-																	key={f.fileId.value}
-																	id={f.fileId.value}
-																	timestamp={f.timestamp}
-																	fileId={f.fileId}
-																	type={f.fileType}
-																	risk={f.risk}
-																	onRowClickHandler={() => openInfoModal(f.fileId.value)} />
-															);
-														})}
-													</>
-												}
-
-												{transactions.count === 0 &&
-													<TableRow className={classes.emptyTableRow}>
-														<TableCell colSpan={4} className={classes.emptyTableCell}>
-															<h2>No Transaction Data Found</h2>
-														</TableCell>
-													</TableRow>
-												}
-											</>}
-
-										{isError &&
-											<TableRow className={classes.emptyTableRow}>
-												<TableCell colSpan={4} className={classes.emptyTableCell}>
-													<h2>Error Getting Transaction Data</h2>
-												</TableCell>
-											</TableRow>
-										}
-									</TableBody>
-								</Table>
-							</>
-						}
-					</div>
+									}
+								</TableBody>
+							</Table>
+						</>
+					}
 					{!isError && openModal && (
 						<>
 							<Modal onCloseHandler={closeInfoModal} externalStyles={classes.modal}>
@@ -240,7 +238,7 @@ const RequestHistory = () => {
 					)}
 				</article>
 			</Main>
-		</>
+		</div>
 	);
 };
 

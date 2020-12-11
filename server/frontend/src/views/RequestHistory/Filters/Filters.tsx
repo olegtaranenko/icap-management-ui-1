@@ -157,7 +157,7 @@ const Filters = (props: FiltersProps) => {
 	}, [dateRangeFilter]);
 
 	return (
-		<section className={`${classes.Filters} ${navExpanded ? classes.expanded : ""}`}>
+		<section id="filters" className={`${classes.Filters} ${navExpanded ? classes.expanded : ""}`}>
 			<div className={classes.wrap}>
 				<div className={classes.header}>
 					<h2 className={classes.head}>Filters</h2>

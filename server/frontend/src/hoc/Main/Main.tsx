@@ -8,9 +8,10 @@ export interface MainProps { children?: React.ReactNode, externalStyles?: string
 const Main = (props: MainProps) => {
 	const { navExpanded } = useContext(GlobalStoreContext);
 
-return (
+	return (
 		<>
 			<div
+				id="wrapMain"
 				className={`${styles.main} ${navExpanded ? styles.expanded : ""} ${props.externalStyles}`}>
 				<div className={styles.content}>{props.children}</div>
 			</div>

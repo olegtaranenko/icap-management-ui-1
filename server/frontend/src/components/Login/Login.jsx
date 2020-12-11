@@ -25,44 +25,42 @@ const Login = () => {
 	return (
 		<section className={classes.login}>
 			<GlasswallLogo className={classes.logo} />
-			<div className={classes.loginContainer}>
-				<form onSubmit={submitHandler}>
-					<Input
-						data-test-id="inputEmail"
-						type="email"
-						name="email"
-						placeholder="Email address"
-						style={{
-							backgroundImage: `url(${iconUser})`,
-						}}
-						value={emailValue}
-						onChange={(evt) => {
-							setEmailValue(evt.target.value);
-						}}
-					/>
-					<Input
-						data-test-id="inputPassword"
-						type="password"
-						name="password"
-						placeholder="Password"
-						style={{
-							backgroundImage: `url(${iconPass})`,
-						}}
-						value={passValue}
-						onChange={(evt) => {
-							setPassValue(evt.target.value);
-						}}
-					/>
-					<p className={classes.linkTerms}>
-						By logging in your agree to the &nbsp;
+			<form onSubmit={submitHandler}>
+				<Input
+					data-test-id="inputEmail"
+					type="email"
+					name="email"
+					placeholder="Email address"
+					style={{
+						backgroundImage: `url(${iconUser})`,
+					}}
+					value={emailValue}
+					onChange={(evt) => {
+						setEmailValue(evt.target.value);
+					}}
+				/>
+				<Input
+					data-test-id="inputPassword"
+					type="password"
+					name="password"
+					placeholder="Password"
+					style={{
+						backgroundImage: `url(${iconPass})`,
+					}}
+					value={passValue}
+					onChange={(evt) => {
+						setPassValue(evt.target.value);
+					}}
+				/>
+				<p className={classes.linkTerms}>
+					By logging in your agree to the &nbsp;
 						<a href="/">terms of use</a>
-					</p>
-					<Button data-test-id="buttonLogin" buttonType={"submit"}>Log In</Button>
-				</form>
-				<p className={classes.rePassLink}>
-					<Link data-test-id="linkForgottenPassword" to={"/pass-reminder"}>Forgotten your password?</Link>
 				</p>
-			</div>
+				<Button data-test-id="buttonLogin" buttonType={"submit"}>Log In</Button>
+			</form>
+			<p className={classes.rePassLink}>
+				<Link data-test-id="linkForgottenPassword" to={"/pass-reminder"}>Forgotten your password?</Link>
+			</p>
 		</section>
 	);
 };
