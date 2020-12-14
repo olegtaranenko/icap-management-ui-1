@@ -14,6 +14,7 @@ import HistoryRow from "./HistoryRow/HistoryRow";
 import Modal from "../../../components/UI/Modal/Modal";
 import HistoryInfo from "./HistoryInfo/HistoryInfo";
 import ConfirmPublishModal from "./ConfirmPublishModal/ConfirmPublishModal";
+import UnsavedChangesPrompt from "../common/UnsavedChangesPrompt/UnsavedChangesPrompt";
 
 import { PolicyContext } from "../../../context/policy/PolicyContext";
 
@@ -25,6 +26,7 @@ const History = () => {
 	const cancellationTokenSource = CancelToken.source();
 
 	const {
+		isPolicyChanged,
 		status,
 		policyHistory,
 		loadPolicyHistory
@@ -71,6 +73,10 @@ const History = () => {
 
 			{status === "LOADED" && policyHistory !== null &&
 				<>
+					<UnsavedChangesPrompt
+						when={isPolicyChanged}
+						message="You have unsaved changes in the draft tab, are you sure you want to leave the page?" />
+
 					<div className={classes.History}>
 						<div className={classes.container}>
 							<Table className={classes.table}>
