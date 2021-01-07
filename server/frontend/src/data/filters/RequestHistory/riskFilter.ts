@@ -1,4 +1,6 @@
-[
+import { Risk } from "../../../../../src/common/models/enums/Risk";
+
+const riskFilter = [
   {
     "id": "risk",
     "filterName": "Risk",
@@ -10,7 +12,7 @@
         "titleColor": "#e6cd70",
         "isChecked": false,
         "type": "checkbox",
-        "riskEnum": "BlockedByPolicy"
+        "riskEnum": Risk["Blocked by Policy"]
       },
       {
         "id": "risk-allowed-by-policy",
@@ -19,7 +21,7 @@
         "titleColor": "#86c2cc",
         "isChecked": false,
         "type": "checkbox",
-        "riskEnum": "AllowedByPolicy"
+        "riskEnum": Risk["Allowed by Policy"]
       },
       {
         "id": "risk-blocked-by-ncfs",
@@ -28,7 +30,7 @@
         "titleColor": "#d47779",
         "isChecked": false,
         "type": "checkbox",
-        "riskEnum": "BlockedByNCFS"
+        "riskEnum": Risk["Blocked by NCFS"]
       },
       {
         "id": "risk-allowed-by-ncfs",
@@ -37,7 +39,7 @@
         "titleColor": "#84b5d6",
         "isChecked": false,
         "type": "checkbox",
-        "riskEnum": "AllowedByNCFS"
+        "riskEnum": Risk["Allowed by NCFS"]
       },
       {
         "id": "risk-safe",
@@ -46,8 +48,10 @@
         "titleColor": "#8fcba9",
         "isChecked": false,
         "type": "checkbox",
-        "riskEnum": "Safe"
+        "riskEnum": Risk.Safe
       }
     ]
   }
 ]
+
+export default riskFilter;
