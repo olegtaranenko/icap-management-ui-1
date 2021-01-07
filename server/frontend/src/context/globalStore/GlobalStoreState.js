@@ -7,7 +7,7 @@ import * as actionTypes from "../actionTypes";
 
 import userfiles from "../../data/userfiles.json";
 import fileFilter from "../../data/filters/RequestHistory/fileFilter.json";
-import riskFilter from "../../data/filters/RequestHistory/riskFilter";
+import riskFilter from "../../data/filters/RequestHistory/riskFilter.json";
 import requestHistoryTimeFilter from "../../data/filters/RequestHistory/requestHistoryTimeFilter";
 import { getVersion } from "./api";
 
