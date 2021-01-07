@@ -7,8 +7,7 @@ const riskFilter = [
     checkboxList: [
       {
         id: "risk-blocked-by-policy",
-        name: "docType",
-        format: "Blocked By Policy",
+        title: "Blocked By Policy",
         titleColor: "#e6cd70",
         isChecked: false,
         type: "checkbox",
@@ -16,8 +15,7 @@ const riskFilter = [
       },
       {
         id: "risk-allowed-by-policy",
-        name: "docType",
-        format: "Allowed By Policy",
+        title: "Allowed By Policy",
         titleColor: "#86c2cc",
         isChecked: false,
         type: "checkbox",
@@ -25,8 +23,7 @@ const riskFilter = [
       },
       {
         id: "risk-blocked-by-ncfs",
-        name: "docType",
-        format: "Blocked By NCFS",
+        title: "Blocked By NCFS",
         titleColor: "#d47779",
         isChecked: false,
         type: "checkbox",
@@ -34,8 +31,7 @@ const riskFilter = [
       },
       {
         id: "risk-allowed-by-ncfs",
-        name: "docType",
-        format: "Allowed By NCFS",
+        title: "Allowed By NCFS",
         titleColor: "#84b5d6",
         isChecked: false,
         type: "checkbox",
@@ -43,8 +39,7 @@ const riskFilter = [
       },
       {
         id: "risk-safe",
-        name: "docType",
-        format: "Safe",
+        title: "Safe",
         titleColor: "#8fcba9",
         isChecked: false,
         type: "checkbox",
