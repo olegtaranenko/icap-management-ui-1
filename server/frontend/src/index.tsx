@@ -11,6 +11,10 @@ import { GlobalStoreState } from "./context/globalStore/GlobalStoreState";
 
 import * as serviceWorker from "./serviceWorker";
 
+// TODO: Remove fake-backend when integrating with the identity-management-api
+import { configureFakeBackend } from "./fake-backend";
+configureFakeBackend();
+
 ReactDOM.render(
 	// <React.StrictMode>
 	<GlobalStoreState>
