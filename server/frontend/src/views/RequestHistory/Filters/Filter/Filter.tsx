@@ -9,31 +9,31 @@ import Checkbox from "../../../../components/UI/Checkbox/Checkbox";
 import classes from "./Filter.module.scss";
 
 export interface FilterProps {
-	filter: string,
+	filterName: string,
 	checkboxList: TransactionLogFilter[],
 	externalStyles: string
 }
 
 const Filter = (props: FilterProps) => {
 	// @ts-ignore
-	const { addFilterCheckbox } = useContext(GlobalStoreContext);
+	const { addFilterFromCheckbox } = useContext(GlobalStoreContext);
 
 	const handleChange = (selectedCheckbox: TransactionLogFilter) => {
-		addFilterCheckbox(selectedCheckbox);
+		addFilterFromCheckbox(selectedCheckbox);
 	};
 
 	const checkboxes = props.checkboxList.map((checkbox) => {
 			return (
 				<Checkbox
 					key={checkbox.id}
-					label={checkbox.format}
+					label={checkbox.title}
 					isChecked={checkbox.isChecked}
-					filter={props.filter}
+					filter={props.filterName}
 					backgroundColor={checkbox.titleColor}
 					onHandleChange={(evt: React.ChangeEvent<HTMLInputElement>) =>
 						handleChange({
-							value: checkbox.format,
-							filter: props.filter,
+							title: checkbox.title,
+							filterName: props.filterName,
 							id: checkbox.id,
 							isChecked: evt.target.checked,
 							titleColor: checkbox.titleColor,
@@ -51,7 +51,7 @@ const Filter = (props: FilterProps) => {
 			component="fieldset"
 			className={[classes.Filter, props.externalStyles].join(" ")}>
 			<FormLabel component="legend">
-				{props.filter === "Risk" ? "" : props.filter}
+				{props.filterName === "Risk" ? "" : props.filterName}
 			</FormLabel>
 			<FormGroup
 				className={classes.formGroup}

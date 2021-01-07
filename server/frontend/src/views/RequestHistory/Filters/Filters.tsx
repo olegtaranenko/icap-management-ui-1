@@ -103,15 +103,14 @@ const Filters = (props: FiltersProps) => {
 			break;
 	}
 
-	const selectedFiltersArr = selectedFilters.map(
-		({ id, value, filter, titleColor }) => {
+	const selectedFiltersArr = selectedFilters.map((filter) => {
 			return (
 				<SelectedFilter
-					key={id}
-					id={id}
-					filter={filter}
-					value={value}
-					titleColor={titleColor}
+					key={filter.id}
+					id={filter.id}
+					filterName={filter.filterName}
+					title={filter.title}
+					titleColor={filter.titleColor}
 					remove={removeFilter}
 				/>
 			);

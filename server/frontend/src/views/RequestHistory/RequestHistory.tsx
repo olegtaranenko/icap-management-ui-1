@@ -101,11 +101,11 @@ const RequestHistory = () => {
 
 		(async () => {
 			const Risks = selectedFilters
-				.filter(f => f.filter === "Risk")
+				.filter(f => f.filterName === "Risk")
 				.map(riskFilter => riskFilter.riskEnum);
 
 			const FileTypes = selectedFilters
-				.filter(f => f.filter !== "Risk")
+				.filter(f => f.filterName !== "Risk")
 				.map(fileTypeFilter => fileTypeFilter.fileTypeEnum);
 
 			const requestBody: TFilter = {
@@ -142,7 +142,9 @@ const RequestHistory = () => {
 		})();
 
 		return () => {
-			cancellationTokenSource.cancel();
+			if (isLoading) {
+				cancellationTokenSource.cancel();
+			}
 		}
 
 		// eslint-disable-next-line
