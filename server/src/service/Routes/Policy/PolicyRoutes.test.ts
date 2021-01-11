@@ -1,6 +1,7 @@
 import express from "express";
 import bodyParser from "body-parser";
 import winston from "winston";
+import axios from "axios";
 import request from "supertest";
 import { SinonStub, stub } from "sinon";
 import { Guid } from "guid-typescript";
@@ -226,7 +227,7 @@ describe("PolicyRoutes", () => {
                     .expect(200, () => {
                         // Assert
                         expect(spy).toHaveBeenCalled();
-                        expect(spy).toBeCalledWith(expectedRequestUrl, policyExample);
+                        expect(spy).toBeCalledWith(expectedRequestUrl, policyExample, axios.CancelToken.source().token);
                         done();
                     })
             });
@@ -319,7 +320,7 @@ describe("PolicyRoutes", () => {
                     .expect(200, () => {
                         // Assert
                         expect(spy).toHaveBeenCalled();
-                        expect(spy).toBeCalledWith(expectedRequestUrl, policyId);
+                        expect(spy).toBeCalledWith(expectedRequestUrl, policyId, axios.CancelToken.source().token);
                         done();
                     })
             });

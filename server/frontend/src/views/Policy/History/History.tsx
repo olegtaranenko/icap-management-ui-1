@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
+import axios from "axios";
 import { CSSTransition } from "react-transition-group";
 import {
 	Table,
@@ -13,14 +14,20 @@ import HistoryRow from "./HistoryRow/HistoryRow";
 import Modal from "../../../components/UI/Modal/Modal";
 import HistoryInfo from "./HistoryInfo/HistoryInfo";
 import ConfirmPublishModal from "./ConfirmPublishModal/ConfirmPublishModal";
+import UnsavedChangesPrompt from "../common/UnsavedChangesPrompt/UnsavedChangesPrompt";
 
 import { PolicyContext } from "../../../context/policy/PolicyContext";
 
 import classes from "./History.module.scss";
 import { PolicyType } from "../../../../../src/common/models/enums/PolicyType";
+import EmptyHistoryRow from "./HistoryRow/EmptyHistoryRow";
 
 const History = () => {
+	const CancelToken = axios.CancelToken;
+	const cancellationTokenSource = CancelToken.source();
+
 	const {
+		isPolicyChanged,
 		status,
 		policyHistory,
 		loadPolicyHistory
@@ -43,7 +50,11 @@ const History = () => {
 	};
 
 	useEffect(() => {
-		loadPolicyHistory();
+		loadPolicyHistory(cancellationTokenSource.token);
+
+		return () => {
+			cancellationTokenSource.cancel();
+		}
 		// eslint-disable-next-line
 	}, []);
 
@@ -61,6 +72,10 @@ const History = () => {
 
 			{status === "LOADED" && policyHistory !== null &&
 				<>
+					<UnsavedChangesPrompt
+						when={isPolicyChanged}
+						message="You have unsaved changes in the draft tab, are you sure you want to leave the page?" />
+
 					<div className={classes.History}>
 						<div className={classes.container}>
 							<Table className={classes.table}>
@@ -71,19 +86,27 @@ const History = () => {
 									</TableRow>
 								</TableHead>
 								<TableBody className={classes.tbody}>
-									{policyHistory.policies.map((policy: Policy) => {
-										return (
-											<HistoryRow
-												key={policy.id}
-												id={policy.id}
-												isCurrent={policy.policyType === PolicyType.Current}
-												openPreviousPolicyModalHandler={() => openPolicyModal(policy.id)}
-												activatePreviousPolicyHandler={() => openConfirmPublishModal(policy.id)}
-												timestamp={new Date(policy.created).toLocaleString()}
-												updatedBy={policy.updatedBy ? policy.updatedBy : "N/A"}
-											/>
-										)
-									})}
+									{policyHistory.policiesCount > 0 &&
+										<>
+											{policyHistory.policies.map((policy: Policy) => {
+												return (
+													<HistoryRow
+														key={policy.id}
+														id={policy.id}
+														isCurrent={policy.policyType === PolicyType.Current}
+														openPreviousPolicyModalHandler={() => openPolicyModal(policy.id)}
+														activatePreviousPolicyHandler={() => openConfirmPublishModal(policy.id)}
+														timestamp={new Date(policy.created).toLocaleString()}
+														updatedBy={policy.updatedBy ? policy.updatedBy : "N/A"}
+													/>
+												)
+											})}
+										</>
+									}
+
+									{!policyHistory.policies &&
+										<EmptyHistoryRow />
+									}
 								</TableBody>
 							</Table>
 						</div>

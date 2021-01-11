@@ -1,6 +1,7 @@
 import React, { useState, useContext, FormEvent, useEffect } from "react";
 
 import { GlobalStoreContext } from "../../../context/globalStore/globalStore-context";
+import { RequestHistoryTimeFilter } from "../../../data/filters/RequestHistory/requestHistoryTimeFilter";
 
 import checkValidity from "../../../helpers/checkValidity";
 
@@ -10,13 +11,13 @@ import SelectedFilter from "../../../components/UI/SelectedFilter/SelectedFilter
 import DaterangePicker from "../../../components/UI/DaterangePicker/DaterangePicker";
 import Input from "../../../components/UI/Input/Input";
 import Button from "../../../components/UI/Button/Button";
-import { RequestHistoryTimeFilter } from "../../../data/filters/RequestHistory/requestHistoryTimeFilter";
 
 import classes from "./Filters.module.scss";
 
 export interface FiltersProps {
 	popupIsOpen: boolean,
-	changeVisibilityPopup: (value: boolean | ((prevVar: boolean) => boolean)) => void;
+	changeVisibilityPopup: (value: boolean | ((prevVar: boolean) => boolean)) => void,
+	disabled: boolean
 }
 
 const Filters = (props: FiltersProps) => {
@@ -47,9 +48,11 @@ const Filters = (props: FiltersProps) => {
 	}
 
 	const openFilterRowHandler = () => {
-		setOpenFilterRow((prevState) => !prevState);
-		props.changeVisibilityPopup(false);
-		setOpenFilter(null);
+		if (!props.disabled) {
+			setOpenFilterRow((prevState) => !prevState);
+			props.changeVisibilityPopup(false);
+			setOpenFilter(null);
+		}
 	};
 
 	const openPopupHandler = () => {
@@ -100,15 +103,14 @@ const Filters = (props: FiltersProps) => {
 			break;
 	}
 
-	const selectedFiltersArr = selectedFilters.map(
-		({ id, value, filter, titleColor }) => {
+	const selectedFiltersArr = selectedFilters.map((filter) => {
 			return (
 				<SelectedFilter
-					key={id}
-					id={id}
-					filter={filter}
-					value={value}
-					titleColor={titleColor}
+					key={filter.id}
+					id={filter.id}
+					filterName={filter.filterName}
+					title={filter.title}
+					titleColor={filter.titleColor}
 					remove={removeFilter}
 				/>
 			);
@@ -173,7 +175,8 @@ const Filters = (props: FiltersProps) => {
 					<DaterangePicker
 						initialRange={dateRangeFilter}
 						onRangeChange={onRangeChange}
-						externalStyles={classes.pickers} />
+						externalStyles={classes.pickers}
+						disabled={props.disabled} />
 				</div>
 				<div className={classes.footer}>
 					<div className={clsList.join(" ")}>

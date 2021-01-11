@@ -1,17 +1,22 @@
-import TransactionEventApi from "./TransactionEventApi";
 import { stub, SinonStub } from "sinon";
-import fetch = require("node-fetch");
+import axios, { CancelToken } from "axios";
 
-let fetchStub: SinonStub;
-let fetchStubResult: any;
+import TransactionEventApi, { File } from "./TransactionEventApi";
 
-const expectFetch = (stubbedFetch: SinonStub,
-    expectedUrl: string,
-    method: "GET" | "POST") => {
-        expect(stubbedFetch.getCalls()).toHaveLength(1);
-        expect(stubbedFetch.getCall(0).args).toHaveLength(2);
-        expect(stubbedFetch.getCall(0).args[0]).toEqual(expectedUrl);
-        expect(stubbedFetch.getCall(0).args[1].method).toEqual(method);
+let axiosStub: SinonStub;
+let axiosStubResult: any;
+
+const expectAxiosPost = (stubbedAxios: SinonStub, expectedUrl: string, data: any) => {
+    expect(stubbedAxios.getCalls()).toHaveLength(1);
+    expect(stubbedAxios.getCall(0).args).toHaveLength(3);
+    expect(stubbedAxios.getCall(0).args[0]).toEqual(expectedUrl);
+    expect(stubbedAxios.getCall(0).args[1]).toEqual(data);
+};
+
+const expectAxiosGet = (stubbedAxios: SinonStub, expectedUrl: string) => {
+    expect(stubbedAxios.getCalls()).toHaveLength(1);
+    expect(stubbedAxios.getCall(0).args).toHaveLength(2);
+    expect(stubbedAxios.getCall(0).args[0]).toEqual(expectedUrl);
 };
 
 describe("TransactionEventApi", () => {
@@ -19,19 +24,24 @@ describe("TransactionEventApi", () => {
         describe("response_status_not_OK", () => {
             // Arrange
             const url = "www.glasswall.com";
+            let cancellationToken: CancelToken;
             let error: any;
+            const expectedError = new Error("Error");
 
             beforeEach(async () => {
-                fetchStubResult = {
-                    ok: false,
+                const cancellationTokenSource = axios.CancelToken.source();
+                cancellationToken = cancellationTokenSource.token;
+
+                axiosStubResult = {
+                    status: 500,
                     statusText: "Error"
                 };
 
-                fetchStub = stub(fetch, "default").returns(fetchStubResult);
+                axiosStub = stub(axios, "post").returns(axiosStubResult);
 
                 // Act
                 try {
-                    await TransactionEventApi.getTransactions(url, {});
+                    await TransactionEventApi.getTransactions(url, {}, cancellationToken);
                 }
                 catch (err) {
                     error = err;
@@ -39,17 +49,13 @@ describe("TransactionEventApi", () => {
             });
 
             afterEach(() => {
-                fetchStub.restore();
+                axiosStub.restore();
             });
 
             // Assert
             it("responds_with_status_text", () => {
                 expect(error).not.toBe(undefined);
-                expect(error).toEqual("Error");
-            });
-
-            it("called_fetch_using_POST", () => {
-                expectFetch(fetchStub, url, "POST");
+                expect(error).toEqual(expectedError);
             });
         });
 
@@ -57,21 +63,25 @@ describe("TransactionEventApi", () => {
             // Arrange
             const url = "www.glasswall.com";
             const expectedResponse = ["test"];
-            let result: string;
+            let cancellationToken: CancelToken;
+            let result: { count: number, files: File[] };
 
             beforeEach(async () => {
-                fetchStubResult = {
-                    ok: true,
-                    text: () => expectedResponse
+                const cancellationTokenSource = axios.CancelToken.source();
+                cancellationToken = cancellationTokenSource.token;
+
+                axiosStubResult = {
+                    statusText: "OK",
+                    data: ["test"]
                 };
 
-                fetchStub = stub(fetch, "default").returns(fetchStubResult);
+                axiosStub = stub(axios, "post").returns(axiosStubResult);
                 // Act
-                result = await TransactionEventApi.getTransactions(url, {});
+                result = await TransactionEventApi.getTransactions(url, {}, cancellationToken);
             });
 
             afterEach(() => {
-                fetchStub.restore();
+                axiosStub.restore();
             });
 
             // Assert
@@ -80,8 +90,8 @@ describe("TransactionEventApi", () => {
                 expect(result).toEqual(expectedResponse);
             });
 
-            it("called_fetch_using_POST", () => {
-                expectFetch(fetchStub, url, "POST");
+            it("called_axios_using_POST", () => {
+                expectAxiosPost(axiosStub, url, JSON.stringify({}));
             });
         });
     });
@@ -91,19 +101,24 @@ describe("TransactionEventApi", () => {
             // Arrange
             const url = "www.glasswall.com";
             const transactionFilePath = "/test";
+            let cancellationToken: CancelToken;
             let error: any;
+            const expectedError = new Error("Error");
 
             beforeEach(async () => {
-                fetchStubResult = {
-                    ok: false,
+                const cancellationTokenSource = axios.CancelToken.source();
+                cancellationToken = cancellationTokenSource.token;
+
+                axiosStubResult = {
+                    status: 500,
                     statusText: "Error"
                 };
 
-                fetchStub = stub(fetch, "default").returns(fetchStubResult);
+                axiosStub = stub(axios, "get").returns(axiosStubResult);
 
                 // Act
                 try {
-                    await TransactionEventApi.getTransactionDetails(url, transactionFilePath);
+                    await TransactionEventApi.getTransactionDetails(url, transactionFilePath, cancellationToken);
                 }
                 catch (err) {
                     error = err;
@@ -111,17 +126,13 @@ describe("TransactionEventApi", () => {
             });
 
             afterEach(() => {
-                fetchStub.restore();
+                axiosStub.restore();
             });
 
             // Assert
             it("responds_with_status_text", () => {
                 expect(error).not.toBe(undefined);
-                expect(error).toEqual("Error");
-            });
-
-            it("called_fetch_using_GET", () => {
-                expectFetch(fetchStub, `${url}?filePath=${transactionFilePath}`, "GET");
+                expect(error).toEqual(expectedError);
             });
         });
 
@@ -131,22 +142,26 @@ describe("TransactionEventApi", () => {
             const transactionFilePath = "/test";
             const expectedRequestUrl = `${url}?filePath=${transactionFilePath}`;
             const expectedResponse = ["test"];
-            let result: string;
+            let cancellationToken: CancelToken;
+            let result: {status: number, analysisReport: string};
 
             beforeEach(async () => {
-                fetchStubResult = {
-                    ok: true,
-                    text: () => { return ["test"] }
+                const cancellationTokenSource = axios.CancelToken.source();
+                cancellationToken = cancellationTokenSource.token;
+
+                axiosStubResult = {
+                    statusText: "OK",
+                    data: ["test"]
                 };
 
-                fetchStub = stub(fetch, "default").returns(fetchStubResult);
+                axiosStub = stub(axios, "get").returns(axiosStubResult);
 
                 // Act
-                result = await TransactionEventApi.getTransactionDetails(url, transactionFilePath);
+                result = await TransactionEventApi.getTransactionDetails(url, transactionFilePath, cancellationToken);
             });
 
             afterEach(() => {
-                fetchStub.restore();
+                axiosStub.restore();
             });
 
             // Assert
@@ -156,7 +171,7 @@ describe("TransactionEventApi", () => {
             });
 
             it("called_fetch_using_GET", () => {
-                expectFetch(fetchStub, expectedRequestUrl, "GET");
+                expectAxiosGet(axiosStub, expectedRequestUrl);
             });
         });
     });

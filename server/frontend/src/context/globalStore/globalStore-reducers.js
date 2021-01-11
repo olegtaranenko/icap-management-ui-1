@@ -8,7 +8,7 @@ const changePageTitle = (state, title) => {
 
 const _checkboxChange = (updateFilter, changeFilter) => {
 	updateFilter.map((filter) => {
-		if (filter.filterName === changeFilter.filter) {
+		if (filter.filterName === changeFilter.filterName) {
 			filter.checkboxList.map((checkbox) => {
 				if (checkbox.id === changeFilter.id) {
 					checkbox.isChecked = changeFilter.isChecked;
@@ -29,7 +29,7 @@ const setVersion = (state, version) => {
 const addFilterFromCheckboxes = (state, addedFilter) => {
 	let updatedList = [...state.selectedFilters];
 
-	updatedList = updatedList.filter((filter) => filter.filter !== "File ID");
+	updatedList = updatedList.filter((filter) => filter.filterName !== "File ID");
 
 	const included = updatedList.some((filter) => {
 		return filter.id === addedFilter.id;
@@ -57,7 +57,7 @@ const addFilterFromInput = (state, addedFilter) => {
 	let updatedList = [...state.selectedFilters];
 
 	updatedList = updatedList.filter(
-		(filter) => addedFilter.filter === filter.filter
+		(filter) => addedFilter.filterName === filter.filterName
 	);
 
 	const included = updatedList.some((filter) => {
@@ -77,7 +77,7 @@ const removeFilterFromSelected = (state, removedFilter) => {
 	const updateCheckbox = [...state.fileFilter];
 
 	updateCheckbox.forEach((filter) => {
-		if (removedFilter.filter === filter.filterName) {
+		if (removedFilter.filterName === filter.filterName) {
 			filter.checkboxList.forEach((checkbox) => {
 				if (checkbox.id === removedFilter.id) {
 					checkbox.isChecked = false;

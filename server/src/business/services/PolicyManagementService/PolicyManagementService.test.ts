@@ -1,5 +1,6 @@
 import { stub, SinonStub } from "sinon";
 import winston from "winston";
+import axios, { CancelToken } from "axios";
 import { Guid } from "guid-typescript";
 import { Policy } from "../../../common/models/PolicyManagementService/Policy/Policy";
 import { GetPolicyByIdRequest } from "../../../common/models/PolicyManagementService/GetPolicyById/GetPolicyByIdRequest";
@@ -13,12 +14,25 @@ import policyExample from "../../../common/http/PolicyManagementApi/policyExampl
 let getPolicyByIdStub: SinonStub;
 let getPolicyStub: SinonStub;
 
+let cancellationToken: CancelToken;
+
 const setupGetPolicyTest = () => {
-    const responseString = policyExample;
+    const policy = new Policy(
+        policyExample.id,
+        policyExample.policyType,
+        policyExample.published,
+        policyExample.lastEdited,
+        policyExample.created,
+        policyExample.ncfsPolicy,
+        policyExample.adaptionPolicy,
+        policyExample.updatedBy
+    );
 
     beforeEach(() => {
+        cancellationToken = axios.CancelToken.source().token;
+
         getPolicyStub = stub(PolicyManagementApi, "getPolicy")
-            .resolves(JSON.stringify(responseString));
+            .resolves(policy);
     });
 
     afterEach(() => {
@@ -60,6 +74,9 @@ describe("PolicyManagementService", () => {
         const responseString = policyExample;
 
         beforeEach(() => {
+            const cancellationTokenSource = axios.CancelToken.source();
+            cancellationToken = cancellationTokenSource.token;
+
             getPolicyByIdStub = stub(PolicyManagementApi, "getPolicyById")
                 .resolves(JSON.stringify(responseString));
         });
@@ -74,7 +91,7 @@ describe("PolicyManagementService", () => {
             const request = new GetPolicyByIdRequest("www.glasswall.com", Guid.create());
 
             // Act
-            const result = await policyManagementService.getPolicy(request);
+            const result = await policyManagementService.getPolicy(request, cancellationToken);
 
             // Assert
             expect(result).toEqual(expectedGetPolicyResponse);
@@ -90,7 +107,7 @@ describe("PolicyManagementService", () => {
             const getCurrentPolicyUrl = "www.glasswall.com";
 
             // Act
-            const result = await policyManagementService.getCurrentPolicy(getCurrentPolicyUrl);
+            const result = await policyManagementService.getCurrentPolicy(getCurrentPolicyUrl, cancellationToken);
 
             // Assert
             expect(result).toEqual(expectedGetPolicyResponse);
@@ -106,7 +123,7 @@ describe("PolicyManagementService", () => {
             const getDraftPolicyUrl = "www.glasswall.com";
 
             // Act
-            const result = await policyManagementService.getDraftPolicy(getDraftPolicyUrl);
+            const result = await policyManagementService.getDraftPolicy(getDraftPolicyUrl, cancellationToken);
 
             // Assert
             expect(result).toEqual(expectedGetPolicyResponse);
@@ -130,6 +147,9 @@ describe("PolicyManagementService", () => {
         const expectedHeaders = { "Content-Type": "application/json" };
 
         beforeEach(() => {
+            const cancellationTokenSource = axios.CancelToken.source();
+            cancellationToken = cancellationTokenSource.token;
+
             saveDraftPolicyStub = stub(PolicyManagementApi, "saveDraftPolicy")
                 .resolves();
         });
@@ -145,11 +165,11 @@ describe("PolicyManagementService", () => {
 
             // Act
             await policyManagementService.saveDraftPolicy(
-                saveDraftPolicyUrl, draftPolicy);
+                saveDraftPolicyUrl, draftPolicy, cancellationToken);
 
             // Assert
             expect(spy).toHaveBeenCalled();
-            expect(spy).toBeCalledWith(saveDraftPolicyUrl, draftPolicy, expectedHeaders);
+            expect(spy).toBeCalledWith(saveDraftPolicyUrl, draftPolicy, cancellationToken, expectedHeaders);
         });
     });
 
@@ -233,23 +253,18 @@ describe("PolicyManagementService", () => {
 
             // Act
             await policyManagementService.deleteDraftPolicy(
-                deleteDraftPolicyUrl, policyId);
+                deleteDraftPolicyUrl, policyId, cancellationToken);
 
             // Assert
             expect(spy).toHaveBeenCalled();
-            expect(spy).toBeCalledWith(deleteDraftPolicyUrl, policyId, expectedHeaders);
+            expect(spy).toBeCalledWith(deleteDraftPolicyUrl, policyId, cancellationToken, expectedHeaders);
         });
     });
 
     describe("getPolicyHistory", () => {
         let getPolicyHistoryStub: SinonStub;
 
-        const responseString = {
-            policiesCount: 1,
-            policies: [policyExample]
-        };
-
-        const expectedResponse = new PolicyHistory(
+        const policyHistory = new PolicyHistory(
             1,
             [new Policy(
                 policyExample.id,
@@ -264,8 +279,11 @@ describe("PolicyManagementService", () => {
         );
 
         beforeEach(() => {
+            const cancellationTokenSource = axios.CancelToken.source();
+            cancellationToken = cancellationTokenSource.token;
+
             getPolicyHistoryStub = stub(PolicyManagementApi, "getPolicyHistory")
-                .resolves(JSON.stringify(responseString));
+                .resolves(policyHistory);
         });
 
         afterEach(() => {
@@ -277,17 +295,17 @@ describe("PolicyManagementService", () => {
             const policyManagementService = new PolicyManagementService(logger);
 
             // Act
-            const result = await policyManagementService.getPolicyHistory("www.glasswall.com");
+            const result = await policyManagementService.getPolicyHistory("www.glasswall.com", cancellationToken);
 
             // Assert
             expect(result.policiesCount)
-                .toEqual(expectedResponse.policiesCount);
+                .toEqual(policyHistory.policiesCount);
             expect(result.policies[0].id)
-                .toEqual(expectedResponse.policies[0].id);
+                .toEqual(policyHistory.policies[0].id);
             expect(result.policies[0].adaptionPolicy)
-                .toEqual(expectedResponse.policies[0].adaptionPolicy);
+                .toEqual(policyHistory.policies[0].adaptionPolicy);
             expect(result.policies[0].ncfsPolicy)
-                .toEqual(expectedResponse.policies[0].ncfsPolicy);
+                .toEqual(policyHistory.policies[0].ncfsPolicy);
         });
     });
 });

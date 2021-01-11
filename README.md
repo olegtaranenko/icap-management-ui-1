@@ -57,13 +57,14 @@ This command builds the Docker image from the Dockerfile, [docker build](https:/
   
 #### Run the Docker Container
 ```
-docker run -p 4000:8080 -d glasswallsolutions/icap-management-ui:version
+docker run -p 4000:8080 -d glasswallsolutions/icap-management-ui:version -e TRANSACTION_EVENT_API_URL="<url>" POLICY_MANAGEMENT_API_URL="<url>"
 ```
   
 <b>Note:</b> This will run the server in production-mode.  
 This command runs the Docker container using the Docker image that was just built, [docker run](https://docs.docker.com/engine/reference/run/).  
 The <b>-p</b> flag maps the exposed port 8080 to port 4000.  
-  The <b>-d</b> flag runs the container in detached mode, which runs in the background.
+The <b>-d</b> flag runs the container in detached mode, which runs in the background.  
+The <b>-e</b> flag will pass any string values as environment variables to the image.
 
 <hr/>
 
@@ -97,3 +98,6 @@ The pod icap-management-portal should be spinning up after the helm install, the
 minikube service icap-management-ui-service
 ```
 Runs the service, exposing the icap-management-portal container. Minikube should automatically tunnel into the service, and a browser window should pop up with the app running on a random port. If the browser window doesn't open, the IP and port of the running service should be displayed on the command output.
+
+## Versioning
+The version number displayed on the Navbar of the UI is pulled from the NPM package version specified in ./server/package.json. This should match the latest release number on GitHub.

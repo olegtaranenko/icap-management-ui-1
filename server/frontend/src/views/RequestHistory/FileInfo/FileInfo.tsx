@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import {
 	Table,
 	TableHead,
@@ -25,10 +26,13 @@ interface FileData {
 }
 
 export interface FileInfoProps {
-	fileData: FileData
+	fileData: FileData,
 }
 
 const FileInfo = (props: FileInfoProps) => {
+	const CancelToken = axios.CancelToken;
+	const cancellationTokenSource = CancelToken.source();
+
 	const [transactionDetails, setTransactionDetails] = useState(null);
 	const [isLoading, setIsLoading] = useState(true);
 	const [isError, setIsError] = useState(false);
@@ -37,12 +41,12 @@ const FileInfo = (props: FileInfoProps) => {
 		setIsLoading(true);
 		setIsError(false);
 
-		const getDetails = async () => {
+		(async () => {
 			try {
 				const transactionDetailResponse =
-					await getTransactionDetails(props.fileData.directory);
+					await getTransactionDetails(props.fileData.directory, cancellationTokenSource.token);
 
-				setTransactionDetails(JSON.parse(transactionDetailResponse));
+				setTransactionDetails(transactionDetailResponse);
 			}
 			catch (error) {
 				setIsError(true);
@@ -50,10 +54,13 @@ const FileInfo = (props: FileInfoProps) => {
 			finally {
 				setIsLoading(false);
 			}
+		})();
+
+		return () => {
+			cancellationTokenSource.cancel();
 		}
 
-		getDetails();
-
+		// eslint-disable-next-line
 	}, [setIsLoading, setIsError, setTransactionDetails, props.fileData.directory]);
 
 	let background = null;

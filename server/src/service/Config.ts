@@ -3,12 +3,12 @@ import IConfig from "../common/models/IConfig";
 const Config = () => {
     const development: IConfig = {
         requestHistory: {
-            transactionEventServiceBaseUrl: "https://transactioneventapifunction20201016103513.azurewebsites.net/api/v1",
+            transactionEventServiceBaseUrl: "https://localhost:1000/api/v1",
             getTransactionsPath: "/transactions",
             getTransactionDetailsPath: "/transactions"
         },
         policy: {
-            policyManagementServiceBaseUrl: "https://policymanagementapifunction20201016103513.azurewebsites.net/api/v1",
+            policyManagementServiceBaseUrl: "https://localhost:2000/api/v1",
             getPolicyPath: "/policy",
             deletePolicyPath: "/policy",
             getDraftPolicyPath: "/policy/draft",

@@ -106,7 +106,9 @@ const Toolbar = () => {
 					closePopup={() => setIsOpen(false)}
 				/>
 				<ExpandButton expanded={navExpanded} clickHandler={toggleNavExpanded} />
-				<span>v{version}</span>
+				{version !== "" &&
+					<span>v{version}</span>
+				}
 			</section>
 			{isOpen && (
 				<Popup

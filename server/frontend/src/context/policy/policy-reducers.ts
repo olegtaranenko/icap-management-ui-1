@@ -11,7 +11,9 @@ const setIsPolicyChanged = (state: TPolicyState, changed: boolean) => {
 	});
 };
 
-const setPolicyError = (state: TPolicyState, error: string) => {
+const setPolicyError = (state: TPolicyState, error: any) => {
+	console.error(error);
+
 	return updateObject(state, {
 		policyError: error
 	});

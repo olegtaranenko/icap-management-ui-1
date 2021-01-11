@@ -1,14 +1,14 @@
+import { Risk } from "../../../src/common/models/enums/Risk";
+
 export interface TransactionLogFilter {
     id: string,
-    name?: string,
-    format?: string,
     isChecked: boolean,
-    value?: string,
-    filter?: string,
+    title?: string,
+    filterName?: string,
     type?: string,
     titleColor?: string,
     fileTypeEnum?: number,
-    riskEnum?: string
+    riskEnum?: Risk
 }
 
 export interface TransactionLogFilters {
