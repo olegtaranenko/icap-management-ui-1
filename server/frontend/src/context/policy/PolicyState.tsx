@@ -156,9 +156,11 @@ export const PolicyState = (props: { children: React.ReactNode }) => {
 		(async (): Promise<void> => {
 			try {
 				const policyHistory = await getPolicyHistory(cancellationToken);
-				policyHistory.policies.sort((a: any, b: any) => {
-					return Date.parse(b.created) - Date.parse(a.created);
-				});
+				if (policyHistory.policiesCount) {
+					policyHistory.policies.sort((a: any, b: any) => {
+						return Date.parse(b.created) - Date.parse(a.created);
+					});
+				}
 				setPolicyHistory(policyHistory);
 
 				status = "LOADED";

@@ -14,7 +14,7 @@ export const getPolicyById = async (baseUrl: string, policyId: Guid, cancellatio
         cancelToken: cancellationToken
     });
 
-    if (response.statusText !== "OK") {
+    if (response.status < 200 || response.status > 299) {
         throw response.statusText;
     }
 
