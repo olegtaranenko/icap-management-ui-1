@@ -98,3 +98,6 @@ The pod icap-management-portal should be spinning up after the helm install, the
 minikube service icap-management-ui-service
 ```
 Runs the service, exposing the icap-management-portal container. Minikube should automatically tunnel into the service, and a browser window should pop up with the app running on a random port. If the browser window doesn't open, the IP and port of the running service should be displayed on the command output.
+
+## Versioning
+The version number displayed on the Navbar of the UI is pulled from the NPM package version specified in ./server/package.json. This should match the latest release number on GitHub.
