@@ -33,30 +33,33 @@ const CurrentPolicy = () => {
 		{ testId: "buttonCurrentNcfsPolicyTab", name: "NCFS Policy" },
 	];
 
-	const policyTimestampData = (
-		<div className={classes.tableContainer}>
-			{status === "LOADED" &&
-				<Table className={classes.table} id={currentPolicy.id}>
-					<TableHead>
-						<TableRow>
-							<TableCell>Timestamp</TableCell>
-							<TableCell>Updated By</TableCell>
-						</TableRow>
-					</TableHead>
-					<TableBody className={classes.tbody}>
-						<TableRow>
-							<TableCell>
-								{new Date(currentPolicy.created).toLocaleString()}
-							</TableCell>
-							<TableCell>
-								{currentPolicy.updatedBy ? currentPolicy.updatedBy : "N/A"}
-							</TableCell>
-						</TableRow>
-					</TableBody>
-				</Table>
-			}
-		</div>
-	);
+	let policyTimestampData: any = null;
+	if (currentPolicy) {
+		policyTimestampData = (
+			<div className={classes.tableContainer}>
+				{status === "LOADED" &&
+					<Table className={classes.table} id={currentPolicy.id}>
+						<TableHead>
+							<TableRow>
+								<TableCell>Timestamp</TableCell>
+								<TableCell>Updated By</TableCell>
+							</TableRow>
+						</TableHead>
+						<TableBody className={classes.tbody}>
+							<TableRow>
+								<TableCell>
+									{new Date(currentPolicy.created).toLocaleString()}
+								</TableCell>
+								<TableCell>
+									{currentPolicy.updatedBy ? currentPolicy.updatedBy : "N/A"}
+								</TableCell>
+							</TableRow>
+						</TableBody>
+					</Table>
+				}
+			</div>
+		);
+	}
 
 	return (
 		<div className={classes.Current}>
@@ -71,9 +74,9 @@ const CurrentPolicy = () => {
 			{status === "LOADED" &&
 				<>
 					<UnsavedChangesPrompt
-                        when={isPolicyChanged}
-                        message="You have unsaved changes in the draft tab, are you sure you want to leave the page?" />
-				
+						when={isPolicyChanged}
+						message="You have unsaved changes in the draft tab, are you sure you want to leave the page?" />
+
 					<TabNav
 						tabs={tabs}
 						selectedTabName={selectedTab}
