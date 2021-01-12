@@ -1,5 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
-import axios from "axios";
+import React, { useContext, useState } from "react";
 import { CSSTransition } from "react-transition-group";
 import {
 	Table,
@@ -23,14 +22,10 @@ import { PolicyType } from "../../../../../src/common/models/enums/PolicyType";
 import EmptyHistoryRow from "./HistoryRow/EmptyHistoryRow";
 
 const History = () => {
-	const CancelToken = axios.CancelToken;
-	const cancellationTokenSource = CancelToken.source();
-
 	const {
 		isPolicyChanged,
 		status,
 		policyHistory,
-		loadPolicyHistory
 	} = useContext(PolicyContext);
 
 	const [showPolicyModal, setShowPolicyModal] = useState(false);
@@ -48,15 +43,6 @@ const History = () => {
 			policyHistory.policies.find(policy => policy.id === policyId));
 		setShowConfirmPublishModal(true);
 	};
-
-	useEffect(() => {
-		loadPolicyHistory(cancellationTokenSource.token);
-
-		return () => {
-			cancellationTokenSource.cancel();
-		}
-		// eslint-disable-next-line
-	}, []);
 
 	return (
 		<>
