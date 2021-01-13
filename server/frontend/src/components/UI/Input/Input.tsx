@@ -15,7 +15,7 @@ export interface InputProps {
 	onChange: React.ChangeEventHandler,
 	placeholder: string,
 	autofocus?: boolean,
-	disabled: boolean,
+	disabled?: boolean,
 }
 
 const Input = (props: InputProps) => {
