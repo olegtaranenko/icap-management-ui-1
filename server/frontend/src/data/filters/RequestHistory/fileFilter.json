@@ -1,7 +1,7 @@
 [
   {
     "id": "microsoftword",
-    "filterName": "Microsoft Word",
+    "filterName": "FileType - Microsoft Word",
     "checkboxList": [
       {
         "id": "microsoftword-doc-1",
@@ -21,7 +21,7 @@
   },
   {
     "id": "microsoftexcel",
-    "filterName": "Microsoft Excel",
+    "filterName": "FileType - Microsoft Excel",
     "checkboxList": [
       {
         "id": "microsoftexcel-xls-2",
@@ -41,7 +41,7 @@
   },
   {
     "id": "microsoftpowerpoint",
-    "filterName": "Microsoft Powerpoint",
+    "filterName": "FileType - Microsoft Powerpoint",
     "checkboxList": [
       {
         "id": "microsoftpowerpoint-ppt-1",
@@ -87,7 +87,7 @@
   },
   {
     "id": "exe",
-    "filterName": "Executables",
+    "filterName": "FileType - Executables",
     "checkboxList": [
       {
         "id": "exe-pe-1",
@@ -121,7 +121,7 @@
   },
   {
     "id": "images",
-    "filterName": "Images",
+    "filterName": "FileType - Images",
     "checkboxList": [
       {
         "id": "images-jpeg-1",
@@ -176,7 +176,7 @@
   },
   {
     "id": "video",
-    "filterName": "Video",
+    "filterName": "FileType - Video",
     "checkboxList": [
       {
         "id": "video-mp4-1",
