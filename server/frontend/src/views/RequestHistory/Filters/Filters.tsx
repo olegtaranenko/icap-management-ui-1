@@ -64,9 +64,9 @@ const Filters = (props: FiltersProps) => {
 		setOpenFilter(null);
 	};
 
-	const updateFileId = (fileId: string) => {
-		setFileId(fileId);
-		setIsValid(Guid.isGuid(fileId));
+	const updateFileId = (fileIdInput: string) => {
+		setFileId(fileIdInput);
+		setIsValid(Guid.isGuid(fileIdInput));
 		setIsTouched(true);
 	};
 
