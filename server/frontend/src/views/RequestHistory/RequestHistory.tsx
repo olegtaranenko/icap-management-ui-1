@@ -29,23 +29,28 @@ const RequestHistory = () => {
 	const CancelToken = axios.CancelToken;
 	const cancellationTokenSource = CancelToken.source();
 
-	const [openModal, setOpenModal] = useState(false);
-	const [openPopup, setOpenPopup] = useState(false);
-	const [selectedFile, setSelectedFile] = useState(null);
 	const [transactions, setTransactions] = useState(null);
+	
+	const [selectedFile, setSelectedFile] = useState(null);
+	const [showFileInfoModal, setShowFileInfoModal] = useState(false);
+	
 	const [timestampFilterDirection, setTimestampFilterDirection] = useState<"asc" | "desc">("desc");
+
+	const [showFilters, setShowFilters] = useState(false);
+	const [showAddFilter, setShowAddFilter] = useState(false);
+	
 	const [isError, setIsError] = useState(false);
 	const [isLoading, setIsLoading] = useState(true);
 
 	const { selectedFilters, requestHistoryTimeFilter } = useContext(GlobalStoreContext);
 
 	const tableClasses = [classes.tableWrapper];
-	if (openPopup) {
+	if (showAddFilter) {
 		tableClasses.push(classes.blurred);
 	}
 
 	const openInfoModal = (fileId: { value: string }) => {
-		setOpenModal((prevState) => !prevState);
+		setShowFileInfoModal((prevState) => !prevState);
 
 		const file = transactions.files.find(
 			(f: any) => f.fileId.value === fileId
@@ -55,7 +60,7 @@ const RequestHistory = () => {
 	};
 
 	const closeInfoModal = () => {
-		setOpenModal(false);
+		setShowFileInfoModal(false);
 	};
 
 	const sortTransactionsDescending = (files: TransactionFile[]) => {
@@ -158,9 +163,9 @@ const RequestHistory = () => {
 		<>
 			<MainTitle />
 
-			<Filters popupIsOpen={openPopup} changeVisibilityPopup={setOpenPopup} disabled={isLoading} />
+			<Filters showFilters={showFilters} setShowFilters={setShowFilters} showAddFilter={showAddFilter} setShowAddFilter={setShowAddFilter} disabled={isLoading} />
 
-			<Main externalStyles={classes.main}>
+			<Main externalStyles={`${classes.main} ${showFilters ? classes.filtersTabOpen : ""}`}>
 				<article className={classes.container}>
 					<div className={tableClasses.join(" ")}>
 						{isLoading &&
@@ -235,7 +240,7 @@ const RequestHistory = () => {
 							</>
 						}
 					</div>
-					{!isError && openModal && (
+					{!isError && showFileInfoModal && (
 						<>
 							<Modal onCloseHandler={closeInfoModal} externalStyles={classes.modal}>
 								<FileInfo
