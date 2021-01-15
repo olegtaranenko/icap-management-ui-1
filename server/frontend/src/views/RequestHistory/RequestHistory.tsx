@@ -39,10 +39,9 @@ const RequestHistory = () => {
 
 	const { selectedFilters, requestHistoryTimeFilter } = useContext(GlobalStoreContext);
 
-	const clsWrapTable = [classes.wrapTable];
-
+	const tableClasses = [classes.tableWrapper];
 	if (openPopup) {
-		clsWrapTable.push(classes.notActive);
+		tableClasses.push(classes.blurred);
 	}
 
 	const openInfoModal = (fileId: { value: string }) => {
@@ -105,14 +104,19 @@ const RequestHistory = () => {
 				.map(riskFilter => riskFilter.riskEnum);
 
 			const FileTypes = selectedFilters
-				.filter(f => f.filterName !== "Risk")
+				.filter(f => f.filterName.startsWith("FileType"))
 				.map(fileTypeFilter => fileTypeFilter.fileTypeEnum);
+
+			const FileIds = selectedFilters
+				.filter(f => f.filterName === "File ID")
+				.map(fileIdFilter => fileIdFilter.fileId);
 
 			const requestBody: TFilter = {
 				TimestampRangeStart: requestHistoryTimeFilter.timestampRangeStart.toDate(),
 				TimestampRangeEnd: requestHistoryTimeFilter.timestampRangeEnd.toDate(),
 				Risks,
-				FileTypes
+				FileTypes,
+				FileIds
 			};
 
 			try {
@@ -158,7 +162,7 @@ const RequestHistory = () => {
 
 			<Main externalStyles={classes.main}>
 				<article className={classes.container}>
-					<div className={clsWrapTable.join(" ")}>
+					<div className={tableClasses.join(" ")}>
 						{isLoading &&
 							<div>Loading...</div>
 						}

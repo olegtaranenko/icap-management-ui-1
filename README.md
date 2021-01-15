@@ -43,6 +43,15 @@ This command runs the 'dev' script in the package.json file, which starts a loca
 
 To break on server code, the nodemon debugger needs to be attached. We have a launch.json file defined in the project, so head to the "debug" tab on the sidebar and click the "play" button. This should attach the debugger and allow you to hit breakpoints in the ./server code.
   
+#### Debugging the Frontend in vscode
+##### Make sure you're in the ./server/frontend directory of the project.
+```
+yarn start
+```
+
+This command starts the create-react-app project as a standalone frontend with hot module reloading and all the benefits of CRA. This will still work with the server running on 
+http://localhost:8080 as the create-react-app site (http://localhost:3000) is whitelisted in the CORS options of the server config.
+  
 <hr/>    
   
 ### Running the Server Locally (Docker)

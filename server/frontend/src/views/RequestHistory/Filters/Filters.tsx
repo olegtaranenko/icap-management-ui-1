@@ -1,9 +1,8 @@
 import React, { useState, useContext, FormEvent, useEffect } from "react";
+import { Guid } from "guid-typescript";
 
 import { GlobalStoreContext } from "../../../context/globalStore/globalStore-context";
 import { RequestHistoryTimeFilter } from "../../../data/filters/RequestHistory/requestHistoryTimeFilter";
-
-import checkValidity from "../../../helpers/checkValidity";
 
 import Popup, { PopupButton } from "../../../components/UI/Popup/Popup";
 import PopupFilter from "./PopupFilter/PopupFilter";
@@ -26,9 +25,9 @@ const Filters = (props: FiltersProps) => {
 
 	const [openFilterRow, setOpenFilterRow] = useState(false);
 	const [openFilter, setOpenFilter] = useState(null);
-	const [openFileId, setOpenFileId] = useState(false);
 
-	const [fileIdValue, setFileIdValue] = useState("");
+	const [openFileId, setOpenFileId] = useState(false);
+	const [fileId, setFileId] = useState("");
 	const [isValid, setIsValid] = useState(false);
 	const [isTouched, setIsTouched] = useState(false);
 
@@ -37,14 +36,14 @@ const Filters = (props: FiltersProps) => {
 		end: requestHistoryTimeFilter.timestampRangeEnd
 	});
 
-	const clsList = [classes.filters];
-	const clsMoreFilters = [classes.moreFilters];
-	const clsArrow = [classes.arrow];
+	const filtersClasses = [classes.filters];
+	const moreFiltersClasses = [classes.moreFilters];
+	const arrowClasses = [classes.arrow];
 
 	if (openFilterRow) {
-		clsList.push(classes.expanded);
-		clsMoreFilters.push(classes.hide);
-		clsArrow.push(classes.rotate);
+		filtersClasses.push(classes.expanded);
+		moreFiltersClasses.push(classes.hide);
+		arrowClasses.push(classes.rotate);
 	}
 
 	const openFilterRowHandler = () => {
@@ -65,19 +64,23 @@ const Filters = (props: FiltersProps) => {
 		setOpenFilter(null);
 	};
 
-	const inputChangedHandler = (inputValue: string) => {
-		setFileIdValue(inputValue);
-		setIsValid(checkValidity(inputValue));
+	const updateFileId = (fileIdInput: string) => {
+		setFileId(fileIdInput);
+		setIsValid(Guid.isGuid(fileIdInput));
 		setIsTouched(true);
 	};
 
-	const submitHandler = (evt: FormEvent<HTMLFormElement>) => {
-		evt.preventDefault();
+	const addFileIdFilter = (event: FormEvent<HTMLFormElement>) => {
+		event.preventDefault();
 		addFilterInput({
-			id: fileIdValue,
-			value: fileIdValue,
-			filter: "File ID",
+			id: fileId,
+			filterName: "File ID",
+			title: fileId,
+			fileId: fileId
 		});
+		setOpenFileId(false);
+		setFileId("");
+		props.changeVisibilityPopup(false);
 	};
 
 	const onRangeChange = (start: moment.Moment, end: moment.Moment) => {
@@ -103,21 +106,15 @@ const Filters = (props: FiltersProps) => {
 			break;
 	}
 
-	const selectedFiltersArr = selectedFilters.map((filter) => {
-			return (
-				<SelectedFilter
-					key={filter.id}
-					id={filter.id}
-					filterName={filter.filterName}
-					title={filter.title}
-					titleColor={filter.titleColor}
-					remove={removeFilter}
-				/>
-			);
-		}
-	);
-
 	const filterList: PopupButton[] = [
+		{
+			testId: "buttonFilterFileId",
+			name: "File ID",
+			onClickButtonHandler: () => {
+				setOpenFilter(null);
+				setOpenFileId((prevState) => !prevState);
+			},
+		},
 		{
 			testId: "buttonFilterFileTypes",
 			name: "File Types",
@@ -133,15 +130,7 @@ const Filters = (props: FiltersProps) => {
 				setOpenFileId(false);
 				setOpenFilter("Risk");
 			},
-		},
-		// { TODO: Uncomment when we can search File ID
-		// testId: "buttonFilterFileId",
-		// 	name: "File ID",
-		// 	onClickButtonHandler: () => {
-		// 		setOpenFilter(null);
-		// 		setOpenFileId((prevState) => !prevState);
-		// 	},
-		// },
+		}
 	];
 
 	useEffect(() => {
@@ -163,14 +152,14 @@ const Filters = (props: FiltersProps) => {
 
 					<button
 						data-test-id="buttonMoreFilters"
-						className={clsMoreFilters.join(" ")}
+						className={moreFiltersClasses.join(" ")}
 						onClick={openFilterRowHandler}>
 						More Filters...
 					</button>
 					<span
 						data-test-id="moreFiltersArrow"
 						onClick={openFilterRowHandler}
-						className={clsArrow.join(" ")} />
+						className={arrowClasses.join(" ")} />
 
 					<DaterangePicker
 						initialRange={dateRangeFilter}
@@ -179,9 +168,24 @@ const Filters = (props: FiltersProps) => {
 						disabled={props.disabled} />
 				</div>
 				<div className={classes.footer}>
-					<div className={clsList.join(" ")}>
+					<div className={filtersClasses.join(" ")}>
 						{openFilterRow && (
-							<div className={classes.storyLine}>{selectedFiltersArr}</div>
+							<div className={classes.storyLine}>
+								{selectedFilters.map((filter) => {
+									return (
+										<SelectedFilter
+											key={filter.id}
+											id={filter.id}
+											filterName={filter.filterName}
+											title={filter.title}
+											titleColor={filter.titleColor}
+											remove={removeFilter}
+											disabled={props.disabled}
+										/>
+									);
+								}
+								)}
+							</div>
 						)}
 					</div>
 					{openFilterRow && (
@@ -191,7 +195,7 @@ const Filters = (props: FiltersProps) => {
 								buttonType={"button"}
 								externalStyles={classes.addFilter}
 								onButtonClick={openPopupHandler}
-								disabled={false}>
+								disabled={props.disabled}>
 								+ Add Filter
 							</Button>
 						</div>
@@ -219,7 +223,7 @@ const Filters = (props: FiltersProps) => {
 						{openFileId && (
 							<form
 								className={classes.fileId}
-								onSubmit={submitHandler}
+								onSubmit={addFileIdFilter}
 								onMouseEnter={() => props.changeVisibilityPopup(true)}
 							>
 								<Input
@@ -228,21 +232,26 @@ const Filters = (props: FiltersProps) => {
 									externalStyles={classes.inputFileId}
 									autofocus
 									placeholder={"File ID"}
-									value={fileIdValue}
+									value={fileId}
 									valid={isValid}
 									touched={isTouched}
-									onChange={(evt: React.ChangeEvent<HTMLInputElement>) => {
-										inputChangedHandler(evt.target.value);
+									onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+										updateFileId(event.target.value);
 									}}
 									disabled={false}
 								/>
 								<button
 									type="submit"
 									className={classes.addButton}
-									disabled={!isValid}
-								>
-									+ ADD
-								</button>
+									disabled={!isValid}>+ ADD</button>
+
+								<button
+									type="button"
+									className={classes.addButton}
+									onClick={() => {
+										setOpenFileId(false);
+										setFileId("");
+									}}>Cancel</button>
 							</form>
 						)}
 					</>
