@@ -8,12 +8,12 @@
 	padding-top: 1rem;
 }
 
-.wrapTable {
+.tableWrapper {
 	height: 95%;
 	padding: 0 2.5rem;
 	transition: all 0.5s;
 
-	&.notActive {
+	&.blurred {
 		opacity: 0.5;
 		filter: blur(0.2rem);
 		pointer-events: none;
