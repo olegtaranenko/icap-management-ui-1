@@ -14,8 +14,10 @@ import Button from "../../../components/UI/Button/Button";
 import classes from "./Filters.module.scss";
 
 export interface FiltersProps {
-	popupIsOpen: boolean,
-	changeVisibilityPopup: (value: boolean | ((prevVar: boolean) => boolean)) => void,
+	showFilters: boolean,
+	setShowFilters: (value: boolean | ((prevVar: boolean) => boolean)) => void,
+	showAddFilter: boolean,
+	setShowAddFilter: (value: boolean | ((prevVar: boolean) => boolean)) => void,
 	disabled: boolean
 }
 
@@ -23,11 +25,12 @@ const Filters = (props: FiltersProps) => {
 	// @ts-ignore
 	const { addFilterInput, fileFilter, riskFilter, selectedFilters, removeFilter, navExpanded, updateRequestHistoryTimeFilter, requestHistoryTimeFilter } = useContext(GlobalStoreContext);
 
-	const [openFilterRow, setOpenFilterRow] = useState(false);
-	const [openFilter, setOpenFilter] = useState(null);
+	//const [showFilters, setShowFilters] = useState(false);
 
-	const [openFileId, setOpenFileId] = useState(false);
+	const [openFilter, setOpenFilter] = useState(null);
+	
 	const [fileId, setFileId] = useState("");
+	const [showFileIdInput, setShowFileIdInput] = useState(false);
 	const [isValid, setIsValid] = useState(false);
 	const [isTouched, setIsTouched] = useState(false);
 
@@ -37,30 +40,30 @@ const Filters = (props: FiltersProps) => {
 	});
 
 	const filtersClasses = [classes.filters];
-	const moreFiltersClasses = [classes.moreFilters];
+	const moreFiltersButtonClasses = [classes.moreFilters];
 	const arrowClasses = [classes.arrow];
 
-	if (openFilterRow) {
-		filtersClasses.push(classes.expanded);
-		moreFiltersClasses.push(classes.hide);
+	if (props.showFilters) {
+		filtersClasses.push(classes.show);
+		moreFiltersButtonClasses.push(classes.hide);
 		arrowClasses.push(classes.rotate);
 	}
 
-	const openFilterRowHandler = () => {
+	const toggleShowFilters = () => {
 		if (!props.disabled) {
-			setOpenFilterRow((prevState) => !prevState);
-			props.changeVisibilityPopup(false);
+			props.setShowFilters((prevState) => !prevState);
+			props.setShowAddFilter(false);
 			setOpenFilter(null);
 		}
 	};
 
-	const openPopupHandler = () => {
-		props.changeVisibilityPopup((prevState) => !prevState);
+	const toggleShowAddFilterList = () => {
+		props.setShowAddFilter((prevState) => !prevState);
 		setOpenFilter(null);
 	};
 
-	const closePopupHoverHandler = () => {
-		props.changeVisibilityPopup(false);
+	const hideAddFilterList = () => {
+		props.setShowAddFilter(false);
 		setOpenFilter(null);
 	};
 
@@ -78,9 +81,9 @@ const Filters = (props: FiltersProps) => {
 			title: fileId,
 			fileId: fileId
 		});
-		setOpenFileId(false);
+		setShowFileIdInput(false);
 		setFileId("");
-		props.changeVisibilityPopup(false);
+		props.setShowAddFilter(false);
 	};
 
 	const onRangeChange = (start: moment.Moment, end: moment.Moment) => {
@@ -111,15 +114,15 @@ const Filters = (props: FiltersProps) => {
 			testId: "buttonFilterFileId",
 			name: "File ID",
 			onClickButtonHandler: () => {
+				setShowFileIdInput((prevState) => !prevState);
 				setOpenFilter(null);
-				setOpenFileId((prevState) => !prevState);
 			},
 		},
 		{
 			testId: "buttonFilterFileTypes",
 			name: "File Types",
 			onClickButtonHandler: () => {
-				setOpenFileId(false);
+				setShowFileIdInput(false);
 				setOpenFilter("File Types");
 			},
 		},
@@ -127,7 +130,7 @@ const Filters = (props: FiltersProps) => {
 			testId: "buttonFilterRisk",
 			name: "Risk",
 			onClickButtonHandler: () => {
-				setOpenFileId(false);
+				setShowFileIdInput(false);
 				setOpenFilter("Risk");
 			},
 		}
@@ -152,13 +155,13 @@ const Filters = (props: FiltersProps) => {
 
 					<button
 						data-test-id="buttonMoreFilters"
-						className={moreFiltersClasses.join(" ")}
-						onClick={openFilterRowHandler}>
+						className={moreFiltersButtonClasses.join(" ")}
+						onClick={toggleShowFilters}>
 						More Filters...
 					</button>
 					<span
 						data-test-id="moreFiltersArrow"
-						onClick={openFilterRowHandler}
+						onClick={toggleShowFilters}
 						className={arrowClasses.join(" ")} />
 
 					<DaterangePicker
@@ -167,9 +170,9 @@ const Filters = (props: FiltersProps) => {
 						externalStyles={classes.pickers}
 						disabled={props.disabled} />
 				</div>
-				<div className={classes.footer}>
+				<div className={classes.footer} id="filtersContainer">
 					<div className={filtersClasses.join(" ")}>
-						{openFilterRow && (
+						{props.showFilters && (
 							<div className={classes.storyLine}>
 								{selectedFilters.map((filter) => {
 									return (
@@ -188,13 +191,13 @@ const Filters = (props: FiltersProps) => {
 							</div>
 						)}
 					</div>
-					{openFilterRow && (
+					{props.showFilters && (
 						<div>
 							<Button
 								testId="addFilterButton"
 								buttonType={"button"}
 								externalStyles={classes.addFilter}
-								onButtonClick={openPopupHandler}
+								onButtonClick={toggleShowAddFilterList}
 								disabled={props.disabled}>
 								+ Add Filter
 							</Button>
@@ -202,29 +205,29 @@ const Filters = (props: FiltersProps) => {
 					)}
 				</div>
 
-				{props.popupIsOpen ? (
+				{props.showAddFilter ? (
 					<>
 						<Popup
 							popupButtons={filterList}
 							externalStyles={classes.popup}
-							openPopupHover={() => props.changeVisibilityPopup(true)}
-							closePopupHover={() => props.changeVisibilityPopup(false)}>
+							openPopupHover={() => props.setShowAddFilter(true)}
+							closePopupHover={() => props.setShowAddFilter(false)}>
 							{openFilter && (
 								<PopupFilter
 									testId={`div${openFilter}Filter`}
 									filters={selectedFilter}
 									externalStyles={filterStyle}
-									openPopupHover={() => props.changeVisibilityPopup(true)}
-									closePopupHover={closePopupHoverHandler}
+									openPopupHover={() => props.setShowAddFilter(true)}
+									closePopupHover={hideAddFilterList}
 								/>
 							)}
 						</Popup>
 
-						{openFileId && (
+						{showFileIdInput && (
 							<form
 								className={classes.fileId}
 								onSubmit={addFileIdFilter}
-								onMouseEnter={() => props.changeVisibilityPopup(true)}
+								onMouseEnter={() => props.setShowAddFilter(true)}
 							>
 								<Input
 									type="text"
@@ -249,7 +252,7 @@ const Filters = (props: FiltersProps) => {
 									type="button"
 									className={classes.addButton}
 									onClick={() => {
-										setOpenFileId(false);
+										setShowFileIdInput(false);
 										setFileId("");
 									}}>Cancel</button>
 							</form>
