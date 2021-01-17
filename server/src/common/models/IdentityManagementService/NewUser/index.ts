@@ -1,3 +1,3 @@
-export { NewUser } from "./NewUser";
+export { NewUserRequest } from "./NewUserRequest";
 
 export { NewUserResponse } from "./NewUserResponse";

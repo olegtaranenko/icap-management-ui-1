@@ -1,3 +1,4 @@
 export class ValidateResetTokenRequest {
-    token: string
+    url: string;
+    token: string;
 }
