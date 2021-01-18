@@ -21,6 +21,10 @@ spec:
               value: {{ .Values.config.transactionEventApiUrl }}
             - name: POLICY_MANAGEMENT_API_URL
               value: {{ .Values.config.policyManagementApiUrl }}
+            - name: TLS_CERT
+              value: {{ .Values.secrets.tlsCert }}
+            - name: TLS_KEY
+              value: {{ .Values.secrets.tlsKey }}
           ports:
             - containerPort: {{ .Values.deployment.port }}
           resources:
