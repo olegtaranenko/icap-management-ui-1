@@ -29,16 +29,13 @@ const setVersion = (state, version) => {
 const addFilterFromCheckboxes = (state, addedFilter) => {
 	let updatedList = [...state.selectedFilters];
 
-	updatedList = updatedList.filter((filter) => filter.filterName !== "File ID");
-
 	const included = updatedList.some((filter) => {
 		return filter.id === addedFilter.id;
 	});
 
 	_checkboxChange([...state.fileFilter], addedFilter);
 
-	if (
-		updatedList.length <= 0 ||
+	if (updatedList.length <= 0 ||
 		(addedFilter.isChecked === true && !included)
 	) {
 		updatedList.push(addedFilter);
@@ -55,10 +52,6 @@ const addFilterFromCheckboxes = (state, addedFilter) => {
 
 const addFilterFromInput = (state, addedFilter) => {
 	let updatedList = [...state.selectedFilters];
-
-	updatedList = updatedList.filter(
-		(filter) => addedFilter.filterName === filter.filterName
-	);
 
 	const included = updatedList.some((filter) => {
 		return filter.id === addedFilter.id;
