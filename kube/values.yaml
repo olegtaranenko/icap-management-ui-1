@@ -5,6 +5,11 @@ deployment:
 service:
   name: icap-management-ui-service
   port: 80
+ingress:
+  name: icap-management-ui-ingress
+  port: 80
+  host: management-ui.com
+  path: /
 imagestore:
   icapmanagementui:
     repository: glasswallsolutions/icap-management-ui
@@ -12,3 +17,6 @@ imagestore:
 config:
   transactionEventApiUrl: https://transaction-query-aggregator/api/v1
   policyManagementApiUrl: https://policy-management-api/api/v1
+secrets:
+  tlsCrt: url.to.tlsCrt.secret
+  tlsKey: url.to.tlsKey.secret
