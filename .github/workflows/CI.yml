@@ -71,11 +71,19 @@ jobs:
         # Only build a kind cluster if there are chart changes to test.
         if: steps.lint.outputs.changed == 'true'
 
-      - name: Install chart
+      - name: Install Cert Manager
         if: steps.lint.outputs.changed == 'true'
         run: |
           kubectl create namespace icap
-          helm install icap-management-ui ./kube --namespace icap
+          helm install cert-manager ./kube/cert-manager-chart --namespace icap
+
+      - name: Install NGINX Ingress Controller
+        if: steps.lint.outputs.changed == 'true'
+        run: helm install ingress-nginx ./kube/ingress-nginx --namespace icap
+
+      - name: Install Management UI chart
+        if: steps.lint.outputs.changed == 'true'
+        run: helm install icap-management-ui ./kube --namespace icap
       - name: List pods
         if: steps.lint.outputs.changed == 'true'
         run: |
