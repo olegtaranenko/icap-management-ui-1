@@ -83,7 +83,7 @@ jobs:
 
       - name: Install Management UI chart
         if: steps.lint.outputs.changed == 'true'
-        run: helm install icap-management-ui ./kube --namespace icap
+        run: helm install icap-management-ui ./kube --namespace icap --set secrets=null
       - name: List pods
         if: steps.lint.outputs.changed == 'true'
         run: |
