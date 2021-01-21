@@ -83,7 +83,9 @@ jobs:
 
       - name: Install Management UI chart
         if: steps.lint.outputs.changed == 'true'
-        run: helm install icap-management-ui ./kube --namespace icap --set secrets=null
+        run: |
+          kubectl wait --for=condition=ready pod -n icap -l app.kubernetes.io/component=controller --timeout=120s
+          helm install icap-management-ui ./kube --namespace icap --set secrets=null
       - name: List pods
         if: steps.lint.outputs.changed == 'true'
         run: |
