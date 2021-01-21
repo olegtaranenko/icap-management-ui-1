@@ -20,6 +20,8 @@ imagestore:
     repository: glasswallsolutions/icap-management-ui
     tag: develop-latest
 secrets:
+  containerregistry:
+    dockerconfigjson: "<<https://gw-icap-keyvault.vault.azure.net/secrets/az-registry-dockerconfig>>"
   managementui:
     tlsCrt: "<<https://gw-icap-keyvault.vault.azure.net/secrets/managementuiTlsCert>>"
     tlsKey: "<<https://gw-icap-keyvault.vault.azure.net/secrets/managementuiTlsKey>>"
