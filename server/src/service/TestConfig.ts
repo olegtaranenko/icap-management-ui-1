@@ -18,6 +18,18 @@ const TestConfig = () => {
             publishPolicyPath: "/test",
             distributeAdaptionPolicyPath: "/test",
             distributeNcfsPolicyPath: "/test"
+        },
+        identityManagement: {
+            identityManagementServiceBaseUrl: "www.glasswall.com",
+            authenticatePath: "/test",
+            newUserPath: "/test",
+            forgotPasswordPath: "/test",
+            validateResetTokenPath: "/test",
+            resetPasswordPath: "/test",
+            getUsersPath: "/test",
+            getUserPath: "/test",
+            updateUserPath: "/test",
+            deleteUserPath: "/test"
         }
     }
 

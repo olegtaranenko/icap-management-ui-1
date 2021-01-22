@@ -4,6 +4,7 @@ import { Logger } from "winston";
 import IConfig from "../common/models/IConfig";
 import PolicyRoutes from "./Routes/Policy/PolicyRoutes";
 import RequestHistoryRoutes from "./Routes/RequestHistory/RequestHistoryRoutes";
+import UsersRoutes from "./Routes/Users/UsersRoutes";
 
 const version = process.env.npm_package_version;
 
@@ -17,6 +18,7 @@ const setup = (config: IConfig, app: Express, logger: Logger) => {
 
    new RequestHistoryRoutes(config, app, logger).setup();
    new PolicyRoutes(config, app, logger).setup();
+   new UsersRoutes(config, app, logger).setup();
 };
 
 export default setup;

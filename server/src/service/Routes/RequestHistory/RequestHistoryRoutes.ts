@@ -1,18 +1,15 @@
-import { Express, Request } from "express";
+import { Express } from "express";
 import { Logger } from "winston";
-import axios, { CancelTokenSource } from "axios";
+import axios from "axios";
+import IConfig from "../../../common/models/IConfig";
+import handleCancellation from "../../../common/helpers/HandleCancellation";
 import TransactionEventService from "../../../business/services/TransactionEventService/TransactionEventService";
 import { GetTransactionsRequest } from "../../../common/models/TransactionEventService/GetTransactions";
 import { GetTransactionDetailsRequest } from "../../../common/models/TransactionEventService/GetTransactionDetails";
-import IConfig from "../../../common/models/IConfig";
-
-const _handleCancellation = (req: Request, cancellationTokenSource: CancelTokenSource) => {
-    req.connection.on("close", () => {
-        cancellationTokenSource.cancel("Request Cancelled by the Client");
-    });
-}
 
 class RequestHistoryRoutes {
+    cancellationMessage: string = "Request Cancelled by the Client";
+
     transactionEventServiceBaseUrl: string;
     getTransactionsPath: string;
     getTransactionDetailsPath: string;
@@ -36,7 +33,7 @@ class RequestHistoryRoutes {
             const requestUrl = this.transactionEventServiceBaseUrl + this.getTransactionsPath;
 
             const cancellationTokenSource = axios.CancelToken.source();
-            _handleCancellation(req, cancellationTokenSource);
+            handleCancellation(req, cancellationTokenSource, this.cancellationMessage);
 
             try {
                 const transactionRequest = new GetTransactionsRequest(requestUrl, req.body);
@@ -59,7 +56,7 @@ class RequestHistoryRoutes {
             const requestUrl = this.transactionEventServiceBaseUrl + this.getTransactionDetailsPath;
 
             const cancellationTokenSource = axios.CancelToken.source();
-            _handleCancellation(req, cancellationTokenSource);
+            handleCancellation(req, cancellationTokenSource, this.cancellationMessage);
 
             try {
                 const transactionDetailsRequest = new GetTransactionDetailsRequest(requestUrl, req.params.transactionFilePath);

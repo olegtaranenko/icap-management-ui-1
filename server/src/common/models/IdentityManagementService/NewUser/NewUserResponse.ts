@@ -1,5 +1,5 @@
 import ValidationResponse from "../ValidationResponse";
 
-export class NewUserResponse implements ValidationResponse {
-    message: string;
+export class NewUserResponse extends ValidationResponse {
+
 }

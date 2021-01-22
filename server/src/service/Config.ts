@@ -18,6 +18,18 @@ const Config = () => {
             publishPolicyPath: "/policy/publish",
             distributeAdaptionPolicyPath: "/policy/current/distribute-adaption",
             distributeNcfsPolicyPath: "/policy/current/distribute-ncfs"
+        },
+        identityManagement: {
+            identityManagementServiceBaseUrl: "https://localhost:3000/api/v1",
+            authenticatePath: "/users/authenticate",
+            newUserPath: "/users/new",
+            forgotPasswordPath: "/users/forgot-password",
+            validateResetTokenPath: "/users/validate-reset-token",
+            resetPasswordPath: "/users/reset-password",
+            getUsersPath: "/users",
+            getUserPath: "/users",
+            updateUserPath: "/users",
+            deleteUserPath: "/users"
         }
     };
 
@@ -38,6 +50,18 @@ const Config = () => {
             publishPolicyPath: "/policy/publish",
             distributeAdaptionPolicyPath: "/policy/current/distribute-adaption",
             distributeNcfsPolicyPath: "/policy/current/distribute-ncfs"
+        },
+        identityManagement: {
+            identityManagementServiceBaseUrl: process.env.IDENTITY_MANAGEMENT_API_URL,
+            authenticatePath: "/users/authenticate",
+            newUserPath: "/users/new",
+            forgotPasswordPath: "/users/forgot-password",
+            validateResetTokenPath: "/users/validate-reset-token",
+            resetPasswordPath: "/users/reset-password",
+            getUsersPath: "/users",
+            getUserPath: "/users",
+            updateUserPath: "/users",
+            deleteUserPath: "/users"
         }
     };
 

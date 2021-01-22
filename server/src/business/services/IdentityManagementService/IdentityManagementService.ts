@@ -25,7 +25,7 @@ class IdentityManagementService implements IIdentityManagementService {
             this.logger.info(`Attempting to authenticate user: ${request.username}`);
 
             const response = await IdentityManagementApi.authenticate(
-                request.url, request.username, request.password, cancellationToken, { "Content-Type": "application/json" });
+                request, cancellationToken, { "Content-Type": "application/json" });
 
             authenticateResponse = new AuthenticateResponse(
                 response.id, response.username, response.firstName, response.lastName, response.token);
@@ -40,7 +40,27 @@ class IdentityManagementService implements IIdentityManagementService {
         return authenticateResponse;
     }
 
-    newUser: (request: NewUserRequest, cancellationToken: CancelToken) => Promise<NewUserResponse>;
+    newUser = async (request: NewUserRequest, cancellationToken: CancelToken) => {
+        let newUserResponse: NewUserResponse;
+
+        try {
+            this.logger.info(`Attempting to create user ${request.newUser.username}`);
+
+            const response = await IdentityManagementApi.newUser(
+                request, cancellationToken, { "Content-Type": "application/json" });
+
+            newUserResponse = new NewUserResponse(response.message);
+
+            this.logger.info(`New user created: ${request.newUser.username}`);
+        }
+        catch (error) {
+            this.logger.error(`Could not create user: ${request.newUser.username}`);
+            throw error;
+        }
+
+        return newUserResponse;
+    }
+
     forgotPassword: (request: ForgotPasswordRequest, cancellationToken: CancelToken) => Promise<ForgotPasswordResponse>;
     validateResetToken: (request: ValidateResetTokenRequest, cancellationToken: CancelToken) => Promise<ValidateResetTokenResponse>;
     resetPassword: (request: ResetPasswordRequest, cancellationToken: CancelToken) => Promise<ResetPasswordResponse>;
