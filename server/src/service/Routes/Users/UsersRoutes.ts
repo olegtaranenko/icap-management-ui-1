@@ -7,6 +7,8 @@ import IdentityManagementService from "../../../business/services/IdentityManage
 import { AuthenticateRequest } from "../../../common/models/IdentityManagementService/Authenticate";
 import { NewUserRequest } from "../../../common/models/IdentityManagementService/NewUser";
 import { ForgotPasswordRequest } from "../../../common/models/IdentityManagementService/ForgotPassword/ForgotPasswordRequest";
+import { ValidateResetTokenRequest } from "../../../common/models/IdentityManagementService/ValidateResetToken";
+import ArgumentNullException from "src/common/models/errors/ArgumentNullException";
 
 class UsersRoutes {
     cancellationMessage: string = "Request Cancelled by the Client";
@@ -45,7 +47,7 @@ class UsersRoutes {
 
     setup = async () => {
         // Login
-        this.app.post("/users/login", async (req, res) => {
+        this.app.post("/login", async (req, res) => {
             const requestUrl = this.identityManagementServiceBaseUrl + this.authenticatePath;
 
             const cancellationTokenSource = axios.CancelToken.source();
@@ -70,7 +72,7 @@ class UsersRoutes {
         });
 
         // Register
-        this.app.post("/users/register", async (req, res) => {
+        this.app.post("/register", async (req, res) => {
             const requestUrl = this.identityManagementServiceBaseUrl + this.newUserPath;
 
             const cancellationTokenSource = axios.CancelToken.source();
@@ -94,7 +96,7 @@ class UsersRoutes {
         });
 
         // Forgot Password
-        this.app.post("/users/forgot-password", async (req, res) => {
+        this.app.post("/forgot-password", async (req, res) => {
             const requestUrl = this.identityManagementServiceBaseUrl + this.forgotPasswordPath;
 
             const cancellationTokenSource = axios.CancelToken.source();
@@ -111,6 +113,35 @@ class UsersRoutes {
             catch (error) {
                 if (error.stack) {
                     const message = `Error in Forgot Password for User: ${req.body.username}`;
+                    this.logger.error(message + error.stack);
+                    res.status(500).json(message);
+                }
+            }
+        });
+
+        // Confirm
+        this.app.get("/confirm", async (req, res) => {
+            const token = req.query.token;
+            if (!token) {
+                res.json("Token cannot be null.").status(400);
+            }
+
+            const requestUrl = this.identityManagementServiceBaseUrl + this.validateResetTokenPath;
+
+            const cancellationTokenSource = axios.CancelToken.source();
+            handleCancellation(req, cancellationTokenSource, this.cancellationMessage);
+
+            try {
+                const validateResetTokenRequest = new ValidateResetTokenRequest(requestUrl, req.params.token);
+
+                const response = await this.identityManagementService.validateResetToken(
+                    validateResetTokenRequest, cancellationTokenSource.token);
+
+                res.json(response);
+            }
+            catch (error) {
+                if (error.stack) {
+                    const message = `Error Confirming User`;
                     this.logger.error(message + error.stack);
                     res.status(500).json(message);
                 }

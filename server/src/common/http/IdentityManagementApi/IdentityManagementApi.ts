@@ -5,6 +5,7 @@ import { AuthenticateResponse } from "../../../common/models/IdentityManagementS
 import { NewUserRequest, NewUserResponse } from "../../../common/models/IdentityManagementService/NewUser";
 import User from "../../../common/models/IdentityManagementService/User/User";
 import NewUser from "../../../common/models/IdentityManagementService/NewUser/NewUser";
+import { ValidateResetTokenResponse } from "src/common/models/IdentityManagementService/ValidateResetToken";
 
 export default class IdentityManagementApi {
     static authenticate = async (
@@ -79,6 +80,33 @@ export default class IdentityManagementApi {
 
         const response = await axios.post(
             forgotPasswordUrl,
+            JSON.stringify(body),
+            {
+                headers,
+                cancelToken: cancellationToken
+            }
+        );
+
+        if (response.statusText !== "OK") {
+            throw new Error(response.statusText);
+        }
+
+        return response.data;
+    }
+
+    static validateResetToken = async (
+        validateResetTokenUrl: string,
+        token: string,
+        cancellationToken: CancelToken,
+        headers?: { [header: string]: string }
+    ): Promise<ValidateResetTokenResponse> => {
+
+        const body = {
+            token
+        };
+
+        const response = await axios.post(
+            validateResetTokenUrl,
             JSON.stringify(body),
             {
                 headers,

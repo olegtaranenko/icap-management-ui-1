@@ -1,5 +1,4 @@
 import ValidationResponse from "../ValidationResponse";
 
-export class ValidateResetTokenResponse implements ValidationResponse {
-    message: string;
+export class ValidateResetTokenResponse extends ValidationResponse {
 }
