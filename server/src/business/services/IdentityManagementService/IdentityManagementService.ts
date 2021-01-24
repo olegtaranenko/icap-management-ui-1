@@ -25,7 +25,7 @@ class IdentityManagementService implements IIdentityManagementService {
             this.logger.info(`Attempting to authenticate user: ${request.username}`);
 
             const response = await IdentityManagementApi.authenticate(
-                request, cancellationToken, { "Content-Type": "application/json" });
+               request.url, request.username, request.password, cancellationToken, { "Content-Type": "application/json" });
 
             authenticateResponse = new AuthenticateResponse(
                 response.id, response.username, response.firstName, response.lastName, response.token);
@@ -47,7 +47,7 @@ class IdentityManagementService implements IIdentityManagementService {
             this.logger.info(`Attempting to create user ${request.newUser.username}`);
 
             const response = await IdentityManagementApi.newUser(
-                request, cancellationToken, { "Content-Type": "application/json" });
+                request.url, request.newUser, cancellationToken, { "Content-Type": "application/json" });
 
             newUserResponse = new NewUserResponse(response.message);
 
@@ -61,7 +61,26 @@ class IdentityManagementService implements IIdentityManagementService {
         return newUserResponse;
     }
 
-    forgotPassword: (request: ForgotPasswordRequest, cancellationToken: CancelToken) => Promise<ForgotPasswordResponse>;
+    forgotPassword = async (request: ForgotPasswordRequest, cancellationToken: CancelToken) => {
+        let forgotPasswordResponse: ForgotPasswordResponse;
+
+        try {
+            this.logger.info(`Forgotten password request for user: ${request.username}`);
+
+            const response = await IdentityManagementApi.forgotPassword(request.url, request.username, cancellationToken);
+
+            forgotPasswordResponse = new ForgotPasswordResponse(response.message);
+
+            this.logger.info(`Sent forgotten password response to user: ${request.username}`);
+        }
+        catch(error) {
+            this.logger.error(`Error sending forgotten password request for user: ${request.username}`);
+            throw error;
+        }
+
+        return forgotPasswordResponse;
+    }
+
     validateResetToken: (request: ValidateResetTokenRequest, cancellationToken: CancelToken) => Promise<ValidateResetTokenResponse>;
     resetPassword: (request: ResetPasswordRequest, cancellationToken: CancelToken) => Promise<ResetPasswordResponse>;
     getUsers: (getUsersUrl: string, cancellationToken: CancelToken) => Promise<User[]>;

@@ -1,22 +1,27 @@
 import axios, { CancelToken } from "axios";
 import { Guid } from "guid-typescript";
-import { AuthenticateRequest, AuthenticateResponse } from "../../../common/models/IdentityManagementService/Authenticate";
+import { ForgotPasswordResponse } from "../../../common/models/IdentityManagementService/ForgotPassword/ForgotPasswordResponse";
+import { AuthenticateResponse } from "../../../common/models/IdentityManagementService/Authenticate";
 import { NewUserRequest, NewUserResponse } from "../../../common/models/IdentityManagementService/NewUser";
+import User from "../../../common/models/IdentityManagementService/User/User";
+import NewUser from "../../../common/models/IdentityManagementService/NewUser/NewUser";
 
 export default class IdentityManagementApi {
     static authenticate = async (
-        request: AuthenticateRequest,
+        authenticateUrl: string,
+        username: string,
+        password: string,
         cancellationToken: CancelToken,
         headers?: { [header: string]: string }
     ): Promise<AuthenticateResponse> => {
 
         const body = {
-            username: request.username,
-            password: request.password
+            username,
+            password
         };
 
         const response = await axios.post(
-            request.url,
+            authenticateUrl,
             JSON.stringify(body),
             {
                 headers,
@@ -32,20 +37,48 @@ export default class IdentityManagementApi {
     }
 
     static newUser = async (
-        request: NewUserRequest,
+        newUserUrl: string,
+        newUser: NewUser,
         cancellationToken: CancelToken,
         headers?: { [header: string]: string }
     ): Promise<NewUserResponse> => {
 
         const body = {
-            firstName: request.newUser.firstName,
-            lastName: request.newUser.lastName,
-            username: request.newUser.username,
-            email: request.newUser.email
+            firstName: newUser.firstName,
+            lastName: newUser.lastName,
+            username: newUser.username,
+            email: newUser.email
         };
 
         const response = await axios.post(
-            request.url,
+            newUserUrl,
+            JSON.stringify(body),
+            {
+                headers,
+                cancelToken: cancellationToken
+            }
+        );
+
+        if (response.statusText !== "OK") {
+            throw new Error(response.statusText);
+        }
+
+        return response.data;
+    }
+
+    static forgotPassword = async (
+        forgotPasswordUrl: string,
+        username: string,
+        cancellationToken: CancelToken,
+        headers?: { [header: string]: string }
+    ): Promise<ForgotPasswordResponse> => {
+
+        const body = {
+            username
+        };
+
+        const response = await axios.post(
+            forgotPasswordUrl,
             JSON.stringify(body),
             {
                 headers,

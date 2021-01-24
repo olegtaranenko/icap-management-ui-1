@@ -6,6 +6,7 @@ import handleCancellation from "../../../common/helpers/HandleCancellation";
 import IdentityManagementService from "../../../business/services/IdentityManagementService/IdentityManagementService";
 import { AuthenticateRequest } from "../../../common/models/IdentityManagementService/Authenticate";
 import { NewUserRequest } from "../../../common/models/IdentityManagementService/NewUser";
+import { ForgotPasswordRequest } from "../../../common/models/IdentityManagementService/ForgotPassword/ForgotPasswordRequest";
 
 class UsersRoutes {
     cancellationMessage: string = "Request Cancelled by the Client";
@@ -59,7 +60,7 @@ class UsersRoutes {
 
                 res.json(response);
             }
-            catch(error) {
+            catch (error) {
                 if (error.stack) {
                     const message = `Error Authenticating User: ${req.body.username}`;
                     this.logger.error(message + error.stack);
@@ -83,14 +84,38 @@ class UsersRoutes {
 
                 res.json(response);
             }
-            catch(error) {
+            catch (error) {
                 if (error.stack) {
                     const message = `Error Registering New User: ${req.body.username}`;
                     this.logger.error(message + error.stack);
                     res.status(500).json(message);
                 }
             }
-        })
+        });
+
+        // Forgot Password
+        this.app.post("/users/forgot-password", async (req, res) => {
+            const requestUrl = this.identityManagementServiceBaseUrl + this.forgotPasswordPath;
+
+            const cancellationTokenSource = axios.CancelToken.source();
+            handleCancellation(req, cancellationTokenSource, this.cancellationMessage);
+
+            try {
+                const forgotPasswordRequest = new ForgotPasswordRequest(requestUrl, req.body.username);
+
+                const response = await this.identityManagementService.forgotPassword(
+                    forgotPasswordRequest, cancellationTokenSource.token);
+
+                res.json(response);
+            }
+            catch (error) {
+                if (error.stack) {
+                    const message = `Error in Forgot Password for User: ${req.body.username}`;
+                    this.logger.error(message + error.stack);
+                    res.status(500).json(message);
+                }
+            }
+        });
     }
 }
 
