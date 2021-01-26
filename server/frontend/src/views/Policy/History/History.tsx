@@ -1,5 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
-import axios from "axios";
+import React, { useContext, useState } from "react";
 import { CSSTransition } from "react-transition-group";
 import {
 	Table,
@@ -20,16 +19,13 @@ import { PolicyContext } from "../../../context/policy/PolicyContext";
 
 import classes from "./History.module.scss";
 import { PolicyType } from "../../../../../src/common/models/enums/PolicyType";
+import EmptyHistoryRow from "./HistoryRow/EmptyHistoryRow";
 
 const History = () => {
-	const CancelToken = axios.CancelToken;
-	const cancellationTokenSource = CancelToken.source();
-
 	const {
 		isPolicyChanged,
 		status,
 		policyHistory,
-		loadPolicyHistory
 	} = useContext(PolicyContext);
 
 	const [showPolicyModal, setShowPolicyModal] = useState(false);
@@ -47,17 +43,6 @@ const History = () => {
 			policyHistory.policies.find(policy => policy.id === policyId));
 		setShowConfirmPublishModal(true);
 	};
-
-	useEffect(() => {
-		if (status !== "ERROR") {
-			loadPolicyHistory(cancellationTokenSource.token);
-		}
-
-		return () => {
-			cancellationTokenSource.cancel();
-		}
-		// eslint-disable-next-line
-	}, []);
 
 	return (
 		<>
@@ -87,19 +72,27 @@ const History = () => {
 									</TableRow>
 								</TableHead>
 								<TableBody className={classes.tbody}>
-									{policyHistory.policies.map((policy: Policy) => {
-										return (
-											<HistoryRow
-												key={policy.id}
-												id={policy.id}
-												isCurrent={policy.policyType === PolicyType.Current}
-												openPreviousPolicyModalHandler={() => openPolicyModal(policy.id)}
-												activatePreviousPolicyHandler={() => openConfirmPublishModal(policy.id)}
-												timestamp={new Date(policy.created).toLocaleString()}
-												updatedBy={policy.updatedBy ? policy.updatedBy : "N/A"}
-											/>
-										)
-									})}
+									{policyHistory.policiesCount > 0 &&
+										<>
+											{policyHistory.policies.map((policy: Policy) => {
+												return (
+													<HistoryRow
+														key={policy.id}
+														id={policy.id}
+														isCurrent={policy.policyType === PolicyType.Current}
+														openPreviousPolicyModalHandler={() => openPolicyModal(policy.id)}
+														activatePreviousPolicyHandler={() => openConfirmPublishModal(policy.id)}
+														timestamp={new Date(policy.created).toLocaleString()}
+														updatedBy={policy.updatedBy ? policy.updatedBy : "N/A"}
+													/>
+												)
+											})}
+										</>
+									}
+
+									{!policyHistory.policies &&
+										<EmptyHistoryRow />
+									}
 								</TableBody>
 							</Table>
 						</div>

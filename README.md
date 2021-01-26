@@ -43,6 +43,15 @@ This command runs the 'dev' script in the package.json file, which starts a loca
 
 To break on server code, the nodemon debugger needs to be attached. We have a launch.json file defined in the project, so head to the "debug" tab on the sidebar and click the "play" button. This should attach the debugger and allow you to hit breakpoints in the ./server code.
   
+#### Debugging the Frontend in vscode
+##### Make sure you're in the ./server/frontend directory of the project.
+```
+yarn start
+```
+
+This command starts the create-react-app project as a standalone frontend with hot module reloading and all the benefits of CRA. This will still work with the server running on 
+http://localhost:8080 as the create-react-app site (http://localhost:3000) is whitelisted in the CORS options of the server config.
+  
 <hr/>    
   
 ### Running the Server Locally (Docker)
@@ -98,3 +107,6 @@ The pod icap-management-portal should be spinning up after the helm install, the
 minikube service icap-management-ui-service
 ```
 Runs the service, exposing the icap-management-portal container. Minikube should automatically tunnel into the service, and a browser window should pop up with the app running on a random port. If the browser window doesn't open, the IP and port of the running service should be displayed on the command output.
+
+## Versioning
+The version number displayed on the Navbar of the UI is pulled from the NPM package version specified in ./server/package.json. This should match the latest release number on GitHub.

@@ -21,7 +21,7 @@ const PopupFilter = (props: PopupFilterProps) => {
 		return (
 			<Filter
 				key={filter.id}
-				filter={filter.filterName}
+				filterName={filter.filterName}
 				externalStyles={filterStyle}
 				checkboxList={filter.checkboxList} />
 		);

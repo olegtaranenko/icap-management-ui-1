@@ -6,7 +6,8 @@ import classes from "./ButtonClose.module.scss";
 export interface ButtonCloseProps {
 	onButtonClick: React.MouseEventHandler<HTMLButtonElement>,
 	externalStyles: string,
-	color?: string
+	color?: string,
+	disabled?: boolean
 }
 
 const ButtonClose = (props: ButtonCloseProps) => {

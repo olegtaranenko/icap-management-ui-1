@@ -28,7 +28,7 @@ export const saveDraftPolicy = async (policy: Policy, cancellationToken: CancelT
         cancelToken: cancellationToken
     });
 
-    if (response.statusText !== "OK") {
+    if (response.status < 200 || response.status > 299) {
         throw response.statusText;
     }
 }
@@ -45,7 +45,7 @@ export const publishPolicy = async (policyId: Guid, cancellationToken: CancelTok
         cancelToken: cancellationToken
     });
 
-    if (response.statusText !== "OK") {
+    if (response.status < 200 || response.status > 299) {
         throw response.statusText;
     }
 }
@@ -62,7 +62,7 @@ export const deleteDraftPolicy = async (policyId: Guid, cancellationToken: Cance
         cancelToken: cancellationToken
     });
 
-    if (response.statusText !== "OK") {
+    if (response.status < 200 || response.status > 299) {
         throw response.statusText;
     }
 }
@@ -79,7 +79,7 @@ export const getPolicyHistory = async (cancellationToken: CancelToken): Promise<
         cancelToken: cancellationToken
     });
 
-    if (response.statusText !== "OK") {
+    if (response.status < 200 || response.status > 299) {
         throw response.statusText;
     }
 

@@ -6,31 +6,33 @@ import ButtonClose from "../ButtonClose/ButtonClose";
 
 export interface SelectedFilterProps {
 	id: string,
-	filter: string,
-	value: string,
+	filterName: string,
+	title: string,
 	titleColor?: string,
-	remove: Function
+	remove: Function,
+	disabled?: boolean
 }
 
 const SelectedFilter = (props: SelectedFilterProps) => {
 	const clsFooter = [classes.footer];
 
-	if (props.filter === "Risk") {
+	if (props.filterName === "Risk") {
 		clsFooter.push(classes.risk);
 	}
 
 	return (
 		<div className={classes.SelectedFilter}>
 			<div className={classes.header}>
-				<h3>{props.filter}</h3>
+				<h3>{props.filterName}</h3>
 				<ButtonClose
 					color={"#b6bfc9"}
 					externalStyles={classes.buttonClose}
-					onButtonClick={() => props.remove({id: props.id, filter: props.filter})}
+					onButtonClick={() => props.remove({id: props.id, filterName: props.filterName})}
+					disabled={props.disabled}
 				/>
 			</div>
 			<div className={clsFooter.join(" ")}>
-				<span style={{ backgroundColor: props.titleColor }}>{props.value}</span>
+				<span style={{ backgroundColor: props.titleColor }}>{props.title}</span>
 			</div>
 		</div>
 	);

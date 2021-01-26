@@ -17,7 +17,7 @@ export default class PolicyManagementApi {
             cancelToken: cancellationToken
         });
 
-        if (response.statusText !== "OK") {
+        if (response.status < 200 || response.status > 299) {
             throw new Error(response.statusText);
         }
 
@@ -34,7 +34,7 @@ export default class PolicyManagementApi {
             cancelToken: cancellationToken
         });
 
-        if (response.statusText !== "OK") {
+        if (response.status < 200 || response.status > 299) {
             throw new Error(response.statusText);
         }
 
@@ -52,7 +52,7 @@ export default class PolicyManagementApi {
             cancelToken: cancellationToken
         });
 
-        if (response.statusText !== "OK") {
+        if (response.status < 200 || response.status > 299) {
             throw new Error(response.statusText);
         }
 
@@ -66,7 +66,7 @@ export default class PolicyManagementApi {
             headers
         });
 
-        if (response.statusText !== "OK") {
+        if (response.status < 200 || response.status > 299) {
             throw new Error(response.statusText);
         }
 
@@ -78,7 +78,7 @@ export default class PolicyManagementApi {
             headers
         });
 
-        if (response.statusText !== "OK") {
+        if (response.status < 200 || response.status > 299) {
             throw new Error(response.statusText);
         }
 
@@ -90,7 +90,7 @@ export default class PolicyManagementApi {
             headers
         });
 
-        if (response.statusText !== "OK") {
+        if (response.status < 200 || response.status > 299) {
             throw new Error(response.statusText);
         }
 
@@ -109,7 +109,7 @@ export default class PolicyManagementApi {
             cancelToken: cancellationToken
         });
 
-        if (response.statusText !== "OK") {
+        if (response.status < 200 || response.status > 299) {
             throw new Error(response.statusText);
         }
 
@@ -126,7 +126,7 @@ export default class PolicyManagementApi {
             cancelToken: cancellationToken
         });
 
-        if (response.statusText !== "OK") {
+        if (response.status < 200 || response.status > 299) {
             throw new Error(response.statusText);
         }
 

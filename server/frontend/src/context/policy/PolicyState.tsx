@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer } from "react";
-import axios, { CancelToken } from "axios";
+import axios from "axios";
 import { Guid } from "guid-typescript";
 import { PolicyContext } from "./PolicyContext";
 import { policyReducer } from "./policy-reducers";
@@ -64,10 +64,25 @@ export const PolicyState = (props: { children: React.ReactNode }) => {
 		dispatch({ type: actionTypes.SET_POLICY_HISTORY, policyHistory });
 	}
 
-
-
 	const setNewDraftPolicy = (policy: Policy) => {
 		dispatch({ type: actionTypes.SET_NEW_DRAFT_POLICY, newPolicy: policy });
+	}
+
+	const _loadPolicies = async () => {
+		const currentPolicy = await getCurrentPolicy(cancellationTokenSource.token);
+		setCurrentPolicy(currentPolicy);
+
+		const draftPolicy = await getDraftPolicy(cancellationTokenSource.token);
+		setDraftPolicy(draftPolicy);
+		setNewDraftPolicy(draftPolicy);
+
+		const policyHistory = await getPolicyHistory(cancellationTokenSource.token);
+		if (policyHistory.policiesCount) {
+			policyHistory.policies.sort((a: any, b: any) => {
+				return Date.parse(b.created) - Date.parse(a.created);
+			});
+		}
+		setPolicyHistory(policyHistory);
 	}
 
 	const saveDraftChanges = () => {
@@ -103,12 +118,7 @@ export const PolicyState = (props: { children: React.ReactNode }) => {
 			try {
 				await publish(policyId, cancellationTokenSource.token);
 
-				const currentPolicy = await getCurrentPolicy(cancellationTokenSource.token);
-				setCurrentPolicy(currentPolicy);
-
-				const draftPolicy = await getDraftPolicy(cancellationTokenSource.token);
-				setDraftPolicy(draftPolicy);
-				setNewDraftPolicy(draftPolicy);
+				await _loadPolicies();
 
 				status = "LOADED";
 			}
@@ -130,45 +140,11 @@ export const PolicyState = (props: { children: React.ReactNode }) => {
 			try {
 				await deleteDraft(policyId, cancellationTokenSource.token);
 
-				const currentPolicy = await getCurrentPolicy(cancellationTokenSource.token);
-				setCurrentPolicy(currentPolicy);
-
-				const draftPolicy = await getDraftPolicy(cancellationTokenSource.token);
-				setDraftPolicy(draftPolicy);
-				setNewDraftPolicy(draftPolicy);
+				await _loadPolicies();
 
 				status = "LOADED";
 			}
 			catch (error) {
-				setPolicyError(error);
-				status = "ERROR";
-			}
-			finally {
-				setStatus(status);
-			}
-		})();
-	}
-
-	const loadPolicyHistory = (cancellationToken: CancelToken) => {
-		let status: "LOADING" | "ERROR" | "LOADED" = "LOADING";
-		setStatus(status);
-
-		(async (): Promise<void> => {
-			try {
-				const policyHistory = await getPolicyHistory(cancellationToken);
-				policyHistory.policies.sort((a: any, b: any) => {
-					return Date.parse(b.created) - Date.parse(a.created);
-				});
-				setPolicyHistory(policyHistory);
-
-				status = "LOADED";
-			}
-			catch (error) {
-				if (axios.isCancel(error)) {
-					status = "LOADED";
-					return;
-				}
-
 				setPolicyError(error);
 				status = "ERROR";
 			}
@@ -184,12 +160,7 @@ export const PolicyState = (props: { children: React.ReactNode }) => {
 
 		(async (): Promise<void> => {
 			try {
-				const currentPolicy = await getCurrentPolicy(cancellationTokenSource.token);
-				setCurrentPolicy(currentPolicy);
-
-				const draftPolicy = await getDraftPolicy(cancellationTokenSource.token);
-				setDraftPolicy(draftPolicy);
-				setNewDraftPolicy(draftPolicy);
+				await _loadPolicies();
 
 				status = "LOADED";
 			}
@@ -221,7 +192,6 @@ export const PolicyState = (props: { children: React.ReactNode }) => {
 			cancelDraftChanges,
 			publishPolicy,
 			deleteDraftPolicy,
-			loadPolicyHistory,
 			policyHistory: policyState.policyHistory,
 			isPolicyChanged: policyState.isPolicyChanged,
 			status: policyState.status,

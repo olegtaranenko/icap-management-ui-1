@@ -97,7 +97,7 @@
 
 			transition: all 0.5s;
 
-			&.expanded {
+			&.show {
 				height: 100%;
 				min-height: 8rem;
 
@@ -155,9 +155,8 @@
 	}
 
 	& .popupFilterFileType {
-		z-index: 98;
-
 		top: -75px;
+		z-index: 98;
 
 		width: 52rem;
 
@@ -192,15 +191,19 @@
 
 	& .fileId {
 		position: absolute;
-		top: 36rem;
-		transform: translateX(13rem);
-		z-index: 98;
 
-		display: flex;
+		z-index: 9999;
 
 		width: 45rem;
+		
 		padding: 1rem;
 
+		margin-top: 1rem;
+		
+		transform: translateX(14rem);
+
+		display: flex;
+		
 		background-color: #fff;
 		border-radius: 0.3rem;
 		box-shadow: 0 3px 16px 1.6px rgba(0, 0, 0, 0.34);
@@ -214,6 +217,7 @@
 			margin: 0;
 
 			color: black;
+			font-size: 1.2rem;
 
 			& input {
 				color: #000000;

@@ -1,12 +1,12 @@
 {
   "main": "dist/index.js",
-  "version": "1.0.1",
+  "version": "0.1",
   "scripts": {
     "prebuild": "tslint -c tslint.json -p tsconfig.json --fix",
     "build": "tsc",
     "start": "cross-env NODE_ENV=production node .",
     "predev": "yarn build && yarn build-frontend",
-    "dev": "cross-env NODE_ENV=development nodemon -e ts,tsc --exec \"tsc && nodemon --inspect .\"",
+    "dev": "cross-env NODE_ENV=development NODE_TLS_REJECT_UNAUTHORIZED='0' nodemon -e ts,tsc --exec \"tsc && nodemon --inspect .\"",
     "test": "jest --testPathIgnorePatterns frontend",
     "build-frontend": "cd ./frontend && yarn install && yarn build"
   },
@@ -44,7 +44,7 @@
   "dependencies": {
     "@types/node-fetch": "^2.5.7",
     "@types/sinon": "^9.0.8",
-    "axios": "^0.21.0",
+    "axios": "^0.21.1",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "cross-env": "^7.0.2",

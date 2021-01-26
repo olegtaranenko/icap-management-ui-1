@@ -1,4 +1,3 @@
-import { CancelToken } from "axios";
 import { Guid } from "guid-typescript";
 import { createContext } from "react";
 import { Policy } from "../../../../src/common/models/PolicyManagementService/Policy/Policy";
@@ -13,7 +12,6 @@ export type TPolicyState = {
 	cancelDraftChanges: () => void,
 	publishPolicy: (policyId: Guid) => void,
 	deleteDraftPolicy: (policyId: Guid) => void,
-	loadPolicyHistory: (cancellationToken: CancelToken) => void,
 	policyHistory: PolicyHistory,
 	isPolicyChanged: boolean,
 	status: "LOADING" | "ERROR" | "LOADED",
