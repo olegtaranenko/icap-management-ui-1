@@ -11,12 +11,12 @@ export interface InputProps {
 	valid?: boolean,
 	touched?: boolean
 	type: string,
-	value: string,
 	onChange: React.ChangeEventHandler,
 	placeholder: string,
 	autofocus?: boolean,
 	disabled?: boolean,
 	loading?: boolean,
+	required?: boolean
 }
 
 const Input = (props: InputProps) => {
@@ -30,10 +30,10 @@ const Input = (props: InputProps) => {
 					style={props.loading ? {width: "90%"} : {width: "100%"}}
 					type={props.type}
 					name={props.name}
-					value={props.value}
 					onChange={props.onChange}
 					placeholder={props.placeholder}
 					autoFocus={props.autofocus}
+					required={props.required}
 					disabled={props.disabled}
 				/>
 

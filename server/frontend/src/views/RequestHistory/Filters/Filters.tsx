@@ -235,7 +235,6 @@ const Filters = (props: FiltersProps) => {
 									externalStyles={classes.inputFileId}
 									autofocus
 									placeholder={"File ID"}
-									value={fileId}
 									valid={isValid}
 									touched={isTouched}
 									onChange={(event: React.ChangeEvent<HTMLInputElement>) => {

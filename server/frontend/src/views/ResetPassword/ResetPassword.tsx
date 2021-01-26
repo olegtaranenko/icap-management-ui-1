@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useState } from "react";
-import { RouteProps } from "react-router-dom";
+import { Link, RouteProps } from "react-router-dom";
 
 import passwordIcon, { ReactComponent as PasswordIcon } from "../../assets/password-icon.svg";
 import Button from "../../components/UI/Button/Button";
@@ -16,7 +16,7 @@ const ResetPassword = (props: RouteProps) => {
     const resetPassword = async () => {
         setStatus("LOADING");
 
-        
+
     };
 
     return (
@@ -27,7 +27,7 @@ const ResetPassword = (props: RouteProps) => {
             </h2>
 
             <p className={classes.message}>
-                Please enter a new password in order to login to your account. 
+                Please enter a new password in order to login to your account.
                 If you do not set a password now, you can follow the link from the registration email again to get back here.
 			</p>
 
@@ -36,17 +36,21 @@ const ResetPassword = (props: RouteProps) => {
                     type="password"
                     name="password"
                     placeholder="Password"
-                    style={{
-                        backgroundImage: `url(${passwordIcon})`,
-                    }}
-                    value={password}
                     onChange={(event: ChangeEvent<HTMLInputElement>) => {
                         setPassword(event.target.value);
                     }}
+                    style={{
+                        backgroundImage: `url(${passwordIcon})`,
+                    }}
+                    required
                     loading={status === "LOADING"}
                 />
-                <div className={classes.sendButton}>
-                    <Button data-test-id="buttonSendLink" buttonType={"submit"}>Submit</Button>
+                <div className={classes.submitButton}>
+                    <Link to={"/"}>
+                        <Button data-test-id="buttonCancel" buttonType={"button"}>Cancel</Button>
+                    </Link>
+
+                    <Button data-test-id="buttonSubmit" buttonType={"submit"}>Submit</Button>
                 </div>
             </form>
         </div>

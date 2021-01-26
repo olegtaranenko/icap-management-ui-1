@@ -36,7 +36,6 @@ const Login = () => {
 						style={{
 							backgroundImage: `url(${iconUser})`,
 						}}
-						value={email}
 						onChange={(event: ChangeEvent<HTMLInputElement>) => {
 							setEmail(event.currentTarget.value);
 						}} />
@@ -49,7 +48,6 @@ const Login = () => {
 						style={{
 							backgroundImage: `url(${iconPass})`,
 						}}
-						value={password}
 						onChange={(event: ChangeEvent<HTMLInputElement>) => {
 							setPassword(event.currentTarget.value);
 						}} />

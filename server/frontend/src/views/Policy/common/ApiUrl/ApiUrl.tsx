@@ -34,7 +34,6 @@ const ApiUrl = (props: ApiUrlProps) => {
 						<Input
 							testId="inputApiUrl"
 							type="text"
-							value={props.value}
 							placeholder="API URL"
 							touched={props.isChanged}
 							onChange={props.onChangeInputHandler}
