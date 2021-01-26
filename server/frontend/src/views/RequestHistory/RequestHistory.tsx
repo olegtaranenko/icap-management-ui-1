@@ -30,15 +30,15 @@ const RequestHistory = () => {
 	const cancellationTokenSource = CancelToken.source();
 
 	const [transactions, setTransactions] = useState(null);
-	
+
 	const [selectedFile, setSelectedFile] = useState(null);
 	const [showFileInfoModal, setShowFileInfoModal] = useState(false);
-	
+
 	const [timestampFilterDirection, setTimestampFilterDirection] = useState<"asc" | "desc">("desc");
 
 	const [showFilters, setShowFilters] = useState(false);
 	const [showAddFilter, setShowAddFilter] = useState(false);
-	
+
 	const [isError, setIsError] = useState(false);
 	const [isLoading, setIsLoading] = useState(true);
 
@@ -126,14 +126,16 @@ const RequestHistory = () => {
 
 			try {
 				const transactionsResponse = await getTransactions(requestBody, cancellationTokenSource.token);
-				let files: TransactionFile[];
+				let files: TransactionFile[] = [];
 
-				if (timestampFilterDirection === "desc") {
-					files = sortTransactionsDescending(transactionsResponse.files);
-				}
+				if (transactionsResponse.files.length) {
+					if (timestampFilterDirection === "desc") {
+						files = sortTransactionsDescending(transactionsResponse.files);
+					}
 
-				if (timestampFilterDirection === "asc") {
-					files = sortTransactionsAscending(transactionsResponse.files);
+					if (timestampFilterDirection === "asc") {
+						files = sortTransactionsAscending(transactionsResponse.files);
+					}
 				}
 
 				setTransactions({
