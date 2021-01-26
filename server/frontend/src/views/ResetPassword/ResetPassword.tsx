@@ -1,61 +1,122 @@
+import axios from "axios";
 import React, { ChangeEvent, FormEvent, useState } from "react";
 import { Link, RouteProps } from "react-router-dom";
+import MINIMUM_PASSWORD_LENGTH from "../../../../src/common/models/IdentityManagementService/MinimumPasswordLength";
 
 import passwordIcon, { ReactComponent as PasswordIcon } from "../../assets/password-icon.svg";
+import { ReactComponent as UserIcon } from "../../assets/user-icon.svg";
+import GlasswallLogo from "../../components/GlasswallLogo/GlasswallLogo";
 import Button from "../../components/UI/Button/Button";
 import Input from "../../components/UI/Input/Input";
+import IdentityManagementService from "../../service/IdentityManagementService/IdentityManagementService";
 
 import classes from "./ResetPassword.module.scss";
 
 const ResetPassword = (props: RouteProps) => {
     const [status, setStatus] = useState<"LOADING" | "LOADED" | "ERROR">(null);
-    const [token] = useState<string>(new URLSearchParams(props.location.search).get("token"));
+    const [token] = useState<string>(new URLSearchParams(props.location.search).get("Token"));
     const [message, setMessage] = useState<string>(null);
     const [password, setPassword] = useState<string>(null);
+
+    const cancellationTokenSource = axios.CancelToken.source();
+    const identityManagementService = new IdentityManagementService();
 
     const resetPassword = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         setStatus("LOADING");
 
-        
+        (async () => {
+            try {
+                const response = await identityManagementService.resetPassword(
+                    token, password, cancellationTokenSource.token);
+                setMessage(response.message);
+                setStatus("LOADED");
+            }
+            catch (error) {
+                setStatus("ERROR");
+            }
+        })();
     };
 
     return (
-        <div className={classes.wrapper}>
-            <h2 className={classes.heading}>
-                <PasswordIcon className={classes.icon} viewBox={"0 0 44 44"} />
-                New Password
-            </h2>
+        <section>
+            <GlasswallLogo className={classes.logo} />
 
-            <p className={classes.message}>
-                Please enter a new password in order to login to your account.
-                If you do not set a password now, you can follow the link from the registration email again to get back here.
-			</p>
+            <div className={classes.wrapper}>
+                {status === "ERROR" &&
+                    <div className={classes.error}>
+                        <h2>
+                            An Error Occurred While Resetting your Password
+                        </h2>
 
-            <form onSubmit={resetPassword}>
-                <Input
-                    type="password"
-                    name="password"
-                    placeholder="Password"
-                    onChange={(event: ChangeEvent<HTMLInputElement>) => {
-                        setPassword(event.target.value);
-                    }}
-                    style={{
-                        backgroundImage: `url(${passwordIcon})`,
-                    }}
-                    required
-                    disabled={status === "LOADING"}
-                    loading={status === "LOADING"}
-                />
-                <div className={classes.submitButton}>
-                    <Link to={"/"}>
-                        <Button data-test-id="buttonCancel" buttonType={"button"}>Cancel</Button>
-                    </Link>
+                        <div className={classes.backButtonWrapper}>
+                            <Link to={"/"}>
+                                <Button data-test-id="buttonBack" buttonType="button">Back</Button>
+                            </Link>
+                        </div>
+                    </div>
+                }
 
-                    <Button data-test-id="buttonSubmit" buttonType={"submit"}>Submit</Button>
-                </div>
-            </form>
-        </div>
+                {status === null &&
+                    <>
+                        <h2 className={classes.heading}>
+                            <PasswordIcon className={classes.icon} viewBox={"0 0 44 44"} />
+                            New Password
+                        </h2>
+
+                        <p className={classes.message}>
+                            Please enter a new password below.
+                            The minimum character length for new passwords is {MINIMUM_PASSWORD_LENGTH}.
+			            </p>
+
+                        <form onSubmit={resetPassword}>
+                            <Input
+                                type="password"
+                                name="password"
+                                placeholder="Password"
+                                onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                                    setPassword(event.target.value);
+                                }}
+                                style={{
+                                    backgroundImage: `url(${passwordIcon})`,
+                                }}
+                                required
+                                minLength={MINIMUM_PASSWORD_LENGTH}
+                                disabled={status === "LOADING"}
+                                loading={status === "LOADING"}
+                            />
+
+                            <div className={classes.submitButtonWrapper}>
+                                <Link to={"/"}>
+                                    <Button data-test-id="buttonCancel" buttonType={"button"}>Cancel</Button>
+                                </Link>
+
+                                <Button data-test-id="buttonSubmit" buttonType={"submit"}>Submit</Button>
+                            </div>
+                        </form>
+                    </>
+                }
+
+                {status === "LOADED" &&
+                    <>
+                        <h2 className={classes.heading}>
+                            <UserIcon className={classes.icon} viewBox={"0 0 44 44"} />
+                            Password Reset
+                        </h2>
+
+                        <p className={classes.message}>
+                            {message}
+                        </p>
+
+                        <div className={classes.loginButtonWrapper}>
+                            <Link to={"/"}>
+                                <Button data-test-id="buttonLogin" buttonType={"button"}>Login</Button>
+                            </Link>
+                        </div>
+                    </>
+                }
+            </div>
+        </section>
     );
 }
 

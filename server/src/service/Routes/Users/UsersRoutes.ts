@@ -48,7 +48,7 @@ class UsersRoutes {
 
     setup = async () => {
         // Login
-        this.app.post("/login", async (req, res) => {
+        this.app.post("/users/login", async (req, res) => {
             const requestUrl = this.identityManagementServiceBaseUrl + this.authenticatePath;
 
             const cancellationTokenSource = axios.CancelToken.source();
@@ -66,7 +66,6 @@ class UsersRoutes {
             catch (error) {
                 handleError(
                     res,
-                    500,
                     error,
                     `Error Authenticating User: ${req.body.username}`,
                     this.logger);
@@ -74,7 +73,7 @@ class UsersRoutes {
         });
 
         // Register
-        this.app.post("/register", async (req, res) => {
+        this.app.post("/users/register", async (req, res) => {
             const requestUrl = this.identityManagementServiceBaseUrl + this.newUserPath;
 
             const cancellationTokenSource = axios.CancelToken.source();
@@ -91,7 +90,6 @@ class UsersRoutes {
             catch (error) {
                 handleError(
                     res,
-                    500,
                     error,
                     `Error Registering New User: ${req.body.username}`,
                     this.logger);
@@ -99,7 +97,7 @@ class UsersRoutes {
         });
 
         // Forgot Password
-        this.app.post("/forgot-password", async (req, res) => {
+        this.app.post("/users/forgot-password", async (req, res) => {
             const requestUrl = this.identityManagementServiceBaseUrl + this.forgotPasswordPath;
 
             const cancellationTokenSource = axios.CancelToken.source();
@@ -116,7 +114,6 @@ class UsersRoutes {
             catch (error) {
                 handleError(
                     res,
-                    500,
                     error,
                     `Error in Forgot Password for User: ${req.body.username}`,
                     this.logger);
@@ -139,7 +136,7 @@ class UsersRoutes {
                 res.json(response);
             }
             catch (error) {
-                handleError(res, 500, error, "Error Confirming User", this.logger);
+                handleError(res, error, "Error Confirming User", this.logger);
             }
         });
 
@@ -156,10 +153,10 @@ class UsersRoutes {
                 const response = await this.identityManagementService.resetPassword(
                     resetPasswordRequest, cancellationTokenSource.token);
 
-                res.json(response.message);
+                res.json(response);
             }
             catch (error) {
-                handleError(res, 500, error, "Error Resetting Password", this.logger);
+                handleError(res, error, "Error Resetting Password", this.logger);
             }
         });
     }

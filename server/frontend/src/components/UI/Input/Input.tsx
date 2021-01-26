@@ -16,7 +16,8 @@ export interface InputProps {
 	autofocus?: boolean,
 	disabled?: boolean,
 	loading?: boolean,
-	required?: boolean
+	required?: boolean,
+	minLength?: number
 }
 
 const Input = (props: InputProps) => {
@@ -35,6 +36,7 @@ const Input = (props: InputProps) => {
 					autoFocus={props.autofocus}
 					required={props.required}
 					disabled={props.disabled}
+					minLength={props.minLength}
 				/>
 
 				{props.loading &&

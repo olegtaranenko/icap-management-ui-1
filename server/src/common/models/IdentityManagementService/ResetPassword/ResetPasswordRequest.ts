@@ -10,10 +10,12 @@ export class ResetPasswordRequest {
         if (!url) {
             throw new ArgumentNullException("url");
         }
+        this.url = url;
 
         if (!token) {
             throw new ArgumentNullException("token");
         }
+        this.token = token;
 
         if (!password) {
             throw new ArgumentNullException("password");
@@ -22,8 +24,6 @@ export class ResetPasswordRequest {
         if (password.length < 6) {
             throw new ArgumentException("password", "The new password cannot be less than 6 characters.");
         }
-
-        this.token = token;
         this.password = password;
     }
 }

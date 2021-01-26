@@ -1,5 +1,5 @@
-import axios, { CancelToken } from "axios";
-import React, { ChangeEvent, useEffect, useState } from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { Link, Redirect, RouteProps } from "react-router-dom";
 import IdentityManagementService from "../../service/IdentityManagementService/IdentityManagementService";
 
@@ -57,7 +57,7 @@ const Confirm = (props: RouteProps) => {
                 }
 
                 {status === "LOADED" && token !== null &&
-                    <Redirect to={`/reset?token=${token}`} />
+                    <Redirect to={`/reset?Token=${token}`} />
                 }
 
                 {status === "LOADED" && token === null &&

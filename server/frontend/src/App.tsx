@@ -62,7 +62,7 @@ const App = () => {
 					<Auth>
 						<Switch>
 							<Route path="/confirm" component={Confirm} />
-							<Route path="/pass-reminder" component={PassReminder} />
+							{/* <Route path="/pass-reminder" component={PassReminder} /> */}
 							<Route path="/reset" component={ResetPassword} />
 							<Route path="/" component={Login} exact />
 							<Redirect to="/" />

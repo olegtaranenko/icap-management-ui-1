@@ -56,9 +56,9 @@ class Routes implements IRoutes {
     };
 
     usersRoutes = {
-        login: _returnRoute("/login"),
-        register: _returnRoute("/register"),
-        forgotPassword: _returnRoute("/forgot-password"),
+        login: _returnRoute("/users/login"),
+        register: _returnRoute("/users/register"),
+        forgotPassword: _returnRoute("/users/forgot-password"),
         validateResetToken: _returnRoute("/users/validate-reset-token"),
         resetPassword: _returnRoute("/users/reset")
     };
