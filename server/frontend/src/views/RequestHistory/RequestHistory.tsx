@@ -39,8 +39,7 @@ const RequestHistory = () => {
 	const [showFilters, setShowFilters] = useState(false);
 	const [showAddFilter, setShowAddFilter] = useState(false);
 
-	const [isError, setIsError] = useState(false);
-	const [isLoading, setIsLoading] = useState(true);
+	const [status, setStatus] = useState<"LOADING" | "LOADED" | "ERROR">(null);
 
 	const { selectedFilters, requestHistoryTimeFilter } = useContext(GlobalStoreContext);
 
@@ -76,6 +75,10 @@ const RequestHistory = () => {
 	};
 
 	const handleTimestampTableFilter = () => {
+		if (!transactions.files.length) {
+			return;
+		}
+
 		const direction = timestampFilterDirection;
 
 		if (direction === "asc") {
@@ -100,10 +103,9 @@ const RequestHistory = () => {
 	};
 
 	useEffect(() => {
-		setIsLoading(true);
-		setIsError(false);
+		setStatus("LOADING");
 
-		(async () => {
+		const getTransactionsAsync = async () => {
 			const Risks = selectedFilters
 				.filter(f => f.filterName === "Risk")
 				.map(riskFilter => riskFilter.riskEnum);
@@ -142,20 +144,20 @@ const RequestHistory = () => {
 					count: transactionsResponse.count,
 					files
 				});
-				// setTransactions(JSON.parse(transactionResponse));
+
+				setStatus("LOADED");
 			}
 			catch (error) {
-				setIsError(true);
+				setStatus("ERROR");
 				// tslint:disable-next-line: no-console
-				console.log(error);
+				console.error(error);
 			}
-			finally {
-				setIsLoading(false);
-			}
-		})();
+		}
+
+		getTransactionsAsync();
 
 		return () => {
-			if (isLoading) {
+			if (status === "LOADING") {
 				cancellationTokenSource.cancel();
 			}
 		}
@@ -167,16 +169,16 @@ const RequestHistory = () => {
 		<>
 			<MainTitle />
 
-			<Filters showFilters={showFilters} setShowFilters={setShowFilters} showAddFilter={showAddFilter} setShowAddFilter={setShowAddFilter} disabled={isLoading} />
+			<Filters showFilters={showFilters} setShowFilters={setShowFilters} showAddFilter={showAddFilter} setShowAddFilter={setShowAddFilter} disabled={status === "LOADING"} />
 
 			<Main externalStyles={`${classes.main} ${showFilters ? classes.filtersTabOpen : ""}`}>
 				<article className={classes.container}>
 					<div className={tableClasses.join(" ")}>
-						{isLoading &&
+						{status === "LOADING" &&
 							<div>Loading...</div>
 						}
 
-						{!isLoading &&
+						{status !== "LOADING" &&
 							<>
 								<Table className={classes.table}>
 									<TableHead>
@@ -204,7 +206,7 @@ const RequestHistory = () => {
 										</TableRow>
 									</TableHead>
 									<TableBody className={classes.tbody}>
-										{!isError && transactions &&
+										{status === "LOADED" && transactions &&
 											<>
 												{transactions.count > 0 &&
 													<>
@@ -232,7 +234,7 @@ const RequestHistory = () => {
 												}
 											</>}
 
-										{isError &&
+										{status === "ERROR" &&
 											<TableRow className={classes.emptyTableRow}>
 												<TableCell colSpan={4} className={classes.emptyTableCell}>
 													<h2>Error Getting Transaction Data</h2>
@@ -244,7 +246,7 @@ const RequestHistory = () => {
 							</>
 						}
 					</div>
-					{!isError && showFileInfoModal && (
+					{status !== "ERROR" && showFileInfoModal && (
 						<>
 							<Modal onCloseHandler={closeInfoModal} externalStyles={classes.modal}>
 								<FileInfo

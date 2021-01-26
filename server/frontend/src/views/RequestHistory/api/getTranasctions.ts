@@ -6,20 +6,28 @@ import { GetTransactionsResponse } from "../../../../../src/common/models/Transa
 const requestHistoryRoutes = Routes.requestHistoryRoutes;
 
 export const getTransactions = async (body: Filter, cancellationToken: CancelToken): Promise<GetTransactionsResponse> => {
-    const response = await axios(requestHistoryRoutes.getTransactionsRoute, {
-        method: "POST",
-        data: JSON.stringify({ Filter: body }),
-        headers: {
-            'Accept': '*/*',
-            'Content-Type': 'application/json'
-        },
-        cancelToken: cancellationToken
-    });
+    try {
 
-    if (response.statusText !== "OK") {
-        throw response.statusText;
+        const response = await axios(requestHistoryRoutes.getTransactionsRoute, {
+            method: "POST",
+            data: JSON.stringify({ Filter: body }),
+            headers: {
+                'Accept': '*/*',
+                'Content-Type': 'application/json'
+            },
+            cancelToken: cancellationToken
+        });
+
+        if (response.statusText !== "OK") {
+            throw response;
+        }
+
+        return response.data;
     }
-
-    return response.data;
+    catch (error) {
+        // tslint:disable-next-line: no-console
+        console.error(error.response.data);
+        throw error;
+    }
 
 };
