@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, FormEvent, useState } from "react";
 import { Link, RouteProps } from "react-router-dom";
 
 import passwordIcon, { ReactComponent as PasswordIcon } from "../../assets/password-icon.svg";
@@ -13,10 +13,11 @@ const ResetPassword = (props: RouteProps) => {
     const [message, setMessage] = useState<string>(null);
     const [password, setPassword] = useState<string>(null);
 
-    const resetPassword = async () => {
+    const resetPassword = async (event: FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
         setStatus("LOADING");
 
-
+        
     };
 
     return (
@@ -43,6 +44,7 @@ const ResetPassword = (props: RouteProps) => {
                         backgroundImage: `url(${passwordIcon})`,
                     }}
                     required
+                    disabled={status === "LOADING"}
                     loading={status === "LOADING"}
                 />
                 <div className={classes.submitButton}>

@@ -1,7 +1,7 @@
 import axios, { CancelToken } from "axios";
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { Link, Redirect, RouteProps } from "react-router-dom";
-import IdentityManagementService from "../../service/UsersService/IdentityManagementService";
+import IdentityManagementService from "../../service/IdentityManagementService/IdentityManagementService";
 
 import GlasswallLogo from "../../components/GlasswallLogo/GlasswallLogo";
 
