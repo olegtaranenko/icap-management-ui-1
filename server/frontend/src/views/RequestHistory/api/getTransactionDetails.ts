@@ -1,10 +1,10 @@
 import axios, { CancelToken } from "axios";
 import Routes from "../../../Routes";
 
-const requestHistoryRoutes = Routes.requestHistoryRoutes
+const routes = new Routes().requestHistoryRoutes;
 
 export const getTransactionDetails = async (transactionFilePath: string, cancellationToken: CancelToken): Promise<string> => {
-    const url = `${requestHistoryRoutes.getTransactionDetailsRoute}/${encodeURIComponent(transactionFilePath)}`;
+    const url = `${routes.getTransactionDetailsRoute}/${encodeURIComponent(transactionFilePath)}`;
 
     const response = await axios(url, {
         method: "GET",

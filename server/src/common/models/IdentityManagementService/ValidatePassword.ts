@@ -1,7 +1,7 @@
 import MINIMUM_PASSWORD_LENGTH from "./MinimumPasswordLength";
 
-import ArgumentException from "../errors/ArgumentException";
-import ArgumentNullException from "../errors/ArgumentNullException"
+import { ArgumentException } from "../errors/errors";
+import { ArgumentNullException } from "../errors/errors";
 
 const validatePassword = (password: string) => {
     if (!password) {

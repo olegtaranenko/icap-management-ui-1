@@ -70,7 +70,7 @@ const Filters = (props: FiltersProps) => {
 	const updateFileId = (fileIdInput: string) => {
 		setFileId(fileIdInput);
 		setIsValid(Guid.isGuid(fileIdInput));
-		setIsTouched(true);
+		setIsTouched(fileIdInput.length > 0);
 	};
 
 	const addFileIdFilter = (event: FormEvent<HTMLFormElement>) => {
@@ -254,6 +254,7 @@ const Filters = (props: FiltersProps) => {
 									onClick={() => {
 										setShowFileIdInput(false);
 										setFileId("");
+										setIsTouched(false);
 									}}>Cancel</button>
 							</form>
 						)}

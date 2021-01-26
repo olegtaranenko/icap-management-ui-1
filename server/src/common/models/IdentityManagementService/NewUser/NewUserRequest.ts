@@ -1,4 +1,4 @@
-import ArgumentNullException from "../../errors/ArgumentNullException";
+import { ArgumentNullException } from "../../errors/errors";
 import NewUser from "./NewUser";
 
 export class NewUserRequest {

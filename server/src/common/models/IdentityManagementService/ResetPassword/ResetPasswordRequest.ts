@@ -1,5 +1,5 @@
-import ArgumentException from "../../errors/ArgumentException";
-import ArgumentNullException from "../../errors/ArgumentNullException";
+import { ArgumentException } from "../../errors/errors";
+import { ArgumentNullException } from "../../errors/errors";
 
 export class ResetPasswordRequest {
     url: string;

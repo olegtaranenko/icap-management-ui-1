@@ -3,12 +3,12 @@ import { Logger } from "winston";
 import axios from "axios";
 import IConfig from "../../../common/models/IConfig";
 import handleCancellation from "../../../common/helpers/HandleCancellation";
+import handleError from "../../../common/helpers/HandleError";
 import IdentityManagementService from "../../../business/services/IdentityManagementService/IdentityManagementService";
 import { AuthenticateRequest } from "../../../common/models/IdentityManagementService/Authenticate";
 import { NewUserRequest } from "../../../common/models/IdentityManagementService/NewUser";
 import { ForgotPasswordRequest } from "../../../common/models/IdentityManagementService/ForgotPassword/ForgotPasswordRequest";
 import { ValidateResetTokenRequest } from "../../../common/models/IdentityManagementService/ValidateResetToken";
-import ArgumentNullException from "src/common/models/errors/ArgumentNullException";
 
 class UsersRoutes {
     cancellationMessage: string = "Request Cancelled by the Client";
@@ -51,7 +51,7 @@ class UsersRoutes {
             const requestUrl = this.identityManagementServiceBaseUrl + this.authenticatePath;
 
             const cancellationTokenSource = axios.CancelToken.source();
-            handleCancellation(req, cancellationTokenSource, this.cancellationMessage);
+            handleCancellation(req, cancellationTokenSource, this.cancellationMessage, this.logger);
 
             try {
                 const authenticateRequest = new AuthenticateRequest(
@@ -63,11 +63,12 @@ class UsersRoutes {
                 res.json(response);
             }
             catch (error) {
-                if (error.stack) {
-                    const message = `Error Authenticating User: ${req.body.username}`;
-                    this.logger.error(message + error.stack);
-                    res.status(500).json(message);
-                }
+                handleError(
+                    res,
+                    500,
+                    error,
+                    `Error Authenticating User: ${req.body.username}`,
+                    this.logger);
             }
         });
 
@@ -76,7 +77,7 @@ class UsersRoutes {
             const requestUrl = this.identityManagementServiceBaseUrl + this.newUserPath;
 
             const cancellationTokenSource = axios.CancelToken.source();
-            handleCancellation(req, cancellationTokenSource, this.cancellationMessage);
+            handleCancellation(req, cancellationTokenSource, this.cancellationMessage, this.logger);
 
             try {
                 const newUserRequest = new NewUserRequest(requestUrl, req.body);
@@ -87,11 +88,12 @@ class UsersRoutes {
                 res.json(response);
             }
             catch (error) {
-                if (error.stack) {
-                    const message = `Error Registering New User: ${req.body.username}`;
-                    this.logger.error(message + error.stack);
-                    res.status(500).json(message);
-                }
+                handleError(
+                    res,
+                    500,
+                    error,
+                    `Error Registering New User: ${req.body.username}`,
+                    this.logger);
             }
         });
 
@@ -100,7 +102,7 @@ class UsersRoutes {
             const requestUrl = this.identityManagementServiceBaseUrl + this.forgotPasswordPath;
 
             const cancellationTokenSource = axios.CancelToken.source();
-            handleCancellation(req, cancellationTokenSource, this.cancellationMessage);
+            handleCancellation(req, cancellationTokenSource, this.cancellationMessage, this.logger);
 
             try {
                 const forgotPasswordRequest = new ForgotPasswordRequest(requestUrl, req.body.username);
@@ -111,41 +113,37 @@ class UsersRoutes {
                 res.json(response);
             }
             catch (error) {
-                if (error.stack) {
-                    const message = `Error in Forgot Password for User: ${req.body.username}`;
-                    this.logger.error(message + error.stack);
-                    res.status(500).json(message);
-                }
+                handleError(
+                    res,
+                    500,
+                    error,
+                    `Error in Forgot Password for User: ${req.body.username}`,
+                    this.logger);
             }
         });
 
-        // Confirm
-        this.app.get("/confirm", async (req, res) => {
-            const token = req.query.token;
-            if (!token) {
-                res.json("Token cannot be null.").status(400);
-            }
+        // Validate Reset Token
+        this.app.post("/validate-reset-token", async (req, res) => {
 
-            const requestUrl = this.identityManagementServiceBaseUrl + this.validateResetTokenPath;
 
-            const cancellationTokenSource = axios.CancelToken.source();
-            handleCancellation(req, cancellationTokenSource, this.cancellationMessage);
+            res.json({message: "yay"});
 
-            try {
-                const validateResetTokenRequest = new ValidateResetTokenRequest(requestUrl, req.params.token);
+            // const requestUrl = this.identityManagementServiceBaseUrl + this.validateResetTokenPath;
 
-                const response = await this.identityManagementService.validateResetToken(
-                    validateResetTokenRequest, cancellationTokenSource.token);
+            // const cancellationTokenSource = axios.CancelToken.source();
+            // handleCancellation(req, cancellationTokenSource, this.cancellationMessage, this.logger);
 
-                res.json(response);
-            }
-            catch (error) {
-                if (error.stack) {
-                    const message = `Error Confirming User`;
-                    this.logger.error(message + error.stack);
-                    res.status(500).json(message);
-                }
-            }
+            // try {
+            //     const validateResetTokenRequest = new ValidateResetTokenRequest(requestUrl, req.body.token);
+
+            //     const response = await this.identityManagementService.validateResetToken(
+            //         validateResetTokenRequest, cancellationTokenSource.token);
+
+            //     res.json(response);
+            // }
+            // catch (error) {
+            //     handleError(res, 500, error, "Error Confirming User", this.logger);
+            // }
         });
     }
 }

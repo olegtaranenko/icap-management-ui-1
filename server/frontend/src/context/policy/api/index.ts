@@ -5,20 +5,22 @@ import Routes from "../../../Routes";
 import { Guid } from "guid-typescript";
 import { PolicyHistory } from "../../../../../src/common/models/PolicyManagementService/PolicyHistory/PolicyHistory";
 
+const routes = new Routes().policyRoutes;
+
 export const getCurrentPolicy = async (cancellationToken: CancelToken): Promise<Policy> => {
-    const response = await getPolicy(Routes.policyRoutes.getCurrentPolicyRoute, cancellationToken);
+    const response = await getPolicy(routes.getCurrentPolicyRoute, cancellationToken);
 
     return response;
 }
 
 export const getDraftPolicy = async (cancellationToken: CancelToken): Promise<Policy> => {
-    const response = await getPolicy(Routes.policyRoutes.getDraftPolicyRoute, cancellationToken);
+    const response = await getPolicy(routes.getDraftPolicyRoute, cancellationToken);
 
     return response;
 }
 
 export const saveDraftPolicy = async (policy: Policy, cancellationToken: CancelToken): Promise<void> => {
-    const response = await axios(Routes.policyRoutes.saveDraftPolicyRoute, {
+    const response = await axios(routes.saveDraftPolicyRoute, {
         method: "PUT",
         headers: {
             "Accept": "*/*",
@@ -34,7 +36,7 @@ export const saveDraftPolicy = async (policy: Policy, cancellationToken: CancelT
 }
 
 export const publishPolicy = async (policyId: Guid, cancellationToken: CancelToken): Promise<void> => {
-    const url = `${Routes.policyRoutes.publishPolicyRoute}/${policyId.toString()}`;
+    const url = `${routes.publishPolicyRoute}/${policyId.toString()}`;
 
     const response = await axios(url, {
         method: "PUT",
@@ -51,7 +53,7 @@ export const publishPolicy = async (policyId: Guid, cancellationToken: CancelTok
 }
 
 export const deleteDraftPolicy = async (policyId: Guid, cancellationToken: CancelToken): Promise<void> => {
-    const url = `${Routes.policyRoutes.deletePolicyRoute}/${policyId.toString()}`;
+    const url = `${routes.deletePolicyRoute}/${policyId.toString()}`;
 
     const response = await axios(url, {
         method: "DELETE",
@@ -68,7 +70,7 @@ export const deleteDraftPolicy = async (policyId: Guid, cancellationToken: Cance
 }
 
 export const getPolicyHistory = async (cancellationToken: CancelToken): Promise<PolicyHistory> => {
-    const url = Routes.policyRoutes.getPolicyHistory;
+    const url = routes.getPolicyHistory;
 
     const response = await axios(url, {
         method: "GET",

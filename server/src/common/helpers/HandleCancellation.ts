@@ -1,9 +1,22 @@
 import { Request } from "express";
 import { CancelTokenSource } from "axios";
+import { Logger } from "winston";
 
-const handleCancellation = (req: Request, cancellationTokenSource: CancelTokenSource, message: string) => {
+const handleCancellation = (
+    req: Request,
+    cancellationTokenSource: CancelTokenSource,
+    message: string,
+    logger?: Logger) => {
+
     req.connection.on("close", () => {
-        cancellationTokenSource.cancel(message);
+        try {
+            cancellationTokenSource.cancel(message);
+        }
+        catch (error) {
+            if (logger) {
+                logger.info(message);
+            }
+        }
     });
 }
 

@@ -1,5 +1,5 @@
 import validatePassword from "../ValidatePassword";
-import ArgumentNullException from "../../errors/ArgumentNullException";
+import { ArgumentNullException } from "../../errors/errors";
 
 export class AuthenticateRequest {
     url: string;
