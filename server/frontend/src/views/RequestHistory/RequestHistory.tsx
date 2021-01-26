@@ -144,6 +144,8 @@ const RequestHistory = () => {
 			}
 			catch (error) {
 				setIsError(true);
+				// tslint:disable-next-line: no-console
+				console.log(error);
 			}
 			finally {
 				setIsLoading(false);
