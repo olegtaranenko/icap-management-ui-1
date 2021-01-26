@@ -9,6 +9,7 @@ import { AuthenticateRequest } from "../../../common/models/IdentityManagementSe
 import { NewUserRequest } from "../../../common/models/IdentityManagementService/NewUser";
 import { ForgotPasswordRequest } from "../../../common/models/IdentityManagementService/ForgotPassword/ForgotPasswordRequest";
 import { ValidateResetTokenRequest } from "../../../common/models/IdentityManagementService/ValidateResetToken";
+import { ResetPasswordRequest } from "../../../common/models/IdentityManagementService/ResetPassword";
 
 class UsersRoutes {
     cancellationMessage: string = "Request Cancelled by the Client";
@@ -123,27 +124,43 @@ class UsersRoutes {
         });
 
         // Validate Reset Token
-        this.app.post("/validate-reset-token", async (req, res) => {
+        this.app.post("/users/validate-reset-token", async (req, res) => {
+            const requestUrl = this.identityManagementServiceBaseUrl + this.validateResetTokenPath;
 
+            const cancellationTokenSource = axios.CancelToken.source();
+            handleCancellation(req, cancellationTokenSource, this.cancellationMessage, this.logger);
 
-            res.json({message: "yay"});
+            try {
+                const validateResetTokenRequest = new ValidateResetTokenRequest(requestUrl, req.body.token);
 
-            // const requestUrl = this.identityManagementServiceBaseUrl + this.validateResetTokenPath;
+                const response = await this.identityManagementService.validateResetToken(
+                    validateResetTokenRequest, cancellationTokenSource.token);
 
-            // const cancellationTokenSource = axios.CancelToken.source();
-            // handleCancellation(req, cancellationTokenSource, this.cancellationMessage, this.logger);
+                res.json(response);
+            }
+            catch (error) {
+                handleError(res, 500, error, "Error Confirming User", this.logger);
+            }
+        });
 
-            // try {
-            //     const validateResetTokenRequest = new ValidateResetTokenRequest(requestUrl, req.body.token);
+        // Reset Password
+        this.app.post("/users/reset", async (req, res) => {
+            const requestUrl = this.identityManagementServiceBaseUrl + this.resetPasswordPath;
 
-            //     const response = await this.identityManagementService.validateResetToken(
-            //         validateResetTokenRequest, cancellationTokenSource.token);
+            const cancellationTokenSource = axios.CancelToken.source();
+            handleCancellation(req, cancellationTokenSource, this.cancellationMessage, this.logger);
 
-            //     res.json(response);
-            // }
-            // catch (error) {
-            //     handleError(res, 500, error, "Error Confirming User", this.logger);
-            // }
+            try {
+                const resetPasswordRequest = new ResetPasswordRequest(requestUrl, req.body.token, req.body.password);
+
+                const response = await this.identityManagementService.resetPassword(
+                    resetPasswordRequest, cancellationTokenSource.token);
+
+                res.json(response.message);
+            }
+            catch (error) {
+                handleError(res, 500, error, "Error Resetting Password", this.logger);
+            }
         });
     }
 }

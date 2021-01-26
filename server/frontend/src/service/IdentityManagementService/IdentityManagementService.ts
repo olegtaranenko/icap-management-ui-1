@@ -6,6 +6,7 @@ import IIdentityManagmentService from "./IIdentityManagementService";
 import { CancelToken } from "axios";
 import Routes, { IRoutes } from "../../Routes";
 import axiosRequestHelper from "../../helpers/axiosRequestHelper";
+import { ResetPasswordResponse } from "../../../../src/common/models/IdentityManagementService/ResetPassword";
 
 export default class IdentityManagementService implements IIdentityManagmentService {
     routes: IRoutes["usersRoutes"];
@@ -14,21 +15,25 @@ export default class IdentityManagementService implements IIdentityManagmentServ
         this.routes = new Routes().usersRoutes;
     }
 
-    login: () => AuthenticateResponse;
-    register: () => NewUserResponse;
-    forgotPassword: () => ForgotPasswordResponse;
+    login: () => Promise<AuthenticateResponse>;
+    register: () => Promise<NewUserResponse>;
+    forgotPassword: () => Promise<ForgotPasswordResponse>;
 
-    confirm = async (token: string, cancellationToken: CancelToken): Promise<ValidateResetTokenResponse> => {
-        try {
-            const response = await axiosRequestHelper(
-                this.routes.validateResetToken, "POST", { token: token }, cancellationToken);
+    confirm = async (token: string, cancellationToken: CancelToken) => {
+        const response = await axiosRequestHelper(
+            this.routes.validateResetToken, "POST", { token }, cancellationToken);
 
-            const confirmResponse = new ValidateResetTokenResponse(response.message);
+        const confirmResponse = new ValidateResetTokenResponse(response.message);
 
-            return confirmResponse;
-        }
-        catch (error) {
-            console.error(error);
-        }
+        return confirmResponse;
+    }
+
+    resetPassword = async (token: string, password: string, cancellationToken: CancelToken) => {
+        const response = await axiosRequestHelper(
+            this.routes.resetPassword, "POST", { token, password }, cancellationToken);
+
+        const resetResponse = new ResetPasswordResponse(response.message);
+
+        return resetResponse;
     }
 }

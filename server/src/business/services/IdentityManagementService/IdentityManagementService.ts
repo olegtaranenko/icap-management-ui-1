@@ -25,7 +25,7 @@ class IdentityManagementService implements IIdentityManagementService {
             this.logger.info(`Attempting to authenticate user: ${request.username}`);
 
             const response = await IdentityManagementApi.authenticate(
-                request.url, request.username, request.password, cancellationToken, { "Content-Type": "application/json" });
+                request.url, request.username, request.password, cancellationToken);
 
             authenticateResponse = new AuthenticateResponse(
                 response.id, response.username, response.firstName, response.lastName, response.token);
@@ -47,7 +47,7 @@ class IdentityManagementService implements IIdentityManagementService {
             this.logger.info(`Attempting to create user ${request.newUser.username}`);
 
             const response = await IdentityManagementApi.newUser(
-                request.url, request.newUser, cancellationToken, { "Content-Type": "application/json" });
+                request.url, request.newUser, cancellationToken);
 
             newUserResponse = new NewUserResponse(response.message);
 
@@ -88,7 +88,7 @@ class IdentityManagementService implements IIdentityManagementService {
             this.logger.info(`Validating Token`);
 
             const response = await IdentityManagementApi.validateResetToken(
-                request.url, request.token, cancellationToken, { "Content-Type": "application/json" });
+                request.url, request.token, cancellationToken);
 
             validateResetTokenResponse = new ValidateResetTokenResponse(response.message);
 
@@ -102,7 +102,27 @@ class IdentityManagementService implements IIdentityManagementService {
         return validateResetTokenResponse;
     }
 
-    resetPassword: (request: ResetPasswordRequest, cancellationToken: CancelToken) => Promise<ResetPasswordResponse>;
+    resetPassword = async (request: ResetPasswordRequest, cancellationToken: CancelToken) => {
+        let resetPasswordResponse: ResetPasswordResponse;
+
+        try {
+            this.logger.info(`Resetting Password`);
+
+            const response = await IdentityManagementApi.resetPassword(
+                request.url, request.token, request.password, cancellationToken);
+
+            resetPasswordResponse = new ResetPasswordResponse(response.message);
+
+            this.logger.info(`Password Reset`);
+        }
+        catch (error) {
+            this.logger.error(`Error Resetting Password`);
+            throw error;
+        }
+
+        return resetPasswordResponse;
+    };
+
     getUsers: (getUsersUrl: string, cancellationToken: CancelToken) => Promise<User[]>;
     getUser: (getUserUrl: string, userId: Guid, cancellationToken: CancelToken) => Promise<User>;
     updateUser: (updateUserUrl: string, userId: Guid, cancellationToken: CancelToken) => Promise<void>;

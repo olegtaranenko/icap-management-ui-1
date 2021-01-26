@@ -22,7 +22,8 @@ export interface IRoutes {
         login: string,
         register: string,
         forgotPassword: string,
-        validateResetToken: string
+        validateResetToken: string,
+        resetPassword: string
     }
 }
 
@@ -58,7 +59,8 @@ class Routes implements IRoutes {
         login: _returnRoute("/login"),
         register: _returnRoute("/register"),
         forgotPassword: _returnRoute("/forgot-password"),
-        validateResetToken: _returnRoute("/validate-reset-token")
+        validateResetToken: _returnRoute("/users/validate-reset-token"),
+        resetPassword: _returnRoute("/users/reset")
     };
 }
 

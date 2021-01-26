@@ -20,7 +20,7 @@ $alt-text-color: #daf5fb;
     flex-direction: column;
     justify-content: center;
 
-    width: 25%;
+    width: 30%;
 
     h2 {
         position: relative;
@@ -37,11 +37,11 @@ $alt-text-color: #daf5fb;
     }
 
     p {
-		color: #ffffff;
-		margin: 0;
-		padding: 0;
+        color: #ffffff;
+        margin: 0;
+        padding: 0;
     }
-    
+
     .icon {
         position: absolute;
         left: -18px;
@@ -63,14 +63,18 @@ $alt-text-color: #daf5fb;
             font-size: 1.4em;
         }
 
-        .icon{
+        .icon {
             path {
                 stroke: $alt-text-color;
             }
         }
 
+        a {
+            text-decoration: none;
+        }
+
         .backButton {
-            display: inline-flex;
+            padding-left: calc(50% - 3rem);
         }
     }
 }

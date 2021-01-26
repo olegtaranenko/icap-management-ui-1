@@ -16,23 +16,17 @@ const Confirm = (props: RouteProps) => {
     const identityManagementService = new IdentityManagementService();
 
     useEffect(() => {
-        const sendToken = async (cancellationToken: CancelToken) => {
+        setStatus("LOADING");
+
+        (async () => {
             try {
-                await identityManagementService.confirm(token, cancellationToken);
+                await identityManagementService.confirm(token, cancellationTokenSource.token);
                 setStatus("LOADED");
             }
             catch (error) {
                 setStatus("ERROR");
-                console.log(error);
             }
-        }
-
-        if (token) {
-            sendToken(cancellationTokenSource.token);
-        }
-        else {
-            setStatus("LOADED");
-        }
+        })();
 
         return () => {
             if (status === "LOADING") {

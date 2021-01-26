@@ -1,6 +1,6 @@
 import axios, { CancelToken, Method } from "axios";
 
-const axiosRequestHelper = async (
+const axiosHelper = async (
     url: string,
     method: Method,
     data: any,
@@ -8,13 +8,11 @@ const axiosRequestHelper = async (
     headers?: { [header: string]: string }) => {
 
     try {
-
         const response = await axios(url, {
             method,
             data: JSON.stringify(data),
             headers: {
-                'Accept': '*/*',
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
                 ...headers
             },
             cancelToken: cancellationToken
@@ -22,18 +20,14 @@ const axiosRequestHelper = async (
 
 
         if (response.status < 200 || response.status > 299) {
-            // tslint:disable-next-line: no-console
-            console.error(response.data);
-            throw response.data.message;
+            throw new Error(response.statusText);
         }
 
         return response.data;
     }
     catch (error) {
-        // tslint:disable-next-line: no-console
-        console.error(error.response.data);
         throw error;
     }
 }
 
-export default axiosRequestHelper;
+export default axiosHelper;

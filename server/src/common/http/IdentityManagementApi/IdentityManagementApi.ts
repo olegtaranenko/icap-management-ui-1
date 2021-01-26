@@ -1,11 +1,13 @@
 import axios, { CancelToken } from "axios";
 import { Guid } from "guid-typescript";
+import axiosHelper from "../../helpers/AxiosHelper";
 import { ForgotPasswordResponse } from "../../../common/models/IdentityManagementService/ForgotPassword/ForgotPasswordResponse";
 import { AuthenticateResponse } from "../../../common/models/IdentityManagementService/Authenticate";
 import { NewUserResponse } from "../../../common/models/IdentityManagementService/NewUser";
 import User from "../../../common/models/IdentityManagementService/User/User";
 import NewUser from "../../../common/models/IdentityManagementService/NewUser/NewUser";
 import { ValidateResetTokenResponse } from "../../../common/models/IdentityManagementService/ValidateResetToken";
+import { ResetPasswordResponse } from "../../../common/models/IdentityManagementService/ResetPassword";
 
 export default class IdentityManagementApi {
     static authenticate = async (
@@ -13,111 +15,40 @@ export default class IdentityManagementApi {
         username: string,
         password: string,
         cancellationToken: CancelToken,
-        headers?: { [header: string]: string }
     ): Promise<AuthenticateResponse> => {
-
-        const body = {
-            username,
-            password
-        };
-
-        const response = await axios.post(
-            authenticateUrl,
-            JSON.stringify(body),
-            {
-                headers,
-                cancelToken: cancellationToken
-            }
-        );
-
-        if (response.statusText !== "OK") {
-            throw new Error(response.statusText);
-        }
-
-        return response.data;
+        return await axiosHelper(authenticateUrl, "POST", { username, password }, cancellationToken);
     }
 
     static newUser = async (
         newUserUrl: string,
         newUser: NewUser,
-        cancellationToken: CancelToken,
-        headers?: { [header: string]: string }
+        cancellationToken: CancelToken
     ): Promise<NewUserResponse> => {
-
-        const body = {
-            firstName: newUser.firstName,
-            lastName: newUser.lastName,
-            username: newUser.username,
-            email: newUser.email
-        };
-
-        const response = await axios.post(
-            newUserUrl,
-            JSON.stringify(body),
-            {
-                headers,
-                cancelToken: cancellationToken
-            }
-        );
-
-        if (response.statusText !== "OK") {
-            throw new Error(response.statusText);
-        }
-
-        return response.data;
+        return await axiosHelper(newUserUrl, "POST", newUser, cancellationToken);
     }
 
     static forgotPassword = async (
         forgotPasswordUrl: string,
         username: string,
         cancellationToken: CancelToken,
-        headers?: { [header: string]: string }
     ): Promise<ForgotPasswordResponse> => {
-
-        const body = {
-            username
-        };
-
-        const response = await axios.post(
-            forgotPasswordUrl,
-            JSON.stringify(body),
-            {
-                headers,
-                cancelToken: cancellationToken
-            }
-        );
-
-        if (response.statusText !== "OK") {
-            throw new Error(response.statusText);
-        }
-
-        return response.data;
+        return await axiosHelper(forgotPasswordUrl, "POST", { username }, cancellationToken);
     }
 
     static validateResetToken = async (
         validateResetTokenUrl: string,
         token: string,
         cancellationToken: CancelToken,
-        headers?: { [header: string]: string }
     ): Promise<ValidateResetTokenResponse> => {
+        return await axiosHelper(validateResetTokenUrl, "POST", { token }, cancellationToken);
+    }
 
-        const body = {
-            token
-        };
-
-        const response = await axios.post(
-            validateResetTokenUrl,
-            JSON.stringify(body),
-            {
-                headers,
-                cancelToken: cancellationToken
-            }
-        );
-
-        if (response.statusText !== "OK") {
-            throw new Error(response.statusText);
-        }
-
-        return response.data;
+    static resetPassword = async (
+        resetPasswordUrl: string,
+        token: string,
+        password: string,
+        cancellationToken: CancelToken
+    ): Promise<ResetPasswordResponse> => {
+        return await axiosHelper(resetPasswordUrl, "POST", { token, password }, cancellationToken);
     }
 }
