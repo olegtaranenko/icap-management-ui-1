@@ -150,7 +150,7 @@ const RequestHistory = () => {
 			catch (error) {
 				setStatus("ERROR");
 				// tslint:disable-next-line: no-console
-				console.error(error);
+				console.error("RequestHistory: " + error);
 			}
 		}
 
