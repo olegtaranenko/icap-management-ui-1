@@ -18,7 +18,7 @@ export const getTransactions = async (body: Filter, cancellationToken: CancelTok
             cancelToken: cancellationToken
         });
 
-        if (response.statusText !== "OK") {
+        if (response.status < 200 || response.status > 299) {
             throw new Error(response.data);
         }
 
@@ -29,5 +29,4 @@ export const getTransactions = async (body: Filter, cancellationToken: CancelTok
         console.error("getTransactions: " + error);
         throw error;
     }
-
 };
