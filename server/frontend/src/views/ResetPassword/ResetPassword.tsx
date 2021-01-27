@@ -1,20 +1,22 @@
 import axios from "axios";
 import React, { ChangeEvent, FormEvent, useState } from "react";
-import { Link, RouteProps } from "react-router-dom";
+import { Link, Redirect, RouteProps } from "react-router-dom";
+
+import { ReactComponent as UserIcon } from "../../assets/user-icon.svg";
+import passwordIcon, { ReactComponent as PasswordIcon } from "../../assets/password-icon.svg";
 import MINIMUM_PASSWORD_LENGTH from "../../../../src/common/models/IdentityManagementService/MinimumPasswordLength";
 
-import passwordIcon, { ReactComponent as PasswordIcon } from "../../assets/password-icon.svg";
-import { ReactComponent as UserIcon } from "../../assets/user-icon.svg";
 import GlasswallLogo from "../../components/GlasswallLogo/GlasswallLogo";
 import Button from "../../components/UI/Button/Button";
 import Input from "../../components/UI/Input/Input";
+
 import IdentityManagementService from "../../service/IdentityManagementService/IdentityManagementService";
 
 import classes from "./ResetPassword.module.scss";
 
 const ResetPassword = (props: RouteProps) => {
     const [status, setStatus] = useState<"LOADING" | "LOADED" | "ERROR">(null);
-    const [token] = useState<string>(new URLSearchParams(props.location.search).get("Token"));
+    const [token] = useState<string>(new URLSearchParams(props.location.search).get("token"));
     const [message, setMessage] = useState<string>(null);
     const [password, setPassword] = useState<string>(null);
 
@@ -55,6 +57,10 @@ const ResetPassword = (props: RouteProps) => {
                             </Link>
                         </div>
                     </div>
+                }
+
+                {token === null &&
+                    <Redirect to="/" />
                 }
 
                 {status === null &&

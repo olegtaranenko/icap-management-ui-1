@@ -56,12 +56,12 @@ const Confirm = (props: RouteProps) => {
                     </div>
                 }
 
-                {status === "LOADED" && token !== null &&
-                    <Redirect to={`/reset?Token=${token}`} />
-                }
-
                 {status === "LOADED" && token === null &&
                     <Redirect to="/" />
+                }
+
+                {status === "LOADED" && token !== null &&
+                    <Redirect to={`/reset?token=${token}`} />
                 }
             </div>
         </section>
