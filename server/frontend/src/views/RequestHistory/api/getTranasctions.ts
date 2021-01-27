@@ -19,14 +19,14 @@ export const getTransactions = async (body: Filter, cancellationToken: CancelTok
         });
 
         if (response.statusText !== "OK") {
-            throw response;
+            throw new Error(response.data);
         }
 
         return response.data;
     }
     catch (error) {
         // tslint:disable-next-line: no-console
-        console.error(error.response.data);
+        console.error("getTransactions: " + error);
         throw error;
     }
 
