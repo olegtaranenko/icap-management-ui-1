@@ -7,27 +7,22 @@ const axiosHelper = async (
     cancellationToken: CancelToken,
     headers?: { [header: string]: string }) => {
 
-    try {
-        const response = await axios(url, {
-            method,
-            data: JSON.stringify(data),
-            headers: {
-                "Content-Type": "application/json",
-                ...headers
-            },
-            cancelToken: cancellationToken
-        });
+    const response = await axios(url, {
+        method,
+        data: JSON.stringify(data),
+        headers: {
+            "Content-Type": "application/json",
+            ...headers
+        },
+        cancelToken: cancellationToken
+    });
 
 
-        if (response.status < 200 || response.status > 299) {
-            throw new Error(response.statusText);
-        }
-
-        return response.data;
+    if (response.status < 200 || response.status > 299) {
+        throw new Error(response.statusText);
     }
-    catch (error) {
-        throw error;
-    }
+
+    return response.data;
 }
 
 export default axiosHelper;

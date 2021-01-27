@@ -1,10 +1,8 @@
-import axios, { CancelToken } from "axios";
-import { Guid } from "guid-typescript";
+import { CancelToken } from "axios";
 import axiosHelper from "../../helpers/AxiosHelper";
 import { ForgotPasswordResponse } from "../../../common/models/IdentityManagementService/ForgotPassword/ForgotPasswordResponse";
 import { AuthenticateResponse } from "../../../common/models/IdentityManagementService/Authenticate";
 import { NewUserResponse } from "../../../common/models/IdentityManagementService/NewUser";
-import User from "../../../common/models/IdentityManagementService/User/User";
 import NewUser from "../../../common/models/IdentityManagementService/NewUser/NewUser";
 import { ValidateResetTokenResponse } from "../../../common/models/IdentityManagementService/ValidateResetToken";
 import { ResetPasswordResponse } from "../../../common/models/IdentityManagementService/ResetPassword";
