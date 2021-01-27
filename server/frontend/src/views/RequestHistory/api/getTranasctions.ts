@@ -3,7 +3,7 @@ import Routes from "../../../Routes";
 import { Filter } from "../../../../../src/common/models/TransactionEventService/GetTransactions/GetTransactionsRequest";
 import { GetTransactionsResponse } from "../../../../../src/common/models/TransactionEventService/GetTransactions";
 
-const requestHistoryRoutes = Routes.requestHistoryRoutes;
+const requestHistoryRoutes = new Routes().requestHistoryRoutes;
 
 export const getTransactions = async (body: Filter, cancellationToken: CancelToken): Promise<GetTransactionsResponse> => {
     const response = await axios(requestHistoryRoutes.getTransactionsRoute, {

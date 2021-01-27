@@ -15,9 +15,11 @@ import MainTitle from "./hoc/MainTitle/MainTitle";
 import styles from "./App.module.scss";
 import Toolbar from "./components/Navigation/Toolbar/Toolbar";
 import Login from "./components/Login/Login";
-import PassReminder from "./components/PassReminder/PassReminder";
+// import PassReminder from "./components/PassReminder/PassReminder";
 import RequestHistory from "./views/RequestHistory/RequestHistory";
 import Policy from "./views/Policy/Policy";
+import Confirm from "./views/Confirm/Confirm";
+import ResetPassword from "./views/ResetPassword/ResetPassword";
 
 const App = () => {
 	const { isAuth } = useContext(AuthContext);
@@ -59,7 +61,9 @@ const App = () => {
 				{!isAuth && (
 					<Auth>
 						<Switch>
-							<Route path="/pass-reminder" component={PassReminder} />
+							<Route path="/confirm" component={Confirm} />
+							{/* <Route path="/pass-reminder" component={PassReminder} /> */}
+							<Route path="/reset" component={ResetPassword} />
 							<Route path="/" component={Login} exact />
 							<Redirect to="/" />
 						</Switch>

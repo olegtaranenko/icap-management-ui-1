@@ -1,7 +1,7 @@
 import { Guid } from "guid-typescript";
 import { FileType } from "../../enums/FileType";
 import { Risk } from "../../enums/Risk";
-import ArgumentNullException from "../../errors/ArgumentNullException";
+import { ArgumentNullException } from "../../errors/errors";
 
 export interface Filter {
     TimestampRangeStart: Date,
