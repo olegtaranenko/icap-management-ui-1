@@ -30,19 +30,6 @@ export const deleteDraftPolicy = async (policyId: Guid, cancellationToken: Cance
     const url = `${routes.deletePolicyRoute}/${policyId.toString()}`;
 
     return await axiosRequestHelper(url, "DELETE", cancellationToken, authToken);
-
-    // const response = await axios(url, {
-    //     method: "DELETE",
-    //     headers: {
-    //         "Accept": "*/*",
-    //         "Content-Type": "application/json"
-    //     },
-    //     cancelToken: cancellationToken
-    // });
-
-    // if (response.status < 200 || response.status > 299) {
-    //     throw response.statusText;
-    // }
 }
 
 export const getPolicyHistory = async (cancellationToken: CancelToken, authToken: string): Promise<PolicyHistory> => {
