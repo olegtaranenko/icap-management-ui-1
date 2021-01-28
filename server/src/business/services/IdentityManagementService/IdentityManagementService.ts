@@ -134,7 +134,26 @@ class IdentityManagementService implements IIdentityManagementService {
         return resetPasswordResponse;
     };
 
-    getUsers: (getUsersUrl: string, cancellationToken: CancelToken) => Promise<User[]>;
+    getUsers = async(getUsersUrl: string, cancellationToken: CancelToken) => {
+        let users: User[];
+
+        try {
+            this.logger.info(`Retrieving Users from the Identity Management Service`);
+
+            const response = await IdentityManagementApi.getUsers(getUsersUrl, cancellationToken);
+            users = response;
+
+            this.logger.info(`Users Retrieved from the Identity Management Service`);
+        }
+        catch (error) {
+            this.logger.error(`Error Retrieving Users`);
+            throw error;
+        }
+
+        return users;
+    };
+
+
     getUser: (getUserUrl: string, userId: Guid, cancellationToken: CancelToken) => Promise<User>;
     updateUser: (updateUserUrl: string, userId: Guid, cancellationToken: CancelToken) => Promise<void>;
     deleteUser: (deleteUserUrl: string, userId: Guid, cancellationToken: CancelToken) => Promise<void>;

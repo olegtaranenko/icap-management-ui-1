@@ -14,7 +14,7 @@ export default class IdentityManagementApi {
         password: string,
         cancellationToken: CancelToken,
     ): Promise<User> => {
-        return await axiosHelper(authenticateUrl, "POST", { username, password }, cancellationToken);
+        return await axiosHelper(authenticateUrl, "POST", cancellationToken, { username, password });
     }
 
     static newUser = async (
@@ -22,7 +22,7 @@ export default class IdentityManagementApi {
         newUser: NewUser,
         cancellationToken: CancelToken
     ): Promise<NewUserResponse> => {
-        return await axiosHelper(newUserUrl, "POST", newUser, cancellationToken);
+        return await axiosHelper(newUserUrl, "POST",cancellationToken, newUser);
     }
 
     static forgotPassword = async (
@@ -30,15 +30,15 @@ export default class IdentityManagementApi {
         username: string,
         cancellationToken: CancelToken,
     ): Promise<ForgotPasswordResponse> => {
-        return await axiosHelper(forgotPasswordUrl, "POST", { username }, cancellationToken);
+        return await axiosHelper(forgotPasswordUrl, "POST", cancellationToken, { username });
     }
 
     static validateResetToken = async (
         validateResetTokenUrl: string,
         token: string,
-        cancellationToken: CancelToken,
+        cancellationToken: CancelToken
     ): Promise<ValidateResetTokenResponse> => {
-        return await axiosHelper(validateResetTokenUrl, "POST", { token }, cancellationToken);
+        return await axiosHelper(validateResetTokenUrl, "POST", cancellationToken, { token });
     }
 
     static resetPassword = async (
@@ -47,6 +47,13 @@ export default class IdentityManagementApi {
         password: string,
         cancellationToken: CancelToken
     ): Promise<ResetPasswordResponse> => {
-        return await axiosHelper(resetPasswordUrl, "POST", { token, password }, cancellationToken);
+        return await axiosHelper(resetPasswordUrl, "POST", cancellationToken, { token, password });
+    }
+
+    static getUsers = async (
+        getUsersUrl: string,
+        cancellationToken: CancelToken
+    ): Promise<User[]> => {
+        return await axiosHelper(getUsersUrl, "GET", cancellationToken, null, {});
     }
 }
