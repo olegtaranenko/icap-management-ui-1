@@ -2,23 +2,13 @@ import axios, { CancelToken } from "axios";
 import Routes from "../../../Routes";
 import { Filter } from "../../../../../src/common/models/TransactionEventService/GetTransactions/GetTransactionsRequest";
 import { GetTransactionsResponse } from "../../../../../src/common/models/TransactionEventService/GetTransactions";
+import axiosRequestHelper from "../../../helpers/axiosRequestHelper";
 
 const requestHistoryRoutes = new Routes().requestHistoryRoutes;
 
 export const getTransactions = async (body: Filter, cancellationToken: CancelToken): Promise<GetTransactionsResponse> => {
-    const response = await axios(requestHistoryRoutes.getTransactionsRoute, {
-        method: "POST",
-        data: JSON.stringify({ Filter: body }),
-        headers: {
-            'Accept': '*/*',
-            'Content-Type': 'application/json'
-        },
-        cancelToken: cancellationToken
-    });
 
-    if (response.status < 200 || response.status > 299) {
-        throw response.data;
-    }
+    const response = axiosRequestHelper(requestHistoryRoutes.getTransactionsRoute, "POST", { Filter: body }, cancellationToken);
 
-    return response.data;
+    return response;
 };

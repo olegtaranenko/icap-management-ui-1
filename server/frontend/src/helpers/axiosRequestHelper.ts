@@ -8,7 +8,6 @@ const axiosRequestHelper = async (
     headers?: { [header: string]: string }) => {
 
     try {
-
         const response = await axios(url, {
             method,
             data: JSON.stringify(data),
@@ -25,6 +24,13 @@ const axiosRequestHelper = async (
     catch (error) {
         // tslint:disable-next-line: no-console
         console.error(error.response.data);
+
+        if ([401, 403].indexOf(error.response.status) !== -1) {
+            // auto logout if 401 Unauthorized or 403 Forbidden response returned from api
+            localStorage.removeItem("currentUser");
+            window.location.reload();
+        }
+
         throw error;
     }
 }
