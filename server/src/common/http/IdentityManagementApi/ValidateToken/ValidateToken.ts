@@ -1,4 +1,3 @@
-import { CancelToken } from "axios";
 import axiosHelper from "../../../../common/helpers/AxiosHelper";
 import IConfig from "../../../../common/models/IConfig";
 
