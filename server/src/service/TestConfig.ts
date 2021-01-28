@@ -21,6 +21,7 @@ const TestConfig = () => {
         },
         identityManagement: {
             identityManagementServiceBaseUrl: "www.glasswall.com",
+            validateTokenPath: "/users/validate-token",
             authenticatePath: "/test",
             newUserPath: "/test",
             forgotPasswordPath: "/test",

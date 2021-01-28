@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 
 import classes from "./Toolbar.module.scss";
 
-import { AuthContext } from "../../../context/auth/auth-context";
+import { UserContext } from "../../../context/user/UserContext";
 
 import { GlobalStoreContext } from "../../../context/globalStore/globalStore-context";
 
@@ -19,8 +19,8 @@ import transactionIcon from "../../../assets/menu-icons/icon-transactions.svg";
 import dashIcon from "../../../assets/menu-icons/icon-dashboard.svg";
 
 import logoutIcon from "../../../assets/svg/account-icons/logout-icon.svg";
-import changePassIcon from "../../../assets/svg/account-icons/change-password-icon.svg";
-import ChangePassword from "../../ChangePassword/ChangePassword";
+// import changePassIcon from "../../../assets/svg/account-icons/change-password-icon.svg";
+// import ChangePassword from "../../ChangePassword/ChangePassword";
 
 const navLinks = [
 	{
@@ -63,13 +63,13 @@ const navLinks = [
 ];
 
 const Toolbar = () => {
-	const [isOpen, setIsOpen] = useState(false);
 	const {
-		logout,
-		isChangePass,
-		openChangePass,
-		closeChangePass,
-	} = useContext(AuthContext);
+		currentUser,
+		logout
+	} = useContext(UserContext);
+
+	const [userLinkIsOpen, setUserLinkIsOpen] = useState(false);
+	// const [changePasswordModalIsOpen, setChangePasswordModalIsOpen] = useState(false);
 
 	// @ts-ignore
 	const { version, navExpanded, toggleNavExpanded } = useContext(GlobalStoreContext);
@@ -85,13 +85,13 @@ const Toolbar = () => {
 			name: "Log out",
 			icon: logoutIcon,
 			onClickButtonHandler: () => logout(),
-		},
-		{
-			testId: "userLinksButtonChangePassword",
-			name: "Change password",
-			icon: changePassIcon,
-			onClickButtonHandler: () => openChangePass(),
-		},
+		}// ,
+		// {
+		// 	testId: "userLinksButtonChangePassword",
+		// 	name: "Change password",
+		// 	icon: changePassIcon,
+		// 	onClickButtonHandler: () => setChangePasswordModalIsOpen(true),
+		// },
 	];
 
 	return (
@@ -100,25 +100,27 @@ const Toolbar = () => {
 				<GlasswallLogo className={classes.logo} />
 				<NavigationItems expanded={navExpanded} items={navLinks} />
 				<UserLink
-					username={"usertest@glasswallsolutions.com"}
+					username={currentUser.username}
 					expanded={navExpanded}
-					openPopup={() => setIsOpen(true)}
-					closePopup={() => setIsOpen(false)}
+					openPopup={() => setUserLinkIsOpen(true)}
+					closePopup={() => setUserLinkIsOpen(false)}
 				/>
 				<ExpandButton expanded={navExpanded} clickHandler={toggleNavExpanded} />
 				{version !== "" &&
 					<span>v{version}</span>
 				}
 			</section>
-			{isOpen && (
+			{userLinkIsOpen && (
 				<Popup
 					popupButtons={accountLinks}
 					externalStyles={classes.popup}
-					openPopupHover={() => setIsOpen(true)}
-					closePopupHover={() => setIsOpen(false)}
+					openPopupHover={() => setUserLinkIsOpen(true)}
+					closePopupHover={() => setUserLinkIsOpen(false)}
 				/>
 			)}
-			{isChangePass && <ChangePassword closeModal={closeChangePass} />}
+			{/* {changePasswordModalIsOpen &&
+				<ChangePassword closeModal={() => setChangePasswordModalIsOpen(false)} />
+			} */}
 		</>
 	);
 };

@@ -17,7 +17,8 @@ export interface InputProps {
 	disabled?: boolean,
 	loading?: boolean,
 	required?: boolean,
-	minLength?: number
+	minLength?: number,
+	value?: string
 }
 
 const Input = (props: InputProps) => {
@@ -31,6 +32,7 @@ const Input = (props: InputProps) => {
 					style={props.loading ? {width: "90%"} : {width: "100%"}}
 					type={props.type}
 					name={props.name}
+					value={props.value}
 					onChange={props.onChange}
 					placeholder={props.placeholder}
 					autoFocus={props.autofocus}

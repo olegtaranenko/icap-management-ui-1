@@ -4,7 +4,7 @@ const axiosHelper = async (
     url: string,
     method: Method,
     data: any,
-    cancellationToken: CancelToken,
+    cancellationToken?: CancelToken,
     headers?: { [header: string]: string }) => {
 
     const response = await axios(url, {

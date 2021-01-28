@@ -3,7 +3,7 @@ import { Guid } from "guid-typescript";
 import { CancelToken } from "axios";
 import IdentityManagementApi from "../../../common/http/IdentityManagementApi/IdentityManagementApi";
 import IIdentityManagementService from "../../../common/services/IIdentityManagementService";
-import { AuthenticateRequest, AuthenticateResponse } from "../../../common/models/IdentityManagementService/Authenticate";
+import { AuthenticateRequest } from "../../../common/models/IdentityManagementService/Authenticate";
 import { ForgotPasswordRequest } from "../../../common/models/IdentityManagementService/ForgotPassword/ForgotPasswordRequest";
 import { NewUserRequest, NewUserResponse } from "../../../common/models/IdentityManagementService/NewUser";
 import { ResetPasswordRequest, ResetPasswordResponse } from "../../../common/models/IdentityManagementService/ResetPassword";
@@ -19,7 +19,7 @@ class IdentityManagementService implements IIdentityManagementService {
     }
 
     authenticate = async (request: AuthenticateRequest, cancellationToken: CancelToken) => {
-        let authenticateResponse: AuthenticateResponse;
+        let user: User;
 
         try {
             this.logger.info(`Attempting to authenticate user: ${request.username}`);
@@ -27,8 +27,19 @@ class IdentityManagementService implements IIdentityManagementService {
             const response = await IdentityManagementApi.authenticate(
                 request.url, request.username, request.password, cancellationToken);
 
-            authenticateResponse = new AuthenticateResponse(
-                response.id, response.username, response.firstName, response.lastName, response.token);
+            if (!response.token) {
+                throw new Error("User Token cannot be null");
+            }
+
+            user = new User(
+                response.id,
+                response.firstName,
+                response.lastName,
+                response.username,
+                response.username,
+                null,
+                response.token
+            );
 
             this.logger.info(`Authenticated user: ${response.username}`);
         }
@@ -37,7 +48,7 @@ class IdentityManagementService implements IIdentityManagementService {
             throw error;
         }
 
-        return authenticateResponse;
+        return user;
     }
 
     newUser = async (request: NewUserRequest, cancellationToken: CancelToken) => {

@@ -2,8 +2,11 @@ import { Logger } from "winston";
 
 const handleError = (res: any, error: any, message: string, logger: Logger) => {
     if (error.response) {
-        logger.error(`${error.response.data.message}`);
-        res.status(error.response.status).json(error.response.data.message)
+        const errorResponse = error.response.data.message ?
+            error.response.data.message :
+            error.response.data;
+        logger.error(errorResponse);
+        res.status(error.response.status).json(errorResponse);
     }
     else {
         logger.error(`${message} - ${error.stack ? error.stack : error}`);

@@ -20,6 +20,7 @@ export default interface IConfig {
 
     identityManagement: {
         identityManagementServiceBaseUrl: string;
+        validateTokenPath: string;
         authenticatePath: string;
         newUserPath: string;
         forgotPasswordPath: string;

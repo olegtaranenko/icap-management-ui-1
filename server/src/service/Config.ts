@@ -21,6 +21,7 @@ const Config = () => {
         },
         identityManagement: {
             identityManagementServiceBaseUrl: "http://localhost:6004/api/v1",
+            validateTokenPath: "/users/validate-token",
             authenticatePath: "/users/authenticate",
             newUserPath: "/users/new",
             forgotPasswordPath: "/users/forgot-password",
@@ -53,6 +54,7 @@ const Config = () => {
         },
         identityManagement: {
             identityManagementServiceBaseUrl: process.env.IDENTITY_MANAGEMENT_API_URL,
+            validateTokenPath: "/users/validate-token",
             authenticatePath: "/users/authenticate",
             newUserPath: "/users/new",
             forgotPasswordPath: "/users/forgot-password",

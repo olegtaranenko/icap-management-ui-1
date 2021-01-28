@@ -6,6 +6,7 @@ import setup from "./service/Setup";
 import Config from "./service/Config";
 import path from "path";
 import cors from "cors";
+import { Token } from "./common/http/IdentityManagementApi/ValidateToken/ValidateToken";
 
 const logger = winston.createLogger({
     level: 'info',
@@ -33,6 +34,7 @@ logger.info("Loading Environment Variables with dotenv");
 
 const port = 8080;
 const workingDirectory = process.cwd();
+const config = Config();
 
 const app = express();
 app.disable("x-powered-by");
@@ -46,11 +48,41 @@ if (process.env.NODE_ENV === "development") {
     logger.info(`CORS Config added for REACT dev server - cross-origin source: ${reactDevServerEndpoint}`);
 }
 
-setup(Config(), app, logger);
+app.use(async (req, res, next) => {
+    logger.info(req.url);
+    switch (req.url) {
+        case "/users/login":
+        case "/users/forgot-password":
+        case "/users/reset":
+        case "/users/validate-reset-token":
+        case "/version":
+            return next();
+        default:
+            logger.info("Validating JWT Token...");
+            if (!req.headers.authorization) {
+                return res.status(403).json({ message: 'Authorization header cannot be empty' });
+            }
+
+            if (req.headers.authorization) {
+                try {
+                    await Token.validateToken(config, req.headers.authorization);
+                }
+                catch (error) {
+                    return res.status(error.response.status).json({ message: error.response.data });
+                }
+            }
+
+            next();
+    }
+});
+
+setup(config, app, logger);
 
 app.get("*", (req, res) => {
     res.sendFile(path.join(`${workingDirectory}/frontend/build/index.html`));
 });
+
+
 
 const server = app.listen(port, () => {
     logger.info("Started Service: ICAP Management UI");

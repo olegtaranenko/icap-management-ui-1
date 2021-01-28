@@ -1,23 +1,11 @@
-import axios, { CancelToken } from "axios";
+import { CancelToken } from "axios";
+import axiosRequestHelper from "../../../helpers/axiosRequestHelper";
 import Routes from "../../../Routes";
 
 const routes = new Routes().requestHistoryRoutes;
 
-export const getTransactionDetails = async (transactionFilePath: string, cancellationToken: CancelToken): Promise<string> => {
+export const getTransactionDetails = async (transactionFilePath: string, cancellationToken: CancelToken, authToken: string): Promise<string> => {
     const url = `${routes.getTransactionDetailsRoute}/${encodeURIComponent(transactionFilePath)}`;
 
-    const response = await axios(url, {
-        method: "GET",
-        headers: {
-            'Accept': '*/*',
-            'Content-Type': 'application/json'
-        },
-        cancelToken: cancellationToken
-    });
-
-    if (response.status < 200 || response.status > 299) {
-        throw response.data;
-    }
-
-    return response.data;
+    return axiosRequestHelper(url, "GET", cancellationToken, authToken);
 };

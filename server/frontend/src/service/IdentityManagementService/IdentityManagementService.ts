@@ -1,12 +1,8 @@
-import { AuthenticateResponse } from "../../../../src/common/models/IdentityManagementService/Authenticate";
-import { ForgotPasswordResponse } from "../../../../src/common/models/IdentityManagementService/ForgotPassword/ForgotPasswordResponse";
 import { NewUserResponse } from "../../../../src/common/models/IdentityManagementService/NewUser";
-import { ValidateResetTokenResponse } from "../../../../src/common/models/IdentityManagementService/ValidateResetToken";
 import IIdentityManagmentService from "./IIdentityManagementService";
 import { CancelToken } from "axios";
 import Routes, { IRoutes } from "../../Routes";
 import axiosRequestHelper from "../../helpers/axiosRequestHelper";
-import { ResetPasswordResponse } from "../../../../src/common/models/IdentityManagementService/ResetPassword";
 
 export default class IdentityManagementService implements IIdentityManagmentService {
     routes: IRoutes["usersRoutes"];
@@ -15,24 +11,32 @@ export default class IdentityManagementService implements IIdentityManagmentServ
         this.routes = new Routes().usersRoutes;
     }
 
-    login: () => Promise<AuthenticateResponse>;
+    login = async (username: string, password: string, cancellationToken: CancelToken) => {
+        const user = await axiosRequestHelper(
+            this.routes.login, "POST", cancellationToken, "", {username, password});
+
+        return user;
+    }
+
     register: () => Promise<NewUserResponse>;
-    forgotPassword: () => Promise<ForgotPasswordResponse>;
+
+    forgotPassword = async (username: string, cancellationToken: CancelToken) => {
+        const forgotPasswordResponse = await axiosRequestHelper(
+            this.routes.forgotPassword, "POST", cancellationToken, "", { username });
+
+        return forgotPasswordResponse;
+    }
 
     confirm = async (token: string, cancellationToken: CancelToken) => {
-        const response = await axiosRequestHelper(
-            this.routes.validateResetToken, "POST", { token }, cancellationToken);
-
-        const confirmResponse = new ValidateResetTokenResponse(response.message);
+        const confirmResponse = await axiosRequestHelper(
+            this.routes.validateResetToken, "POST", cancellationToken, "",  { token });
 
         return confirmResponse;
     }
 
     resetPassword = async (token: string, password: string, cancellationToken: CancelToken) => {
-        const response = await axiosRequestHelper(
-            this.routes.resetPassword, "POST", { token, password }, cancellationToken);
-
-        const resetResponse = new ResetPasswordResponse(response.message);
+        const resetResponse = await axiosRequestHelper(
+            this.routes.resetPassword, "POST", cancellationToken, "", { token, password });
 
         return resetResponse;
     }

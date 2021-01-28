@@ -8,7 +8,6 @@
 		margin: 4rem 0;
 
 		& input {
-			margin: 1rem 0;
 			padding-left: 5rem;
 		}
 	}
@@ -29,6 +28,13 @@
 	align-items: center;
 
 	width: 30rem;
+
+	input:-webkit-autofill {
+        background-clip: text;
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: white !important;
+        caret-color: white;
+    }
 }
 
 .logo {
