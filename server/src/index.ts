@@ -78,7 +78,7 @@ app.use(async (req, res, next) => {
 
 setup(config, app, logger);
 
-app.get("*", (req, res) => {
+app.get("/", (req, res) => {
     res.sendFile(path.join(`${workingDirectory}/frontend/build/index.html`));
 });
 
