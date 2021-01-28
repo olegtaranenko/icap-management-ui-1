@@ -48,16 +48,18 @@ export const UserState = (props: { children: React.ReactNode }) => {
 			}
 			catch (error) {
 				status = "ERROR";
-				if (error.response.data) {
-					toast.error(error.response.data, {
-						position: "top-right",
-						autoClose: 5000,
-						hideProgressBar: true,
-						closeOnClick: true,
-						pauseOnHover: true,
-						draggable: true,
-						progress: undefined,
-					});
+				if (error.response) {
+					if (error.response.data) {
+						toast.error(error.response.data, {
+							position: "top-right",
+							autoClose: 5000,
+							hideProgressBar: true,
+							closeOnClick: true,
+							pauseOnHover: true,
+							draggable: true,
+							progress: undefined,
+						});
+					}
 				}
 			}
 			finally {

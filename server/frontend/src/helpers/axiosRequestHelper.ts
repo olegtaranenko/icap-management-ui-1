@@ -27,8 +27,10 @@ const axiosRequestHelper = async (
 
         if ([401, 403].indexOf(error.response.status) !== -1) {
             // auto logout if 401 Unauthorized or 403 Forbidden response returned from api
-            localStorage.removeItem("currentUser");
-            window.location.reload();
+            if (localStorage.getItem("currentUser")) {
+                localStorage.removeItem("currentUser");
+                window.location.reload();
+            }
         }
 
         throw error;
