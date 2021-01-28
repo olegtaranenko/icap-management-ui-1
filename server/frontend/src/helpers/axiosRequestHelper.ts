@@ -3,8 +3,9 @@ import axios, { CancelToken, Method } from "axios";
 const axiosRequestHelper = async (
     url: string,
     method: Method,
-    data: any,
     cancellationToken: CancelToken,
+    authToken?: string,
+    data?: any,
     headers?: { [header: string]: string }) => {
 
     try {
@@ -14,6 +15,7 @@ const axiosRequestHelper = async (
             headers: {
                 'Accept': '*/*',
                 'Content-Type': 'application/json',
+                'Authorization': authToken,
                 ...headers
             },
             cancelToken: cancellationToken

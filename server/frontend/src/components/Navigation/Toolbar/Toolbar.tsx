@@ -19,8 +19,8 @@ import transactionIcon from "../../../assets/menu-icons/icon-transactions.svg";
 import dashIcon from "../../../assets/menu-icons/icon-dashboard.svg";
 
 import logoutIcon from "../../../assets/svg/account-icons/logout-icon.svg";
-import changePassIcon from "../../../assets/svg/account-icons/change-password-icon.svg";
-import ChangePassword from "../../ChangePassword/ChangePassword";
+// import changePassIcon from "../../../assets/svg/account-icons/change-password-icon.svg";
+// import ChangePassword from "../../ChangePassword/ChangePassword";
 
 const navLinks = [
 	{
@@ -69,7 +69,7 @@ const Toolbar = () => {
 	} = useContext(UserContext);
 
 	const [userLinkIsOpen, setUserLinkIsOpen] = useState(false);
-	const [changePasswordModalIsOpen, setChangePasswordModalIsOpen] = useState(false);
+	// const [changePasswordModalIsOpen, setChangePasswordModalIsOpen] = useState(false);
 
 	// @ts-ignore
 	const { version, navExpanded, toggleNavExpanded } = useContext(GlobalStoreContext);
@@ -85,13 +85,13 @@ const Toolbar = () => {
 			name: "Log out",
 			icon: logoutIcon,
 			onClickButtonHandler: () => logout(),
-		},
-		{
-			testId: "userLinksButtonChangePassword",
-			name: "Change password",
-			icon: changePassIcon,
-			onClickButtonHandler: () => setChangePasswordModalIsOpen(true),
-		},
+		}// ,
+		// {
+		// 	testId: "userLinksButtonChangePassword",
+		// 	name: "Change password",
+		// 	icon: changePassIcon,
+		// 	onClickButtonHandler: () => setChangePasswordModalIsOpen(true),
+		// },
 	];
 
 	return (
@@ -118,9 +118,9 @@ const Toolbar = () => {
 					closePopupHover={() => setUserLinkIsOpen(false)}
 				/>
 			)}
-			{changePasswordModalIsOpen &&
+			{/* {changePasswordModalIsOpen &&
 				<ChangePassword closeModal={() => setChangePasswordModalIsOpen(false)} />
-			}
+			} */}
 		</>
 	);
 };

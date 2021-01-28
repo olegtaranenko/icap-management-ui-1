@@ -6,9 +6,13 @@ import axiosRequestHelper from "../../../helpers/axiosRequestHelper";
 
 const requestHistoryRoutes = new Routes().requestHistoryRoutes;
 
-export const getTransactions = async (body: Filter, cancellationToken: CancelToken): Promise<GetTransactionsResponse> => {
+export const getTransactions = async (
+    body: Filter,
+    authToken: string,
+    cancellationToken: CancelToken
+): Promise<GetTransactionsResponse> => {
 
-    const response = axiosRequestHelper(requestHistoryRoutes.getTransactionsRoute, "POST", { Filter: body }, cancellationToken);
+    return axiosRequestHelper(
+        requestHistoryRoutes.getTransactionsRoute, "POST", cancellationToken, authToken, { Filter: body });
 
-    return response;
 };
