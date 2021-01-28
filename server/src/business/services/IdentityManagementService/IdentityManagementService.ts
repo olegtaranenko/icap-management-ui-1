@@ -3,7 +3,7 @@ import { Guid } from "guid-typescript";
 import { CancelToken } from "axios";
 import IdentityManagementApi from "../../../common/http/IdentityManagementApi/IdentityManagementApi";
 import IIdentityManagementService from "../../../common/services/IIdentityManagementService";
-import { AuthenticateRequest, AuthenticateResponse } from "../../../common/models/IdentityManagementService/Authenticate";
+import { AuthenticateRequest } from "../../../common/models/IdentityManagementService/Authenticate";
 import { ForgotPasswordRequest } from "../../../common/models/IdentityManagementService/ForgotPassword/ForgotPasswordRequest";
 import { NewUserRequest, NewUserResponse } from "../../../common/models/IdentityManagementService/NewUser";
 import { ResetPasswordRequest, ResetPasswordResponse } from "../../../common/models/IdentityManagementService/ResetPassword";

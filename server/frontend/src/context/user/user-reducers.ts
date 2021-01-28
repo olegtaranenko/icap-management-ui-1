@@ -24,5 +24,5 @@ export const authReducer = (state: TUserState, action: { [actionName: string]: a
 			return setCurrentUser(state, action.user);
 		default:
 			return state;
-	};
+	}
 };
