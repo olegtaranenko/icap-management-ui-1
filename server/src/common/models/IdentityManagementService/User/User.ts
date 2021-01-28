@@ -4,7 +4,8 @@ import NewUser from "../NewUser/NewUser";
 
 export default class User extends NewUser {
     id: string;
-    status: UserStatus;
+    status?: UserStatus;
+    token?: string;
 
     constructor(
         id: string,
@@ -12,7 +13,8 @@ export default class User extends NewUser {
         lastName: string,
         username: string,
         email: string,
-        status: UserStatus
+        status?: UserStatus,
+        token?: string
     ) {
         super(firstName, lastName, username, email);
 
@@ -21,5 +23,6 @@ export default class User extends NewUser {
         }
         this.id = id;
         this.status = status;
+        this.token = token;
     }
 }

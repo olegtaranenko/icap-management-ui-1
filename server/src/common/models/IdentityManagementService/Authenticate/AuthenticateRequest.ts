@@ -10,11 +10,14 @@ export class AuthenticateRequest {
         if (!url) {
             throw new ArgumentNullException("url");
         }
+        this.url = url;
 
         if (!username) {
             throw new ArgumentNullException("username");
         }
+        this.username = username;
 
         validatePassword(password);
+        this.password = password;
     }
 }

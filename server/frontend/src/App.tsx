@@ -6,7 +6,7 @@ import {
 	Redirect,
 } from "react-router-dom";
 
-import { AuthContext } from "./context/auth/auth-context";
+import { UserContext } from "./context/user/UserContext";
 
 import Auth from "./hoc/Auth/Auth";
 import Main from "./hoc/Main/Main";
@@ -22,7 +22,7 @@ import Confirm from "./views/Confirm/Confirm";
 import ResetPassword from "./views/ResetPassword/ResetPassword";
 
 const App = () => {
-	const { isAuth } = useContext(AuthContext);
+	const { currentUser } = useContext(UserContext);
 
 	const routes = (
 		<Switch>
@@ -50,15 +50,13 @@ const App = () => {
 					<div>File Drop</div>
 				</Main>
 			</Route>
-
-			<Redirect to="/" />
 		</Switch>
 	);
 
 	return (
 		<div className={styles.app}>
 			<Router>
-				{!isAuth && (
+				{!currentUser && (
 					<Auth>
 						<Switch>
 							<Route path="/confirm" component={Confirm} />
@@ -70,7 +68,7 @@ const App = () => {
 					</Auth>
 				)}
 
-				{isAuth && (
+				{currentUser && (
 					<div className={styles.mainContainer}>
 						{routes}
 						<Toolbar />

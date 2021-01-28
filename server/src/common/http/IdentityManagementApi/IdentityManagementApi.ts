@@ -1,7 +1,7 @@
 import { CancelToken } from "axios";
 import axiosHelper from "../../helpers/AxiosHelper";
+import User from "../../../common/models/IdentityManagementService/User/User";
 import { ForgotPasswordResponse } from "../../../common/models/IdentityManagementService/ForgotPassword/ForgotPasswordResponse";
-import { AuthenticateResponse } from "../../../common/models/IdentityManagementService/Authenticate";
 import { NewUserResponse } from "../../../common/models/IdentityManagementService/NewUser";
 import NewUser from "../../../common/models/IdentityManagementService/NewUser/NewUser";
 import { ValidateResetTokenResponse } from "../../../common/models/IdentityManagementService/ValidateResetToken";
@@ -13,7 +13,7 @@ export default class IdentityManagementApi {
         username: string,
         password: string,
         cancellationToken: CancelToken,
-    ): Promise<AuthenticateResponse> => {
+    ): Promise<User> => {
         return await axiosHelper(authenticateUrl, "POST", { username, password }, cancellationToken);
     }
 

@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 
 import classes from "./Toolbar.module.scss";
 
-import { AuthContext } from "../../../context/auth/auth-context";
+import { UserContext } from "../../../context/user/UserContext";
 
 import { GlobalStoreContext } from "../../../context/globalStore/globalStore-context";
 
@@ -63,13 +63,13 @@ const navLinks = [
 ];
 
 const Toolbar = () => {
-	const [isOpen, setIsOpen] = useState(false);
 	const {
-		logout,
-		isChangePass,
-		openChangePass,
-		closeChangePass,
-	} = useContext(AuthContext);
+		currentUser,
+		logout
+	} = useContext(UserContext);
+
+	const [userLinkIsOpen, setUserLinkIsOpen] = useState(false);
+	const [changePasswordModalIsOpen, setChangePasswordModalIsOpen] = useState(false);
 
 	// @ts-ignore
 	const { version, navExpanded, toggleNavExpanded } = useContext(GlobalStoreContext);
@@ -90,7 +90,7 @@ const Toolbar = () => {
 			testId: "userLinksButtonChangePassword",
 			name: "Change password",
 			icon: changePassIcon,
-			onClickButtonHandler: () => openChangePass(),
+			onClickButtonHandler: () => setChangePasswordModalIsOpen(true),
 		},
 	];
 
@@ -100,25 +100,27 @@ const Toolbar = () => {
 				<GlasswallLogo className={classes.logo} />
 				<NavigationItems expanded={navExpanded} items={navLinks} />
 				<UserLink
-					username={"usertest@glasswallsolutions.com"}
+					username={currentUser.username}
 					expanded={navExpanded}
-					openPopup={() => setIsOpen(true)}
-					closePopup={() => setIsOpen(false)}
+					openPopup={() => setUserLinkIsOpen(true)}
+					closePopup={() => setUserLinkIsOpen(false)}
 				/>
 				<ExpandButton expanded={navExpanded} clickHandler={toggleNavExpanded} />
 				{version !== "" &&
 					<span>v{version}</span>
 				}
 			</section>
-			{isOpen && (
+			{userLinkIsOpen && (
 				<Popup
 					popupButtons={accountLinks}
 					externalStyles={classes.popup}
-					openPopupHover={() => setIsOpen(true)}
-					closePopupHover={() => setIsOpen(false)}
+					openPopupHover={() => setUserLinkIsOpen(true)}
+					closePopupHover={() => setUserLinkIsOpen(false)}
 				/>
 			)}
-			{isChangePass && <ChangePassword closeModal={closeChangePass} />}
+			{changePasswordModalIsOpen &&
+				<ChangePassword closeModal={() => setChangePasswordModalIsOpen(false)} />
+			}
 		</>
 	);
 };

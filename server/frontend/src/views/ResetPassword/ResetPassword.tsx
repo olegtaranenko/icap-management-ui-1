@@ -16,7 +16,10 @@ import classes from "./ResetPassword.module.scss";
 
 const ResetPassword = (props: RouteProps) => {
     const [status, setStatus] = useState<"LOADING" | "LOADED" | "ERROR">(null);
-    const [token] = useState<string>(new URLSearchParams(props.location.search).get("token"));
+    const [token] = useState<string>(
+        new URLSearchParams(props.location.search).get("token") ?
+            new URLSearchParams(props.location.search).get("token") :
+            new URLSearchParams(props.location.search).get("Token"));
     const [message, setMessage] = useState<string>(null);
     const [password, setPassword] = useState<string>(null);
 

@@ -42,7 +42,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "^3.4.3",
     "react-test-renderer": "^16.13.1",
-    "react-toast-notifications": "^2.4.0",
+    "react-toastify": "^7.0.1",
     "react-transition-group": "^4.4.1",
     "react-xml-parser": "^1.1.6",
     "sass": "^1.32.0",
