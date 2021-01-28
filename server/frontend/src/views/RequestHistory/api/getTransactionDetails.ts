@@ -15,8 +15,8 @@ export const getTransactionDetails = async (transactionFilePath: string, cancell
         cancelToken: cancellationToken
     });
 
-    if (response.statusText !== "OK") {
-        throw response.statusText;
+    if (response.status < 200 || response.status > 299) {
+        throw response.data;
     }
 
     return response.data;
