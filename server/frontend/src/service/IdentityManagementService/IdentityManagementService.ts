@@ -17,7 +17,15 @@ export default class IdentityManagementService implements IIdentityManagmentServ
 
     login: () => Promise<AuthenticateResponse>;
     register: () => Promise<NewUserResponse>;
-    forgotPassword: () => Promise<ForgotPasswordResponse>;
+
+    forgotPassword = async (username: string, cancellationToken: CancelToken) => {
+        const response = await axiosRequestHelper(
+            this.routes.forgotPassword, "POST", { username }, cancellationToken);
+
+        const forgotPasswordResponse = new ForgotPasswordResponse(response.message);
+
+        return forgotPasswordResponse;
+    }
 
     confirm = async (token: string, cancellationToken: CancelToken) => {
         const response = await axiosRequestHelper(

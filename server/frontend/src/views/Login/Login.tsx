@@ -60,7 +60,7 @@ const Login = () => {
 					<Button data-test-id="buttonLogin" buttonType={"submit"}>Log In</Button>
 				</form>
 				<p className={classes.rePassLink}>
-					<Link data-test-id="linkForgottenPassword" to={"/pass-reminder"}>Forgotten password?</Link>
+					<Link data-test-id="linkForgottenPassword" to={"/forgot-password"}>Forgotten password?</Link>
 				</p>
 			</div>
 		</section>

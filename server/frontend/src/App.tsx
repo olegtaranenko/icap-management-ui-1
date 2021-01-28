@@ -14,8 +14,8 @@ import MainTitle from "./hoc/MainTitle/MainTitle";
 
 import styles from "./App.module.scss";
 import Toolbar from "./components/Navigation/Toolbar/Toolbar";
-import Login from "./components/Login/Login";
-// import PassReminder from "./components/PassReminder/PassReminder";
+import Login from "./views/Login/Login";
+import ForgottenPassword from "./views/ForgottenPassword/ForgottenPassword";
 import RequestHistory from "./views/RequestHistory/RequestHistory";
 import Policy from "./views/Policy/Policy";
 import Confirm from "./views/Confirm/Confirm";
@@ -62,7 +62,7 @@ const App = () => {
 					<Auth>
 						<Switch>
 							<Route path="/confirm" component={Confirm} />
-							{/* <Route path="/pass-reminder" component={PassReminder} /> */}
+							<Route path="/forgot-password" component={ForgottenPassword} />
 							<Route path="/reset" component={ResetPassword} />
 							<Route path="/" component={Login} exact />
 							<Redirect to="/" />

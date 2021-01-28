@@ -8,7 +8,7 @@ import { ValidateResetTokenResponse } from "../../../../src/common/models/Identi
 export default interface IIdentityManagmentService {
     login: () => Promise<AuthenticateResponse>;
     register: () => Promise<NewUserResponse>;
-    forgotPassword: () => Promise<ForgotPasswordResponse>;
+    forgotPassword: (username: string, cancellationToken: CancelToken) => Promise<ForgotPasswordResponse>;
     confirm: (token: string, cancellationToken: CancelToken) => Promise<ValidateResetTokenResponse>;
     resetPassword: (token: string, password: string, cancellationToken: CancelToken) => Promise<ResetPasswordResponse>;
 }

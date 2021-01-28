@@ -20,13 +20,6 @@ const axiosRequestHelper = async (
             cancelToken: cancellationToken
         });
 
-
-        if (response.status < 200 || response.status > 299) {
-            // tslint:disable-next-line: no-console
-            console.error(response.data);
-            throw response.data.message;
-        }
-
         return response.data;
     }
     catch (error) {

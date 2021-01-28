@@ -1,10 +1,10 @@
 import React, { ChangeEvent, FormEvent, useState } from "react";
-import { Link, Redirect, RouteProps } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
-import { ReactComponent as UserIcon } from "../../assets/user-icon.svg";
-import passwordIcon, { ReactComponent as PasswordIcon } from "../../assets/password-icon.svg";
-import MINIMUM_PASSWORD_LENGTH from "../../../../src/common/models/IdentityManagementService/MinimumPasswordLength";
+import { ReactComponent as PasswordIcon } from "../../assets/password-icon.svg";
+import { ReactComponent as SubjectIcon } from "../../assets/subject-icon.svg";
+import userIcon from "../../assets/user-icon.svg";
 
 import GlasswallLogo from "../../components/GlasswallLogo/GlasswallLogo";
 import Button from "../../components/UI/Button/Button";
@@ -12,24 +12,23 @@ import Input from "../../components/UI/Input/Input";
 
 import IdentityManagementService from "../../service/IdentityManagementService/IdentityManagementService";
 
-import classes from "./ResetPassword.module.scss";
+import classes from "./ForgottenPassword.module.scss";
 
-const ResetPassword = (props: RouteProps) => {
+const ForgottenPassword = () => {
     const [status, setStatus] = useState<"LOADING" | "LOADED" | "ERROR">(null);
-    const [token] = useState<string>(new URLSearchParams(props.location.search).get("token"));
+    const [username, setUsername] = useState<string>(null);
     const [message, setMessage] = useState<string>(null);
-    const [password, setPassword] = useState<string>(null);
 
     const cancellationTokenSource = axios.CancelToken.source();
     const identityManagementService = new IdentityManagementService();
 
-    const resetPassword = async (event: FormEvent<HTMLFormElement>) => {
+    const submitForgottenPassword = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         setStatus("LOADING");
 
         try {
-            const response = await identityManagementService.resetPassword(
-                token, password, cancellationTokenSource.token);
+            const response = await identityManagementService.forgotPassword(
+                username, cancellationTokenSource.token);
             setMessage(response.message);
             setStatus("LOADED");
         }
@@ -47,7 +46,7 @@ const ResetPassword = (props: RouteProps) => {
             {status === "ERROR" &&
                 <div className={classes.error}>
                     <h2>
-                        An Error Occurred While Resetting your Password
+                        An Error Occurred While Sending the Forgotten Password Request
                         </h2>
 
                     <div className={classes.backButtonWrapper}>
@@ -59,45 +58,38 @@ const ResetPassword = (props: RouteProps) => {
             }
 
             <div className={classes.wrapper}>
-                {token === null &&
-                    <Redirect to="/" />
-                }
-
                 {(status === null || status === "LOADING") &&
                     <>
                         <h2 className={classes.heading}>
                             <PasswordIcon className={classes.icon} viewBox={"0 0 44 44"} />
-                            New Password
-                        </h2>
-
+					        Forgotten Password
+				        </h2>
                         <p className={classes.message}>
-                            Please enter a new password below.
-                            The minimum character length for new passwords is {MINIMUM_PASSWORD_LENGTH}.
-			            </p>
+                            Please enter your username. A link will be sent to the email
+                            address associated with your account, allowing you to create a new
+                            password.
+				        </p>
 
-                        <form onSubmit={resetPassword}>
+                        <form onSubmit={submitForgottenPassword}>
                             <Input
-                                type="password"
-                                name="password"
-                                placeholder="Password"
+                                type="string"
+                                name="username"
+                                placeholder="Username"
                                 onChange={(event: ChangeEvent<HTMLInputElement>) => {
-                                    setPassword(event.target.value);
+                                    setUsername(event.target.value);
                                 }}
                                 style={{
-                                    backgroundImage: `url(${passwordIcon})`,
+                                    backgroundImage: `url(${userIcon})`,
                                 }}
                                 required
-                                minLength={MINIMUM_PASSWORD_LENGTH}
                                 disabled={status === "LOADING"}
                                 loading={status === "LOADING"}
                             />
-
                             <div className={classes.submitButtonWrapper}>
                                 <Link to={"/"}>
-                                    <Button data-test-id="buttonCancel" buttonType={"button"}>Cancel</Button>
+                                    <Button data-test-id="buttonCancel" buttonType="button">Cancel</Button>
                                 </Link>
-
-                                <Button data-test-id="buttonSubmit" buttonType={"submit"}>Submit</Button>
+                                <Button data-test-id="buttonSendLink" buttonType="submit">Send link</Button>
                             </div>
                         </form>
                     </>
@@ -106,8 +98,8 @@ const ResetPassword = (props: RouteProps) => {
                 {status === "LOADED" &&
                     <>
                         <h2 className={classes.heading}>
-                            <UserIcon className={classes.icon} viewBox={"0 0 44 44"} />
-                            Password Reset
+                            <SubjectIcon className={classes.icon} viewBox={"0 0 44 44"} />
+                            Email Sent
                         </h2>
 
                         <p className={classes.message}>
@@ -116,7 +108,7 @@ const ResetPassword = (props: RouteProps) => {
 
                         <div className={classes.loginButtonWrapper}>
                             <Link to={"/"}>
-                                <Button data-test-id="buttonLogin" buttonType={"button"}>Login</Button>
+                                <Button data-test-id="buttonBack" buttonType={"button"}>Back</Button>
                             </Link>
                         </div>
                     </>
@@ -126,4 +118,4 @@ const ResetPassword = (props: RouteProps) => {
     );
 }
 
-export default ResetPassword;
+export default ForgottenPassword;
