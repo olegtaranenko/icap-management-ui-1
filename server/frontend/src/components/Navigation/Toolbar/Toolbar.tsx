@@ -12,11 +12,8 @@ import { ExpandButton } from "../../GlasswallNav/GlasswallNav";
 import UserLink from "../../UI/UserLink/UserLink";
 import Popup, { PopupButton } from "../../UI/Popup/Popup";
 
-import usersIcon from "../../../assets/menu-icons/icon-users.svg";
-import releaseIcon from "../../../assets/menu-icons/icon-release.svg";
 import policy from "../../../assets/menu-icons/icon-policies.svg";
 import transactionIcon from "../../../assets/menu-icons/icon-transactions.svg";
-import dashIcon from "../../../assets/menu-icons/icon-dashboard.svg";
 
 import logoutIcon from "../../../assets/svg/account-icons/logout-icon.svg";
 // import changePassIcon from "../../../assets/svg/account-icons/change-password-icon.svg";
