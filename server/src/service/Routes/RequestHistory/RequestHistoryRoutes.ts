@@ -52,14 +52,14 @@ class RequestHistoryRoutes {
             }
         });
 
-        this.app.get("/request-history/transactionDetails/:transactionFilePath", async (req, res) => {
+        this.app.post("/request-history/transactionDetails/", async (req, res) => {
             const requestUrl = this.transactionEventServiceBaseUrl + this.getTransactionDetailsPath;
 
             const cancellationTokenSource = axios.CancelToken.source();
             handleCancellation(req, cancellationTokenSource, this.cancellationMessage);
 
             try {
-                const transactionDetailsRequest = new GetTransactionDetailsRequest(requestUrl, req.params.transactionFilePath);
+                const transactionDetailsRequest = new GetTransactionDetailsRequest(requestUrl, req.body.transactionFilePath);
 
                 const transactionDetails = await this.transactionEventService.getTransactionDetails(
                     transactionDetailsRequest, cancellationTokenSource.token);
