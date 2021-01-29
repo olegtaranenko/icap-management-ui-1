@@ -27,7 +27,7 @@ const App = () => {
 	const routes = (
 		<Switch>
 			<Route exact path="/">
-				<Redirect to="/analytics" />
+				<Redirect to="/request-history" />
 			</Route>
 
 			<Route path="/analytics">

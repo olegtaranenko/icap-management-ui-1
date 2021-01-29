@@ -23,14 +23,14 @@ import logoutIcon from "../../../assets/svg/account-icons/logout-icon.svg";
 // import ChangePassword from "../../ChangePassword/ChangePassword";
 
 const navLinks = [
-	{
-		link: "/analytics",
-		name: "Analytics",
-		icon: dashIcon,
-		id: "id-1",
-		exact: true,
-		testId: "navLinkAnalytics"
-	},
+	// {
+	// 	link: "/analytics",
+	// 	name: "Analytics",
+	// 	icon: dashIcon,
+	// 	id: "id-1",
+	// 	exact: true,
+	// 	testId: "navLinkAnalytics"
+	// },
 	{
 		link: "/request-history",
 		name: "Request history",
@@ -39,27 +39,27 @@ const navLinks = [
 		exact: true,
 		testId: "navLinkRequestHistory"
 	},
-	{
-		link: "/file-drop",
-		name: "File drop",
-		icon: releaseIcon,
-		id: "id-3",
-		testId: "navLinkFileDrop"
-	},
+	// {
+	// 	link: "/file-drop",
+	// 	name: "File drop",
+	// 	icon: releaseIcon,
+	// 	id: "id-3",
+	// 	testId: "navLinkFileDrop"
+	// },
 	{
 		link: "/policy",
 		name: "Policy",
 		icon: policy,
 		id: "id-4",
 		testId: "navLinkPolicy"
-	},
-	{
-		link: "/users",
-		name: "Users",
-		icon: usersIcon,
-		id: "id-6",
-		testId: "navLinkUsers"
-	},
+	}// ,
+	// {
+	// 	link: "/users",
+	// 	name: "Users",
+	// 	icon: usersIcon,
+	// 	id: "id-6",
+	// 	testId: "navLinkUsers"
+	// },
 ];
 
 const Toolbar = () => {
