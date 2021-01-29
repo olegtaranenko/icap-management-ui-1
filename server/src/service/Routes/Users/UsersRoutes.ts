@@ -61,6 +61,7 @@ class UsersRoutes {
                 const response = await this.identityManagementService.authenticate(
                     authenticateRequest, cancellationTokenSource.token);
 
+                req.session.token = response.token;
                 res.json(response);
             }
             catch (error) {
