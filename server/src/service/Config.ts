@@ -20,7 +20,7 @@ const Config = () => {
             distributeNcfsPolicyPath: "/policy/current/distribute-ncfs"
         },
         identityManagement: {
-            identityManagementServiceBaseUrl: "http://localhost:6004/api/v1",
+            identityManagementServiceBaseUrl: "https://localhost:6088/api/v1",
             validateTokenPath: "/users/validate-token",
             authenticatePath: "/users/authenticate",
             newUserPath: "/users/new",
