@@ -5,7 +5,5 @@ import Routes from "../../../Routes";
 const routes = new Routes().requestHistoryRoutes;
 
 export const getTransactionDetails = async (transactionFilePath: string, cancellationToken: CancelToken, authToken: string): Promise<string> => {
-    const url = `${routes.getTransactionDetailsRoute}/${encodeURIComponent(transactionFilePath)}`;
-
-    return axiosRequestHelper(url, "GET", cancellationToken, authToken);
+    return axiosRequestHelper(routes.getTransactionDetailsRoute, "POST", cancellationToken, authToken, {transactionFilePath});
 };
