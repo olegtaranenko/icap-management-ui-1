@@ -59,13 +59,13 @@ app.use(async (req, res, next) => {
             return next();
         default:
             logger.info("Validating JWT Token...");
-            if (!req.headers.authorization) {
-                return res.status(403).json({ message: 'Authorization header cannot be empty' });
-            }
 
             if (req.headers.authorization) {
                 try {
-                    await Token.validateToken(config, req.headers.authorization);
+                    if (!await Token.validateToken(config, req.headers.authorization)) {
+                        logger.info("Redirecting unauthorized user...");
+                        return res.redirect("/users/login");
+                    }
                 }
                 catch (error) {
                     return res.status(error.response.status).json({ message: error.response.data });
