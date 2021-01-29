@@ -12,6 +12,6 @@ export class Token {
 
         const response = await axiosHelper(validateTokenUrl, "POST", { token });
 
-        return response.status === "OK";
+        return response.message === "Token is valid";
     }
 }

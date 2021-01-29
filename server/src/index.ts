@@ -7,6 +7,15 @@ import Config from "./service/Config";
 import path from "path";
 import cors from "cors";
 import { Token } from "./common/http/IdentityManagementApi/ValidateToken/ValidateToken";
+import session from "express-session";
+declare module 'express-session' {
+    export interface SessionData {
+        [key: string]: any
+    }
+  }
+
+import { v4 as uuidv4 } from "uuid";
+
 
 const logger = winston.createLogger({
     level: 'info',
@@ -48,6 +57,22 @@ if (process.env.NODE_ENV === "development") {
     logger.info(`CORS Config added for REACT dev server - cross-origin source: ${reactDevServerEndpoint}`);
 }
 
+const sessionOptions = {
+    genid() {
+      return uuidv4() // use UUIDs for session IDs
+    },
+    secret: uuidv4(),
+    cookie: { secure: false },
+  };
+
+
+if (process.env.NODE_ENV === "production") {
+    app.set('trust proxy', 1) // trust first proxy
+    sessionOptions.cookie.secure = true // serve secure cookies
+}
+
+app.use(session(sessionOptions))
+
 app.use(async (req, res, next) => {
     logger.info(req.url);
     switch (req.url) {
@@ -58,18 +83,17 @@ app.use(async (req, res, next) => {
         case "/version":
             return next();
         default:
-            logger.info("Validating JWT Token...");
+            logger.info(req.session.id + ": Validating current user...");
 
-            if (req.headers.authorization) {
-                try {
-                    if (!await Token.validateToken(config, req.headers.authorization)) {
-                        logger.info("Redirecting unauthorized user...");
-                        return res.redirect("/users/login");
-                    }
+            try {
+                if (!req.session.token
+                      || !await Token.validateToken(config, req.session.token)) {
+                    logger.info(req.session.id + ": Redirecting unauthorized user...");
+                    return res.redirect("/users/login");
                 }
-                catch (error) {
-                    return res.status(error.response.status).json({ message: error.response.data });
-                }
+            }
+            catch (error) {
+                return res.status(error.response.status).json({ message: error.response.data });
             }
 
             next();
@@ -78,7 +102,8 @@ app.use(async (req, res, next) => {
 
 setup(config, app, logger);
 
-app.get("/*", (req, res) => {
+app.get("/*", async (req, res) => {
+    logger.info(req.session.id + ": serving page...");
     res.sendFile(path.join(`${workingDirectory}/frontend/build/index.html`));
 });
 
