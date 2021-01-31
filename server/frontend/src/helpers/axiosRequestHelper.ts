@@ -33,9 +33,11 @@ const axiosRequestHelper = async (
             throw response;
         }
 
-        if (response.request.responseUrl !== url) {
-            // auto logout if server returned a redirect URL because of missing session token
-            _handleUnauthorisedResponse();
+        if (response.request.responseUrl) {
+            if (response.request.responseUrl !== url) {
+                // auto logout if server returned a redirect URL because of missing session token
+                _handleUnauthorisedResponse();
+            }
         }
 
         return response.data;
