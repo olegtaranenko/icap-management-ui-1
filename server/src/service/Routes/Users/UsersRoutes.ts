@@ -160,6 +160,24 @@ class UsersRoutes {
                 handleError(res, error, "Error Resetting Password", this.logger);
             }
         });
+
+        // Get Users
+        this.app.get("/users/all", async (req, res) => {
+            const requestUrl = this.identityManagementServiceBaseUrl + this.getUsersPath;
+
+            const cancellationTokenSource = axios.CancelToken.source();
+            handleCancellation(req, cancellationTokenSource, this.cancellationMessage, this.logger);
+
+            try {
+                const users = await this.identityManagementService.getUsers(
+                    requestUrl, cancellationTokenSource.token);
+
+                res.json(users);
+            }
+            catch (error) {
+                handleError(res, error, "Error Getting Users", this.logger);
+            }
+        });
     }
 }
 

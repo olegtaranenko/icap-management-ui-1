@@ -72,7 +72,7 @@ const Login = () => {
 					<Button
 						data-test-id="buttonLogin"
 						buttonType={"submit"}
-						disabled={status === "LOADING" || password.length < MINIMUM_PASSWORD_LENGTH}>Log In</Button>
+						disabled={status === "LOADING"}>Log In</Button>
 				</form>
 				<p className={classes.rePassLink}>
 					<Link data-test-id="linkForgottenPassword" to={"/forgot-password"}>Forgotten password?</Link>

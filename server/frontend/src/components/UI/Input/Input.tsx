@@ -12,7 +12,7 @@ export interface InputProps {
 	touched?: boolean
 	type: string,
 	onChange: React.ChangeEventHandler,
-	placeholder: string,
+	placeholder?: string,
 	autofocus?: boolean,
 	disabled?: boolean,
 	loading?: boolean,

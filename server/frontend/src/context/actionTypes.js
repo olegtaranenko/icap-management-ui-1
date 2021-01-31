@@ -4,10 +4,6 @@ export const TOGGLE_NAV_EXPANDED = `TOGGLE_NAV_EXPANDED`;
 
 export const RESET_STATE = `RESET_STATE`;
 
-// Auth
-export const SET_USER_ERROR = `SET_USER_ERROR`;
-export const SET_CURRENT_USER = `SET_CURRENT_USER`;
-
 // Root
 export const SET_VERSION = `SET_VERSION`;
 
@@ -27,3 +23,7 @@ export const SET_POLICY_HISTORY = `SET_POLICY_HISTORY`;
 export const SET_NEW_DRAFT_POLICY = `SET_NEW_DRAFT_POLICY`;
 export const CANCEL_DRAFT_CHANGES = `CANCEL_DRAFT_CHANGES`;
 
+// Users
+export const SET_USER_ERROR = `SET_USER_ERROR`;
+export const SET_CURRENT_USER = `SET_CURRENT_USER`;
+export const SET_USERS = `SET_USERS`;

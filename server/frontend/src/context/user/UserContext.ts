@@ -5,6 +5,8 @@ import User from "../../../../src/common/models/IdentityManagementService/User/U
 export type TUserState = {
     currentUser: User,
     status: "LOADING" | "ERROR" | "LOADED",
+    users: User[],
+    getUsers: (cancellationToken: CancelToken) => Promise<void>,
     login: (username: string, password: string, cancellationToken: CancelToken) => void,
     logout: () => void
 }

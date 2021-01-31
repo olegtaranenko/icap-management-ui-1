@@ -3,7 +3,7 @@ import { CancelToken } from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 
 import { UserContext } from "./UserContext";
-import { authReducer } from "./user-reducers";
+import { userReducer } from "./user-reducers";
 import * as actionTypes from "../actionTypes";
 
 import User from "../../../../src/common/models/IdentityManagementService/User/User";
@@ -12,7 +12,8 @@ import IdentityManagementService from "../../service/IdentityManagementService/I
 
 interface InitialUserState {
 	currentUser: User | null,
-	status: "LOADING" | "ERROR" | "LOADED"
+	status: "LOADING" | "ERROR" | "LOADED",
+	users: User[]
 }
 
 export const UserState = (props: { children: React.ReactNode }) => {
@@ -20,10 +21,11 @@ export const UserState = (props: { children: React.ReactNode }) => {
 
 	const initialState: InitialUserState = {
 		currentUser: JSON.parse(localStorage.getItem("currentUser")),
-		status: "LOADED"
+		status: "LOADED",
+		users: []
 	};
 
-	const [userState, dispatch] = useReducer(authReducer, initialState);
+	const [userState, dispatch] = useReducer(userReducer, initialState);
 
 	const setStatus = (status: "LOADING" | "ERROR" | "LOADED") => {
 		dispatch({ type: actionTypes.SET_STATUS, status });
@@ -31,6 +33,23 @@ export const UserState = (props: { children: React.ReactNode }) => {
 
 	const setCurrentUser = (user: User) => {
 		dispatch({ type: actionTypes.SET_CURRENT_USER, user });
+	}
+
+	const setUsers = (users: User[]) => {
+		dispatch({type: actionTypes.SET_USERS, users})
+	}
+
+	const getUsers = async (cancellationToken: CancelToken) => {
+		setStatus("LOADING");
+
+		try {
+			const response = await identityManagementService.getUsers(cancellationToken);
+			setUsers(response);
+			setStatus("LOADED");
+		}
+		catch(error) {
+			setStatus("ERROR");
+		}
 	}
 
 	const login = (username: string, password: string, cancellationToken: CancelToken) => {
@@ -77,6 +96,8 @@ export const UserState = (props: { children: React.ReactNode }) => {
 		<UserContext.Provider value={{
 			currentUser: userState.currentUser,
 			status: userState.status,
+			users: userState.users,
+			getUsers,
 			login,
 			logout
 		}}>

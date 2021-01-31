@@ -20,6 +20,7 @@ import RequestHistory from "./views/RequestHistory/RequestHistory";
 import Policy from "./views/Policy/Policy";
 import Confirm from "./views/Confirm/Confirm";
 import ResetPassword from "./views/ResetPassword/ResetPassword";
+import Users from "./views/Users/Users";
 
 const App = () => {
 	const { currentUser } = useContext(UserContext);
@@ -41,12 +42,7 @@ const App = () => {
 
 			<Route path="/policy" component={Policy} />
 
-			<Route path="/users">
-				<MainTitle />
-				<Main>
-					<div>Users</div>
-				</Main>
-			</Route>
+			<Route path="/users" component={Users}/>
 
 			<Route path="/file-drop">
 				<MainTitle />
@@ -66,8 +62,8 @@ const App = () => {
 							<Route path="/confirm" component={Confirm} />
 							<Route path="/forgot-password" component={ForgottenPassword} />
 							<Route path="/reset" component={ResetPassword} />
-							<Route path="/" component={Login} exact />
-							<Redirect to="/" />
+							<Route path="/login" component={Login} exact />
+							<Redirect to="/login" />
 						</Switch>
 					</Auth>
 				)}

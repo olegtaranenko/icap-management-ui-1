@@ -73,37 +73,37 @@ if (process.env.NODE_ENV === "production") {
 
 app.use(session(sessionOptions))
 
-app.use(async (req, res, next) => {
-    logger.info(req.url);
-    switch (req.url) {
-        case "/users/login":
-        case "/users/forgot-password":
-        case "/users/reset":
-        case "/users/validate-reset-token":
-        case "/version":
-            return next();
-        default:
-            logger.info(req.session.id + ": Validating current user...");
+// app.use(async (req, res, next) => {
+//     // logger.info(req.url);
+//     switch (req.url) {
+//         case "/users/login":
+//         case "/users/forgot-password":
+//         case "/users/reset":
+//         case "/users/validate-reset-token":
+//         case "/version":
+//             return next();
+//         default:
+//             logger.info(req.session.id + ": Validating current user...");
 
-            try {
-                if (!req.session.token
-                      || !await Token.validateToken(config, req.session.token)) {
-                    logger.info(req.session.id + ": Redirecting unauthorized user...");
-                    return res.redirect("/users/login");
-                }
-            }
-            catch (error) {
-                return res.status(error.response.status).json({ message: error.response.data });
-            }
+//             try {
+//                 if (!req.session.token
+//                       || !await Token.validateToken(config, req.session.token)) {
+//                     logger.info(req.session.id + ": Redirecting unauthorized user...");
+//                     return res.redirect("/users/login");
+//                 }
+//             }
+//             catch (error) {
+//                 return res.status(error.response.status).json({ message: error.response.data });
+//             }
 
-            next();
-    }
-});
+//             next();
+//     }
+// });
 
 setup(config, app, logger);
 
 app.get("/*", async (req, res) => {
-    logger.info(req.session.id + ": serving page...");
+    // logger.info(req.session.id + ": serving page...");
     res.sendFile(path.join(`${workingDirectory}/frontend/build/index.html`));
 });
 
