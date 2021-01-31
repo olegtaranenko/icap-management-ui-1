@@ -3,7 +3,7 @@ import { Guid } from "guid-typescript";
 import { CancelToken } from "axios";
 import IdentityManagementApi from "../../../common/http/IdentityManagementApi/IdentityManagementApi";
 import IIdentityManagementService from "../../../common/services/IIdentityManagementService";
-import { AuthenticateRequest } from "../../../common/models/IdentityManagementService/Authenticate";
+import { AuthenticateRequest, AuthenticateResponse } from "../../../common/models/IdentityManagementService/Authenticate";
 import { ForgotPasswordRequest } from "../../../common/models/IdentityManagementService/ForgotPassword/ForgotPasswordRequest";
 import { NewUserRequest, NewUserResponse } from "../../../common/models/IdentityManagementService/NewUser";
 import { ResetPasswordRequest, ResetPasswordResponse } from "../../../common/models/IdentityManagementService/ResetPassword";
@@ -19,7 +19,7 @@ class IdentityManagementService implements IIdentityManagementService {
     }
 
     authenticate = async (request: AuthenticateRequest, cancellationToken: CancelToken) => {
-        let user: User;
+        let authenticateResponse: AuthenticateResponse;
 
         try {
             this.logger.info(`Attempting to authenticate user: ${request.username}`);
@@ -31,15 +31,15 @@ class IdentityManagementService implements IIdentityManagementService {
                 throw new Error("User Token cannot be null");
             }
 
-            user = new User(
+            const user = new User(
                 response.id,
                 response.firstName,
                 response.lastName,
                 response.username,
-                response.username,
-                null,
-                response.token
+                response.username
             );
+
+            authenticateResponse = new AuthenticateResponse(user, response.token);
 
             this.logger.info(`Authenticated user: ${response.username}`);
         }
@@ -48,7 +48,7 @@ class IdentityManagementService implements IIdentityManagementService {
             throw error;
         }
 
-        return user;
+        return authenticateResponse;
     }
 
     newUser = async (request: NewUserRequest, cancellationToken: CancelToken) => {

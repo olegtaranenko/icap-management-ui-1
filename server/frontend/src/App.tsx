@@ -27,9 +27,13 @@ const App = () => {
 
 	const routes = (
 		<Switch>
-			<Route exact path="/">
+			<Route exact path="/login">
 				<Redirect to="/request-history" />
 			</Route>
+
+			{/* <Route path="/">
+				<Redirect to="/request-history" />
+			</Route> */}
 
 			<Route path="/analytics">
 				<MainTitle />

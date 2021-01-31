@@ -34,6 +34,8 @@ const Users = () => {
                 cancellationTokenSource.cancel();
             }
         }
+
+        // eslint-disable-next-line
     }, []);
 
     return (

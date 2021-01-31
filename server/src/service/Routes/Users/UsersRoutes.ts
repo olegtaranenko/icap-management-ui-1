@@ -62,7 +62,7 @@ class UsersRoutes {
                     authenticateRequest, cancellationTokenSource.token);
 
                 req.session.token = response.token;
-                res.json(response);
+                res.json(response.user);
             }
             catch (error) {
                 handleError(

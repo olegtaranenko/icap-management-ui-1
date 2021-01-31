@@ -19,7 +19,7 @@ const axiosHelper = async (
 
 
     if (response.status < 200 || response.status > 299) {
-        throw new Error(response.statusText);
+        throw new Error(response.data);
     }
 
     return response.data;
