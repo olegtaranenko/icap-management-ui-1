@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { AnalyticsContext } from "../../context/analytics/analytics-context";
+// import { AnalyticsContext } from "../../context/analytics/analytics-context";
 
 import classes from "./Analytics.module.scss";
 
@@ -10,15 +10,23 @@ import InfoBlock from "../../components/UI/InfoBlock/InfoBlock";
 import DaterangePicker from "../../components/UI/DaterangePicker/DaterangePicker";
 
 import dataChart from "../../data/charts/chart.json";
+import { GlobalStoreContext } from '../../context/globalStore/globalStore-context';
 
 const Analytics = () => {
-	const { startDate, endDate } = useContext(AnalyticsContext);
-	// const startDate = new Date(2020, 11, 25)
-	// const endDate = new Date(2020, 12, 25)
+	// @ts-ignore
+	const { requestHistoryTimeFilter } = useContext(GlobalStoreContext);
+
+	const [dateRangeFilter, setDateRangeFilter] = useState({
+		start: requestHistoryTimeFilter.timestampRangeStart,
+		end: requestHistoryTimeFilter.timestampRangeEnd
+	});
+
+	const { start, end } = requestHistoryTimeFilter;
 
 	const [data, setData] = useState(dataChart);
 
-	const moment = endDate.diff(startDate, "hours");
+	const moment = 24;
+	// const moment = end.diff(start, "hours");
 
 	useEffect(() => {
 		switch (moment) {
@@ -37,6 +45,10 @@ const Analytics = () => {
 		}
 	}, [moment]);
 
+	const onRangeChange = (startD, endD) => {
+		setDateRangeFilter({ startD, endD });
+	}
+
 	return (
 		<article className={classes.Analytics}>
 			<div className={classes.top}>ICAP requests</div>
@@ -44,17 +56,26 @@ const Analytics = () => {
 				<div className={classes.pickersBlock}>
 					<h3>Filter</h3>
 					<DaterangePicker
+						initialRange={dateRangeFilter}
+						onRangeChange={onRangeChange}
+						externalStyles={classes.pickers}
+						// disabled={props.disabled}
+					/>
+
+{/*
+					<DaterangePicker
 						externalStyles={classes.pickers}
 						// onChangeChartsData={changeChartData}
 					/>
+*/}
 				</div>
 			</div>
 			<div className={classes.innerContent}>
 				<h3>
 					{moment > 24
-						? `Transactions Since ${startDate.format(
+						? `Transactions Since ${start.format(
 								"DD/MM/YYYY hh:mm A"
-						  )} Till ${endDate.format("DD/MM/YYYY hh:mm A")}`
+						  )} Till ${end.format("DD/MM/YYYY hh:mm A")}`
 						: `Transactions Over the Last ${moment} Hours`}
 				</h3>
 				<div className={classes.innerTop}>
@@ -64,9 +85,11 @@ const Analytics = () => {
 						<InfoBlock title={"Max processed files/s"} sum={"75,491"} />
 					</div>
 
+{/*
 					<div data-test-id="pieChart">
 						<PieChart rawData={data} />
 					</div>
+*/}
 				</div>
 				<div data-test-id="lineChart" className={classes.lineChart}>
 					<LineChart data={data} />
