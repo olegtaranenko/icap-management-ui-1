@@ -20,14 +20,15 @@ import logoutIcon from "../../../assets/svg/account-icons/logout-icon.svg";
 // import ChangePassword from "../../ChangePassword/ChangePassword";
 
 const navLinks = [
-	// {
-	// 	link: "/analytics",
-	// 	name: "Analytics",
-	// 	icon: dashIcon,
-	// 	id: "id-1",
-	// 	exact: true,
-	// 	testId: "navLinkAnalytics"
-	// },
+	{
+		link: "/analytics",
+		name: "Analytics",
+		// icon: dashIcon,
+		icon: transactionIcon,
+		id: "id-1",
+		exact: true,
+		testId: "navLinkAnalytics"
+	},
 	{
 		link: "/request-history",
 		name: "Request history",

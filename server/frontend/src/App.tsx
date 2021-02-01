@@ -21,6 +21,7 @@ import Policy from "./views/Policy/Policy";
 import Confirm from "./views/Confirm/Confirm";
 import ResetPassword from "./views/ResetPassword/ResetPassword";
 import Users from "./views/Users/Users";
+import Analytics from "./views/Analytics/Analytics";
 
 const App = () => {
 	const { currentUser } = useContext(UserContext);
@@ -35,13 +36,16 @@ const App = () => {
 				<Redirect to="/request-history" />
 			</Route> */}
 
+{/*
 			<Route path="/analytics">
 				<MainTitle title="Analytics"/>
 				<Main>
 					<div>Analytics</div>
 				</Main>
 			</Route>
+*/}
 
+			<Route path="/analytics" component={Analytics} />
 			<Route path="/request-history" component={RequestHistory} />
 
 			<Route path="/policy" component={Policy} />
