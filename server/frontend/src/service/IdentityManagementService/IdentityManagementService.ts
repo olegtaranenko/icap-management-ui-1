@@ -13,7 +13,7 @@ export default class IdentityManagementService implements IIdentityManagmentServ
 
     login = async (username: string, password: string, cancellationToken: CancelToken) => {
         const user = await axiosRequestHelper(
-            this.routes.login, "POST", cancellationToken, "", {username, password});
+            this.routes.login, "POST", cancellationToken, {username, password});
 
         return user;
     }
@@ -22,28 +22,27 @@ export default class IdentityManagementService implements IIdentityManagmentServ
 
     forgotPassword = async (username: string, cancellationToken: CancelToken) => {
         const forgotPasswordResponse = await axiosRequestHelper(
-            this.routes.forgotPassword, "POST", cancellationToken, "", { username });
+            this.routes.forgotPassword, "POST", cancellationToken, { username });
 
         return forgotPasswordResponse;
     }
 
     confirm = async (token: string, cancellationToken: CancelToken) => {
         const confirmResponse = await axiosRequestHelper(
-            this.routes.validateResetToken, "POST", cancellationToken, "",  { token });
+            this.routes.validateResetToken, "POST", cancellationToken, { token });
 
         return confirmResponse;
     }
 
     resetPassword = async (token: string, password: string, cancellationToken: CancelToken) => {
         const resetResponse = await axiosRequestHelper(
-            this.routes.resetPassword, "POST", cancellationToken, "", { password });
+            this.routes.resetPassword, "POST", cancellationToken, { password });
 
         return resetResponse;
     }
 
     getUsers = async (cancellationToken: CancelToken) => {
-        const getUsersResponse = await axiosRequestHelper(
-            this.routes.getUsers, "GET", cancellationToken, "");
+        const getUsersResponse = await axiosRequestHelper(this.routes.getUsers, "GET", cancellationToken);
 
         return getUsersResponse;
     }

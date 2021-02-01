@@ -13,7 +13,13 @@ export default class IdentityManagementApi {
         username: string,
         password: string,
         cancellationToken: CancelToken,
-    ): Promise<User> => {
+    ): Promise<{
+        id: string,
+        username: string,
+        firstName: string,
+        lastName: string,
+        token: string,
+    }> => {
         return await axiosHelper(authenticateUrl, "POST", cancellationToken, { username, password });
     }
 
@@ -22,7 +28,7 @@ export default class IdentityManagementApi {
         newUser: NewUser,
         cancellationToken: CancelToken
     ): Promise<NewUserResponse> => {
-        return await axiosHelper(newUserUrl, "POST",cancellationToken, newUser);
+        return await axiosHelper(newUserUrl, "POST", cancellationToken, newUser);
     }
 
     static forgotPassword = async (
@@ -52,8 +58,9 @@ export default class IdentityManagementApi {
 
     static getUsers = async (
         getUsersUrl: string,
-        cancellationToken: CancelToken
+        cancellationToken: CancelToken,
+        authToken: string // TODO: Review need for this in the identity management service
     ): Promise<User[]> => {
-        return await axiosHelper(getUsersUrl, "GET", cancellationToken, null, {});
+        return await axiosHelper(getUsersUrl, "GET", cancellationToken, null, { "Authorization": `Bearer ${authToken}` });
     }
 }

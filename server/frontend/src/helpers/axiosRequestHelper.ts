@@ -11,7 +11,6 @@ const axiosRequestHelper = async (
     url: string,
     method: Method,
     cancellationToken: CancelToken,
-    authToken?: string,
     data?: any,
     headers?: { [header: string]: string }) => {
 
@@ -23,7 +22,6 @@ const axiosRequestHelper = async (
             headers: {
                 'Accept': '*/*',
                 'Content-Type': 'application/json',
-                'Authorization': authToken,
                 ...headers
             },
             cancelToken: cancellationToken
@@ -33,8 +31,8 @@ const axiosRequestHelper = async (
             throw response;
         }
 
-        if (response.request.responseUrl) {
-            if (response.request.responseUrl !== url) {
+        if (response.request.responseURL) {
+            if (response.request.responseURL !== url) {
                 // auto logout if server returned a redirect URL because of missing session token
                 _handleUnauthorisedResponse();
             }
@@ -46,7 +44,7 @@ const axiosRequestHelper = async (
         // tslint:disable-next-line: no-console
         console.error(error.response.data);
 
-        if ([403].indexOf(error.response.status) !== -1) {
+        if ([401, 403].indexOf(error.response.status) !== -1) {
             // auto logout if 403 Forbidden response returned from api
             _handleUnauthorisedResponse();
         }

@@ -134,13 +134,13 @@ class IdentityManagementService implements IIdentityManagementService {
         return resetPasswordResponse;
     };
 
-    getUsers = async(getUsersUrl: string, cancellationToken: CancelToken) => {
+    getUsers = async(getUsersUrl: string, cancellationToken: CancelToken, authToken?: string) => {
         let users: User[];
 
         try {
             this.logger.info(`Retrieving Users from the Identity Management Service`);
 
-            const response = await IdentityManagementApi.getUsers(getUsersUrl, cancellationToken);
+            const response = await IdentityManagementApi.getUsers(getUsersUrl, cancellationToken, authToken);
             users = response;
 
             this.logger.info(`Users Retrieved from the Identity Management Service`);

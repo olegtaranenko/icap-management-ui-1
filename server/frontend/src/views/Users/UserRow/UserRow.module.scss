@@ -19,6 +19,27 @@
 		border: 0;
 
 		padding-left: 1rem;
+
+		.editIconContainer {
+			display: inline;
+
+			.editIcon {
+				margin-left: 1rem;
+			}
+		}
+
+		.revertIconContainer {
+			display: flex;
+
+			.revertIcon {
+				width: 1.1rem;
+				margin-left: 1rem;
+			}
+		}
+
+		.statusIcon {
+			margin-left: 1rem;
+		}
 	}
 
 	svg {
@@ -27,14 +48,14 @@
 	}
 
 	input {
-		border: 1px solid #b6bfc9;
-		border-radius: 3px;
-
-		padding-left: 1rem;
-		margin: 0.5rem 0;
-
-		color: #000;
-
-		width: 80%;
+		height: 3rem !important;
+		padding: 0 1rem;
+		line-height: normal;
+		border-radius: .3rem;
+		color: #575757 !important;
+		background-color: #fff !important;
+		border: 1px solid #b6bfc9 !important;
+		outline: none;
+		transition: all .3s;
 	}
 }

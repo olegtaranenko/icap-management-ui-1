@@ -1,12 +1,8 @@
 .Users {
-	position: relative;
-	width: 100%;
+	overflow: hidden;
 	height: 100%;
-	background: #edf0f1;
 
-	border-radius: 0.6rem;
-
-	border: 1px solid #b6bfc9;
+	border: none;
 	border-radius: 0.6rem;
 
 	.wrap {
@@ -16,6 +12,7 @@
 		border-radius: 0.6rem;
 	}
 }
+
 .head {
 	text-transform: uppercase;
 	margin: 0;
@@ -65,8 +62,18 @@
 		color: #0c3450;
 		border: none;
 	}
+
+	.emptyTableRow {
+		text-align: center;
+	}
+
+	.emptyTableCell {
+		text-align: center;
+	}
+
 	tbody {
 		border-top: 1px solid #4592b0;
+
 
 		tr:last-child {
 			border-bottom: 1px solid #4592b0;
@@ -78,11 +85,5 @@
 			white-space: nowrap;
 			//background: red;
 		}
-	}
-
-	input {
-		margin: 0;
-		height: 3rem;
-		margin-left: 2rem;
 	}
 }

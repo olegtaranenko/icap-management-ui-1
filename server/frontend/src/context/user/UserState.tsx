@@ -13,6 +13,7 @@ import IdentityManagementService from "../../service/IdentityManagementService/I
 interface InitialUserState {
 	currentUser: User | null,
 	status: "LOADING" | "ERROR" | "LOADED",
+	usersHaveChanges: boolean,
 	users: User[]
 }
 
@@ -22,6 +23,7 @@ export const UserState = (props: { children: React.ReactNode }) => {
 	const initialState: InitialUserState = {
 		currentUser: JSON.parse(localStorage.getItem("currentUser")),
 		status: "LOADED",
+		usersHaveChanges: false,
 		users: []
 	};
 
@@ -96,6 +98,7 @@ export const UserState = (props: { children: React.ReactNode }) => {
 		<UserContext.Provider value={{
 			currentUser: userState.currentUser,
 			status: userState.status,
+			usersHaveChanges: userState.usersHaveChanges,
 			users: userState.users,
 			getUsers,
 			login,

@@ -16,9 +16,10 @@ import { UserContext } from "../../context/user/UserContext";
 // import User from "../../../../src/common/models/IdentityManagementService/User/User";
 
 import classes from "./Users.module.scss";
+import MainTitle from "../../hoc/MainTitle/MainTitle";
+import Main from "../../hoc/Main/Main";
 
 const Users = () => {
-    // const { users, setUser, saveChanges, cancelChanges } = useContext(UserContext);
     const { status, users, getUsers } = useContext(UserContext);
     const cancellationTokenSource = axios.CancelToken.source();
 
@@ -39,46 +40,56 @@ const Users = () => {
     }, []);
 
     return (
-        <section className={classes.Users}>
-            <div className={classes.wrap}>
-                <h2 className={classes.head}>Users</h2>
-                <div className={classes.block}>
-                    {status === "LOADING" &&
-                        <div>Loading...</div>
-                    }
+        <>
+            <MainTitle title="User Management" />
 
-                    <Table className={classes.table}>
-                        <TableHead>
-                            <TableRow>
-                                <TableCell>Name</TableCell>
-                                <TableCell>Email</TableCell>
-                                <TableCell>User Group</TableCell>
-                                <TableCell>Confirmed</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            <>
-                                {status === "ERROR" &&
-                                    <TableRow className={classes.emptyTableRow}>
-                                        <TableCell colSpan={4} className={classes.emptyTableCell}>
-                                            <h2>Error Getting Users</h2>
-                                        </TableCell>
-                                    </TableRow>
-                                }
+            <Main>
+                <section className={classes.Users}>
+                    <h2 className={classes.head}>Users</h2>
+                    <div className={classes.block}>
+                        <Table className={classes.table}>
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell>Username</TableCell>
+                                    <TableCell>First Name</TableCell>
+                                    <TableCell>Last Name</TableCell>
+                                    <TableCell>Email</TableCell>
+                                    <TableCell>Activated</TableCell>
+                                    <TableCell></TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                <>
+                                    {status === "LOADING" &&
+                                        <TableRow className={classes.emptyTableRow}>
+                                            <TableCell colSpan={6} className={classes.emptyTableCell}>
+                                                <h2>Loading...</h2>
+                                            </TableCell>
+                                        </TableRow>
+                                    }
 
-                                {status === "LOADED" &&
-                                    <>
-                                        {users.map((user) => {
-                                            return (<UserRow key={user.id} user={user} />);
-                                        })}
-                                    </>
-                                }
-                            </>
-                        </TableBody>
-                    </Table>
-                </div>
-            </div>
-        </section>
+                                    {status === "ERROR" &&
+                                        <TableRow className={classes.emptyTableRow}>
+                                            <TableCell colSpan={6} className={classes.emptyTableCell}>
+                                                <h2>Error Getting Users</h2>
+                                            </TableCell>
+                                        </TableRow>
+                                    }
+
+                                    {status === "LOADED" &&
+                                        <>
+                                            {users.map((user) => {
+                                                return (<UserRow key={user.id} user={user} />);
+                                            })}
+                                        </>
+                                    }
+                                </>
+                            </TableBody>
+                        </Table>
+                    </div>
+                </section>
+            </Main>
+        </>
     );
 }
 

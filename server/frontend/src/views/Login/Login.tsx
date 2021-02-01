@@ -40,8 +40,9 @@ const Login = () => {
 						onChange={(event: ChangeEvent<HTMLInputElement>) => {
 							setUsername(event.currentTarget.value);
 						}}
+						externalStyles={classes.inputContainer}
 						style={{
-							backgroundImage: `url(${iconUser})`,
+							backgroundImage: `url(${iconUser})`
 						}}
 						required
 						disabled={status === "LOADING"}
@@ -55,8 +56,9 @@ const Login = () => {
 						onChange={(event: ChangeEvent<HTMLInputElement>) => {
 							setPassword(event.currentTarget.value);
 						}}
+						externalStyles={classes.inputContainer}
 						style={{
-							backgroundImage: `url(${iconPass})`,
+							backgroundImage: `url(${iconPass})`
 						}}
 						required
 						minLength={MINIMUM_PASSWORD_LENGTH}

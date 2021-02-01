@@ -170,7 +170,7 @@ class UsersRoutes {
 
             try {
                 const users = await this.identityManagementService.getUsers(
-                    requestUrl, cancellationTokenSource.token);
+                    requestUrl, cancellationTokenSource.token, req.session.token);
 
                 res.json(users);
             }

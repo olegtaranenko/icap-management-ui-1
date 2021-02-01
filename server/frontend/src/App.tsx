@@ -36,7 +36,7 @@ const App = () => {
 			</Route> */}
 
 			<Route path="/analytics">
-				<MainTitle />
+				<MainTitle title="Analytics"/>
 				<Main>
 					<div>Analytics</div>
 				</Main>
@@ -49,7 +49,7 @@ const App = () => {
 			<Route path="/users" component={Users}/>
 
 			<Route path="/file-drop">
-				<MainTitle />
+				<MainTitle title="File Drop"/>
 				<Main>
 					<div>File Drop</div>
 				</Main>
