@@ -76,6 +76,8 @@ if (process.env.NODE_ENV === "production") {
 app.use(session(sessionOptions));
 
 app.use(async (req, res, next) => {
+    logger.info(req.url);
+/*
     switch (req.url) {
         case "/login":
         case "/users/login":
@@ -103,6 +105,8 @@ app.use(async (req, res, next) => {
 
             next();
     }
+*/
+    next();
 });
 
 setup(config, app, logger);
